@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Data
-public class TbBackAdmin {
+public class BackAdmin {
 
   private int id;
   private String account;

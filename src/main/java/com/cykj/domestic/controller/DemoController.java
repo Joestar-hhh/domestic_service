@@ -1,6 +1,5 @@
 package com.cykj.domestic.controller;
 
-import com.cykj.domestic.entity.TbBackAdmin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

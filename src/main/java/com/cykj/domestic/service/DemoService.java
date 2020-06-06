@@ -1,4 +1,5 @@
 package com.cykj.domestic.service;
 
-public class DemoService {
+public interface DemoService {
+
 }
