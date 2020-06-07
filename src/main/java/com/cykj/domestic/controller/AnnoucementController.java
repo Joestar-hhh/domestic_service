@@ -46,7 +46,6 @@ public String updateAnnoucement(HttpServletRequest request, HttpServletResponse 
     ResultData resultData = annoucementService.updateAnnoucement(annoucement);
     return JSON.toJSONString(resultData);
 }
-
     /*
     删除公告
      */
