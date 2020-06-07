@@ -4,10 +4,12 @@ package com.cykj.domestic.mapper;
 import com.cykj.domestic.entity.Staff;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 //用户
+@Repository
 @Mapper
 public interface StaffMapper {
 
