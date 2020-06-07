@@ -20,7 +20,6 @@ public class RoleServiceImpl implements RoleService {
 
         List<Role> list = roleMapper.queryRole(role,(page-1)*limit,limit);
         int count = roleMapper.queryRoleCount(role);
-
         ResultData resultData = new ResultData();
         resultData.setCode(0);
         resultData.setMsg("");

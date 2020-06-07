@@ -28,7 +28,7 @@
 <table class="layui-hide" id="test" lay-filter="test"></table>
 
 <script type="text/html" id="toolbarDemo">
-
+<%--    skill_train--%>
     <div class="layui-form-item" id="querydiv">
         <div class="layui-btn-container">
             <button class="layui-btn layui-btn-sm" lay-event="deletetype">删除</button>
