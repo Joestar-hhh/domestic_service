@@ -18,7 +18,7 @@ public class StaffServiceImpl implements StaffService {
     @Override
     public ResultData queryStaffList(Staff staff, int page, int limit) {
 
-        List<Staff> list = staffMapper.queryStaff(staff,(page-1)*limit,limit);
+        List<Staff> list = staffMapper.queryStaff(staff, (page - 1) * limit, limit);
         int count = staffMapper.queryStaffCount(staff);
 
         ResultData resultData = new ResultData();
@@ -40,5 +40,11 @@ public class StaffServiceImpl implements StaffService {
     public int disableState(int id) {
         int res = staffMapper.disableState(id);
         return res;
+    }
+
+    @Override
+    public List<Staff> checkStaff(int id) {
+        List<Staff> list = staffMapper.checkStaff(id);
+        return list;
     }
 }

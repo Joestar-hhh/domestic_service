@@ -7,6 +7,7 @@ public class Staff {
 
   private int id;
   private String account;
+  private String userName;
   private String pwd;
   private String phone;
   private String sex;

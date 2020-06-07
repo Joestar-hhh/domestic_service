@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @RestController
 @RequestMapping("/staffController")
@@ -39,5 +40,13 @@ public class StaffController {
     public int disableState(HttpServletRequest request, HttpServletResponse response, int id) {
         int res = staffService.disableState(id);
         return res;
+    }
+
+    //查看详情
+    @RequestMapping("/checkStaff")
+    public String checkStaff(HttpServletRequest request, HttpServletResponse response, int id) {
+        List<Staff> list = staffService.checkStaff(id);
+        System.out.println(JSON.toJSONString(list));
+        return JSON.toJSONString(list);
     }
 }
