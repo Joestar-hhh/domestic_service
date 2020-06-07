@@ -40,8 +40,6 @@ public class ServiceTypeContrller {
 
     @RequestMapping("/updateServiceType")
     public String updateServiceType(HttpServletRequest request, HttpServletResponse response, ServiceType serviceType) {
-
-        System.out.println("admin-----------"+serviceType.getId());
         int res=serviceTypeService.updateServiceType(serviceType);
         return String.valueOf(res);
     }

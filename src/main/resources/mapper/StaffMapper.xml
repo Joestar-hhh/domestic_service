@@ -12,4 +12,11 @@
         SELECT count(id) FROM tb_staff
     </select>
 
+    <update id="enableState" parameterType="com.cykj.domestic.entity.Staff">
+        UPDATE tb_staff SET STATE = '启用' WHERE id = #{id}
+    </update>
+
+    <update id="disableState" parameterType="com.cykj.domestic.entity.Staff">
+        UPDATE tb_staff SET STATE = '禁用' WHERE id = #{id}
+    </update>
 </mapper>

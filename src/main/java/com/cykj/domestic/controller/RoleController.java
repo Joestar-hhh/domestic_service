@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @RestController
 @RequestMapping("/roleController")
@@ -34,16 +35,28 @@ public class RoleController {
     */
     @RequestMapping("/insertRole")
     public String insertRole(HttpServletRequest request, HttpServletResponse response, Role role){
-        System.out.println("insertRole--------------role:"+role);
-        int res = roleService.insertRole(role);
-        ResultData resultData = new ResultData();
-        if(res==1){
-            resultData.setCode(0);
-            resultData.setMsg("添加成功");
-        } else {
-            resultData.setCode(1);
-            resultData.setMsg("添加失败");
-        }
+        System.out.println("insertRole--------------role:"+role.toString());
+        ResultData resultData = roleService.insertRole(role);
+        return JSON.toJSONString(resultData);
+    }
+
+    /*
+     * 修改角色
+     */
+    @RequestMapping("/updateRole")
+    public String updateRole(HttpServletRequest request, HttpServletResponse response, Role role){
+        System.out.println("updateRole--------------role:"+role.toString());
+        ResultData resultData = roleService.updateRole(role);
+        return JSON.toJSONString(resultData);
+    }
+
+    /*
+     * 删除角色
+     */
+    @RequestMapping("/deleteRole")
+    public String deleteRole(HttpServletRequest request, HttpServletResponse response, String idList){
+        System.out.println("updateRole--------------idList:"+idList);
+        ResultData resultData = roleService.deleteRole(idList);
         return JSON.toJSONString(resultData);
     }
 }

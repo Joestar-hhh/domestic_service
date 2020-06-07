@@ -28,7 +28,7 @@
         <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
         <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
         <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
-        <link rel="stylesheet" href="<%=path%>/static/css/back_page.css">
+        <button class="layui-btn layui-btn-sm" lay-event="addServiceType">添加服务列表</button>
 
     </div>
 </script>
@@ -72,15 +72,16 @@
         var $ = layui.jquery;
         table.render({
             elem: '#test'
-            ,url:'/serviceTypeContrller/selectServiceType'
+            ,url:'/serviceListContrller/selectServiceList'
             ,toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
             ,defaultToolbar: []
             ,title: '用户数据表'
             ,cols: [[
                 {type: 'checkbox', fixed: 'left'}
                 ,{field:'id', title:'ID', fixed: 'left', unresize: true, sort: true}
-                ,{field:'typeName', title:'服务类别名', edit: 'text'}
-                ,{field:'description', title:'服务类型描述', edit: 'text'}
+                ,{field:'typeName', title:'服务名', edit: 'text'}
+                ,{field:'description', title:'服务描述', edit: 'text'}
+                ,{field:'serviceCategory', title:'所属服务类别', edit: 'text'}
                 ,{field:'updateTime', title:'更新时间', edit: 'text', sort: true}
                 // ,{field:'city', title:'城市', width:100}
                 // ,{field:'sign', title:'签名'}
@@ -128,7 +129,7 @@
                             // data.field.roleId = ""
                             layer.alert("ssssssss:"+data.field)
                             $.ajax({
-                                url:"/domestic_service/serviceTypeContrller/addServiceType",
+                                url:"/serviceListContrller/addServiceList",
                                 type: "POST",
                                 data: data.field,
                                 error: function (msg) {
@@ -159,7 +160,7 @@
                 layer.confirm('真的删除行么', function(index){
                     obj.del();
                     $.ajax({
-                        url:"/serviceTypeContrller/deleteServiceType",
+                        url:"/serviceListContrller/deleteServiceList",
                         type: "POST",
                         data: data,
                         error: function (msg) {
@@ -196,7 +197,7 @@
                         layer.alert("ssssssss:"+adminId)
                         data.field.id = adminId;
                         $.ajax({
-                            url:"/serviceTypeContrller/updateServiceType",
+                            url:"/serviceListContrller/updateServiceList",
                             type: "POST",
                             data: data.field,
                             error: function (msg) {

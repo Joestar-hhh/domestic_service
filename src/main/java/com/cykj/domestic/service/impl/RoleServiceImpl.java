@@ -1,5 +1,6 @@
 package com.cykj.domestic.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.cykj.domestic.entity.Role;
 import com.cykj.domestic.mapper.RoleMapper;
 import com.cykj.domestic.service.RoleService;
@@ -29,7 +30,45 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public int insertRole(Role role) {
-        return roleMapper.insertRole(role);
+    public ResultData insertRole(Role role) {
+        int res = roleMapper.insertRole(role);
+        ResultData resultData = new ResultData();
+        if(res==1){
+            resultData.setCode(0);
+            resultData.setMsg("添加成功");
+        } else {
+            resultData.setCode(1);
+            resultData.setMsg("添加失败");
+        }
+        return resultData;
+    }
+
+    @Override
+    public ResultData updateRole(Role role) {
+        int res = roleMapper.updateRole(role);
+        ResultData resultData = new ResultData();
+        if(res==1){
+            resultData.setCode(0);
+            resultData.setMsg("修改成功");
+        } else {
+            resultData.setCode(1);
+            resultData.setMsg("修改失败");
+        }
+        return resultData;
+    }
+
+    @Override
+    public ResultData deleteRole(String idList) {
+        List<String> list = JSON.parseArray(idList,String.class);
+        int res = roleMapper.deleteRole(list);
+        ResultData resultData = new ResultData();
+        if(res>=1){
+            resultData.setCode(0);
+            resultData.setMsg("删除成功");
+        } else {
+            resultData.setCode(1);
+            resultData.setMsg("删除失败");
+        }
+        return resultData;
     }
 }
