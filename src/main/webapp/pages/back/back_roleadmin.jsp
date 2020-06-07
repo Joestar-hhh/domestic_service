@@ -119,11 +119,7 @@
                             });
                         },
                         success : function(msg) {
-                            if (msg.code == "0") {
-                                layer.alert(msg.msg);
-                            } else {
-                                layer.alert(msg.msg);
-                            }
+                            alert(msg.msg);
                             window.parent.location.reload();//修改成功后刷新父界面
                         }
                     });
@@ -159,17 +155,14 @@
                                 dataType: 'JSON',
                                 data: data.field,
                                 success: function (msg) {
-                                    if (msg.code == "0") {
-                                        layer.alert(msg.msg);
-                                    } else {
-                                        layer.alert(msg.msg);
-                                    }
+                                    alert(msg.msg);
+                                    layer.close(layerinsert);
+                                    $('#roleName').val("");
+                                    $("#roleDescribe").val("");
+                                    window.parent.location.reload();//修改成功后刷新父界面
                                 }
                             })
-                            layer.close(layerinsert);
-                            $('#roleName').val("");
-                            $("#roleDescribe").val("");
-                            window.parent.location.reload();//修改成功后刷新父界面
+
                             return false;
                         });
                     });
@@ -221,17 +214,13 @@
                             dataType: 'JSON',
                             data: data.field,
                             success: function (msg) {
-                                if (msg.code == "0") {
-                                    layer.alert(msg.msg);
-                                } else {
-                                    layer.alert(msg.msg);
-                                }
+                                layer.alert(msg.msg);
+                                layer.close(layerupdate);
+                                $('#roleName').val("");
+                                $("#roleDescribe").val("");
+                                window.parent.location.reload();//修改成功后刷新父界面
                             }
                         })
-                        layer.close(layerupdate);
-                        $('#roleName').val("");
-                        $("#roleDescribe").val("");
-                        window.parent.location.reload();//修改成功后刷新父界面
                         return false;
                     });
                 });
