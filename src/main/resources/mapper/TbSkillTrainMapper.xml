@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cykj.domestic.mapper.TbSkillTrainMapper">
+    <!--    技能培训分页-->
+    <select id="querySkillTrain" resultType="com.cykj.domestic.entity.TbSkillTrain" resultMap="TbSkillTrainMap">
+        select * from tb_skill_train ORDER BY id limit #{start},#{pageSize}
+    </select>
+    <resultMap id="TbSkillTrainMap" type="com.cykj.domestic.entity.TbSkillTrain">
+        <result property="id" column="id"></result>
+        <association property="tbQualification" column="qualification_id"
+                     javaType="com.cykj.domestic.entity.TbQualification"
+                     select="queryqualificationName"></association>
+    </resultMap>
+    <select id="queryqualificationName" parameterType="java.lang.Integer"
+            resultType="com.cykj.domestic.entity.TbQualification">
+        select * from tb_qualification where id =#{id}
+    </select>
+
+    <!--    技能培训统计总数-->
+    <select id="querySkillTraincount" parameterType="com.cykj.domestic.entity.TbSkillTrain" resultType="int">
+                  select count(id) from tb_skill_train
+    </select>
+
+    <!--    删除技能培训-->
+    <delete id="deleteSkillTrain" parameterType="java.lang.String">
+               delete from tb_skill_train where id=#{id}
+    </delete>
+
+
+</mapper>
