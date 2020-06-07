@@ -42,7 +42,7 @@ public class AnnoucementController {
      */
 @RequestMapping("/updateAnnouncement")
 public String updateAnnoucement(HttpServletRequest request, HttpServletResponse response, Annoucement annoucement){
-    System.out.println("updateRole--------------role:"+annoucement.toString());
+//    System.out.println("updateRole--------------role:"+annoucement.toString());
     ResultData resultData = annoucementService.updateAnnoucement(annoucement);
     return JSON.toJSONString(resultData);
 }
