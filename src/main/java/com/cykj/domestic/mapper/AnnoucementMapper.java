@@ -4,9 +4,11 @@ package com.cykj.domestic.mapper;
 import com.cykj.domestic.entity.Annoucement;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 @Mapper
 public interface AnnoucementMapper {
 
