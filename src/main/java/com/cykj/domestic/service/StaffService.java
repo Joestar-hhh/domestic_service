@@ -7,4 +7,7 @@ public interface StaffService {
 
     ResultData queryStaffList(Staff staff, int page, int limit);
 
+    int enableState(int id);
+
+    int disableState(int id);
 }
