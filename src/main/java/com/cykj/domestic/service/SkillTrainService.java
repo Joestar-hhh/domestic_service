@@ -16,5 +16,6 @@ public interface SkillTrainService {
     //修改技能培训
     ResultData updateSkillTrain(SkillTrain skillTrain);
 
+    ResultData insertSkillTrain(SkillTrain skillTrain);
 
 }
