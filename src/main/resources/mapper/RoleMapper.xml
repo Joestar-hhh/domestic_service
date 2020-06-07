@@ -16,6 +16,17 @@
         insert into tb_role(role_name,role_describe) values (#{roleName}, #{roleDescribe})
     </insert>
 
+    <update id="updateRole" parameterType="com.cykj.domestic.entity.Role">
+        update tb_role set role_name = #{roleName}, role_describe = #{roleDescribe} where id = #{id}
+    </update>
+
+    <delete id="deleteRole">
+        delete from tb_role where id in
+        <foreach collection="list" item="item" open = "(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
 <!--    <select id="queryrolemenu" parameterType="java.lang.Integer" resultMap="roleMenusResult">-->
 <!--        SELECT r.*,m.id mid,m.parent_id,m.menu_name FROM tb_role r-->
 <!--        LEFT JOIN tb_role_menu rm on rm.role_id = r.id-->

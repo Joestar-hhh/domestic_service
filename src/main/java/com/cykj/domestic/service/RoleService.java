@@ -9,5 +9,9 @@ public interface RoleService {
 
     ResultData queryRoleInfo(Role role, int page, int limit);
 
-    int insertRole(Role role);
+    ResultData insertRole(Role role);
+
+    ResultData updateRole(Role role);
+
+    ResultData deleteRole(String idList);
 }

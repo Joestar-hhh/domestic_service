@@ -100,6 +100,33 @@
             var checkStatus = table.checkStatus(obj.config.id);
             switch(obj.event){
                 case 'deleterole':
+                    var data = checkStatus.data;
+                    var idList = new Array();
+                    $.each(data, function (index,val) {
+                        idList.push(val.id);
+                    })
+
+                    layer.alert("删除id:"+JSON.stringify({idList:idList}))
+                    $.ajax({
+                        type : "post",
+                        url : "/roleController/deleteRole",
+                        dataType: 'JSON',
+                        data : {idList:JSON.stringify(idList)},
+                        error : function(request) {
+                            layer.alert('操作失败', {
+                                icon: 2,
+                                title:"提示"
+                            });
+                        },
+                        success : function(msg) {
+                            if (msg.code == "0") {
+                                layer.alert(msg.msg);
+                            } else {
+                                layer.alert(msg.msg);
+                            }
+                            window.parent.location.reload();//修改成功后刷新父界面
+                        }
+                    });
 
                     break;
                 case 'insertrole':
@@ -115,8 +142,7 @@
                             if(confirm('确定要关闭么')){ //只有当点击confirm框的确定时，该层才会关闭
                                 // $('#userinfoform').css("display","none");
                                 $('#roleName').val("");
-                                $('#account_inputdiv').attr("style","display:block");
-                                $("#role").val("");
+                                $("#roleDescribe").val("");
                                 layer.close(index);
                             }
                             return false;
@@ -134,14 +160,14 @@
                                 data: data.field,
                                 success: function (msg) {
                                     if (msg.code == "0") {
-                                        alert(msg.msg);
+                                        layer.alert(msg.msg);
                                     } else {
-                                        alert(msg.msg);
+                                        layer.alert(msg.msg);
                                     }
                                 }
                             })
                             layer.close(layerinsert);
-                            $('#adminname').val("");
+                            $('#roleName').val("");
                             $("#roleDescribe").val("");
                             window.parent.location.reload();//修改成功后刷新父界面
                             return false;
@@ -162,7 +188,53 @@
                     layer.close(index);
                 });
             } else if(obj.event === 'updaterole'){
-
+                $('#roleName').val(tabdata.roleName);
+                $("#roleDescribe").val(tabdata.roleDescribe);
+                var roleId = tabdata.id
+                var layerupdate = layer.open({
+                    type: 1
+                    ,title: '修改角色'
+                    ,area: ['500px','400px']
+                    ,shade: [0.8, '#314949'] //遮罩
+                    ,resize: false //不可拉伸
+                    ,content: $('#userinfoform') //内容
+                    ,btn: 0
+                    ,cancel: function(index, layero){
+                        if(confirm('确定要关闭么')){ //只有当点击confirm框的确定时，该层才会关闭
+                            // $('#userinfoform').css("display","none");
+                            $('#roleName').val("");
+                            $("#roleDescribe").val("");
+                            layer.close(index);
+                        }
+                        return false;
+                    }
+                    //如果设定了yes回调，需进行手工关闭
+                });
+                layui.use('form', function(){
+                    var form = layui.form;
+                    form.render();
+                    form.on('submit(insertconfirm)', function(data){
+                        data.field.id = roleId;
+                        $.ajax({
+                            type: 'POST',
+                            url: '/roleController/updateRole',
+                            dataType: 'JSON',
+                            data: data.field,
+                            success: function (msg) {
+                                if (msg.code == "0") {
+                                    layer.alert(msg.msg);
+                                } else {
+                                    layer.alert(msg.msg);
+                                }
+                            }
+                        })
+                        layer.close(layerupdate);
+                        $('#roleName').val("");
+                        $("#roleDescribe").val("");
+                        window.parent.location.reload();//修改成功后刷新父界面
+                        return false;
+                    });
+                });
             }
         });
 

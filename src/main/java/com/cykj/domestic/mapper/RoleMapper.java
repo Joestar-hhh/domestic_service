@@ -15,4 +15,8 @@ public interface RoleMapper {
     int queryRoleCount(@Param("e") Role role);
 
     int insertRole(Role role);
+
+    int updateRole(Role role);
+
+    int deleteRole(List<String> list);
 }
