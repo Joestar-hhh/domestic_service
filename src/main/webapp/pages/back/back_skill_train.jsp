@@ -9,6 +9,7 @@
 <%
     String path = request.getContextPath();
 %>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -90,24 +91,26 @@
                     });
                     var layerinsert = layer.open({
                         type: 1
-                        ,title: '添加角色'
-                        ,area: ['500px','400px']
-                        ,shade: [0.8, '#314949'] //遮罩
-                        ,resize: false //不可拉伸
-                        ,content: $('#update_div') //内容
-                        ,btn: 0
-                        ,cancel: function(index, layero){
-                            if(confirm('确定要关闭么')){ //只有当点击confirm框的确定时，该层才会关闭
+                        , title: '添加技能培训项目'
+                        , area: ['500px', '400px']
+                        , shade: [0.8, '#314949'] //遮罩
+                        , resize: false //不可拉伸
+                        , content: $('#update_div') //内容
+                        , btn: 0
+                        , cancel: function (index, layero) {
+                            if (confirm('确定要关闭么')) { //只有当点击confirm框的确定时，该层才会关闭
                                 // $('#userinfoform').css("display","none");
-                                $('#roleName').val("");
-                                $("#roleDescribe").val("");
+                                $('#trainProjectName').val("");
+                                $("#time").val("");
                                 layer.close(index);
                             }
                             return false;
                         }
                         //如果设定了yes回调，需进行手工关闭
                     });
-            };
+                    break;
+            }
+            ;
         });
         //监听行工具事件
         table.on('tool(test)', function (obj) {
@@ -138,6 +141,7 @@
             //修改
             else if (obj.event === 'updaterole') {
                 var tabdata = obj.data;
+                var id = tabdata.id
                 $.ajax({
                     type: 'POST',
                     url: '/skillTrainController/queryqualification',
@@ -151,6 +155,7 @@
                         $("#trainProjectName").val(tabdata.trainProjectName);
                         $("#time").val(tabdata.time);
                         $("#qualificationId").html("<option value=''></option>");
+
                         $.each(msg.data, function (i, item) {
                             $("#qualificationId").append("<option value='" + item.id + "'>" + item.qualificationName + "</option>")
                         });
@@ -168,27 +173,34 @@
                     // shade: [0.8, '#314949'],//遮罩
                     resize: false,//不可拉伸
                     shadeClose: false, //点击遮罩关闭
-                    content: $('#update_div')
+                    content: $('#update_div'),
+                    cancel: function (index, layero) {
+                        if (confirm('确定要关闭么')) { //只有当点击confirm框的确定时，该层才会关闭
+                            // $('#userinfoform').css("display","none");
+                            $('#trainProjectName').val("");
+                            $("#time").val("");
+                            layer.close(index);
+                        }
+                        return false;
+                    }
                 });
-                //修改
+                //修改数据
                 layui.use('form', function () {
                     var form = layui.form;
                     form.render();
                     form.on('submit(updataskillTrain)', function (data) {
-                        // alert( "trainProjectName=" + $("#trainProject_name").val() + "time=" + $("#Train_time").val() + "qualificationId=" + $("#qualification").val())
+                        data.field.id = id;
                         $.ajax({
                             url: '/skillTrainController/updateSkillTrain',
                             type: 'POST',
                             dataType: 'JSON',
                             data: data.field,
                             success: function (data) {
-                                if (data.code == "0") {
-                                    alert(data.msg);
-                                    layer.close(updatediv);
-                                    window.parent.location.reload();//修改成功后刷新父界面
-                                } else {
-                                    alert(data.msg);
-                                }
+                                alert(data.msg);
+                                layer.close(updatediv);
+                                $('#trainProjectName').val("");
+                                $("#time").val("");
+                                window.parent.location.reload();//修改成功后刷新父界面
                             }
                         })
                         return false;
@@ -198,47 +210,40 @@
         });
 
         //添加数据
-        layui.use('form', function(){
+        layui.use('form', function () {
             var form = layui.form;
             form.render();
             $("#Item_Number").hide();
-            form.on('submit(update_div)', function(data){
-                data.field.id = roleId;
+            form.on('submit(updataskillTrain)', function (data) {
                 $.ajax({
                     type: 'POST',
-                    url: '/roleController/updateRole',
+                    url: '/skillTrainController/insertSkillTrain',
                     dataType: 'JSON',
                     data: data.field,
                     success: function (msg) {
-                        if (msg.code == "0") {
-                            layer.alert(msg.msg);
-                        } else {
-                            layer.alert(msg.msg);
-                        }
+                        layer.alert(msg.msg);
+                        $('#trainProjectName').val("");
+                        $("#time").val("");
+                        layer.close(layerupdate);
+                        window.parent.location.reload();//修改成功后刷新父界面
                     }
                 })
-                layer.close(layerupdate);
-                $('#roleName').val("");
-                $("#roleDescribe").val("");
-                window.parent.location.reload();//修改成功后刷新父界面
                 return false;
             });
         });
-
-
     });
 </script>
 <%--修改技能培训界面--%>
 <div id="update_div" style="display:none;">
     <form class="layui-form" action="" id="add_submits">
-        <%--        <input type="hidden" id="skillid" value="">--%>
-        <div class="layui-form-item" style="display:none" id="Item_Number">
-            <label class="layui-form-label">项目编号：</label>
-            <div class="layui-input-block">
-                <input type="text" name="id" id="id" required lay-verify="required"
-                       disabled="disabled" class="layui-input">
-            </div>
-        </div>
+        <%--        &lt;%&ndash;        <input type="hidden" id="skillid" value="">&ndash;%&gt;--%>
+        <%--        <div class="layui-form-item" style="display:none" id="Item_Number">--%>
+        <%--            <label class="layui-form-label">项目编号：</label>--%>
+        <%--            <div class="layui-input-block">--%>
+        <%--                <input type="text" name="id" id="id" required lay-verify="required"--%>
+        <%--                       disabled="disabled" class="layui-input"  autocomplete="off">--%>
+        <%--            </div>--%>
+        <%--        </div>--%>
         <div class="layui-form-item">
             <label class="layui-form-label">项目名：</label>
             <div class="layui-input-block">

@@ -39,5 +39,11 @@
          where id=#{id}
     </update>
 
+<!--    添加技能培训-->
+    <insert id="insertSkillTrain" parameterType="com.cykj.domestic.entity.SkillTrain" >
+        insert into tb_skill_train (train_project_name, time, qualification_id)
+        value (#{trainProjectName},#{time},#{qualificationId})
+    </insert>
+
 
 </mapper>

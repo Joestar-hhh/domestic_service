@@ -24,9 +24,11 @@ public interface SkillTrainMapper {
     //查找所有技能证书
     List<Qualification> queryqualification();
 
-
     //修改技能培训
     int updateSkillTrain(SkillTrain skillTrain);
+
+    //添加技能培训
+    int insertSkillTrain(SkillTrain skillTrain);
 
 
 }

@@ -52,8 +52,18 @@ public class SkillTrainController {
     @ResponseBody
     @RequestMapping(value = "/updateSkillTrain")
     public String updateSkillTrain(HttpServletRequest request, HttpServletResponse response, SkillTrain skillTrain) {
-        System.out.println(JSON.toJSONString(skillTrain));
+        System.out.println("updateSkillTrain="+JSON.toJSONString(skillTrain));
         ResultData resultData = skillTrainService.updateSkillTrain(skillTrain);
+        return JSON.toJSONString(resultData);
+    }
+
+    //添加技能培训项目
+    @ResponseBody
+    @RequestMapping(value = "/insertSkillTrain")
+    public String insertSkillTrain(HttpServletRequest request, HttpServletResponse response, SkillTrain skillTrain) {
+        System.out.println("insertSkillTrain="+JSON.toJSONString(skillTrain));
+        ResultData resultData = skillTrainService.insertSkillTrain(skillTrain);
+        System.out.println(JSON.toJSONString(resultData));
         return JSON.toJSONString(resultData);
     }
 }
