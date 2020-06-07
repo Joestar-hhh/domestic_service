@@ -7,7 +7,7 @@ public interface SkillTrainService {
 
     ResultData querySkillTrain(int page, int limit);
 
-    //删除
+    //删除---
     ResultData deleteSkillTrain(String id);
 
     //查找所有技能证书
