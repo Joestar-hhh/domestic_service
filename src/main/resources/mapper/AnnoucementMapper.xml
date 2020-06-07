@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.cykj.domestic.mapper.AnnoucementMapper">
-
+<!--查询公告列表-->
     <select id="queryAnnoucement" parameterType="com.cykj.domestic.entity.Annoucement" resultType="com.cykj.domestic.entity.Annoucement">
         SELECT * FROM tb_annoucement
         ORDER BY id limit #{start},#{pageSize}
@@ -11,5 +11,23 @@
     <select id="queryAnnoucementCount" parameterType="com.cykj.domestic.entity.Annoucement" resultType="int">
         SELECT count(id) FROM tb_annoucement
     </select>
+
+<!--添加公告-->
+    <insert id="insertAnnoucement" parameterType="com.cykj.domestic.entity.Annoucement">
+        insert into tb_annoucement(title,content) values (#{title}, #{content})
+    </insert>
+
+<!--    删除公告-->
+    <delete id="deleteAnnouncement">
+        delete from tb_annoucement where id in
+        <foreach collection="list" item="item" open = "(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+<!--    更新公告-->
+    <update id="updateAnnouncement" parameterType="com.cykj.domestic.entity.Annoucement">
+        update tb_annoucement set title = #{title}, content = #{content} where id = #{id}
+    </update>
 
 </mapper>
