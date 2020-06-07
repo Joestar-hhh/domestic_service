@@ -2,24 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.cykj.domestic.mapper.TbSkillTrainMapper">
+<mapper namespace="com.cykj.domestic.mapper.SkillTrainMapper">
     <!--    技能培训分页-->
-    <select id="querySkillTrain" resultType="com.cykj.domestic.entity.TbSkillTrain" resultMap="TbSkillTrainMap">
+    <select id="querySkillTrain" resultType="com.cykj.domestic.entity.SkillTrain" resultMap="SkillTrainMap">
         select * from tb_skill_train ORDER BY id limit #{start},#{pageSize}
     </select>
-    <resultMap id="TbSkillTrainMap" type="com.cykj.domestic.entity.TbSkillTrain">
+    <resultMap id="SkillTrainMap" type="com.cykj.domestic.entity.SkillTrain">
         <result property="id" column="id"></result>
-        <association property="tbQualification" column="qualification_id"
-                     javaType="com.cykj.domestic.entity.TbQualification"
+        <association property="qualification" column="qualification_id"
+                     javaType="com.cykj.domestic.entity.Qualification"
                      select="queryqualificationName"></association>
     </resultMap>
     <select id="queryqualificationName" parameterType="java.lang.Integer"
-            resultType="com.cykj.domestic.entity.TbQualification">
+            resultType="com.cykj.domestic.entity.Qualification">
         select * from tb_qualification where id =#{id}
     </select>
 
     <!--    技能培训统计总数-->
-    <select id="querySkillTraincount" parameterType="com.cykj.domestic.entity.TbSkillTrain" resultType="int">
+    <select id="querySkillTraincount" parameterType="com.cykj.domestic.entity.SkillTrain" resultType="int">
                   select count(id) from tb_skill_train
     </select>
 

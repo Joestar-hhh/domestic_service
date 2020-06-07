@@ -50,7 +50,7 @@
 
         table.render({
             elem: '#test'
-            , url: '/tbSkillTrainController/querySkillTrain'
+            , url: '/skillTrainController/querySkillTrain'
             , toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
             , defaultToolbar: []//自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
             , title: '用户数据表'
@@ -60,7 +60,7 @@
                 , {field: 'trainProjectName', title: '培训项目名'}
                 , {field: 'time', title: '培训时长'}
                 // ,{field:'<div>{{d.TbQualification.qualificationName}}</div>', title: '认证证书'}
-                , {title: '认证证书', width: 150, templet: '<div>{{d.tbQualification.qualificationName}}</div>'}
+                , {title: '认证证书', width: 150, templet: '<div>{{d.qualification.qualificationName}}</div>'}
                 , {fixed: 'right', title: '操作', width: 250, toolbar: '#barDemo'}
                 // ,{field:'downloadDiscount', title: '下载文档积分比例'}
             ]]
