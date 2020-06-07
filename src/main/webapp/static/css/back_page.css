@@ -1,0 +1,36 @@
+
+.layui-table-page select{
+    height: 27px;
+}
+.layui-laypage select{
+    padding: 0;
+}
+.layui-table-view{
+    width: 98%;
+    margin: 20px auto;
+}
+.formbtn{
+    margin: 15px 40px;
+}
+.layui-form-select .layui-edge{
+    right:30%;
+}
+.layui-input, .layui-textarea{
+    width: 75%;
+}
+.layui-layer-content{
+    padding-top: 25px;
+}
+
+#querydiv .layui-input,#querydiv .layui-textare{
+    width: 16%;
+    display: inline-block;
+    margin: 0 10px 10px 10px;
+}
+#querydiv .querylabel{
+    margin: 10px 5px;
+}
+.querybtn{
+    margin: 10px 5px 20px 20px;
+    width: 65px;
+ }
