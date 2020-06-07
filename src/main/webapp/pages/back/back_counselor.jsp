@@ -20,8 +20,7 @@
 
     <link rel="stylesheet" href="<%=path%>/static/layui/css/layui.css">
     <script type="text/javascript" src="<%=path%>/static/layui/layui.js"></script>
-
-<%--    <link rel="stylesheet" href="<%=path%>/pages/back/css/back_adminquery.css">--%>
+    <link rel="stylesheet" href="<%=path%>/static/css/back_page.css">
 </head>
 <body>
 

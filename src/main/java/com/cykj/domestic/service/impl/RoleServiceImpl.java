@@ -27,4 +27,9 @@ public class RoleServiceImpl implements RoleService {
         resultData.setData(list);
         return resultData;
     }
+
+    @Override
+    public int insertRole(Role role) {
+        return roleMapper.insertRole(role);
+    }
 }

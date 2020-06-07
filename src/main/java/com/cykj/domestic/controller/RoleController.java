@@ -29,8 +29,21 @@ public class RoleController {
         return JSON.toJSONString(resultData);
     }
 
-    @RequestMapping("hello")
-    public String hello(){
-        return "hello---";
+    /*
+    * 添加角色
+    */
+    @RequestMapping("/insertRole")
+    public String insertRole(HttpServletRequest request, HttpServletResponse response, Role role){
+        System.out.println("insertRole--------------role:"+role);
+        int res = roleService.insertRole(role);
+        ResultData resultData = new ResultData();
+        if(res==1){
+            resultData.setCode(0);
+            resultData.setMsg("添加成功");
+        } else {
+            resultData.setCode(1);
+            resultData.setMsg("添加失败");
+        }
+        return JSON.toJSONString(resultData);
     }
 }
