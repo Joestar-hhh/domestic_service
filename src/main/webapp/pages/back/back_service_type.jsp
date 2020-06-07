@@ -28,12 +28,14 @@
         <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
         <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
         <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
-<%--        <button class="layui-btn layui-btn-sm" lay-event="addadmin">添加管理员</button>--%>
+        <button class="layui-btn layui-btn-sm" lay-event="addServiceType">添加服务类型</button>
 
     </div>
 </script>
 
 <script type="text/html" id="barDemo">
+
+    <a class="layui-btn layui-btn-xs" lay-event="viewDetails">查看详情</a>
     <a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
@@ -86,7 +88,7 @@
                 // ,{field:'ip', title:'IP', width:120}
                 // ,{field:'logins', title:'登入次数', width:100, sort: true}
                 // ,{field:'joinTime', title:'加入时间', width:120}
-                ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:180}
+                ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:250}
             ]]
             ,page: true
         });
@@ -147,8 +149,12 @@
         //监听行工具事件
         table.on('tool(test)', function(obj){
             var data = obj.data;
-            //console.log(obj)
-            if(obj.event === 'del'){
+            //查看详情
+            if(obj.event === 'viewDetails'){
+
+            }
+            //删除服务类型
+           else if(obj.event === 'del'){
                 layer.alert("data"+data);
                 layer.confirm('真的删除行么', function(index){
                     obj.del();
@@ -166,7 +172,9 @@
                     window.location.reload();
                     return false;
                 });
-            } else if(obj.event === 'edit'){
+            }
+           //修改服务类型
+           else if(obj.event === 'edit'){
                 var adminId = data.id;
                 var layerinsert = layer.open({
                     type: 1
@@ -188,7 +196,7 @@
                         layer.alert("ssssssss:"+adminId)
                         data.field.id = adminId;
                         $.ajax({
-                            url:"/domestic_service/serviceTypeContrller/updateServiceType",
+                            url:"/serviceTypeContrller/updateServiceType",
                             type: "POST",
                             data: data.field,
                             error: function (msg) {
