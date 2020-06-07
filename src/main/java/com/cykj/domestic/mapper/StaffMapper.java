@@ -24,4 +24,7 @@ public interface StaffMapper {
 
     //禁用状态
     int disableState(int id);
+
+    //查看详情
+    List<Staff> checkStaff(int id);
 }

@@ -44,6 +44,42 @@
 </script>
 
 
+<form class="layui-form" id="userInformation" action="" style="display: none">
+    <div class="layui-form-item">
+        <label class="layui-form-label">姓名：</label>
+        <input type="text" id="username" readonly="readonly">
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">性别：</label>
+        <input type="text" id="sex" readonly="readonly">
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">籍贯：</label>
+        <input type="text" id="nativeplace" readonly="readonly">
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">婚姻状况：</label>
+        <input type="text" id="marriage" readonly="readonly">
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">学历：</label>
+        <input type="text" id="education" readonly="readonly">
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">身份证号：</label>
+        <input type="text" id="idcard" readonly="readonly">
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">联系方式：</label>
+        <input type="text" id="phone" readonly="readonly">
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">所在地：</label>
+        <input type="text" id="address" readonly="readonly">
+    </div>
+</form>
+
+
 <%--<script src="<%=path%>/back/js/layui.js" charset="utf-8"></script>--%>
 <script>
     layui.use('table', function () {
@@ -58,7 +94,7 @@
             , cols: [[
                 {type: 'checkbox', fixed: 'left'}
                 , {field: 'id', title: '序号'}
-                , {field: 'account', title: '用户名'}
+                , {field: 'userName', title: '姓名'}
                 , {field: 'sex', title: '性别'}
                 , {field: 'workage', title: '工龄'}
                 , {field: 'skill', title: '技能'}
@@ -136,9 +172,52 @@
                     })
                     layer.close(index);
                 });
-            } else if (obj.event === 'check')
-            {
-                layer.open()
+            } else if (obj.event === 'check') {
+                var layercheck = layer.open({
+                    type: 1
+                    , title: '查看详情'
+                    , area: ['500px', '600px']
+                    , shade: [0.8, '#314949'] //遮罩
+                    , resize: false //不可拉伸
+                    , content: $('#userInformation') //内容
+                    , btn: 0
+                    , cancel: function (index, layero) {
+                        if (confirm('确定要关闭么')) { //只有当点击confirm框的确定时，该层才会关闭
+                            $('#username').val("");
+                            $("#sex").val("");
+                            $("#nativeplace").val("");
+                            $("#marriage").val("");
+                            $("#education").val("");
+                            $("#idcard").val("");
+                            $("#phone").val("");
+                            $("#address").val("");
+                            layer.close(index);
+                        }
+                        return false;
+                    }
+                    //如果设定了yes回调，需进行手工关闭
+                });
+                layui.use('form', function () {
+                    var form = layui.form;
+                    $.ajax({
+                        type: 'POST',
+                        url: '/staffController/checkStaff',
+                        dataType: 'JSON',
+                        data: {
+                            id: tabdata.id
+                        },
+                        success: function (msg) {
+                            $("#username").val(msg[0].userName);
+                            $("#sex").val(msg[0].sex);
+                            $("#marriage").val(msg[0].marriage);
+                            $("#nativeplace").val(msg[0].nativeplace);
+                            $("#education").val(msg[0].education);
+                            $("#idcard").val(msg[0].idcard);
+                            $("#phone").val(msg[0].phone);
+                            $("#address").val(msg[0].address);
+                        }
+                    });
+                });
             }
         });
     });
