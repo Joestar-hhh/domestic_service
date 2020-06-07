@@ -13,7 +13,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>back_levelinfo</title>
+    <title>back_roleadmin</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -105,7 +105,6 @@
                     $.each(data, function (index,val) {
                         idList.push(val.id);
                     })
-
                     layer.alert("删除id:"+JSON.stringify({idList:idList}))
                     $.ajax({
                         type : "post",
@@ -120,7 +119,7 @@
                         },
                         success : function(msg) {
                             alert(msg.msg);
-                            window.parent.location.reload();//修改成功后刷新父界面
+                            window.location.reload();//修改成功后刷新父界面
                         }
                     });
 
@@ -159,10 +158,9 @@
                                     layer.close(layerinsert);
                                     $('#roleName').val("");
                                     $("#roleDescribe").val("");
-                                    window.parent.location.reload();//修改成功后刷新父界面
+                                    window.location.reload();//修改成功后刷新父界面
                                 }
                             })
-
                             return false;
                         });
                     });
@@ -218,7 +216,7 @@
                                 layer.close(layerupdate);
                                 $('#roleName').val("");
                                 $("#roleDescribe").val("");
-                                window.parent.location.reload();//修改成功后刷新父界面
+                                window.location.reload();//修改成功后刷新父界面
                             }
                         })
                         return false;
