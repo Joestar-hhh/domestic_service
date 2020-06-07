@@ -26,4 +26,18 @@ public class StaffController {
         ResultData resultData = staffService.queryStaffList(staff, Integer.parseInt(page), Integer.parseInt(limit));
         return JSON.toJSONString(resultData);
     }
+
+    //启用
+    @RequestMapping("/enableState")
+    public int enableState(HttpServletRequest request, HttpServletResponse response, int id) {
+        int res = staffService.enableState(id);
+        return res;
+    }
+
+    //禁用
+    @RequestMapping("/disableState")
+    public int disableState(HttpServletRequest request, HttpServletResponse response, int id) {
+        int res = staffService.disableState(id);
+        return res;
+    }
 }

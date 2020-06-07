@@ -29,4 +29,16 @@ public class StaffServiceImpl implements StaffService {
         return resultData;
 
     }
+
+    @Override
+    public int enableState(int id) {
+        int res = staffMapper.enableState(id);
+        return res;
+    }
+
+    @Override
+    public int disableState(int id) {
+        int res = staffMapper.disableState(id);
+        return res;
+    }
 }

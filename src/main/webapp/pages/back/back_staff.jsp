@@ -47,37 +47,40 @@
 
 <%--<script src="<%=path%>/back/js/layui.js" charset="utf-8"></script>--%>
 <script>
-    layui.use('table', function(){
+    layui.use('table', function () {
         var table = layui.table;
-
+        var $ = layui.jquery;
         table.render({
             elem: '#test'
-            ,url:'/staffController/queryStaff'
-            ,toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
-            ,defaultToolbar: []//自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
-            ,title: '顾问管理表'
-            ,cols: [[
-                {type: 'checkbox',fixed: 'left'}
-                ,{field:'id', title: '序号'}
-                ,{field:'account', title: '用户名'}
-                ,{field:'sex', title: '性别'}
-                ,{field:'workage', title: '工龄'}
-                ,{field:'skill', title: '技能'}
-                ,{field:'state', title: '状态'}
-                ,{fixed: 'right',title:'操作', width: 250, toolbar: '#barDemo'}
+            , url: '/staffController/queryStaff'
+            , toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
+            , defaultToolbar: []//自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
+            , title: '顾问管理表'
+            , cols: [[
+                {type: 'checkbox', fixed: 'left'}
+                , {field: 'id', title: '序号'}
+                , {field: 'account', title: '用户名'}
+                , {field: 'sex', title: '性别'}
+                , {field: 'workage', title: '工龄'}
+                , {field: 'skill', title: '技能'}
+                , {field: 'state', title: '状态'}
+                , {field: 'address', title: '所在地'}
+                , {fixed: 'right', title: '操作', width: 250, toolbar: '#barDemo'}
                 // ,{field:'downloadDiscount', title: '下载文档积分比例'}
             ]]
-            ,page: {limit: 5,//指定每页显示的条数
+            , page: {
+                limit: 5,//指定每页显示的条数
                 limits: [5, 10, 15, 20,
-                    25, 30, 35, 40, 45, 50],} //每页条数的选择项
+                    25, 30, 35, 40, 45, 50],
+            } //每页条数的选择项
 
         });
 
 
         //头工具栏事件
-        table.on('toolbar(test)', function(obj){
+        table.on('toolbar(test)', function (obj) {
             var checkStatus = table.checkStatus(obj.config.id);
-            switch(obj.event){
+            switch (obj.event) {
                 case 'deletetype':
 
                     break;
@@ -85,28 +88,60 @@
                 // case 'LAYTABLE_TIPS':
                 //     layer.alert('这是工具栏右侧自定义的一个图标按钮');
                 //     break;
-            };
+            }
+            ;
         });
 
 
         //监听行工具事件
-        table.on('tool(test)', function(obj){
+        table.on('tool(test)', function (obj) {
             var tabdata = obj.data;
             //console.log(obj)s
-            if(obj.event === 'enable'){
-                layer.confirm('确定要启用吗?', function(index){
-                    obj.del();
+            if (obj.event === 'enable') {
+                layer.confirm('确定要启用吗?', function (index) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/staffController/enableState',
+                        dataType: 'JSON',
+                        data: {
+                            id: tabdata.id
+                        },
+                        success: function (msg) {
+                            if (msg.code == 0) {
+                                alert("修改失败，请重试");
+                            } else {
+                                alert("修改成功");
+                                window.parent.location.reload();
+                            }
+                        }
+                    })
                     layer.close(index);
                 });
-            } else if(obj.event === 'disable'){
-                layer.confirm('确定要禁用吗?', function(index){
-                    obj.del();
+            } else if (obj.event === 'disable') {
+                layer.confirm('确定要禁用吗?', function (index) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/staffController/disableState',
+                        dataType: 'JSON',
+                        data: {
+                            id: tabdata.id
+                        },
+                        success: function (msg) {
+                            if (msg.code == "0") {
+                                alert("修改失败，请重试");
+                            } else {
+                                alert("修改成功");
+                                window.parent.location.reload();
+                            }
+                        }
+                    })
                     layer.close(index);
                 });
+            } else if (obj.event === 'check')
+            {
+                layer.open()
             }
         });
-
-
     });
 
 </script>

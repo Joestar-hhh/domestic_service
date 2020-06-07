@@ -18,4 +18,10 @@ public interface StaffMapper {
 
     //查询总数
     int queryStaffCount(@Param("e") Staff staff);
+
+    //启用状态
+    int enableState(int id);
+
+    //禁用状态
+    int disableState(int id);
 }
