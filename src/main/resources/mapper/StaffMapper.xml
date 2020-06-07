@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cykj.domestic.mapper.StaffMapper">
+
+    <select id="queryStaff" parameterType="com.cykj.domestic.entity.Staff" resultType="com.cykj.domestic.entity.Staff">
+        SELECT * FROM tb_staff
+        ORDER BY id limit #{start},#{pageSize}
+    </select>
+    <select id="queryStaffCount" parameterType="com.cykj.domestic.entity.Staff" resultType="int">
+        SELECT count(id) FROM tb_staff
+    </select>
+
+</mapper>
