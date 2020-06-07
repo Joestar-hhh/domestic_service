@@ -3,6 +3,7 @@ package com.cykj.domestic.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.cykj.domestic.entity.SkillTrain;
 import com.cykj.domestic.service.SkillTrainService;
 import com.cykj.domestic.util.ResultData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,11 +31,29 @@ public class SkillTrainController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "")
-    public String deleteSkillTrain() {
+    @RequestMapping(value = "/deleteSkillTrain")
+    public String deleteSkillTrain(HttpServletRequest request, HttpServletResponse response) {
 
-        return null;
+        String id = request.getParameter("id");
+        System.out.println("技能培训=" + id);
+        ResultData resultData = skillTrainService.deleteSkillTrain(id);
+        return JSON.toJSONString(resultData);
     }
 
+    //    查找所有技能证书
+    @ResponseBody
+    @RequestMapping(value = "/queryqualification")
+    public String queryqualification(HttpServletRequest request, HttpServletResponse response) {
+        ResultData resultData = skillTrainService.queryqualification();
+        return JSON.toJSONString(resultData);
+    }
 
+    //    修改技能培训
+    @ResponseBody
+    @RequestMapping(value = "/updateSkillTrain")
+    public String updateSkillTrain(HttpServletRequest request, HttpServletResponse response, SkillTrain skillTrain) {
+        System.out.println(JSON.toJSONString(skillTrain));
+        ResultData resultData = skillTrainService.updateSkillTrain(skillTrain);
+        return JSON.toJSONString(resultData);
+    }
 }

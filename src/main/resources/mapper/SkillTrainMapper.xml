@@ -28,5 +28,16 @@
                delete from tb_skill_train where id=#{id}
     </delete>
 
+    <!--   查找所有证书 -->
+    <select id="queryqualification" resultType="com.cykj.domestic.entity.Qualification">
+        select * from tb_qualification
+    </select>
+
+    <!--    修改技术培训项目-->
+    <update id="updateSkillTrain" parameterType="com.cykj.domestic.entity.SkillTrain">
+        update tb_skill_train set  train_project_name=#{trainProjectName},time=#{time},qualification_id=#{qualificationId}
+         where id=#{id}
+    </update>
+
 
 </mapper>

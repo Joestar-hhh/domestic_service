@@ -47,6 +47,7 @@
 <script>
     layui.use('table', function(){
         var table = layui.table;
+        // var $ = layui.jquery;
 
         table.render({
             elem: '#test'
@@ -67,13 +68,11 @@
 
         });
 
-
         //头工具栏事件
         table.on('toolbar(test)', function(obj){
             var checkStatus = table.checkStatus(obj.config.id);
             switch(obj.event){
                 case 'deletetype':
-
                     break;
                 //自定义头工具栏右侧图标 - 提示
                 // case 'LAYTABLE_TIPS':
@@ -96,10 +95,7 @@
 
             }
         });
-
-
     });
-
 </script>
 </body>
 </html>
