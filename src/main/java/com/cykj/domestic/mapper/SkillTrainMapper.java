@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 @Mapper
-public interface SkillTrainMapper {
+public interface TbSkillTrainMapper {
 
     //查询技能培训列表
     List<SkillTrain> querySkillTrain(@Param("start")int start, @Param("pageSize")int pageSize);

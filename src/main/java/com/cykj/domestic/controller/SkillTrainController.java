@@ -29,5 +29,12 @@ public class SkillTrainController {
         return JSON.toJSONString(resultData, SerializerFeature.DisableCircularReferenceDetect);
     }
 
+    @ResponseBody
+    @RequestMapping(value = "")
+    public String deleteSkillTrain() {
+
+        return null;
+    }
+
 
 }
