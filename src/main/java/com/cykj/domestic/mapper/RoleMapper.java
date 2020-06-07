@@ -13,4 +13,6 @@ public interface RoleMapper {
 
     List<Role> queryRole(@Param("e") Role role, @Param("start")int start, @Param("pageSize")int pageSize);
     int queryRoleCount(@Param("e") Role role);
+
+    int insertRole(Role role);
 }
