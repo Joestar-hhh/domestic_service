@@ -20,7 +20,7 @@ public class StaffController {
     @Autowired
     private StaffService staffService;
 
-    //查询顾问管理信息
+    //查询顾问管理信息--
     @RequestMapping("/queryStaff")
     public String queryCounselor(HttpServletRequest request, HttpServletResponse response,
                                  Staff staff, String page, String limit) {
