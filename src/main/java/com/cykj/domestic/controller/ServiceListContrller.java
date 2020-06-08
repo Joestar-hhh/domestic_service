@@ -34,15 +34,15 @@ public class ServiceListContrller {
         ResultData resultData=serviceListService.addServicelist(tbService);
     return JSON.toJSONString(resultData);
     }
-////
-////
-////    @RequestMapping("/updateServiceList")
-////    public String updateServiceType(HttpServletRequest request, HttpServletResponse response, TbService tbService) {
-////        ResultData resultData=serviceListService.updateServiceList(tbService);
-////        return JSON.toJSONString(resultData);
-////    }
-////
-////
+
+
+    //修改服务列表数据
+    @RequestMapping("/updateServiceList")
+    public String updateServiceType(HttpServletRequest request, HttpServletResponse response, TbService tbService) {
+        ResultData resultData=serviceListService.updateServiceList(tbService);
+        return JSON.toJSONString(resultData);
+    }
+
 
     //删除服务列表数据
     @RequestMapping("/deleteServiceList")

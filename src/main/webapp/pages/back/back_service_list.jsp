@@ -209,6 +209,24 @@
             }
            //修改服务类型
            else if(obj.event === 'edit'){
+
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/serviceListContrller/selectService',
+                    dataType: 'JSON',
+                    success: function (msg) {
+                        $("#serviceCategory").html("<option value=''></option>");
+                        $.each(msg.data, function (i, item) {
+                            $("#serviceCategory").append("<option value='" + item.id + "'>" + item.typeName + "</option>")
+                        });
+                        layui.use('form', function () {
+                            var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+                            form.render();
+                        });
+                    }
+                });
+
                 var adminId = data.id;
                 var layerinsert = layer.open({
                     type: 1
@@ -224,14 +242,11 @@
                     var form = layui.form;
                     form.render();
                     form.on('submit(insertconfirm)', function(data){
-                        // data.field.dealtype = "insertadmin"
-                        // layer.alert("角色id:"+data.field.roleId)
-                        // data.field.roleId = ""
-                        layer.alert("ssssssss:"+adminId)
                         data.field.id = adminId;
                         $.ajax({
                             url:"/serviceListContrller/updateServiceList",
                             type: "POST",
+                            dataType: 'JSON',
                             data: data.field,
                             error: function (msg) {
                                 alert("服务器繁忙");

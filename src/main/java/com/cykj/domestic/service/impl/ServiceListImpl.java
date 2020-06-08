@@ -57,21 +57,23 @@ public class ServiceListImpl implements ServiceListService {
         }
         return resultData;
     }
-//
-//    @Override
-//    public ResultData updateServiceList(TbService tbService) {
-//        int res= serviceListMapper.updateServiceList(tbService);
-//        ResultData resultData = new ResultData();
-//        if(res==1){
-//            resultData.setCode(0);
-//            resultData.setMsg("修改成功");
-//        } else {
-//            resultData.setCode(1);
-//            resultData.setMsg("修改失败");
-//        }
-//        return resultData;
-//    }
-//
+
+
+    //修改服务列表数据
+    @Override
+    public ResultData updateServiceList(TbService tbService) {
+        int res= serviceListMapper.updateServiceList(tbService);
+        ResultData resultData = new ResultData();
+        if(res==1){
+            resultData.setCode(0);
+            resultData.setMsg("修改成功");
+        } else {
+            resultData.setCode(1);
+            resultData.setMsg("修改失败");
+        }
+        return resultData;
+    }
+
 
 
 

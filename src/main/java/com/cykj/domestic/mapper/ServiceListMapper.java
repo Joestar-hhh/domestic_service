@@ -14,12 +14,13 @@ import java.util.List;
 @Repository
 @Mapper
 public interface ServiceListMapper {
-
+    //添加服务列表数据
     int addServiceList(TbService tbService);
-//    int addServiceType(ServiceType serviceType);
+    //修改服务列表数据
     int updateServiceList(TbService tbService);
+    //删除服务列表数据
     int deleteServiceList(int id);
-    //服务类型列表显示
+    //查询所有服务列表显示
     List<TbService> selectList(@Param("e") TbService tbService, @Param("start") int start, @Param("pageSize") int pageSize);
     int selectListCount(@Param("e") TbService tbService);
     //查找所有服务类型

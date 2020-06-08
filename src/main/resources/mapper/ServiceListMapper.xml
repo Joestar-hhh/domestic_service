@@ -13,6 +13,11 @@
 <!--     update tb_service_type set type_name=#{type_name},description=#{description},update_name=#{update_name} where id=#{id}-->
 <!--    </update>-->
 
+        <update id="updateServiceList" parameterType="com.cykj.domestic.entity.TbService">
+         update tb_service set type_name=#{typeName},description=#{description},service_type_id=#{serviceCategory} where id=#{id}
+        </update>
+
+
     <delete id="deleteServiceList">
          delete from tb_service where id=#{id}
     </delete>
