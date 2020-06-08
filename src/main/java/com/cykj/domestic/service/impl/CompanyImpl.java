@@ -14,12 +14,15 @@ public class CompanyImpl implements CompanySrevice {
     @Autowired
     public CompanyMapper companyMapper;
 
+    //区域列表
     @Override
-    public ResultData queryRegion() {
-        List<Company> list = companyMapper.queryRegion();
+    public ResultData queryRegion(int page, int limit) {
+        List<Company> list = companyMapper.queryRegion((page-1)*limit,limit);
+        int count = companyMapper.RegionCount();
         ResultData resultData = new ResultData();
         resultData.setCode(0);
         resultData.setMsg("");
+        resultData.setCount(count);
         resultData.setData(list);
         return resultData;
     }

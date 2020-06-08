@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cykj.domestic.mapper.CompanyMapper">
+
+    <!--    平台端区域列表-->
+    <select id="queryRegion" parameterType="com.cykj.domestic.entity.Company" resultType="com.cykj.domestic.entity.Company">
+             SELECT B.region region,COUNT(B.region)regionId,MAX(A.join_time)joinTime
+             FROM tb_region B LEFT JOIN tb_company A on A.region_id =B.id GROUP BY B.region LIMIT ${start},${pageSize};
+    </select>
+
+    <select id="RegionCount" resultType="int" parameterType="com.cykj.domestic.entity.Company">
+        select count(D.C) from
+             (SELECT B.region,COUNT(*)C
+                  FROM tb_region B LEFT JOIN tb_company A on A.region_id =B.id GROUP BY B.region)D;
+    </select>
+
+</mapper>

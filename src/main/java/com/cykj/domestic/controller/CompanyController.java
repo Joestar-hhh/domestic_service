@@ -22,11 +22,10 @@ public class CompanyController {
 
     @ResponseBody
     @RequestMapping(value = "/queryRegion")
-    public String queryRegion(HttpServletResponse response, HttpServletRequest request){
-        ResultData resultData =companySrevice.queryRegion();
+    public String queryRegion(HttpServletResponse response, HttpServletRequest request, String page, String limit) {
+        ResultData resultData = companySrevice.queryRegion(Integer.parseInt(page), Integer.parseInt(limit));
         return JSON.toJSONString(resultData);
     }
-
 
 
 }
