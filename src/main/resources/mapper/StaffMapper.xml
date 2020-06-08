@@ -5,7 +5,12 @@
 <mapper namespace="com.cykj.domestic.mapper.StaffMapper">
 
     <select id="queryStaff" parameterType="com.cykj.domestic.entity.Staff" resultType="com.cykj.domestic.entity.Staff">
-        SELECT * FROM tb_staff
+        SELECT S.*,R.region FROM tb_staff S
+        LEFT JOIN tb_region R
+         ON S.region_id = R.id
+<!--        <where>-->
+<!--            <if test=""></if>-->
+<!--        </where>-->
         ORDER BY id limit #{start},#{pageSize}
     </select>
     <select id="queryStaffCount" parameterType="com.cykj.domestic.entity.Staff" resultType="int">

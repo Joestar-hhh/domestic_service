@@ -99,7 +99,7 @@
                 , {field: 'workage', title: '工龄'}
                 , {field: 'skill', title: '技能'}
                 , {field: 'state', title: '状态'}
-                , {field: 'address', title: '所在地'}
+                , {field: 'region', title: '所在地'}
                 , {fixed: 'right', title: '操作', width: 250, toolbar: '#barDemo'}
                 // ,{field:'downloadDiscount', title: '下载文档积分比例'}
             ]]

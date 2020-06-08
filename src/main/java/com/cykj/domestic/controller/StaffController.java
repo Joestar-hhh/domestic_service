@@ -25,6 +25,7 @@ public class StaffController {
     public String queryCounselor(HttpServletRequest request, HttpServletResponse response,
                                  Staff staff, String page, String limit) {
         ResultData resultData = staffService.queryStaffList(staff, Integer.parseInt(page), Integer.parseInt(limit));
+        System.out.println("查询列表结果：" + JSON.toJSONString(resultData));
         return JSON.toJSONString(resultData);
     }
 
