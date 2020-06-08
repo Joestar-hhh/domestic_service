@@ -4,15 +4,30 @@
 
 <mapper namespace="com.cykj.domestic.mapper.OrderMapper">
 
-    <select id="queryList" parameterType="com.cykj.domestic.entity.OrderInfo" resultType="com.cykj.domestic.entity.OrderInfo">
-        SELECT * FROM tb_order_info
-<!--        <where>-->
-<!--            <if test=""-->
-<!--        </where>-->
+    <select id="queryList" resultType="com.cykj.domestic.entity.OrderInfo">
+        select o.*,u.name user_name,stf.user_name staff_name,s.type_name,c.company_name com_name,os_c.order_state_name state_com_name from tb_order_info o
+        left join tb_order_state os_c on os_c.id = o.company_order_state_id
+        left join tb_staff stf on stf.id = o.staff_id
+        left join tb_user u on u.id = o.user_id
+        left join tb_company c on c.id = o.company_id
+        left join tb_service s on s.id = o.service_id
+        <where>
+            <if test="companyName!=null and companyName!=''">and c.company_name like concat('%',#{companyName},'%')</if>
+        </where>
         ORDER BY id limit #{start},#{pageSize}
     </select>
-    <select id="queryCount" parameterType="com.cykj.domestic.entity.OrderInfo" resultType="int">
-        SELECT count(id) FROM tb_order_info
+    <select id="queryCount" resultType="int">
+        SELECT count(o.id) FROM tb_order_info o
+        left join tb_company c on c.id = o.company_id
+        <where>
+            <if test="companyName!=null and companyName!=''">and c.company_name like concat('%',#{companyName},'%')</if>
+        </where>
     </select>
+    <delete id="deleteOrder">
+        delete from tb_order_info where id in
+        <foreach collection="list" item="item" open = "(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
 
 </mapper>

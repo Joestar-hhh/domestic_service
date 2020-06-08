@@ -25,7 +25,6 @@ public class RoleController {
     @RequestMapping("/queryRole")
     public String queryRole(HttpServletRequest request, HttpServletResponse response,
                             Role role, String page, String limit){
-        System.out.println("queryRole--------------limit:"+limit+"--------page:"+page);
         ResultData resultData =  roleService.queryRoleInfo(role, Integer.parseInt(page), Integer.parseInt(limit));
         return JSON.toJSONString(resultData);
     }
@@ -35,7 +34,6 @@ public class RoleController {
     */
     @RequestMapping("/insertRole")
     public String insertRole(HttpServletRequest request, HttpServletResponse response, Role role){
-        System.out.println("insertRole--------------role:"+role.toString());
         ResultData resultData = roleService.insertRole(role);
         return JSON.toJSONString(resultData);
     }
@@ -45,7 +43,6 @@ public class RoleController {
      */
     @RequestMapping("/updateRole")
     public String updateRole(HttpServletRequest request, HttpServletResponse response, Role role){
-        System.out.println("updateRole--------------role:"+role.toString());
         ResultData resultData = roleService.updateRole(role);
         return JSON.toJSONString(resultData);
     }
@@ -55,7 +52,6 @@ public class RoleController {
      */
     @RequestMapping("/deleteRole")
     public String deleteRole(HttpServletRequest request, HttpServletResponse response, String idList){
-        System.out.println("updateRole--------------idList:"+idList);
         ResultData resultData = roleService.deleteRole(idList);
         return JSON.toJSONString(resultData);
     }

@@ -7,7 +7,46 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: Mysql123 #特殊字符需要单引号
+    # 使用Druid数据源
     type: com.alibaba.druid.pool.DruidDataSource
+    # 数据源其他配置, DataSourceProperties中没有相关属性,默认无法绑定
+    initialSize: 8
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: true
+    testOnReturn: false
+    poolPreparedStatements: true
+    # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+    filters: stat,wall,logback
+    maxPoolPreparedStatementPerConnectionSize: 25
+    useGlobalDataSourceStat: true
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+
+  mvc:
+    hiddenmethod:
+      filter:
+        #在SpringBoot2.0之后要使用Restful中的Put和Delete必须要加上这个，2.0默认不支持Put和Delete，要把他们打开
+        enabled: true
+#    view:
+#      suffix: .jsp
+
+
 mybatis:
   config-location: classpath:mybatis-config.xml
   mapper-locations: classpath:mapper/*.xml
+
+servlet:
+  multipart:
+    #开启文件上传
+    enabled: true
+    #单个文件最大值
+    max-file-size: 10MB
+    #上传文件的最大值
+    max-request-size: 50MB
+
+

@@ -12,6 +12,8 @@ import java.util.List;
 @Mapper
 public interface OrderMapper {
 
-    List<OrderInfo> queryList(@Param("e") OrderInfo orderInfo, @Param("start")int start, @Param("pageSize")int pageSize);
-    int queryCount(@Param("e") OrderInfo orderInfo);
+    List<OrderInfo> queryList(@Param("companyName") String companyName, @Param("start")int start, @Param("pageSize")int pageSize);
+    int queryCount(@Param("companyName") String companyName);
+
+    int deleteOrder(List<String> list);
 }

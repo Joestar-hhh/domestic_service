@@ -1,5 +1,6 @@
 package com.cykj.domestic.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.cykj.domestic.entity.OrderInfo;
 import com.cykj.domestic.entity.Role;
 import com.cykj.domestic.mapper.OrderMapper;
@@ -17,14 +18,29 @@ public class OrderServiceImpl implements OrderService {
     private OrderMapper orderMapper;
 
     @Override
-    public ResultData queryOrderInfo(OrderInfo orderInfo, int page, int limit) {
-        List<OrderInfo> list = orderMapper.queryList(orderInfo,(page-1)*limit,limit);
-        int count = orderMapper.queryCount(orderInfo);
+    public ResultData queryOrderInfo(String companyName, int page, int limit) {
+        List<OrderInfo> list = orderMapper.queryList(companyName,(page-1)*limit,limit);
+        int count = orderMapper.queryCount(companyName);
         ResultData resultData = new ResultData();
         resultData.setCode(0);
         resultData.setMsg("");
         resultData.setCount(count);
         resultData.setData(list);
+        return resultData;
+    }
+
+    @Override
+    public ResultData deleteOrder(String idList) {
+        List<String> list = JSON.parseArray(idList,String.class);
+        int res = orderMapper.deleteOrder(list);
+        ResultData resultData = new ResultData();
+        if(res>=1){
+            resultData.setCode(0);
+            resultData.setMsg("删除成功");
+        } else {
+            resultData.setCode(1);
+            resultData.setMsg("删除失败");
+        }
         return resultData;
     }
 }

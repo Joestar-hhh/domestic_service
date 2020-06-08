@@ -22,6 +22,35 @@
     <script type="text/javascript" src="<%=path%>/static/layui/layui.js"></script>
 
     <link rel="stylesheet" href="<%=path%>/static/css/back_page.css">
+    <style>
+        .layui-form-item {
+            margin-bottom: 0;
+        }
+        .querybtn {
+            margin: 10px 5px 10px 20px;
+        }
+        #querydiv .layui-btn-container{
+            display: inline-block;
+        }
+        #orderinfoform .layui-form-label {
+            float: left;
+            display: block;
+            padding: 9px 15px;
+            width: 114px;
+            font-weight: 400;
+            line-height: 31px;
+            text-align: right;
+        }
+        #orderinfoform .layui-input-block {
+            margin-left: 247px;
+        }
+        #orderinfoform .rightlabel{
+            margin-bottom: 15px;
+            text-align: left;
+            line-height: 30px;
+            background-color: #beffed;
+        }
+    </style>
 </head>
 <body>
 
@@ -31,39 +60,65 @@
 <%--    skill_train--%>
     <div class="layui-form-item" id="querydiv">
         <div class="layui-btn-container">
-            <button class="layui-btn layui-btn-sm" lay-event="deleterole">删除</button>
-            <button class="layui-btn layui-btn-sm" lay-event="insertrole">添加</button>
+            <button class="layui-btn layui-btn-sm" lay-event="deleteorder">删除</button>
         </div>
+        <input type="text" name="intput_company" id="intput_company" lay-verify="title" autocomplete="off" placeholder="请输入公司名字" class="layui-input">
+        <button class="layui-btn layui-btn-sm querybtn" id="querybtn" lay-event="querybtn" data-type="reload">查询</button>
     </div>
+
 </script>
 
 
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="updaterole">修改</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="showinfo">查看详情</a>
+<%--    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>--%>
 </script>
 
 
 
-<form class="layui-form" id="userinfoform" action="" style="display: none">
+<form class="layui-form" id="orderinfoform" action="" style="display: none">
 
     <div class="layui-form-item">
-        <label class="layui-form-label">角色名：</label>
-        <div class="layui-input-block">
-            <input type="text" name="roleName" id="roleName" required  lay-verify="required" placeholder="请输入角色名字" autocomplete="off" class="layui-input">
-        </div>
+        <label class="layui-form-label">订单号：</label>
+        <label class="layui-form-label rightlabel" id="orderNumber"></label>
+        <label class="layui-form-label">用户名：</label>
+        <label class="layui-form-label rightlabel" id="userName"></label>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">职责：</label>
-        <div class="layui-input-block">
-            <input type="text" name="roleDescribe" id="roleDescribe" required  lay-verify="required" placeholder="请输入职责描述" autocomplete="off" class="layui-input">
-        </div>
+        <label class="layui-form-label">服务人员：</label>
+        <label class="layui-form-label rightlabel" id="staffName"></label>
+        <label class="layui-form-label">服务：</label>
+        <label class="layui-form-label rightlabel" id="typeName"></label>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">描述：</label>
+        <label class="layui-form-label rightlabel" id="description"></label>
+
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">开始时间：</label>
+        <label class="layui-form-label rightlabel" id="startTime"></label>
+        <label class="layui-form-label">结束时间：</label>
+        <label class="layui-form-label rightlabel" id="endTime"></label>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">公司名：</label>
+        <label class="layui-form-label rightlabel" id="comName"></label>
+        <label class="layui-form-label">订单状态：</label>
+        <label class="layui-form-label rightlabel" id="stateComName"></label>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">频次：</label>
+        <label class="layui-form-label rightlabel" id="frequency"></label>
+        <label class="layui-form-label">用户联系电话：</label>
+        <label class="layui-form-label rightlabel" id="phone"></label>
+<%--        <label class="layui-form-label">订单状态：</label>--%>
+<%--        <label class="layui-form-label" id="stateComName"></label>--%>
     </div>
 
     <div class="layui-form-item">
         <div class="layui-input-block">
             <button class="layui-btn formbtn" id="insertconfirm" lay-submit lay-filter="insertconfirm">确定</button>
-            <button type="reset" class="layui-btn layui-btn-primary formbtn">重置</button>
         </div>
     </div>
 </form>
@@ -85,14 +140,14 @@
                 ,{field:'id', title: '序号'}
                 ,{field:'orderNumber', title: '订单号'}
                 // ,{field:'pulishTime', title: '下单时间'}
-                ,{field:'userId', title: '用户'}
-                ,{field:'staffId', title: '服务人员'}
-                ,{field:'serviceId', title: '服务'}
+                ,{field:'userName', title: '用户'}
+                ,{field:'staffName', title: '服务人员'}
+                ,{field:'typeName', title: '服务'}
                 ,{field:'frequency', title: '频次'}
                 ,{field:'startTime', title: '开始时间'}
                 ,{field:'endTime', title: '结束时间'}
-                ,{field:'companyId', title: '所属公司'}
-                ,{field:'companyOrderStateId', title: '订单状态'}
+                ,{field:'comName', title: '所属公司'}
+                ,{field:'stateComName', title: '订单状态'}
                 ,{fixed: 'right',title:'操作', width: 250, toolbar: '#barDemo'}
                 // ,{field:'downloadDiscount', title: '下载文档积分比例'}
             ]]
@@ -107,71 +162,47 @@
         table.on('toolbar(test)', function(obj){
             var checkStatus = table.checkStatus(obj.config.id);
             switch(obj.event){
-                case 'deleterole':
-                    var data = checkStatus.data;
-                    var idList = new Array();
-                    $.each(data, function (index,val) {
-                        idList.push(val.id);
-                    })
-                    layer.alert("删除id:"+JSON.stringify({idList:idList}))
-                    $.ajax({
-                        type : "post",
-                        url : "/roleController/deleteRole",
-                        dataType: 'JSON',
-                        data : {idList:JSON.stringify(idList)},
-                        error : function(request) {
-                            layer.alert('操作失败', {
-                                icon: 2,
-                                title:"提示"
-                            });
-                        },
-                        success : function(msg) {
-                            alert(msg.msg);
-                            window.location.reload();//修改成功后刷新父界面
-                        }
+                case 'deleteorder':
+                    layer.confirm('真的删除行么', function(index){
+                        var data = checkStatus.data;
+                        var idList = new Array();
+                        $.each(data, function (index,val) {
+                            idList.push(val.id);
+                        })
+                        $.ajax({
+                            type : "post",
+                            url : "/orderController/deleteOrder",
+                            dataType: 'JSON',
+                            data : {idList:JSON.stringify(idList)},
+                            error : function(request) {
+                                layer.alert('操作失败', {
+                                    icon: 2,
+                                    title:"提示"
+                                });
+                            },
+                            success : function(msg) {
+                                alert(msg.msg);
+                                window.location.reload();//修改成功后刷新父界面
+                            }
+                        });
+                        layer.close(index);
                     });
 
                     break;
-                case 'insertrole':
-                    var layerinsert = layer.open({
-                        type: 1
-                        ,title: '添加角色'
-                        ,area: ['500px','400px']
-                        ,shade: [0.8, '#314949'] //遮罩
-                        ,resize: false //不可拉伸
-                        ,content: $('#userinfoform') //内容
-                        ,btn: 0
-                        ,cancel: function(index, layero){
-                            if(confirm('确定要关闭么')){ //只有当点击confirm框的确定时，该层才会关闭
-                                // $('#userinfoform').css("display","none");
-                                $('#roleName').val("");
-                                $("#roleDescribe").val("");
-                                layer.close(index);
-                            }
-                            return false;
+                case 'querybtn':
+                    var inputname = $('#intput_company').val();
+                    //执行重载
+                    table.reload('test', {
+                        url: '/orderController/queryOrder'
+                        // ,methods:"post"
+                        ,page: {
+                            curr: 1 //重新从第 1 页开始
                         }
-                        //如果设定了yes回调，需进行手工关闭
+                        ,where: {
+                            companyName: inputname
+                        }
                     });
-                    layui.use('form', function(){
-                        var form = layui.form;
-                        form.render();
-                        form.on('submit(insertconfirm)', function(data){
-                            $.ajax({
-                                type: 'POST',
-                                url: '/roleController/insertRole',
-                                dataType: 'JSON',
-                                data: data.field,
-                                success: function (msg) {
-                                    alert(msg.msg);
-                                    layer.close(layerinsert);
-                                    $('#roleName').val("");
-                                    $("#roleDescribe").val("");
-                                    window.location.reload();//修改成功后刷新父界面
-                                }
-                            })
-                            return false;
-                        });
-                    });
+                    $('#intput_company').val(inputname);
                     break;
             };
         });
@@ -186,17 +217,25 @@
                     obj.del();
                     layer.close(index);
                 });
-            } else if(obj.event === 'updaterole'){
-                $('#roleName').val(tabdata.roleName);
-                $("#roleDescribe").val(tabdata.roleDescribe);
-                var roleId = tabdata.id
+            } else if(obj.event === 'showinfo'){
+                $('#orderNumber').html(tabdata.orderNumber);
+                $('#userName').html(tabdata.userName);
+                $('#staffName').html(tabdata.staffName);
+                $('#typeName').html(tabdata.typeName);
+                $('#comName').html(tabdata.comName);
+                $('#stateComName').html(tabdata.stateComName);
+                $('#phone').html(tabdata.phone);
+                $('#description').html(tabdata.description);
+                $('#frequency').html(tabdata.frequency);
+                $('#startTime').html(tabdata.startTime);
+                $('#endTime').html(tabdata.endTime);
                 var layerupdate = layer.open({
                     type: 1
-                    ,title: '修改角色'
-                    ,area: ['500px','400px']
+                    ,title: '查看订单信息'
+                    ,area: ['640px','580px']
                     ,shade: [0.8, '#314949'] //遮罩
                     ,resize: false //不可拉伸
-                    ,content: $('#userinfoform') //内容
+                    ,content: $('#orderinfoform') //内容
                     ,btn: 0
                     ,cancel: function(index, layero){
                         if(confirm('确定要关闭么')){ //只有当点击confirm框的确定时，该层才会关闭
@@ -213,20 +252,7 @@
                     var form = layui.form;
                     form.render();
                     form.on('submit(insertconfirm)', function(data){
-                        data.field.id = roleId;
-                        $.ajax({
-                            type: 'POST',
-                            url: '/roleController/updateRole',
-                            dataType: 'JSON',
-                            data: data.field,
-                            success: function (msg) {
-                                layer.alert(msg.msg);
-                                layer.close(layerupdate);
-                                $('#roleName').val("");
-                                $("#roleDescribe").val("");
-                                window.location.reload();//修改成功后刷新父界面
-                            }
-                        })
+                        layer.close(layerupdate);
                         return false;
                     });
                 });

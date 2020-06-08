@@ -40,7 +40,7 @@
 
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="updaterole">修改</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+<%--    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>--%>
 </script>
 
 
@@ -59,6 +59,18 @@
             <input type="text" name="roleDescribe" id="roleDescribe" required  lay-verify="required" placeholder="请输入职责描述" autocomplete="off" class="layui-input">
         </div>
     </div>
+
+<%--    <div class="layui-form-item">--%>
+<%--        <label class="layui-form-label">角色：</label>--%>
+<%--        <div class="layui-input-block">--%>
+<%--            <select name="selecttest" id="selecttest" lay-filter="selecttest" lay-verify="required">--%>
+<%--                <option value=""></option>--%>
+<%--                <option value="超级管理员">超级管理员</option>--%>
+<%--                <option value="用户管理员">用户管理员</option>--%>
+<%--                <option value="文档管理员">文档管理员</option>--%>
+<%--            </select>--%>
+<%--        </div>--%>
+<%--    </div>--%>
 
     <div class="layui-form-item">
         <div class="layui-input-block">
@@ -95,6 +107,15 @@
         });
 
 
+        // layui.use('form', function() {
+        //     alert("选中：====");
+        //     var form = layui.form;
+        //     form.render('select');
+        //     form.on('select(selecttest)', function(data){
+        //         alert("选中："+JSON.stringify(data));
+        //     });
+        // });
+
         //头工具栏事件
         table.on('toolbar(test)', function(obj){
             var checkStatus = table.checkStatus(obj.config.id);
@@ -105,7 +126,6 @@
                     $.each(data, function (index,val) {
                         idList.push(val.id);
                     })
-                    layer.alert("删除id:"+JSON.stringify({idList:idList}))
                     $.ajax({
                         type : "post",
                         url : "/roleController/deleteRole",
@@ -118,8 +138,9 @@
                             });
                         },
                         success : function(msg) {
-                            alert(msg.msg);
-                            window.location.reload();//修改成功后刷新父界面
+                            layer.alert(msg.msg,function () {
+                                window.location.reload();//修改成功后刷新父界面
+                            });
                         }
                     });
 
@@ -144,9 +165,11 @@
                         }
                         //如果设定了yes回调，需进行手工关闭
                     });
+
                     layui.use('form', function(){
                         var form = layui.form;
                         form.render();
+
                         form.on('submit(insertconfirm)', function(data){
                             $.ajax({
                                 type: 'POST',
@@ -154,11 +177,13 @@
                                 dataType: 'JSON',
                                 data: data.field,
                                 success: function (msg) {
-                                    alert(msg.msg);
+                                    // alert(msg.msg);
                                     layer.close(layerinsert);
                                     $('#roleName').val("");
                                     $("#roleDescribe").val("");
-                                    window.location.reload();//修改成功后刷新父界面
+                                    layer.alert(msg.msg,function () {
+                                        window.location.reload();//修改成功后刷新父界面
+                                    });
                                 }
                             })
                             return false;
@@ -212,11 +237,12 @@
                             dataType: 'JSON',
                             data: data.field,
                             success: function (msg) {
-                                layer.alert(msg.msg);
                                 layer.close(layerupdate);
                                 $('#roleName').val("");
                                 $("#roleDescribe").val("");
-                                window.location.reload();//修改成功后刷新父界面
+                                layer.alert(msg.msg,function () {
+                                    window.location.reload();//修改成功后刷新父界面
+                                });
                             }
                         })
                         return false;

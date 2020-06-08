@@ -27,9 +27,17 @@ public class OrderController {
      * 查询订单信息
      */
     @RequestMapping("/queryOrder")
-    public String queryOrder(HttpServletRequest request, HttpServletResponse response,
-                            OrderInfo orderInfo, String page, String limit){
-        ResultData resultData =  orderService.queryOrderInfo(orderInfo, Integer.parseInt(page), Integer.parseInt(limit));
+    public String queryOrder(String companyName, String page, String limit){
+        ResultData resultData =  orderService.queryOrderInfo(companyName, Integer.parseInt(page), Integer.parseInt(limit));
+        return JSON.toJSONString(resultData);
+    }
+
+    /*
+     * 删除订单信息
+     */
+    @RequestMapping("/deleteOrder")
+    public String deleteOrder(String idList){
+        ResultData resultData = orderService.deleteOrder(idList);
         return JSON.toJSONString(resultData);
     }
 }

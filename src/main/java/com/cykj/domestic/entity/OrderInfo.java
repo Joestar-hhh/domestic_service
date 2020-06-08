@@ -24,4 +24,10 @@ public class OrderInfo {
   private String description;
   private String phone;
 
+  private String userName;
+  private String staffName;
+  private String typeName;
+  private String comName;
+  private String stateComName;
+
 }

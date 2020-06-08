@@ -6,8 +6,9 @@
     padding: 0;
 }
 .layui-table-view{
-    width: 98%;
-    margin: 20px auto;
+    /*width: 98%;*/
+    /*margin: 20px auto;*/
+    /*display: inline-block;*/
 }
 .formbtn{
     margin: 15px 40px;

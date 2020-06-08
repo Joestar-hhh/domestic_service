@@ -6,5 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public interface OrderService {
 
-    ResultData queryOrderInfo(OrderInfo orderInfo, int page, int limit);
+    ResultData queryOrderInfo(String companyName, int page, int limit);
+
+    ResultData deleteOrder(String idList);
 }
