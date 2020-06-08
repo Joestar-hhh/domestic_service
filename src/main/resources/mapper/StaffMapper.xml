@@ -25,6 +25,7 @@
         UPDATE tb_staff SET STATE = '禁用' WHERE id = #{id}
     </update>
 
+
     <select id="checkStaff" parameterType="com.cykj.domestic.entity.Staff" resultType="com.cykj.domestic.entity.Staff">
         SELECT * FROM tb_staff where id = #{id}
     </select>
