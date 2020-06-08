@@ -5,15 +5,35 @@
 <mapper namespace="com.cykj.domestic.mapper.CompanyMapper">
 
     <!--    平台端区域列表-->
-    <select id="queryRegion" parameterType="com.cykj.domestic.entity.Company" resultType="com.cykj.domestic.entity.Company">
-             SELECT B.region region,COUNT(A.region_id)regionId,MAX(A.join_time)joinTime
-             FROM tb_region B LEFT JOIN tb_company A on A.region_id =B.id GROUP BY B.region LIMIT ${start},${pageSize};
+    <select id="queryRegion" parameterType="com.cykj.domestic.entity.Company"
+            resultType="com.cykj.domestic.entity.Company">
+             SELECT B.region region,COUNT(A.region_id)regioncount,B.id regionId,MAX(A.join_time)joinTime
+             FROM tb_region B LEFT JOIN tb_company A on A.region_id =B.id GROUP BY B.id LIMIT #{start},#{pageSize};
     </select>
 
     <select id="RegionCount" resultType="int" parameterType="com.cykj.domestic.entity.Company">
         select count(D.C) from
              (SELECT B.region,COUNT(*)C
-                  FROM tb_region B LEFT JOIN tb_company A on A.region_id =B.id GROUP BY B.region)D;
+                  FROM tb_region B LEFT JOIN tb_company A on A.region_id =B.id GROUP BY B.id)D;
+    </select>
+
+<!--    删除区域-->
+    <delete id="deleteRegion" parameterType="java.lang.String">
+                DELETE FROM tb_region WHERE region=#{region}
+    </delete>
+<!--    查询区域是否 存在-->
+    <select id="selectRegionPresence" parameterType="java.lang.String" resultType="com.cykj.domestic.entity.Region">
+                     SELECT * FROM tb_region WHERE region=#{region}
+    </select>
+
+<!--    添加区域-->
+    <insert id="insertRegion" parameterType="java.lang.String" >
+         INSERT INTO tb_region(region)VALUES(#{region})
+    </insert>
+
+    <!--    根据地区查看平台详情-->
+    <select id="queryRegionCompany" parameterType="java.lang.String" resultType="com.cykj.domestic.entity.Company">
+                    SELECT * FROM tb_company WHERE region_id=#{regionId}
     </select>
 
 </mapper>

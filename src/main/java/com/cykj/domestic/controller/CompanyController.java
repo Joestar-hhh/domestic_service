@@ -1,8 +1,10 @@
 package com.cykj.domestic.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.cykj.domestic.entity.Map;
 import com.cykj.domestic.service.CompanySrevice;
 import com.cykj.domestic.util.ResultData;
+import jdk.nashorn.internal.ir.RuntimeNode;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +22,7 @@ public class CompanyController {
     public CompanySrevice companySrevice;
 
 
+    //区域列表
     @ResponseBody
     @RequestMapping(value = "/queryRegion")
     public String queryRegion(HttpServletResponse response, HttpServletRequest request, String page, String limit) {
@@ -27,5 +30,37 @@ public class CompanyController {
         return JSON.toJSONString(resultData);
     }
 
+    //删除区域
+    @ResponseBody
+    @RequestMapping(value = "/deleteRegion")
+    public String deleteRegion(HttpServletRequest request, HttpServletResponse response) {
+        String region = request.getParameter("region");
+        System.out.println(region);
+        ResultData resultData = companySrevice.deleteRegion(region);
+        return JSON.toJSONString(resultData);
+    }
+
+    //增加区域
+    @ResponseBody
+    @RequestMapping(value = "/insertRegion")
+    public String insertRegion(HttpServletRequest request, HttpServletResponse response) {
+        String firstLevelRegion = request.getParameter("firstLevelRegion");
+        String secondaryZone = request.getParameter("secondaryZone");
+        String region = firstLevelRegion + secondaryZone;
+        System.out.println(region);
+        ResultData resultData = companySrevice.selectRegionPresence(region);
+        return JSON.toJSONString(resultData);
+    }
+
+
+    //    根据地区查看平台详情
+    @ResponseBody
+    @RequestMapping(value = "/queryRegionCompany")
+    public String queryRegionCompany(HttpServletRequest request,HttpServletResponse response) {
+        String regionId=request.getParameter("regionId");
+        System.out.println("地区id"+regionId);
+        ResultData resultData = companySrevice.queryRegionCompany(regionId);
+        return JSON.toJSONString(resultData);
+    }
 
 }

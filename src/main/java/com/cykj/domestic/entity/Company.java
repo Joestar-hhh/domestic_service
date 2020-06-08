@@ -18,6 +18,7 @@ public class Company {
     private String materialRelationId;
     private String companyProfile;
     private int regionId;
+    private int regioncount;
     private String region;
 
 }
