@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cykj.domestic.mapper.CompanyMangeMapper">
+
+    <!--家政公司管理端列表-->
+    <select id="queryCompany" parameterType="com.cykj.domestic.entity.Company" resultType="com.cykj.domestic.entity.Company">
+             select C.*,T.type_name typeName from tb_company C,tb_service_relation R,tb_service_type T where C.id=R.company_id and R.service_type_id=T.id
+              LIMIT ${start},${pageSize};
+    </select>
+
+    <select id="CompanyCount" resultType="int" parameterType="com.cykj.domestic.entity.Company">
+         select count(*) from tb_company;
+    </select>
+
+<!--    入驻审核-->
+    <update id="checkJoin" parameterType="com.cykj.domestic.entity.Company">
+        update tb_company set state = '审核通过' where id = #{id}
+    </update>
+
+</mapper>
