@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cykj.domestic.mapper.MenuMapper">
+
+    <select id="queryList" resultType="com.cykj.domestic.entity.Menu">
+        select menuo.menu_name parent_name,menus.id,menus.parent_id,menus.menu_name title,menus.menu_path herf from tb_menu menuo
+        INNER JOIN tb_menu menus on menus.parent_id = menuo.id
+    </select>
+
+</mapper>
