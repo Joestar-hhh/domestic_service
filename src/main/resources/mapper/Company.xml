@@ -6,7 +6,7 @@
 
     <!--    平台端区域列表-->
     <select id="queryRegion" parameterType="com.cykj.domestic.entity.Company" resultType="com.cykj.domestic.entity.Company">
-             SELECT B.region region,COUNT(B.region)regionId,MAX(A.join_time)joinTime
+             SELECT B.region region,COUNT(A.region_id)regionId,MAX(A.join_time)joinTime
              FROM tb_region B LEFT JOIN tb_company A on A.region_id =B.id GROUP BY B.region LIMIT ${start},${pageSize};
     </select>
 
