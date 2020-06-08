@@ -1,7 +1,9 @@
 package com.cykj.domestic.mapper;
 
 
+import com.cykj.domestic.entity.Region;
 import com.cykj.domestic.entity.Staff;
+import com.cykj.domestic.util.ResultData;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -14,10 +16,10 @@ import java.util.List;
 public interface StaffMapper {
 
     //查询列表
-    List<Staff> queryStaff(@Param("e") Staff staff, @Param("start") int start, @Param("pageSize") int pageSize);
+    List<Staff> queryStaff(@Param("e") Staff staff, @Param("start") int start, @Param("pageSize") int pageSize, @Param("region") String region);
 
     //查询总数
-    int queryStaffCount(@Param("e") Staff staff);
+    int queryStaffCount(@Param("e") Staff staff, @Param("region") String region);
 
     //启用状态
     int enableState(int id);
@@ -27,4 +29,10 @@ public interface StaffMapper {
 
     //查看详情
     List<Staff> checkStaff(int id);
+
+    //区域列表
+    List<Region> regionList();
+
+//    //根据区域查询数据
+//    List<Staff> queryRegion(@Param("e") Staff staff, @Param("start") int start, @Param("pageSize") int pageSize,@Param("region") String region);
 }

@@ -1,5 +1,6 @@
 package com.cykj.domestic.service.impl;
 
+import com.cykj.domestic.entity.Region;
 import com.cykj.domestic.entity.Staff;
 import com.cykj.domestic.mapper.StaffMapper;
 import com.cykj.domestic.service.StaffService;
@@ -16,10 +17,10 @@ public class StaffServiceImpl implements StaffService {
     private StaffMapper staffMapper;
 
     @Override
-    public ResultData queryStaffList(Staff staff, int page, int limit) {
+    public ResultData queryStaffList(Staff staff, int page, int limit, String region) {
 
-        List<Staff> list = staffMapper.queryStaff(staff, (page - 1) * limit, limit);
-        int count = staffMapper.queryStaffCount(staff);
+        List<Staff> list = staffMapper.queryStaff(staff, (page - 1) * limit, limit, region);
+        int count = staffMapper.queryStaffCount(staff,region);
 
         ResultData resultData = new ResultData();
         resultData.setCode(0);
@@ -47,4 +48,25 @@ public class StaffServiceImpl implements StaffService {
         List<Staff> list = staffMapper.checkStaff(id);
         return list;
     }
+
+    @Override
+    public ResultData regionList() {
+        List<Region> list = staffMapper.regionList();
+        ResultData resultData = new ResultData();
+        resultData.setData(list);
+        return resultData;
+    }
+
+//    @Override
+//    public ResultData queryRegion(Staff staff, int page, int limit, String region) {
+//        List<Staff> list = staffMapper.queryRegion(staff, (page - 1) * limit, limit, region);
+//        int count = staffMapper.queryStaffCount(staff);
+//
+//        ResultData resultData = new ResultData();
+//        resultData.setCode(0);
+//        resultData.setMsg("");
+//        resultData.setCount(count);
+//        resultData.setData(list);
+//        return resultData;
+//    }
 }

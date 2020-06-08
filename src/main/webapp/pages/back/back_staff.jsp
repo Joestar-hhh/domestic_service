@@ -13,7 +13,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>back_counselor</title>
+    <title>员工管理</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -21,6 +21,21 @@
     <link rel="stylesheet" href="<%=path%>/static/layui/css/layui.css">
     <script type="text/javascript" src="<%=path%>/static/layui/layui.js"></script>
     <link rel="stylesheet" href="<%=path%>/static/css/back_page.css">
+
+    <style>
+        .layui-input-block {
+            margin-left: 10px;
+        }
+
+        #seldiv .layui-input-block {
+            width: 25%;
+        }
+
+        #seldiv .layui-form-select dl {
+
+            min-width: 75%;
+        }
+    </style>
 </head>
 <body>
 
@@ -28,11 +43,14 @@
 
 <script type="text/html" id="toolbarDemo">
 
-    <div class="layui-form-item" id="querydiv">
-        <div class="layui-btn-container">
-            <button class="layui-btn layui-btn-sm" lay-event="deletetype">删除</button>
-            <button class="layui-btn layui-btn-sm" lay-event="insertadmin">添加</button>
+    <div id="seldiv">
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <select name="regionlist" id="regionlist" lay-verify="required">
+                </select>
+            </div>
         </div>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="queryRegion">查询</a>
     </div>
 </script>
 
@@ -79,12 +97,30 @@
     </div>
 </form>
 
-
-<%--<script src="<%=path%>/back/js/layui.js" charset="utf-8"></script>--%>
 <script>
+    var region;
+
     layui.use('table', function () {
         var table = layui.table;
         var $ = layui.jquery;
+
+        // 下拉框列表
+        $.ajax({
+            type: 'POST',
+            url: '/staffController/regionList',
+            dataType: 'JSON',
+            success: function (msg) {
+                $("#regionlist").html("<option value=''></option>");
+                $.each(msg.data, function (i, item) {
+                    $("#regionlist").append("<option value='" + item.id + "'>" + item.region + "</option>")
+                });
+                layui.use('form', function () {
+                    var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+                    form.render();
+                });
+            }
+        });
+
         table.render({
             elem: '#test'
             , url: '/staffController/queryStaff'
@@ -115,14 +151,43 @@
         //头工具栏事件
         table.on('toolbar(test)', function (obj) {
             var checkStatus = table.checkStatus(obj.config.id);
-            switch (obj.event) {
-                case 'deletetype':
 
+            // 获取下拉框的值
+            $(".layui-anim-upbit>dd").each(function () {
+                if ($(this).attr('class') == "layui-this") {
+                    region = $(this).html();
+                }
+            })
+
+            switch (obj.event) {
+                case 'queryRegion':
+                    table.reload('test', {
+                        url: '/staffController/queryStaff'
+                        // ,methods:"post"
+                        , page: {
+                            curr: 1 //重新从第 1 页开始
+                        }
+                        , where: {
+                            region: region
+                        }
+                    });
+                    //查询完以后将下拉框的数据再次获取一次
+                    $.ajax({
+                        type: 'POST',
+                        url: '/staffController/regionList',
+                        dataType: 'JSON',
+                        success: function (msg) {
+                            $("#regionlist").html("<option value=''></option>");
+                            $.each(msg.data, function (i, item) {
+                                $("#regionlist").append("<option value='" + item.id + "'>" + item.region + "</option>")
+                            });
+                            layui.use('form', function () {
+                                var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+                                form.render();
+                            });
+                        }
+                    });
                     break;
-                //自定义头工具栏右侧图标 - 提示
-                // case 'LAYTABLE_TIPS':
-                //     layer.alert('这是工具栏右侧自定义的一个图标按钮');
-                //     break;
             }
             ;
         });

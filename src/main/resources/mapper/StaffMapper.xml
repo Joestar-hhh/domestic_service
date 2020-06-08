@@ -8,13 +8,23 @@
         SELECT S.*,R.region FROM tb_staff S
         LEFT JOIN tb_region R
          ON S.region_id = R.id
-<!--        <where>-->
-<!--            <if test=""></if>-->
-<!--        </where>-->
+        <where>
+            <if test="region != null and region != ''">
+                R.region = #{e.region}
+            </if>
+        </where>
         ORDER BY id limit #{start},#{pageSize}
     </select>
+
     <select id="queryStaffCount" parameterType="com.cykj.domestic.entity.Staff" resultType="int">
-        SELECT count(id) FROM tb_staff
+        SELECT count(s.id) FROM tb_staff s
+        left join tb_region r
+        on s.region_id = r.id
+        <where>
+            <if test="region != null and region != ''">
+                region = #{e.region}
+            </if>
+        </where>
     </select>
 
     <update id="enableState" parameterType="com.cykj.domestic.entity.Staff">
@@ -25,8 +35,18 @@
         UPDATE tb_staff SET STATE = '禁用' WHERE id = #{id}
     </update>
 
-
     <select id="checkStaff" parameterType="com.cykj.domestic.entity.Staff" resultType="com.cykj.domestic.entity.Staff">
         SELECT * FROM tb_staff where id = #{id}
     </select>
+
+    <select id="regionList" parameterType="com.cykj.domestic.entity.Region" resultType="com.cykj.domestic.entity.Region">
+        SELECT * FROM tb_region
+    </select>
+
+<!--    <select id="queryRegion" parameterType="com.cykj.domestic.entity.Staff" resultType="com.cykj.domestic.entity.Staff">-->
+<!--        SELECT S.* FROM STAFF S-->
+<!--        LEFT JOIN REGION R-->
+<!--        ON S.region_id = R.id-->
+<!--        WHERE R.region = #{region}-->
+<!--    </select>-->
 </mapper>

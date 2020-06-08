@@ -2,6 +2,7 @@ package com.cykj.domestic.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.cykj.domestic.entity.Counselor;
+import com.cykj.domestic.entity.Region;
 import com.cykj.domestic.entity.Staff;
 import com.cykj.domestic.service.StaffService;
 import com.cykj.domestic.util.ResultData;
@@ -23,9 +24,8 @@ public class StaffController {
     //查询顾问管理信息--
     @RequestMapping("/queryStaff")
     public String queryCounselor(HttpServletRequest request, HttpServletResponse response,
-                                 Staff staff, String page, String limit) {
-        ResultData resultData = staffService.queryStaffList(staff, Integer.parseInt(page), Integer.parseInt(limit));
-        System.out.println("查询列表结果：" + JSON.toJSONString(resultData));
+                                 Staff staff, String page, String limit ,String region) {
+        ResultData resultData = staffService.queryStaffList(staff, Integer.parseInt(page), Integer.parseInt(limit) ,region);
         return JSON.toJSONString(resultData);
     }
 
@@ -47,7 +47,22 @@ public class StaffController {
     @RequestMapping("/checkStaff")
     public String checkStaff(HttpServletRequest request, HttpServletResponse response, int id) {
         List<Staff> list = staffService.checkStaff(id);
-        System.out.println(JSON.toJSONString(list));
         return JSON.toJSONString(list);
     }
+
+    //区域列表
+    @RequestMapping("/regionList")
+    public String regionList(HttpServletRequest request, HttpServletResponse response) {
+        ResultData resultData = staffService.regionList();
+        return JSON.toJSONString(resultData);
+    }
+
+//    //根据区域查询数据
+//    @RequestMapping("/queryRegion")
+//    public String queryRegion(HttpServletRequest request, HttpServletResponse response,
+//                              Staff staff, String page, String limit, String region) {
+//        ResultData resultData = staffService.queryRegion(staff, Integer.parseInt(page), Integer.parseInt(limit), region);
+//        System.out.println("查询：" + JSON.toJSONString(resultData));
+//        return JSON.toJSONString(resultData);
+//    }
 }
