@@ -138,6 +138,7 @@
                         ,title: '添加服务类型'
                         ,area: ['500px','400px']
                         ,shade: [0.8, '#314949'] //遮罩
+                        
                         ,resize: false //不可拉伸
                         ,content: $('#userinfoform') //内容
                         ,btn: 0
