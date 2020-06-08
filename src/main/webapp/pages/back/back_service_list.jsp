@@ -74,6 +74,40 @@
     </div>
 </form>
 
+
+<%--服务列表查看详情--%>
+<form class="layui-form" id="serviceListView" action="" style="display: none">
+    <div class="layui-form-item">
+        <label class="layui-form-label">服务名：</label>
+        <input type="text" id="seeTypeName" readonly="readonly">
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">服务描述：</label>
+        <input type="text" id="seeDescription" readonly="readonly">
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">所属服务类别：</label>
+        <input type="text" id="seeServiceTypeId" readonly="readonly">
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">更新时间：</label>
+        <input type="text" id="seeUpdateTime" readonly="readonly">
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">地址：</label>
+        <input type="text" id="seePath" readonly="readonly">
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">服务单数：</label>
+        <input type="text" id="seeOrderNum" readonly="readonly">
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">单价：</label>
+        <input type="text" id="seeUnitPrice" readonly="readonly">
+    </div>
+</form>
+
+
 <script>
     layui.use('table', function(){
         var table = layui.table;
@@ -86,11 +120,11 @@
             ,title: '用户数据表'
             ,cols: [[
                 {type: 'checkbox', fixed: 'left'}
-                ,{field:'id', title:'ID', fixed: 'left', unresize: true, sort: true}
-                ,{field:'typeName', title:'服务名', edit: 'text'}
-                ,{field:'description', title:'服务描述', edit: 'text'}
-                ,{field:'serviceCategory', title:'所属服务类别', edit: 'text'}
-                ,{field:'updateTime', title:'更新时间', edit: 'text', sort: true}
+                ,{field:'id', title:'ID',sort: true}
+                ,{field:'typeName', title:'服务名'}
+                ,{field:'description', title:'服务描述',}
+                ,{field:'serviceCategory', title:'所属服务类别',}
+                ,{field:'updateTime', title:'更新时间', sort: true}
                 // ,{field:'city', title:'城市', width:100}
                 // ,{field:'sign', title:'签名'}
                 // ,{field:'experience', title:'积分', width:80, sort: true}
@@ -186,6 +220,46 @@
             //查看详情
             if(obj.event === 'viewDetails'){
 
+                $.ajax({
+                    type: 'POST',
+                    url: '/serviceListContrller/serviceListView',
+                    dataType: 'JSON',
+                    data: data,
+                    success: function (msg) {
+                        $("#seeTypeName").val(msg.data[0].typeName);
+                        $("#seeDescription").val(msg.data[0].description);
+                        $("#seeServiceTypeId").val(msg.data[0].serviceCategory);
+                        $("#seeUpdateTime").val(msg.data[0].updateTime);
+                        $("#seePath").val(msg.data[0].path);
+                        $("#seeOrderNum").val(msg.data[0].orderNum);
+                        $("#seeUnitPrice").val(msg.data[0].unitPrice);
+                    }
+                });
+
+                var adminId = data.id;
+                var layerinsert = layer.open({
+                    type: 1
+                    ,title: '查看详情'
+                    ,area: ['500px','400px']
+                    ,shade: [0.8, '#314949'] //遮罩
+                    ,resize: false //不可拉伸
+                    ,content: $('#serviceListView') //内容
+                    ,btn: 0
+                    ,cancel: function(index, layero){
+                        if(confirm('确定要关闭么')){ //只有当点击confirm框的确定时，该层才会关闭
+                            // $('#userinfoform').css("display","none");
+                            // $('#roleName').val("");
+                            // $("#roleDescribe").val("");
+                            layer.close(index);
+                        }
+                        return false;
+                    }
+                    //如果设定了yes回调，需进行手工关闭
+                });
+
+
+
+
             }
             //删除服务类型
            else if(obj.event === 'del'){
@@ -230,7 +304,7 @@
                 var adminId = data.id;
                 var layerinsert = layer.open({
                     type: 1
-                    ,title: '修改人员'
+                    ,title: '修改服务类型'
                     ,area: ['500px','400px']
                     ,shade: [0.8, '#314949'] //遮罩
                     ,resize: false //不可拉伸

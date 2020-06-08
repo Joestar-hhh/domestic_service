@@ -49,4 +49,14 @@ public class ServiceTypeContrller {
         return JSON.toJSONString(resultData);
     }
 
+
+    //查询详情
+    @RequestMapping("/serviceTypeView")
+    public String serviceListView(HttpServletRequest request, HttpServletResponse response,int id) {
+        ResultData resultData = serviceTypeService.serviceTypeView(id);
+        return JSON.toJSONString(resultData);
+    }
+
+
+
 }

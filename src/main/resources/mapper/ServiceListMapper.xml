@@ -35,4 +35,10 @@
        select * from tb_service_type
     </select>
 
+
+    <select id="serviceListView" resultType="com.cykj.domestic.entity.TbService">
+       select a.* ,b.type_name serviceCategory from tb_service a INNER JOIN  tb_service_type b on b.id=a.service_type_id where a.id = #{id}
+    </select>
+
+
 </mapper>

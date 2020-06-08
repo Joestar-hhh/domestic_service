@@ -1,6 +1,7 @@
 package com.cykj.domestic.service.impl;
 
 import com.cykj.domestic.entity.ServiceType;
+import com.cykj.domestic.entity.TbService;
 import com.cykj.domestic.mapper.ServiceTypeMapper;
 import com.cykj.domestic.service.ServiceTypeService;
 import com.cykj.domestic.util.ResultData;
@@ -75,6 +76,15 @@ public class ServiceTypeImpl implements ServiceTypeService {
             resultData.setCode(1);
             resultData.setMsg("删除失败");
         }
+        return resultData;
+    }
+
+    @Override
+    public ResultData serviceTypeView(int id) {
+        List<ServiceType> list = serviceTypeMapper.serviceTypeView(id);
+        System.out.println("list_______"+list);
+        ResultData resultData = new ResultData();
+        resultData.setData(list);
         return resultData;
     }
 }

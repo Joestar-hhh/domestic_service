@@ -52,10 +52,21 @@ public class ServiceListContrller {
     }
 
     //查询所有服务类型
-   @RequestMapping(value = "/selectService")
+   @RequestMapping("/selectService")
     public String selectService(HttpServletRequest request, HttpServletResponse response) {
         ResultData resultData = serviceListService.selectService();
         return JSON.toJSONString(resultData);
     }
+
+
+    //查询详情
+    @RequestMapping("/serviceListView")
+    public String serviceListView(HttpServletRequest request, HttpServletResponse response,int id) {
+        ResultData resultData = serviceListService.serviceListView(id);
+        return JSON.toJSONString(resultData);
+    }
+
+
+
 
 }

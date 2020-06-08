@@ -2,6 +2,7 @@ package com.cykj.domestic.mapper;
 
 
 import com.cykj.domestic.entity.ServiceType;
+import com.cykj.domestic.entity.TbService;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -16,5 +17,6 @@ public interface ServiceTypeMapper {
     List<ServiceType> selectList(@Param("e") ServiceType serviceType, @Param("start") int start, @Param("pageSize") int pageSize);
     int selectListCount(@Param("e") ServiceType serviceType);
     int deleteServiceType(int id);
+    List<ServiceType> serviceTypeView(int id);
 
 }

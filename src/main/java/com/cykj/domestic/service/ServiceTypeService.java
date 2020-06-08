@@ -9,4 +9,5 @@ public interface ServiceTypeService {
     ResultData addServiceType(ServiceType serviceType);
     ResultData updateServiceType(ServiceType serviceType);
     ResultData deleteServiceType(int id);
+    ResultData serviceTypeView(int id);
 }

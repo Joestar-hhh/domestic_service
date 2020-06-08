@@ -25,6 +25,8 @@ public interface ServiceListMapper {
     int selectListCount(@Param("e") TbService tbService);
     //查找所有服务类型
     List<ServiceType> selectService();
+    //服务列表查看详情
+    List<TbService> serviceListView(int id);
 
 
 }

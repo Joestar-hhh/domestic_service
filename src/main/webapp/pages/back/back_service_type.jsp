@@ -67,6 +67,23 @@
     </div>
 </form>
 
+<%--服务类型查看详情--%>
+<form class="layui-form" id="serviceListView" action="" style="display: none">
+    <div class="layui-form-item">
+        <label class="layui-form-label">服务类别名：</label>
+        <input type="text" id="seeTypeName" readonly="readonly">
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">服务类别描述：</label>
+        <input type="text" id="seeDescription" readonly="readonly">
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">更新时间：</label>
+        <input type="text" id="seeUpdateTime" readonly="readonly">
+    </div>
+
+</form>
+
 <script>
     layui.use('table', function(){
         var table = layui.table;
@@ -79,10 +96,10 @@
             ,title: '用户数据表'
             ,cols: [[
                 {type: 'checkbox', fixed: 'left'}
-                ,{field:'id', title:'ID', fixed: 'left', unresize: true, sort: true}
-                ,{field:'typeName', title:'服务类别名', edit: 'text'}
-                ,{field:'description', title:'服务类型描述', edit: 'text'}
-                ,{field:'updateTime', title:'更新时间', edit: 'text', sort: true}
+                ,{field:'id', title:'ID',sort: true}
+                ,{field:'typeName', title:'服务类别名'}
+                ,{field:'description', title:'服务类型描述'}
+                ,{field:'updateTime', title:'更新时间',sort: true}
                 // ,{field:'city', title:'城市', width:100}
                 // ,{field:'sign', title:'签名'}
                 // ,{field:'experience', title:'积分', width:80, sort: true}
@@ -154,47 +171,6 @@
                             return false;
                         });
                     });
-
-
-
-
-
-
-                    // var layerinsert = layer.open({
-                    //     type: 1
-                    //     ,title: '添加服务类型'
-                    //     ,area: ['500px','400px']
-                    //     ,shade: [0.8, '#314949'] //遮罩
-                    //     ,resize: false //不可拉伸
-                    //     ,content: $('#userinfoform') //内容
-                    //     ,btn: 0
-                    //     //如果设定了yes回调，需进行手工关闭
-                    // });
-                    // layui.use('form', function(){
-                    //     var form = layui.form;
-                    //     form.render();
-                    //     form.on('submit(insertconfirm)', function(data){
-                    //         // layer.alert("ssssssss:"+JSON.stringify(data.field))
-                    //         $.ajax({
-                    //             url:"/serviceTypeContrller/addServiceType",
-                    //             type: "POST",
-                    //             dataType: 'JSON',
-                    //             data: data.field,
-                    //             error: function (msg) {
-                    //                 layer.alert("服务器繁忙");
-                    //             },
-                    //             success: function (msg) {
-                    //                 if (msg.code == "0") {
-                    //                     layer.alert(msg.msg);
-                    //                 } else {
-                    //                     layer.alert(msg.msg);
-                    //                 }
-                    //                 window.location.reload();//修改成功后刷新父界面
-                    //             }
-                    //         });
-                    //         return false;
-                    //     });
-                    // });
                     break;
             }
         });
@@ -204,6 +180,40 @@
             var data = obj.data;
             //查看详情
             if(obj.event === 'viewDetails'){
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/serviceTypeContrller/serviceTypeView',
+                    dataType: 'JSON',
+                    data: data,
+                    success: function (msg) {
+                        $("#seeTypeName").val(msg.data[0].typeName);
+                        $("#seeDescription").val(msg.data[0].description);
+                        $("#seeUpdateTime").val(msg.data[0].updateTime);
+                    }
+                });
+
+                var adminId = data.id;
+                var layerinsert = layer.open({
+                    type: 1
+                    ,title: '查看详情'
+                    ,area: ['500px','400px']
+                    ,shade: [0.8, '#314949'] //遮罩
+                    ,resize: false //不可拉伸
+                    ,content: $('#serviceListView') //内容
+                    ,btn: 0
+                    ,cancel: function(index, layero){
+                        if(confirm('确定要关闭么')){ //只有当点击confirm框的确定时，该层才会关闭
+                            // $('#userinfoform').css("display","none");
+                            // $('#roleName').val("");
+                            // $("#roleDescribe").val("");
+                            layer.close(index);
+                        }
+                        return false;
+                    }
+                    //如果设定了yes回调，需进行手工关闭
+                });
+
 
             }
             //删除服务类型

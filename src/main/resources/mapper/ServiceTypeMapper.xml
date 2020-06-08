@@ -25,4 +25,9 @@
     <select id="selectListCount" resultType="int" parameterType="com.cykj.domestic.entity.ServiceType">
         select count(id) from tb_service_type
     </select>
+
+    <select id="serviceTypeView" resultType="com.cykj.domestic.entity.ServiceType" parameterType="com.cykj.domestic.entity.ServiceType">
+       select * from tb_service_type where id=#{id}
+    </select>
+
 </mapper>

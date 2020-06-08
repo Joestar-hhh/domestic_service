@@ -97,10 +97,20 @@ public class ServiceListImpl implements ServiceListService {
     @Override
     public ResultData selectService() {
         List<ServiceType> list = serviceListMapper.selectService();
-        System.out.println("list_______"+list);
         ResultData resultData = new ResultData();
 //        resultData.setCode(0);
 //        resultData.setMsg("删除成功");
+        resultData.setData(list);
+        return resultData;
+    }
+
+
+    //服务列表查看详情
+    @Override
+    public ResultData serviceListView(int id) {
+        List<TbService> list = serviceListMapper.serviceListView(id);
+        System.out.println("list_______"+list);
+        ResultData resultData = new ResultData();
         resultData.setData(list);
         return resultData;
     }
