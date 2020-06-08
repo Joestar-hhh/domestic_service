@@ -6,7 +6,7 @@ import com.cykj.domestic.util.ResultData;
 
 public interface ServiceTypeService {
     ResultData selectList(ServiceType serviceType, int page, int pageSize);
-    int addServiceType(ServiceType serviceType);
-    int updateServiceType(ServiceType serviceType);
-    int deleteServiceType(int id);
+    ResultData addServiceType(ServiceType serviceType);
+    ResultData updateServiceType(ServiceType serviceType);
+    ResultData deleteServiceType(int id);
 }

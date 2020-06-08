@@ -7,5 +7,5 @@ public class ServiceType {
     private  int id;
     private String typeName;
     private String description;
-    private  String updateTime;
+    private String updateTime;
 }

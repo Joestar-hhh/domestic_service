@@ -24,33 +24,29 @@ public class ServiceTypeContrller {
 
     @RequestMapping("/selectServiceType")
     public String selectServiceType(HttpServletRequest request, HttpServletResponse response, ServiceType serviceType, String page, String limit) {
-        System.out.println("page-----------:"+page+"    ---------:"+ Integer.parseInt(limit));
         ResultData resultData = serviceTypeService.selectList(serviceType, Integer.parseInt(page), Integer.parseInt(limit));
         return JSON.toJSONString(resultData);
     }
 
     @RequestMapping("/addServiceType")
     public String addServiceType(HttpServletRequest request, HttpServletResponse response, ServiceType serviceType) {
-
-        System.out.println("admin-----------"+serviceType);
-        int res=serviceTypeService.addServiceType(serviceType);
-    return String.valueOf(res);
+        ResultData resultData=serviceTypeService.addServiceType(serviceType);
+        return JSON.toJSONString(resultData);
     }
 
 
     @RequestMapping("/updateServiceType")
     public String updateServiceType(HttpServletRequest request, HttpServletResponse response, ServiceType serviceType) {
-        int res=serviceTypeService.updateServiceType(serviceType);
-        return String.valueOf(res);
+        ResultData resultData=serviceTypeService.updateServiceType(serviceType);
+        return JSON.toJSONString(resultData);
     }
 
 
     @RequestMapping("/deleteServiceType")
     public String deleteServiceType(HttpServletRequest request, HttpServletResponse response, String id) {
-        System.out.println("id"+id);
-        int res=serviceTypeService.deleteServiceType(Integer.parseInt(id));
+        ResultData resultData=serviceTypeService.deleteServiceType(Integer.parseInt(id));
 
-        return String.valueOf(res);
+        return JSON.toJSONString(resultData);
     }
 
 }

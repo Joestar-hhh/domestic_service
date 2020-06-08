@@ -28,6 +28,7 @@
         <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
         <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
         <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
+        <button class="layui-btn layui-btn-sm" lay-event="insert">添加</button>
         <link rel="stylesheet" href="<%=path%>/static/css/back_page.css">
 
     </div>
@@ -44,17 +45,17 @@
 
 
 <form class="layui-form" id="userinfoform" action="" style="display: none">
-    <div class="layui-form-item" id="accountdiv">
+    <div class="layui-form-item">
         <label class="layui-form-label">服务类别名：</label>
-        <div class="layui-input-block" id="account_inputdiv">
-            <input type="text" name="acount" id="acount" required lay-verify="required" placeholder="请输入服务类别名" autocomplete="off" class="layui-input">
+        <div class="layui-input-block">
+            <input type="text" name="typeName" id="typeName" required lay-verify="required" placeholder="请输入服务类别名" autocomplete="off" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">服务类型描述：</label>
         <div class="layui-input-block">
-            <input type="text" name="name" id="name" required  lay-verify="required" placeholder="请输入服务类型描述" autocomplete="off" class="layui-input">
+            <input type="text" name="description" id="description" required  lay-verify="required" placeholder="请输入服务类型描述" autocomplete="off" class="layui-input">
         </div>
     </div>
 
@@ -108,40 +109,92 @@
                 case 'isAll':
                     layer.msg(checkStatus.isAll ? '全选': '未全选');
                     break;
-                case 'addServiceType':
+                case 'insert':
                     var layerinsert = layer.open({
                         type: 1
-                        ,title: '添加服务类型'
+                        ,title: '添加角色'
                         ,area: ['500px','400px']
                         ,shade: [0.8, '#314949'] //遮罩
                         ,resize: false //不可拉伸
                         ,content: $('#userinfoform') //内容
                         ,btn: 0
+                        ,cancel: function(index, layero){
+                            if(confirm('确定要关闭么')){ //只有当点击confirm框的确定时，该层才会关闭
+                                // $('#userinfoform').css("display","none");
+                                // $('#roleName').val("");
+                                // $("#roleDescribe").val("");
+                                layer.close(index);
+                            }
+                            return false;
+                        }
                         //如果设定了yes回调，需进行手工关闭
                     });
-                    layui.use('form', function(){
+                    layui.use('form', function() {
                         var form = layui.form;
                         form.render();
-                        form.on('submit(insertconfirm)', function(data){
-                            // data.field.dealtype = "insertadmin"
-                            // layer.alert("角色id:"+data.field.roleId)
-                            // data.field.roleId = ""
-                            layer.alert("ssssssss:"+data.field)
+                        form.on('submit(insertconfirm)', function (data) {
                             $.ajax({
-                                url:"/domestic_service/serviceTypeContrller/addServiceType",
-                                type: "POST",
+                                type: 'POST',
+                                url: '/serviceTypeContrller/addServiceType',
+                                dataType: 'JSON',
                                 data: data.field,
-                                error: function (msg) {
-                                    layer.alert("服务器繁忙");
-                                },
                                 success: function (msg) {
-                                    layer.alert("添加成功");
-                                    layer.close(layerinsert);
+                                    if (msg.code == "0") {
+                                        alert(msg.msg);
+                                        layer.close(layerinsert);
+                                        $('#typeName').val("");
+                                        $("#description").val("");
+                                        window.parent.location.reload();//修改成功后刷新父界面
+                                    } else {
+                                       alert(msg.msg);
+                                    }
                                 }
                             });
+
                             return false;
                         });
                     });
+
+
+
+
+
+
+                    // var layerinsert = layer.open({
+                    //     type: 1
+                    //     ,title: '添加服务类型'
+                    //     ,area: ['500px','400px']
+                    //     ,shade: [0.8, '#314949'] //遮罩
+                    //     ,resize: false //不可拉伸
+                    //     ,content: $('#userinfoform') //内容
+                    //     ,btn: 0
+                    //     //如果设定了yes回调，需进行手工关闭
+                    // });
+                    // layui.use('form', function(){
+                    //     var form = layui.form;
+                    //     form.render();
+                    //     form.on('submit(insertconfirm)', function(data){
+                    //         // layer.alert("ssssssss:"+JSON.stringify(data.field))
+                    //         $.ajax({
+                    //             url:"/serviceTypeContrller/addServiceType",
+                    //             type: "POST",
+                    //             dataType: 'JSON',
+                    //             data: data.field,
+                    //             error: function (msg) {
+                    //                 layer.alert("服务器繁忙");
+                    //             },
+                    //             success: function (msg) {
+                    //                 if (msg.code == "0") {
+                    //                     layer.alert(msg.msg);
+                    //                 } else {
+                    //                     layer.alert(msg.msg);
+                    //                 }
+                    //                 window.location.reload();//修改成功后刷新父界面
+                    //             }
+                    //         });
+                    //         return false;
+                    //     });
+                    // });
                     break;
             }
         });
@@ -161,15 +214,17 @@
                     $.ajax({
                         url:"/serviceTypeContrller/deleteServiceType",
                         type: "POST",
+                        dataType: 'JSON',
                         data: data,
                         error: function (msg) {
-                            layer.alert("服务器繁忙");
+                           alert("服务器繁忙");
                         },
                         success: function (msg) {
-                            layer.alert("删除成功");
+                           alert(msg.msg);
+                           window.parent.location.reload();//修改成功后刷新父界面
                         }
                     });
-                    window.location.reload();
+
                     return false;
                 });
             }
@@ -190,42 +245,28 @@
                     var form = layui.form;
                     form.render();
                     form.on('submit(insertconfirm)', function(data){
-                        // data.field.dealtype = "insertadmin"
-                        // layer.alert("角色id:"+data.field.roleId)
-                        // data.field.roleId = ""
-                        layer.alert("ssssssss:"+adminId)
+                        // layer.alert("ssssssss:"+adminId)
                         data.field.id = adminId;
                         $.ajax({
                             url:"/serviceTypeContrller/updateServiceType",
                             type: "POST",
+                            dataType: 'JSON',
                             data: data.field,
                             error: function (msg) {
-                                layer.alert("服务器繁忙");
+                               alert("服务器繁忙");
                             },
                             success: function (msg) {
-                                layer.alert("修改成功");
+                               alert(msg.msg);
                                 layer.close(layerinsert);
-                                window.location.reload();
+                                window.parent.location.reload();//修改成功后刷新父界面
                             }
                         });
                         return false;
                     });
                 });
-
-
-                // layer.prompt({
-                //     formType: 2
-                //     ,value: data.email
-                // }, function(value, index){
-                //     obj.update({
-                //         email: value
-                //     });
-                //     layer.close(index);
-                // });
             }
         });
     });
 </script>
 </body>
-
 </html>

@@ -5,24 +5,29 @@
 
 <mapper namespace="com.cykj.domestic.mapper.ServiceListMapper">
 
-<!--    <insert id="addServiceList" parameterType="com.cykj.domestic.entity.TbService">-->
-<!--        insert into tb_service_type(type_name,description,update_name) value (#{type_name},#{description},#{update_name})-->
-<!--    </insert>-->
+    <insert id="addServiceList" parameterType="com.cykj.domestic.entity.TbService">
+      INSERT into tb_service(type_name,description,service_type_id)VALUES(#{typeName},#{description},#{serviceCategory});
+    </insert>
 
 <!--    <update id="updateServiceList" parameterType="com.cykj.domestic.entity.TbService">-->
 <!--     update tb_service_type set type_name=#{type_name},description=#{description},update_name=#{update_name} where id=#{id}-->
 <!--    </update>-->
 
-<!--    <delete id="deleteServiceList">-->
-<!--         delete from tb_service_type where id=#{id}-->
-<!--    </delete>-->
+    <delete id="deleteServiceList">
+         delete from tb_service where id=#{id}
+    </delete>
 
     <select id="selectList" resultType="com.cykj.domestic.entity.TbService" parameterType="com.cykj.domestic.entity.TbService">
-        select a.* ,b.type_name serviceCategory from tb_service a INNER JOIN  tb_service_type b
+         select a.* ,b.type_name serviceCategory from tb_service a LEFT JOIN  tb_service_type b on b.id=a.service_type_id
         limit #{start},#{pageSize}
     </select>
 
     <select id="selectListCount" resultType="int" parameterType="com.cykj.domestic.entity.TbService">
-       select count(A.id) from (select a.* ,b.type_name serviceCategory from tb_service a INNER JOIN  tb_service_type b)A
+       select count(A.id) from ( select a.* ,b.type_name serviceCategory from tb_service a LEFT JOIN  tb_service_type b on b.id=a.service_type_id)A
     </select>
+
+    <select id="selectService" resultType="com.cykj.domestic.entity.ServiceType">
+       select * from tb_service_type
+    </select>
+
 </mapper>

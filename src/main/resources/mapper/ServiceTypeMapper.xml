@@ -6,11 +6,11 @@
 <mapper namespace="com.cykj.domestic.mapper.ServiceTypeMapper">
 
     <insert id="addServiceType" parameterType="com.cykj.domestic.entity.ServiceType">
-        insert into tb_service_type(type_name,description,update_name) value (#{type_name},#{description},#{update_name})
+        insert into tb_service_type(type_name,description) values (#{typeName},#{description})
     </insert>
 
     <update id="updateServiceType" parameterType="com.cykj.domestic.entity.ServiceType">
-     update tb_service_type set type_name=#{type_name},description=#{description},update_name=#{update_name} where id=#{id}
+     update tb_service_type set type_name=#{typeName},description=#{description} where id=#{id}
     </update>
 
     <delete id="deleteServiceType">

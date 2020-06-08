@@ -8,6 +8,7 @@ import com.cykj.domestic.service.ServiceTypeService;
 import com.cykj.domestic.util.ResultData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,36 +21,41 @@ public class ServiceListContrller {
     @Autowired
     private ServiceListService serviceListService;
 
-
+//查询所有服务列表数据
     @RequestMapping("/selectServiceList")
     public String selectServiceList(HttpServletRequest request, HttpServletResponse response, TbService tbService, String page, String limit) {
-        System.out.println("page-----------:"+page+"    ---------:"+ Integer.parseInt(limit));
         ResultData resultData = serviceListService.selectList(tbService, Integer.parseInt(page), Integer.parseInt(limit));
         return JSON.toJSONString(resultData);
     }
 
+//添加服务列表数据
     @RequestMapping("/addServiceList")
     public String addServiceList(HttpServletRequest request, HttpServletResponse response, TbService tbService) {
-
-        System.out.println("admin-----------"+tbService);
-        int res=serviceListService.addServicelist(tbService);
-    return String.valueOf(res);
+        ResultData resultData=serviceListService.addServicelist(tbService);
+    return JSON.toJSONString(resultData);
     }
+////
+////
+////    @RequestMapping("/updateServiceList")
+////    public String updateServiceType(HttpServletRequest request, HttpServletResponse response, TbService tbService) {
+////        ResultData resultData=serviceListService.updateServiceList(tbService);
+////        return JSON.toJSONString(resultData);
+////    }
+////
+////
 
-
-    @RequestMapping("/updateServiceList")
-    public String updateServiceType(HttpServletRequest request, HttpServletResponse response, TbService tbService) {
-        int res=serviceListService.updateServiceList(tbService);
-        return String.valueOf(res);
-    }
-
-
+    //删除服务列表数据
     @RequestMapping("/deleteServiceList")
-    public String deleteServiceType(HttpServletRequest request, HttpServletResponse response, String id) {
-        System.out.println("id"+id);
-        int res=serviceListService.deleteServiceList(Integer.parseInt(id));
+    public String deleteServiceType(HttpServletRequest request, HttpServletResponse response,int id) {
+        ResultData resultData=serviceListService.deleteServiceList(id);
+        return JSON.toJSONString(resultData);
+    }
 
-        return String.valueOf(res);
+    //查询所有服务类型
+   @RequestMapping(value = "/selectService")
+    public String selectService(HttpServletRequest request, HttpServletResponse response) {
+        ResultData resultData = serviceListService.selectService();
+        return JSON.toJSONString(resultData);
     }
 
 }

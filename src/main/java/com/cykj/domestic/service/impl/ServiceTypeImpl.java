@@ -37,17 +37,44 @@ public class ServiceTypeImpl implements ServiceTypeService {
     }
 
     @Override
-    public int addServiceType(ServiceType serviceType) {
-        return serviceTypeMapper.addServiceType(serviceType);
+    public ResultData addServiceType(ServiceType serviceType) {
+        int res=serviceTypeMapper.addServiceType(serviceType);
+        ResultData resultData = new ResultData();
+        if(res==1){
+            resultData.setCode(0);
+            resultData.setMsg("添加成功");
+        } else {
+            resultData.setCode(1);
+            resultData.setMsg("添加失败");
+        }
+        return resultData;
     }
 
     @Override
-    public int updateServiceType(ServiceType serviceType) {
-        return serviceTypeMapper.updateServiceType(serviceType);
+    public ResultData updateServiceType(ServiceType serviceType) {
+        int res = serviceTypeMapper.updateServiceType(serviceType);
+        ResultData resultData = new ResultData();
+        if(res==1){
+            resultData.setCode(0);
+            resultData.setMsg("修改成功");
+        } else {
+            resultData.setCode(1);
+            resultData.setMsg("修改失败");
+        }
+        return resultData;
     }
 
     @Override
-    public int deleteServiceType(int id) {
-        return serviceTypeMapper.deleteServiceType(id);
+    public ResultData deleteServiceType(int id) {
+        int res=serviceTypeMapper.deleteServiceType(id);
+        ResultData resultData = new ResultData();
+        if(res==1){
+            resultData.setCode(0);
+            resultData.setMsg("删除成功");
+        } else {
+            resultData.setCode(1);
+            resultData.setMsg("删除失败");
+        }
+        return resultData;
     }
 }
