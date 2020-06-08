@@ -107,14 +107,13 @@
         });
 
 
-        // layui.use('form', function() {
-        //     alert("选中：====");
-        //     var form = layui.form;
-        //     form.render('select');
-        //     form.on('select(selecttest)', function(data){
-        //         alert("选中："+JSON.stringify(data));
-        //     });
-        // });
+        layui.use('form', function() {
+            var form = layui.form;
+            form.render('select');
+            form.on('select(selecttest)', function(data){
+                alert("选中："+JSON.stringify(data));
+            });
+        });
 
         //头工具栏事件
         table.on('toolbar(test)', function(obj){

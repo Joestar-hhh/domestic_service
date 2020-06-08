@@ -27,6 +27,9 @@ spring:
     useGlobalDataSourceStat: true
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
 
+  aop:
+    proxy-target-class: true
+
   mvc:
     hiddenmethod:
       filter:
