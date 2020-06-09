@@ -2,6 +2,7 @@ package com.cykj.domestic.controller;
 
 import com.alibaba.fastjson.JSON;
 
+import com.cykj.domestic.entity.Company;
 import com.cykj.domestic.service.CompanySrevice;
 import com.cykj.domestic.util.ResultData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,19 @@ public class CompanyController {
 
     @Autowired
     public CompanySrevice companySrevice;
+
+
+    //平台登入
+    @ResponseBody
+    @RequestMapping(value = "/companyLogin")
+    public String companyLogin(HttpServletResponse response, HttpServletRequest request) {
+        Company company = new Company();
+        company.setAccount("10001");
+        company.setPwd("123");
+        ResultData resultData = companySrevice.companyLogin(company);
+        System.out.println(JSON.toJSONString(resultData));
+        return JSON.toJSONString(resultData);
+    }
 
 
     //区域列表
@@ -54,9 +68,9 @@ public class CompanyController {
     //    根据地区查看平台详情
     @ResponseBody
     @RequestMapping(value = "/queryRegionCompany")
-    public String queryRegionCompany(HttpServletRequest request,HttpServletResponse response) {
-        String regionId=request.getParameter("regionId");
-        System.out.println("地区id"+regionId);
+    public String queryRegionCompany(HttpServletRequest request, HttpServletResponse response) {
+        String regionId = request.getParameter("regionId");
+        System.out.println("地区id" + regionId);
         ResultData resultData = companySrevice.queryRegionCompany(regionId);
         return JSON.toJSONString(resultData);
     }

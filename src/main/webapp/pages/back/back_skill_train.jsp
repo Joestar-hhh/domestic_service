@@ -31,7 +31,8 @@
     <div class="layui-form-item" id="querydiv">
         <div class="layui-btn-container">
             <button class="layui-btn layui-btn-sm" lay-event="insert_Skill_train">
-                <i class="layui-icon layui-icon-add-circle-fine"></i> 添加</button>
+                <i class="layui-icon layui-icon-add-circle-fine"></i> 添加
+            </button>
         </div>
     </div>
 </script>
@@ -54,12 +55,12 @@
             , defaultToolbar: []//自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
             , title: '用户数据表'
             , cols: [[
-                {type: 'checkbox', fixed: 'left'}
-                , {field: 'id', title: '序号', width: 70}
-                , {field: 'trainProjectName', title: '培训项目名', width: 200}
+
+                {field: 'id', title: '序号', align: 'center'}
+                , {field: 'trainProjectName', title: '培训项目名'}
                 , {field: 'time', title: '培训时长'}
                 , {title: '认证证书', templet: '<div>{{d.qualification.qualificationName}}</div>'}
-                , {fixed: 'right', title: '操作', width: 250, toolbar: '#barDemo'}
+                , {fixed: 'right', title: '操作', width: '350', toolbar: '#barDemo'}
             ]]
             , page: {
                 limit: 5,//指定每页显示的条数
@@ -209,6 +210,8 @@
                         return false;
                     });
                 });
+            } else if (obj.event === 'file') {
+
             }
         });
 
@@ -234,19 +237,42 @@
                 return false;
             });
         });
+
+
     });
 </script>
-<%--修改技能培训界面--%>
+
+<script>
+    layui.use('upload', function () {
+
+        var $ = layui.jquery
+            , upload = layui.upload;
+
+        //选完文件后不自动上传
+        upload.render({
+            elem: '#test8'
+            , url: '/skillTrainController/fileUpload' //改成您自己的上传接口
+            , auto: false
+            // , accept: 'file'
+            // , size: 102400 //限制文件大小，单位 KB
+            //,multiple: true
+            , bindAction: '#test9'
+            , done: function (res) {
+                if (res.code == 0) {
+                    $("#picturePath").val(res.msg);
+                    // alert(res.msg)
+                } else {
+                    layer.msg(res.msg)
+                }
+                console.log(res)
+            }
+        });
+    });
+</script>
+
+<%--技能培训界面--%>
 <div id="update_div" style="display:none;">
     <form class="layui-form" action="" id="add_submits">
-        <%--        &lt;%&ndash;        <input type="hidden" id="skillid" value="">&ndash;%&gt;--%>
-        <%--        <div class="layui-form-item" style="display:none" id="Item_Number">--%>
-        <%--            <label class="layui-form-label">项目编号：</label>--%>
-        <%--            <div class="layui-input-block">--%>
-        <%--                <input type="text" name="id" id="id" required lay-verify="required"--%>
-        <%--                       disabled="disabled" class="layui-input"  autocomplete="off">--%>
-        <%--            </div>--%>
-        <%--        </div>--%>
         <div class="layui-form-item">
             <label class="layui-form-label">项目名：</label>
             <div class="layui-input-block">
@@ -273,17 +299,25 @@
                 </select>
             </div>
         </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">图片路径：</label>
+            <div class="layui-input-block">
+                <input type="text" name="picturePath" id="picturePath" required lay-verify="required"
+                       placeholder="图片路径"
+                       autocomplete="off" class="layui-input" disabled="disabled">
+            </div>
+        </div>
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <button class="layui-btn formbtn" id="insertconfirm" lay-submit="add_submits"
+                <button type="button" class="layui-btn " id="test8" lay-type="file" lay-event="file">选择图片</button>
+                <button type="button" class="layui-btn formbtn" id="test9" lay-submit="add_submits"
                         lay-filter="updataskillTrain">确定
                 </button>
-                <%--                <button type="reset" class="layui-btn layui-btn-primary formbtn">重置</button>--%>
             </div>
         </div>
     </form>
 </div>
-
 
 </body>
 </html>

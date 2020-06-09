@@ -12,6 +12,9 @@ import java.util.List;
 @Mapper
 public interface CompanyMapper {
 
+     //    平台端登入
+    Company companyLogin(Company company);
+
     //平台端区域列表
     List<Company> queryRegion(@Param("start") int start, @Param("pageSize") int pageSize);
 

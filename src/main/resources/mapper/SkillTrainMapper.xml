@@ -41,8 +41,8 @@
 
 <!--    添加技能培训-->
     <insert id="insertSkillTrain" parameterType="com.cykj.domestic.entity.SkillTrain" >
-        insert into tb_skill_train (train_project_name, time, qualification_id)
-        value (#{trainProjectName},#{time},#{qualificationId})
+        insert into tb_skill_train (train_project_name, time, qualification_id,picture_path)
+        value (#{trainProjectName},#{time},#{qualificationId},#{picturePath})
     </insert>
 
 

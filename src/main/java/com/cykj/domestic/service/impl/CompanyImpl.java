@@ -15,6 +15,27 @@ public class CompanyImpl implements CompanySrevice {
     @Autowired
     public CompanyMapper companyMapper;
 
+
+    //    平台端登入
+    @Override
+    public ResultData companyLogin(Company company) {
+        ResultData resultData = new ResultData();
+        Company company1 = companyMapper.companyLogin(company);
+        if (company1 != null) {
+            if (company.getPwd().equals(company1.getPwd())) {
+                resultData.setCode(0);
+                resultData.setMsg("登入成功");
+            } else {
+                resultData.setCode(1);
+                resultData.setMsg("密码错误");
+            }
+        } else {
+            resultData.setCode(2);
+            resultData.setMsg("账号不存在");
+        }
+        return resultData;
+    }
+
     //区域列表
     @Override
     public ResultData queryRegion(int page, int limit) {

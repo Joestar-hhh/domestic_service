@@ -21,6 +21,13 @@
     <link rel="stylesheet" href="<%=path%>/static/layui/css/layui.css">
     <script type="text/javascript" src="<%=path%>/static/layui/layui.js"></script>
     <link rel="stylesheet" href="<%=path%>/static/css/back_page.css">
+    <style>
+        .layui-form-label {
+            width: 100px;
+        }
+    </style>
+
+
 </head>
 <body>
 
@@ -71,20 +78,25 @@
 <form class="layui-form" id="see_company" action="" style="display: none">
     <div class="layui-form-item">
         <label class="layui-form-label">公司名称：</label>
-        <label class="layui-form-label rightlabel" id="company_name"></label>
-    </div>
-    <div class="layui-form-item">
         <label class="layui-form-label">创建时间：</label>
-        <label class="layui-form-label rightlabel" id="creation_time"></label>
-    </div>
-    <div class="layui-form-item">
         <label class="layui-form-label">公司地址：</label>
-        <label class="layui-form-label" id="company_address"></label>
+        <label class="layui-form-label">公司电话：</label>
+
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">公司电话：</label>
+        <label class="layui-form-label rightlabel" id="company_name"></label>
+        <label class="layui-form-label rightlabel" id="creation_time"></label>
+        <label class="layui-form-label" id="company_address"></label>
         <label class="layui-form-label" id="company_phone"></label>
     </div>
+<%--    <div class="layui-form-item">--%>
+<%--        --%>
+<%--        --%>
+<%--    </div>--%>
+<%--    <div class="layui-form-item">--%>
+<%--       --%>
+<%--        --%>
+<%--    </div>--%>
 </form>
 
 <script>
@@ -134,7 +146,6 @@
 
         layui.use('form', function () {
             var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
-
             //select 监听事件
             layui.use('form', function () {
                 var form = layui.form;
@@ -231,7 +242,7 @@
                 if (tabdata.regioncount > 0) {
                     layer.confirm('不能删除有公司的区域')
                 } else {
-                    layer.confirm('真的删除行么', function (index) {
+                    layer.confirm('<i class="layui-icon layui-icon-face-smile" style="font-size: 30px; color: #1E9FFF;"></i> 真的要删除这个区域码么', function (index) {
                         $.ajax({
                             url: '/companyController/deleteRegion',
                             type: 'POST',
@@ -261,19 +272,17 @@
                         success: function (msg) {
                             // alert(msg.data.companyName);
                             $.each(msg.data, function (j, item) {
-                                // $("#County_level").append("<option value='" + item.id + "'>" + item.secondaryZone + "</option>")
-                                $("#company_name").text(item.companyName);
-                                $("#creation_time").text(item.joinTime);
-                                $("#company_address").text(item.address);
-                                $("#company_phone").text(item.phone);
+                                $("#company_name").append(item.companyName+"<br><br><br>");
+                                $("#creation_time").append(item.joinTime+"<br><br>");
+                                $("#company_address").append(item.address+"<br><br>");
+                                $("#company_phone").append(item.phone+"<br><br><br>");
                             });
-
                         }
                     })
                     var see = layer.open({
                         type: 1
                         , title: '查看详情'
-                        , area: ['500px', '400px']
+                        , area: ['600px', '480px']
                         , shade: [0.8, '#314949'] //遮罩
                         , resize: false //不可拉伸
                         , content: $('#see_company') //内容
@@ -281,19 +290,18 @@
                         , cancel: function (index, layero) {
                             if (confirm('确定要关闭么')) { //只有当点击confirm框的确定时，该层才会关闭
                                 layer.close(index);
+                                $("#company_name").text("");
+                                $("#creation_time").text("");
+                                $("#company_address").text("");
+                                $("#company_phone").text("");
                             }
                             return false;
                         }
                         //如果设定了yes回调，需进行手工关闭
                     });
-
-
                 }
-
             }
         });
-
-
     });
 
 </script>

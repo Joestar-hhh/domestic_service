@@ -47,5 +47,13 @@ public class ResultData
         this.data = data;
     }
 
-
+    @Override
+    public String toString() {
+        return "ResultData{" +
+                "code=" + code +
+                ", msg='" + msg + '\'' +
+                ", count=" + count +
+                ", data=" + data +
+                '}';
+    }
 }
