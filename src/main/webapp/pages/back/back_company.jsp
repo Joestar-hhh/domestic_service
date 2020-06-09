@@ -93,7 +93,7 @@
             , url: '/companyController/queryRegion'
             , toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
             , defaultToolbar: []//自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
-            , title: '顾问管理表'
+            , title: '区域列表'
             , cols: [[
                 // {type: 'checkbox',fixed: 'left'}
                 {field: 'regionId', title: '序号'}
@@ -185,35 +185,40 @@
                         }
                         //如果设定了yes回调，需进行手工关闭
                     });
+
+                    //dialog submit提交添加
+                    layui.use('form', function () {
+                        var form = layui.form;
+                        form.render();
+                        form.on('submit(insertconfirm)', function (data) {
+                            $.ajax({
+                                type: 'POST',
+                                url: '/companyController/insertRegion',
+                                dataType: 'JSON',
+                                data: {
+                                    firstLevelRegion: $("#City_level").find("option:selected").text(),
+                                    secondaryZone: $("#County_level").find("option:selected").text()
+                                },
+                                success: function (msg) {
+
+                                    layer.close(layerinsert);
+                                    $('#City_level').val("");
+                                    $("#County_level").val("");
+                                    layer.alert(msg.msg, {icon: 6},function () {
+                                        window.parent.location.reload();//修改成功后刷新父界面
+                                    });
+
+                                }
+                            })
+                            return false;
+                        });
+                    });
                     break;
             }
             ;
         });
 
-        //dialog submit提交添加
-        layui.use('form', function () {
-            var form = layui.form;
-            form.render();
-            form.on('submit(insertconfirm)', function (data) {
-                $.ajax({
-                    type: 'POST',
-                    url: '/companyController/insertRegion',
-                    dataType: 'JSON',
-                    data: {
-                        firstLevelRegion: $("#City_level").find("option:selected").text(),
-                        secondaryZone: $("#County_level").find("option:selected").text()
-                    },
-                    success: function (msg) {
-                        layer.alert(msg.msg, {icon: 6})
-                        layer.close(layerupdate);
-                        $('#City_level').val("");
-                        $("#County_level").val("");
-                        window.parent.location.reload();//修改成功后刷新父界面
-                    }
-                })
-                return false;
-            });
-        });
+
 
         //监听行工具事件 删除、查看详情
         table.on('tool(test)', function (obj) {
@@ -240,42 +245,47 @@
                     });
                 }
             } else if (obj.event === 'see_details') {
-                $.ajax({
-                    url: '/companyController/queryRegionCompany',
-                    type: 'POST',
-                    dataType: 'JSON',
-                    data: {
-                        regionId: tabdata.regionId
-                    },
-                    success: function (msg) {
-                        // alert(msg.data.companyName);
-                        $.each(msg.data, function (j, item) {
-                            // $("#County_level").append("<option value='" + item.id + "'>" + item.secondaryZone + "</option>")
-                            $("#company_name").text(item.companyName);
-                            $("#creation_time").text(item.joinTime);
-                            $("#company_address").text(item.address);
-                            $("#company_phone").text(item.phone);
-                        });
+                if(tabdata.regioncount==0){
+                    layer.alert("该区域目前暂无公司");
+                }else{
+                    $.ajax({
+                        url: '/companyController/queryRegionCompany',
+                        type: 'POST',
+                        dataType: 'JSON',
+                        data: {
+                            regionId: tabdata.regionId
+                        },
+                        success: function (msg) {
+                            // alert(msg.data.companyName);
+                            $.each(msg.data, function (j, item) {
+                                // $("#County_level").append("<option value='" + item.id + "'>" + item.secondaryZone + "</option>")
+                                $("#company_name").text(item.companyName);
+                                $("#creation_time").text(item.joinTime);
+                                $("#company_address").text(item.address);
+                                $("#company_phone").text(item.phone);
+                            });
 
-                    }
-                })
-                var see = layer.open({
-                    type: 1
-                    , title: '查看详情'
-                    , area: ['500px', '400px']
-                    , shade: [0.8, '#314949'] //遮罩
-                    , resize: false //不可拉伸
-                    , content: $('#see_company') //内容
-                    , btn: 0
-                    , cancel: function (index, layero) {
-                        if (confirm('确定要关闭么')) { //只有当点击confirm框的确定时，该层才会关闭
-                            layer.close(index);
                         }
-                        return false;
-                    }
-                    //如果设定了yes回调，需进行手工关闭
-                });
+                    })
+                    var see = layer.open({
+                        type: 1
+                        , title: '查看详情'
+                        , area: ['500px', '400px']
+                        , shade: [0.8, '#314949'] //遮罩
+                        , resize: false //不可拉伸
+                        , content: $('#see_company') //内容
+                        , btn: 0
+                        , cancel: function (index, layero) {
+                            if (confirm('确定要关闭么')) { //只有当点击confirm框的确定时，该层才会关闭
+                                layer.close(index);
+                            }
+                            return false;
+                        }
+                        //如果设定了yes回调，需进行手工关闭
+                    });
 
+
+                }
 
             }
         });
