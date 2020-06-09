@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cykj.domestic.mapper.KnowledgeMapper">
+<!--    育婴知识分页-->
+    <select id="queryKnowledeg" parameterType="java.lang.String" resultType="com.cykj.domestic.entity.Knowledge">
+        SELECT * FROM tb_knowledge
+        <where>
+            <if test="title!=null and title!=''">and title like concat('%',#{title},'%')</if>
+        </where>
+        ORDER BY id limit #{start},#{pageSize}
+    </select>
+    <!--    育婴知识分页统计-->
+    <select id="KnowledegCount" resultType="int" parameterType="java.lang.String">
+        SELECT count(*) FROM tb_knowledge
+        <where>
+            <if test="title!=null and title!=''">and title like concat('%',#{title},'%')</if>
+        </where>
+    </select>
+<!--    删除育婴知识-->
+<!--    <delete id="deleteKnowledeg" parameterType="java.lang.String">-->
+<!--        delete from tb_knowledge where id=#{id}-->
+<!--    </delete>-->
+    <delete id="deleteKnowledeg">
+        delete from tb_knowledge where id in
+        <foreach collection="list" item="item" open = "(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+<!--    增加育婴知识-->
+    <insert id="addKnowledeg" parameterType="com.cykj.domestic.entity.Knowledge" >
+        insert into tb_knowledge(title, type, path) value (#{title},#{type},#{path})
+    </insert>
+
+
+</mapper>
