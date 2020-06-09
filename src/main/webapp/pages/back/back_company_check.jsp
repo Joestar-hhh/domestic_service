@@ -142,7 +142,7 @@
                             address: address
                         }
                     });
-                    //查询完以后将下拉框的数据再次获取一次
+                    //查询完以后将下拉框的数据再次获取一次。
                     $.ajax({
                         type: 'POST',
                         url: '/staffController/regionList',
