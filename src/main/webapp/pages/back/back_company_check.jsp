@@ -25,7 +25,6 @@
         .layui-form-item {
             margin-bottom: 0;
         }
-
         #querydiv .layui-btn-container{
             display: inline-block;
         }

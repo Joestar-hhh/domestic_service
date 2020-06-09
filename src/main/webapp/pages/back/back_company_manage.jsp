@@ -217,7 +217,6 @@
             ;
         });
 
-
         //监听行工具事件
         table.on('tool(test)', function(obj){
             var tabdata = obj.data;
