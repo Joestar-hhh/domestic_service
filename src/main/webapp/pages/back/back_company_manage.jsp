@@ -134,7 +134,7 @@
         // 下拉框列表
         $.ajax({
             type: 'POST',
-            url: '/staffController/regionList',
+            url: '<%=path%>/staffController/regionList',
             dataType: 'JSON',
             success: function (msg) {
                 $("#regionlist").html("<option value=''></option>");
@@ -150,7 +150,7 @@
 
         table.render({
             elem: '#test'
-            ,url:'/companyManageController/queryCompany'
+            ,url:'<%=path%>/companyManageController/queryCompany'
             ,toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
             ,defaultToolbar: [
 
@@ -188,7 +188,7 @@
             switch (obj.event) {
                 case 'queryAddress':
                     table.reload('test', {
-                        url: '/companyManageController/queryCompany'
+                        url: '<%=path%>/companyManageController/queryCompany'
                         , page: {
                             curr: 1 //重新从第 1 页开始
                         }
@@ -199,7 +199,7 @@
                     //查询完以后将下拉框的数据再次获取一次
                     $.ajax({
                         type: 'POST',
-                        url: '/staffController/regionList',
+                        url: '<%=path%>/staffController/regionList',
                         dataType: 'JSON',
                         success: function (msg) {
                             $("#regionlist").html("<option value=''></option>");
@@ -228,13 +228,13 @@
                 }, function(index){
                     $.ajax({
                         type: 'POST',
-                        url: '/companyManageController/checkJoin',
+                        url: '<%=path%>/companyManageController/checkJoin',
                         dataType: 'JSON',
                         data: {id: companyId},
                         success: function (msg) {
                             layer.close(index);
                             layer.alert(msg.msg,{icon: 6},function () {
-                                window.parent.location.reload();//审核成功后刷新父界面
+                                window.location.reload();//审核成功后刷新父界面
                             });//审核成功提示
 
                         }

@@ -103,7 +103,7 @@
 
                     $.ajax({
                         type : "POST",
-                        url : "/annoucementController/deleteAnnoucement",
+                        url : "<%=path%>/annoucementController/deleteAnnoucement",
                         dataType: 'JSON',
                         data : {idList:JSON.stringify(idList)},
                         error : function(request) {
@@ -114,7 +114,7 @@
                         },
                         success : function(msg) {
                             layer.alert(msg.msg,{icon: 2},function () {
-                                window.parent.location.reload();//审核成功后刷新父界面
+                                window.location.reload();//审核成功后刷新父界面
                             });//删除成功提示
                         }
                     });
@@ -146,7 +146,7 @@
                         form.on('submit(insertconfirm)', function(data){
                             $.ajax({
                                 type: 'POST',
-                                url: '/annoucementController/insertAnnoucement',
+                                url: '<%=path%>/annoucementController/insertAnnoucement',
                                 dataType: 'JSON',
                                 data: data.field,
                                 success: function (msg) {
@@ -154,7 +154,7 @@
                                     $('#title').val("");
                                     $("#content").val("");
                                     layer.alert(msg.msg,{icon: 6},function () {
-                                        window.parent.location.reload();//添加成功后刷新父界面
+                                        window.location.reload();//添加成功后刷新父界面
                                     });//添加成功提示
                                 }
                             })
@@ -204,7 +204,7 @@
                         data.field.id = annouceId;
                         $.ajax({
                             type: 'POST',
-                            url: '/annoucementController/updateAnnouncement',
+                            url: '<%=path%>/annoucementController/updateAnnouncement',
                             dataType: 'JSON',
                             data: data.field,
                             success: function (msg) {
@@ -212,7 +212,7 @@
                                 $('#title').val("");
                                 $("#content").val("");
                                 layer.alert(msg.msg,{icon: 6},function () {
-                                    window.parent.location.reload();//修改成功后刷新父界面
+                                    window.location.reload();//修改成功后刷新父界面
                                 });//修改成功提示
                             }
                         })
