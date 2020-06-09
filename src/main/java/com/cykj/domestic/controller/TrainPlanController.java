@@ -26,4 +26,27 @@ public class TrainPlanController {
         ResultData resultData = trainPlanService.queryTrainPlanList(trainPlan, Integer.parseInt(page), Integer.parseInt(limit));
         return JSON.toJSONString(resultData);
     }
+
+    // 删除培训计划
+    @RequestMapping("/deletePlan")
+    public String deleteTrainPlan(HttpServletRequest request, HttpServletResponse response) {
+        String planid = request.getParameter("id");
+        int id = Integer.parseInt(planid);
+        ResultData resultData = trainPlanService.deletePlan(id);
+        return JSON.toJSONString(resultData);
+    }
+
+    // 修改培训计划
+    @RequestMapping("/updatePlan")
+    public String updateTrainPlan(HttpServletRequest request, HttpServletResponse response, TrainPlan trainPlan) {
+        ResultData resultData = trainPlanService.updatePlan(trainPlan);
+        return JSON.toJSONString(resultData);
+    }
+
+    // 增加培训计划
+    @RequestMapping("/insertPlan")
+    public String insertPlan(HttpServletRequest request, HttpServletResponse response, TrainPlan trainPlan) {
+        ResultData resultData = trainPlanService.insertPlan(trainPlan);
+        return JSON.toJSONString(resultData);
+    }
 }

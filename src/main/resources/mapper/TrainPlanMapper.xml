@@ -4,7 +4,8 @@
 
 <mapper namespace="com.cykj.domestic.mapper.TrainPlanMapper">
 
-    <select id="queryTrainPlanList" parameterType="com.cykj.domestic.entity.TrainPlan" resultType="com.cykj.domestic.entity.TrainPlan">
+    <select id="queryTrainPlanList" parameterType="com.cykj.domestic.entity.TrainPlan"
+            resultType="com.cykj.domestic.entity.TrainPlan">
         SELECT * FROM tb_train_plan
         ORDER BY id limit #{start},#{pageSize}
     </select>
@@ -12,4 +13,17 @@
     <select id="queryTrainPlanCount" parameterType="com.cykj.domestic.entity.TrainPlan" resultType="int">
         SELECT count(id) FROM tb_train_plan
     </select>
+
+    <delete id="deletePlan" parameterType="java.lang.Integer">
+        DELETE FROM tb_train_plan WHERE id = #{id}
+    </delete>
+
+    <update id="updatePlan" parameterType="com.cykj.domestic.entity.TrainPlan">
+        update tb_train_plan set title = #{title},content = #{content},people_num = #{peopleNum},train_time = #{trainTime}
+        where id = #{id}
+    </update>
+
+    <insert id="insertPlan" parameterType="com.cykj.domestic.entity.TrainPlan">
+        insert into tb_train_plan (title,content,people_num,train_time) values (#{title},#{content},#{peopleNum},#{trainTime})
+    </insert>
 </mapper>

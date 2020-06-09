@@ -43,15 +43,27 @@
 
 <script type="text/html" id="toolbarDemo">
 
-    <div id="seldiv">
-        <div class="layui-form-item">
-            <div class="layui-input-block">
-                <select name="regionlist" id="regionlist" lay-verify="required">
-                </select>
-            </div>
-        </div>
-        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="queryRegion">查询</a>
+<%--    <div id="seldiv">--%>
+<%--        <div class="layui-form-item">--%>
+<%--            <div class="layui-input-block">--%>
+<%--                <select name="regionlist" id="regionlist" lay-verify="required">--%>
+<%--                </select>--%>
+<%--            </div>--%>
+<%--            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="queryRegion">查询</a>--%>
+<%--        </div>--%>
+<%--    </div>--%>
+
+<div class="demoTable">
+    搜索：
+    <div class="layui-inline">
+        <select name="regionlist" id="regionlist" lay-verify="required">
+        </select>
     </div>
+    <button class="layui-btn layui-btn-radius " data-type="reload" lay-event="queryRegion">
+        <i class="layui-icon layui-icon-search"></i>  搜索
+    </button>
+</div>
+
 </script>
 
 
