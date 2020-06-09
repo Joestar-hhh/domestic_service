@@ -253,8 +253,8 @@
             elem: '#test8'
             , url: '/skillTrainController/fileUpload' //改成您自己的上传接口
             , auto: false
-            // , accept: 'file'
-            // , size: 102400 //限制文件大小，单位 KB
+            , accept: 'file'
+            , size: 102400 //限制文件大小，单位 KB
             //,multiple: true
             , bindAction: '#test9'
             , done: function (res) {
