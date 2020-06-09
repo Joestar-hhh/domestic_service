@@ -135,7 +135,7 @@
         // 下拉框列表
         $.ajax({
             type: 'POST',
-            url: '/staffController/regionList',
+            url: "<%=path%>/staffController/regionList",
             dataType: 'JSON',
             success: function (msg) {
                 $("#regionlist").html("<option value=''></option>");
@@ -151,7 +151,7 @@
 
         table.render({
             elem: '#test'
-            , url: '/staffController/queryStaff'
+            , url: "<%=path%>/staffController/queryStaff"
             , toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
             , defaultToolbar: []//自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
             , title: '顾问管理表'
@@ -190,7 +190,7 @@
             switch (obj.event) {
                 case 'queryRegion':
                     table.reload('test', {
-                        url: '/staffController/queryStaff'
+                        url: "<%=path%>/staffController/queryStaff"
                         // ,methods:"post"
                         , page: {
                             curr: 1 //重新从第 1 页开始
@@ -202,7 +202,7 @@
                     //查询完以后将下拉框的数据再次获取一次
                     $.ajax({
                         type: 'POST',
-                        url: '/staffController/regionList',
+                        url: "<%=path%>/staffController/regionList",
                         dataType: 'JSON',
                         success: function (msg) {
                             $("#regionlist").html("<option value=''></option>");
@@ -229,7 +229,7 @@
                 layer.confirm('确定要启用吗?', function (index) {
                     $.ajax({
                         type: 'POST',
-                        url: '/staffController/enableState',
+                        url: "<%=path%>/staffController/enableState",
                         dataType: 'JSON',
                         data: {
                             id: tabdata.id
@@ -239,7 +239,7 @@
                                 alert("修改失败，请重试");
                             } else {
                                 alert("修改成功");
-                                window.parent.location.reload();
+                                window.location.reload();
                             }
                         }
                     })
@@ -249,7 +249,7 @@
                 layer.confirm('确定要禁用吗?', function (index) {
                     $.ajax({
                         type: 'POST',
-                        url: '/staffController/disableState',
+                        url: "<%=path%>/staffController/disableState",
                         dataType: 'JSON',
                         data: {
                             id: tabdata.id
@@ -259,7 +259,7 @@
                                 alert("修改失败，请重试");
                             } else {
                                 alert("修改成功");
-                                window.parent.location.reload();
+                                window.location.reload();
                             }
                         }
                     })
@@ -294,7 +294,7 @@
                     var form = layui.form;
                     $.ajax({
                         type: 'POST',
-                        url: '/staffController/checkStaff',
+                        url: "<%=path%>/staffController/checkStaff",
                         dataType: 'JSON',
                         data: {
                             id: tabdata.id

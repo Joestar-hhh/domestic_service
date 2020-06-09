@@ -92,7 +92,7 @@
         //打印表格数据
         table.render({
             elem: '#test'
-            , url: '/trainPlanController/queryTrainPlanList'
+            , url: "<%=path%>/trainPlanController/queryTrainPlanList"
             , toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
             , defaultToolbar: []//自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
             , title: '用户数据表'
@@ -146,13 +146,13 @@
                         form.on('submit(insertconfirm)', function (data) {
                             $.ajax({
                                 type: 'POST',
-                                url: '/trainPlanController/insertPlan',
+                                url: "<%=path%>/trainPlanController/insertPlan",
                                 dataType: 'JSON',
                                 data: data.field,
                                 success: function (msg) {
                                     layer.close(layerinsert);
                                     layer.alert(msg.msg, {icon: 6}, function () {
-                                        window.parent.location.reload();//成功后刷新父界面
+                                        window.location.reload();//成功后刷新父界面
                                     });//成功提示
                                 }
                             })
@@ -173,7 +173,7 @@
             if (obj.event === 'delete') {
                 layer.confirm('真的要删除此行数据么?', function (index) {
                     $.ajax({
-                        url: '/trainPlanController/deletePlan',
+                        url: "<%=path%>/trainPlanController/deletePlan",
                         type: 'POST',
                         dataType: 'JSON',
                         data: {
@@ -222,13 +222,13 @@
                         data.field.id = planid;
                         $.ajax({
                             type: 'POST',
-                            url: '/trainPlanController/updatePlan',
+                            url: "<%=path%>/trainPlanController/updatePlan",
                             dataType: 'JSON',
                             data: data.field,
                             success: function (msg) {
                                 layer.close(layerupdate);
                                 layer.alert(msg.msg, {icon: 1}, function () {
-                                    window.parent.location.reload();//成功后刷新父界面
+                                    window.location.reload();//成功后刷新父界面
                                 });//成功提示
                             }
                         })
