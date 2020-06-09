@@ -4,12 +4,22 @@
 
 <mapper namespace="com.cykj.domestic.mapper.CounselorMapper">
 
-    <select id="queryCounselor" parameterType="com.cykj.domestic.entity.Counselor" resultType="com.cykj.domestic.entity.Counselor">
+    <select id="queryCounselor" parameterType="com.cykj.domestic.entity.Counselor"
+            resultType="com.cykj.domestic.entity.Counselor">
         SELECT * FROM tb_counselor
         ORDER BY id limit #{start},#{pageSize}
     </select>
     <select id="queryCounselorCount" parameterType="com.cykj.domestic.entity.Counselor" resultType="int">
         SELECT count(id) FROM tb_counselor
     </select>
-
+    <insert id="insertCounselor" parameterType="com.cykj.domestic.entity.Counselor">
+        insert into tb_counselor (position,duties) values (#{position},#{duties})
+    </insert>
+    <delete id="deleteCounselor" parameterType="java.lang.Integer">
+        DELETE FROM tb_counselor WHERE id = #{id}
+    </delete>
+    <update id="updateCounselor" parameterType="com.cykj.domestic.entity.Counselor">
+        update tb_counselor set position = #{position },duties = #{duties}
+        where id = #{id}
+    </update>
 </mapper>
