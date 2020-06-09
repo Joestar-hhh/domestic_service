@@ -30,14 +30,17 @@
 
     <div class="layui-form-item" id="querydiv">
         <div class="layui-btn-container">
-            <button class="layui-btn layui-btn-sm" lay-event="insertadmin">添加</button>
+            <button class="layui-btn layui-btn-sm" lay-event="insertadmin">
+                <i class="layui-icon layui-icon-add-circle-fine"></i>添加</button>
         </div>
     </div>
 </script>
 
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="see_details">查看详情</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="see_details">
+        <i class="layui-icon layui-icon-list"></i> 查看详情</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">
+        <i class="layui-icon layui-icon-delete"></i>删除</a>
 </script>
 
 
