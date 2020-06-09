@@ -30,16 +30,20 @@
 
     <div class="layui-form-item" id="querydiv">
         <div class="layui-btn-container">
-            <button class="layui-btn layui-btn-sm" lay-event="deletetype">删除</button>
-            <button class="layui-btn layui-btn-sm" lay-event="insertadmin">添加</button>
+<%--            <button class="layui-btn layui-btn-danger  layui-btn-sm" lay-event="deletetype">--%>
+<%--                <i class="layui-icon layui-icon-delete"></i>删除</button>--%>
+            <button class="layui-btn layui-btn-sm" lay-event="insertadmin">
+                <i class="layui-icon layui-icon-add-circle-fine"></i>添加</button>
         </div>
     </div>
 </script>
 
 
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="updaterole">修改</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-xs" lay-event="updaterole">
+        <i class="layui-icon layui-icon-edit"></i>修改</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">
+        <i class="layui-icon layui-icon-delete"></i>删除</a>
 </script>
 
 
@@ -55,8 +59,8 @@
             ,defaultToolbar: []//自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
             ,title: '顾问管理表'
             ,cols: [[
-                {type: 'checkbox',fixed: 'left'}
-                ,{field:'id', title: '序号'}
+                // {type: 'checkbox',fixed: 'left'}
+                {field:'id', title: '序号'}
                 ,{field:'position', title: '职位'}
                 ,{field:'duties', title: '职责'}
                 ,{fixed: 'right',title:'操作', width: 250, toolbar: '#barDemo'}

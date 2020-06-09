@@ -30,16 +30,18 @@
 
     <div class="layui-form-item" id="querydiv">
         <div class="layui-btn-container">
-            <button class="layui-btn layui-btn-sm" lay-event="deleteannoucement">删除</button>
-            <button class="layui-btn layui-btn-sm" lay-event="insertannoucement">添加</button>
+            <button class="layui-btn layui-btn-danger  layui-btn-sm" lay-event="deleteannoucement">
+                <i class="layui-icon layui-icon-delete"></i>删除</button>
+            <button class="layui-btn layui-btn-sm" lay-event="insertannoucement">
+                <i class="layui-icon layui-icon-add-circle-fine"></i> 添加</button>
         </div>
     </div>
 </script>
 
 
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="updateannoucement">修改</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="deleteAnnoucement">删除</a>
+    <a class="layui-btn layui-btn-xs" lay-event="updateannoucement">
+        <i class="layui-icon layui-icon-edit"></i> 修改</a>
 </script>
 
 <form class="layui-form" id="annoucementinfoform" action="" style="display: none">
@@ -54,7 +56,6 @@
         <label class="layui-form-label">内容：</label>
         <div class="layui-input-block">
             <textarea rows="10" cols="39" name="content" id="content" required  lay-verify="required" placeholder="请输入具体公告内容"></textarea>
-<%--            <input type="text" name="content" id="content" required  lay-verify="required" placeholder="请输入具体公告内容" autocomplete="off" class="layui-input">--%>
         </div>
     </div>
 
@@ -66,11 +67,9 @@
     </div>
 </form>
 
-<%--<script src="<%=path%>/back/js/layui.js" charset="utf-8"></script>--%>
 <script>
     layui.use('table', function(){
         var table = layui.table;
-        // var $ = layui.jquery;
         var $ = layui.jquery;
         table.render({
             elem: '#test'
@@ -102,7 +101,6 @@
                         idList.push(val.id);
                     })
 
-                    layer.alert("删除id:"+JSON.stringify({idList:idList}))
                     $.ajax({
                         type : "POST",
                         url : "/annoucementController/deleteAnnoucement",
@@ -115,8 +113,9 @@
                             });
                         },
                         success : function(msg) {
-                            alert(msg.msg);
-                            window.parent.location.reload();//修改成功后刷新父界面
+                            layer.alert(msg.msg,{icon: 2},function () {
+                                window.parent.location.reload();//审核成功后刷新父界面
+                            });//删除成功提示
                         }
                     });
 
@@ -151,11 +150,12 @@
                                 dataType: 'JSON',
                                 data: data.field,
                                 success: function (msg) {
-                                    alert(msg.msg);
                                     layer.close(layerinsert);
                                     $('#title').val("");
                                     $("#content").val("");
-                                    window.parent.location.reload();//修改成功后刷新父界面
+                                    layer.alert(msg.msg,{icon: 6},function () {
+                                        window.parent.location.reload();//添加成功后刷新父界面
+                                    });//添加成功提示
                                 }
                             })
                             return false;
@@ -172,7 +172,7 @@
             //console.log(obj)s
             if(obj.event === 'del'){
                 layer.confirm('真的删除行么', function(index){
-                    obj.del();
+                    // obj.del();
                     layer.close(index);
                 });
             } else if(obj.event === 'updateannoucement'){
@@ -189,7 +189,6 @@
                     ,btn: 0
                     ,cancel: function(index, layero){
                         if(confirm('确定要关闭么')){ //只有当点击confirm框的确定时，该层才会关闭
-                            // $('#userinfoform').css("display","none");
                             $('#title').val("");
                             $("#content").val("");
                             layer.close(index);
@@ -209,11 +208,12 @@
                             dataType: 'JSON',
                             data: data.field,
                             success: function (msg) {
-                                layer.alert(msg.msg);
                                 layer.close(layerupdate);
                                 $('#title').val("");
                                 $("#content").val("");
-                                window.parent.location.reload();//修改成功后刷新父界面
+                                layer.alert(msg.msg,{icon: 6},function () {
+                                    window.parent.location.reload();//修改成功后刷新父界面
+                                });//修改成功提示
                             }
                         })
                         return false;
