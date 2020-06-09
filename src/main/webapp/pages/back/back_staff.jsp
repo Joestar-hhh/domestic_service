@@ -32,9 +32,32 @@
         }
 
         #seldiv .layui-form-select dl {
-
             min-width: 75%;
         }
+
+        .layui-form-item {
+            margin-bottom: 0;
+        }
+
+        #querydiv .layui-btn-container {
+            display: inline-block;
+        }
+
+        #userInformation .layui-form-label {
+            width: 170px;
+        }
+
+        #userInformation .layui-input-block {
+            margin-left: 247px;
+        }
+
+        #userInformation .rightlabel {
+            margin-bottom: 15px;
+            text-align: left;
+            line-height: 30px;
+            background-color: #beffed;
+        }
+
     </style>
 </head>
 <body>
@@ -43,26 +66,16 @@
 
 <script type="text/html" id="toolbarDemo">
 
-<%--    <div id="seldiv">--%>
-<%--        <div class="layui-form-item">--%>
-<%--            <div class="layui-input-block">--%>
-<%--                <select name="regionlist" id="regionlist" lay-verify="required">--%>
-<%--                </select>--%>
-<%--            </div>--%>
-<%--            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="queryRegion">查询</a>--%>
-<%--        </div>--%>
-<%--    </div>--%>
-
-<div class="demoTable">
-    搜索：
-    <div class="layui-inline">
-        <select name="regionlist" id="regionlist" lay-verify="required">
-        </select>
+    <div class="demoTable">
+        搜索：
+        <div class="layui-inline">
+            <select name="regionlist" id="regionlist" lay-verify="required">
+            </select>
+        </div>
+        <button class="layui-btn layui-btn-radius " data-type="reload" lay-event="queryRegion">
+            <i class="layui-icon layui-icon-search"></i> 搜索
+        </button>
     </div>
-    <button class="layui-btn layui-btn-radius " data-type="reload" lay-event="queryRegion">
-        <i class="layui-icon layui-icon-search"></i>  搜索
-    </button>
-</div>
 
 </script>
 
@@ -77,35 +90,35 @@
 <form class="layui-form" id="userInformation" action="" style="display: none">
     <div class="layui-form-item">
         <label class="layui-form-label">姓名：</label>
-        <input type="text" id="username" readonly="readonly">
+        <label class="layui-form-label rightlabel" id="username"></label>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">性别：</label>
-        <input type="text" id="sex" readonly="readonly">
+        <label class="layui-form-label rightlabel" id="sex"></label>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">籍贯：</label>
-        <input type="text" id="nativeplace" readonly="readonly">
+        <label class="layui-form-label rightlabel" id="nativeplace"></label>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">婚姻状况：</label>
-        <input type="text" id="marriage" readonly="readonly">
+        <label class="layui-form-label rightlabel" id="marriage"></label>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">学历：</label>
-        <input type="text" id="education" readonly="readonly">
+        <label class="layui-form-label rightlabel" id="education"></label>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">身份证号：</label>
-        <input type="text" id="idcard" readonly="readonly">
+        <label class="layui-form-label rightlabel" id="idcard"></label>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">联系方式：</label>
-        <input type="text" id="phone" readonly="readonly">
+        <label class="layui-form-label rightlabel" id="phone"></label>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">所在地：</label>
-        <input type="text" id="address" readonly="readonly">
+        <label class="layui-form-label rightlabel" id="address"></label>
     </div>
 </form>
 
@@ -284,14 +297,14 @@
                             id: tabdata.id
                         },
                         success: function (msg) {
-                            $("#username").val(msg[0].userName);
-                            $("#sex").val(msg[0].sex);
-                            $("#marriage").val(msg[0].marriage);
-                            $("#nativeplace").val(msg[0].nativeplace);
-                            $("#education").val(msg[0].education);
-                            $("#idcard").val(msg[0].idcard);
-                            $("#phone").val(msg[0].phone);
-                            $("#address").val(msg[0].address);
+                            $("#username").html(msg[0].userName);
+                            $("#sex").html(msg[0].sex);
+                            $("#marriage").html(msg[0].marriage);
+                            $("#nativeplace").html(msg[0].nativeplace);
+                            $("#education").html(msg[0].education);
+                            $("#idcard").html(msg[0].idcard);
+                            $("#phone").html(msg[0].phone);
+                            $("#address").html(msg[0].address);
                         }
                     });
                 });
