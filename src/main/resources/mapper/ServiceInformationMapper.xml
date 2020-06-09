@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cykj.domestic.mapper.ServiceInformationMapper">
+
+<!--    查询全部-->
+    <select id="selectList" resultType="com.cykj.domestic.entity.Information" parameterType="com.cykj.domestic.entity.Information">
+        select oi.*,u.name,st.type_name,c.company_name,os.order_state_name from tb_order_info oi
+        left join tb_service_type st
+        on oi.service_id = st.id
+        left join tb_company c
+        on oi.company_id = c.id
+        left join tb_order_state os
+        on oi.user_order_state_id = os.id
+        left join tb_user u
+        on oi.user_id = u.id
+        limit #{start},#{pageSize}
+    </select>
+
+    <select id="selectListCount" resultType="int" parameterType="com.cykj.domestic.entity.Information">
+        select count(A.id) from(select oi.*,u.name,st.type_name,c.company_name,os.order_state_name from tb_order_info oi
+        left join tb_service_type st
+        on oi.service_id = st.id
+        left join tb_company c
+        on oi.company_id = c.id
+        left join tb_order_state os
+        on oi.user_order_state_id = os.id
+        left join tb_user u
+        on oi.user_id = u.id)A
+    </select>
+
+<!--    <select id="selectService" resultType="com.cykj.domestic.entity.ServiceType">-->
+
+
+<!--       select * from tb_service_type-->
+<!--    </select>-->
+
+<!--查看详情显示-->
+    <select id="selectInformationListView" resultType="com.cykj.domestic.entity.Information">
+        select oi.*,u.name,st.type_name,c.company_name,os.order_state_name from tb_order_info oi
+        left join tb_service_type st
+        on oi.service_id = st.id
+        left join tb_company c
+        on oi.company_id = c.id
+        left join tb_order_state os
+        on oi.user_order_state_id = os.id
+        left join tb_user u
+        on oi.user_id = u.id where oi.id=#{id}
+    </select>
+
+
+</mapper>

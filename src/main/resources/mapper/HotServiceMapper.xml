@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cykj.domestic.mapper.HotServiceMapper">
+
+
+    <select id="hotServiceQuery" resultType="com.cykj.domestic.entity.TbService" parameterType="com.cykj.domestic.entity.TbService">
+        select s.id,s.type_name,s.description,st.type_name stype_name,count(o.service_id)orderNum from tb_service s
+        left join tb_order_info o on o.service_id = s.id
+        left join tb_service_type st on st.id = s.service_type_id
+        GROUP BY s.id
+        limit #{start},#{pageSize}
+    </select>
+
+    <select id="selectListCount" resultType="int" parameterType="com.cykj.domestic.entity.TbService">
+        select count(A.id) from (select s.id,s.type_name,s.description,st.type_name stype_name,count(o.service_id)orderNum from tb_service s
+        left join tb_order_info o on o.service_id = s.id
+        left join tb_service_type st on st.id = s.service_type_id
+        GROUP BY s.id)A
+    </select>
+
+
+</mapper>
