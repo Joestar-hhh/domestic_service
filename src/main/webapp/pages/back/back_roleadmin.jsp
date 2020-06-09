@@ -130,7 +130,7 @@
                     })
                     $.ajax({
                         type : "post",
-                        url : "/roleController/deleteRole",
+                        url : "<%=path%>/roleController/deleteRole",
                         dataType: 'JSON',
                         data : {idList:JSON.stringify(idList)},
                         error : function(request) {
@@ -175,7 +175,7 @@
                         form.on('submit(insertconfirm)', function(data){
                             $.ajax({
                                 type: 'POST',
-                                url: '/roleController/insertRole',
+                                url: '<%=path%>/roleController/insertRole',
                                 dataType: 'JSON',
                                 data: data.field,
                                 success: function (msg) {
@@ -235,7 +235,7 @@
                         data.field.id = roleId;
                         $.ajax({
                             type: 'POST',
-                            url: '/roleController/updateRole',
+                            url: '<%=path%>/roleController/updateRole',
                             dataType: 'JSON',
                             data: data.field,
                             success: function (msg) {
