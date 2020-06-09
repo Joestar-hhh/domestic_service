@@ -204,7 +204,7 @@
                             success: function (msg) {
                                 layer.close(layerupdate);
                                 layer.alert(msg.msg, {icon: 1}, function () {
-                                    window.parent.location.reload();//成功后刷新父界面.
+                                    window.parent.location.reload();//成功后刷新父界面..
                                 });//成功提示
                             }
                         })
