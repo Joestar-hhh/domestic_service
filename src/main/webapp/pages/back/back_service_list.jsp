@@ -53,14 +53,8 @@
 <table class="layui-hide" id="test" lay-filter="test"></table>
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
-        <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
-        <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
         <button class="layui-btn layui-btn-sm" lay-event="insert">
             <i class="layui-icon layui-icon-add-circle-fine"></i>添加</button>
-
-        <button class="layui-btn layui-btn-sm" lay-event="insert">添加</button>
-
     </div>
 </script>
 
