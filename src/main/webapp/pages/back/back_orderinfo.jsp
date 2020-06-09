@@ -60,18 +60,20 @@
 <%--    skill_train--%>
     <div class="layui-form-item" id="querydiv">
         <div class="layui-btn-container">
-            <button class="layui-btn layui-btn-sm" lay-event="deleteorder">删除</button>
+            <button class="layui-btn  layui-btn-danger layui-btn-sm" lay-event="deleteorder">
+                <i class="layui-icon layui-icon-delete"></i>删除</button>
         </div>
         <input type="text" name="intput_company" id="intput_company" lay-verify="title" autocomplete="off" placeholder="请输入公司名字" class="layui-input">
-        <button class="layui-btn layui-btn-sm querybtn" id="querybtn" lay-event="querybtn" data-type="reload">查询</button>
+        <button class="layui-btn layui-btn-sm querybtn" id="querybtn" lay-event="querybtn" data-type="reload">
+            <i class="layui-icon layui-icon-search"></i> 查询</button>
     </div>
 
 </script>
 
 
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="showinfo">查看详情</a>
-<%--    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>--%>
+    <a class="layui-btn  layui-btn-xs" lay-event="showinfo">
+        <i class="layui-icon layui-icon-list"></i>查看详情</a>
 </script>
 
 

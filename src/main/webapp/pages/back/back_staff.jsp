@@ -81,9 +81,12 @@
 
 
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="enable">启用</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="disable">禁用</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="check">查看详情</a>
+    <a class="layui-btn  layui-btn-xs" lay-event="enable">
+        <i class="layui-icon layui-icon-ok-circle"></i>启用</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="disable">
+        <i class="layui-icon layui-icon-close-fill"></i>禁用</a>
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="check">
+        <i class="layui-icon layui-icon-list"></i> 查看详情</a>
 </script>
 
 
