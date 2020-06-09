@@ -11,7 +11,7 @@ public interface CompanyManageService {
      * @param limit
      * @return
      */
-    ResultData queryCompany(Company company,int page, int limit);
+    ResultData queryCompany(Company company,int page, int limit,String address);
 
 
     /**

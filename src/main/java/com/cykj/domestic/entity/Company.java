@@ -19,6 +19,7 @@ public class Company {
     private String companyProfile;
     private int regionId;
     private int regioncount;
-    private String region;
+    private String region;  //区域名称
+    private String typeName;   //公司服务类别
 
 }
