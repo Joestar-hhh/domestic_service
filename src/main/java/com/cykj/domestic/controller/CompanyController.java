@@ -1,10 +1,8 @@
 package com.cykj.domestic.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.cykj.domestic.entity.Map;
 import com.cykj.domestic.service.CompanySrevice;
 import com.cykj.domestic.util.ResultData;
-import jdk.nashorn.internal.ir.RuntimeNode;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.RequestMapping;
