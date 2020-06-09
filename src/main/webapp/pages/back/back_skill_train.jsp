@@ -30,13 +30,16 @@
     <%--    skill_train--%>
     <div class="layui-form-item" id="querydiv">
         <div class="layui-btn-container">
-            <button class="layui-btn layui-btn-sm" lay-event="insert_Skill_train">添加</button>
+            <button class="layui-btn layui-btn-sm" lay-event="insert_Skill_train">
+                <i class="layui-icon layui-icon-add-circle-fine"></i> 添加</button>
         </div>
     </div>
 </script>
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="updaterole">修改</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <a class="layui-btn  layui-btn-xs" lay-event="updaterole">
+        <i class="layui-icon layui-icon-edit"></i> 修改</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">
+        <i class="layui-icon layui-icon-delete"></i>删除</a>
 </script>
 
 <%--<script src="<%=path%>/back/js/layui.js" charset="utf-8"></script>--%>

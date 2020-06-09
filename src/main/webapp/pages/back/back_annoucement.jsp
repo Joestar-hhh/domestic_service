@@ -33,7 +33,7 @@
             <button class="layui-btn layui-btn-danger  layui-btn-sm" lay-event="deleteannoucement">
                 <i class="layui-icon layui-icon-delete"></i>删除</button>
             <button class="layui-btn layui-btn-sm" lay-event="insertannoucement">
-                <i class="layui-icon layui-icon-add-circle-fine"></i> 添加</button>
+                <i class="layui-icon layui-icon-add-circle"></i> 添加</button>
         </div>
     </div>
 </script>

@@ -29,15 +29,18 @@
 <script type="text/html" id="toolbarDemo">
     <div class="layui-form-item" id="querydiv">
         <div class="layui-btn-container">
-            <button class="layui-btn layui-btn-sm" lay-event="insertPlan">添加</button>
+            <button class="layui-btn layui-btn-sm" lay-event="insertPlan">
+                <i class="layui-icon layui-icon-add-circle"></i> 添加</button>
         </div>
     </div>
 </script>
 
 
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="update">修改</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</a>
+    <a class="layui-btn layui-btn-xs" lay-event="update">
+        <i class="layui-icon layui-icon-edit"></i> 修改</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">
+        <i class="layui-icon layui-icon-delete"></i>删除</a>
 </script>
 
 
