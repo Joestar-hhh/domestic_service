@@ -6,8 +6,16 @@
 
     <!--家政公司管理端列表-->
     <select id="queryCompany" parameterType="com.cykj.domestic.entity.Company" resultType="com.cykj.domestic.entity.Company">
-             select C.*,T.type_name typeName from tb_company C,tb_service_relation R,tb_service_type T where C.id=R.company_id and R.service_type_id=T.id
-              LIMIT ${start},${pageSize};
+--              select C.*,T.type_name typeName from tb_company C,tb_service_relation R,tb_service_type T where C.id=R.company_id and R.service_type_id=T.id
+        SELECT C.*,type_name FROM
+            (tb_service_relation R LEFT JOIN tb_service_type T ON  R.service_type_id=T.id)
+            LEFT JOIN tb_company C ON C.id=R.company_id
+        <where>
+            <if test="address != null and address != ''">
+                address = #{address}
+            </if>
+        </where>
+        LIMIT ${start},${pageSize};
     </select>
 
     <select id="CompanyCount" resultType="int" parameterType="com.cykj.domestic.entity.Company">

@@ -16,9 +16,9 @@ public class CompanyManageServiceImpl implements CompanyManageService {
     private CompanyMangeMapper companyMangeMapper;
 
     @Override
-    public ResultData queryCompany(Company company,int page, int limit) {
-        List<Company> list=companyMangeMapper.queryCompany(company,(page-1)*limit,limit);
-        int count=companyMangeMapper.CompanyCount(company);
+    public ResultData queryCompany(Company company,int page, int limit,String address) {
+        List<Company> list=companyMangeMapper.queryCompany(company,(page-1)*limit,limit,address);
+        int count=companyMangeMapper.CompanyCount(company,address);
 
         ResultData resultData = new ResultData();
         resultData.setCode(0);

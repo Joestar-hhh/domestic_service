@@ -28,19 +28,17 @@
 
 <script type="text/html" id="toolbarDemo">
 
-<%--    <div class="layui-form-item" id="querydiv">--%>
-<%--        <div class="layui-btn-container">--%>
-<%--            <button class="layui-btn layui-btn-sm" lay-event="deleteannoucement">删除</button>--%>
-<%--            <button class="layui-btn layui-btn-sm" lay-event="insertannoucement">添加</button>--%>
-<%--        </div>--%>
-<%--    </div>--%>
-<div class="demoTable">
-    搜索：
-    <div class="layui-inline">
-        <input class="layui-input" name="id" id="demoReload" autocomplete="off">
+    <div class="demoTable">
+        搜索：
+        <div class="layui-inline">
+            <select name="regionlist" id="regionlist" lay-verify="required">
+            </select>
+        </div>
+        <button class="layui-btn layui-btn-radius " data-type="reload" lay-event="queryAddress">
+            <i class="layui-icon layui-icon-search"></i>  搜索
+        </button>
     </div>
-    <button class="layui-btn layui-icon layui-icon-search" data-type="reload">搜索</button>
-</div>
+
 </script>
 
 
@@ -75,9 +73,28 @@
 
 <%--<script src="<%=path%>/back/js/layui.js" charset="utf-8"></script>--%>
 <script>
+    var address;
     layui.use('table', function(){
         var table = layui.table;
         var $ = layui.jquery;
+
+        // 下拉框列表
+        $.ajax({
+            type: 'POST',
+            url: '/staffController/regionList',
+            dataType: 'JSON',
+            success: function (msg) {
+                $("#regionlist").html("<option value=''></option>");
+                $.each(msg.data, function (i, item) {
+                    $("#regionlist").append("<option value='" + item.id + "'>" + item.region + "</option>")
+                });
+                layui.use('form', function () {
+                    var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+                    form.render();
+                });
+            }
+        });
+
         table.render({
             elem: '#test'
             ,url:'/companyManageController/queryCompany'
@@ -104,78 +121,48 @@
         });
 
         //头工具栏事件
-        // table.on('toolbar(test)', function(obj){
-        //     var checkStatus = table.checkStatus(obj.config.id);
-        //     switch(obj.event){
-        //         case 'deleteannoucement':
-        //             var data = checkStatus.data;
-        //             var idList = new Array();
-        //             $.each(data, function (index,val) {
-        //                 idList.push(val.id);
-        //             })
-        //
-        //             layer.alert("删除id:"+JSON.stringify({idList:idList}))
-        //             $.ajax({
-        //                 type : "POST",
-        //                 url : "/annoucementController/deleteAnnoucement",
-        //                 dataType: 'JSON',
-        //                 data : {idList:JSON.stringify(idList)},
-        //                 error : function(request) {
-        //                     layer.alert('操作失败', {
-        //                         icon: 2,
-        //                         title:"提示"
-        //                     });
-        //                 },
-        //                 success : function(msg) {
-        //                     alert(msg.msg);
-        //                     window.parent.location.reload();//修改成功后刷新父界面
-        //                 }
-        //             });
-        //
-        //             break;
-        //         case 'insertannoucement':
-        //             var layerinsert = layer.open({
-        //                 type: 1
-        //                 ,title: '添加公告'
-        //                 ,area: ['500px','400px']
-        //                 ,shade: [0.8, '#314949'] //遮罩
-        //                 ,resize: false //不可拉伸
-        //                 ,content: $('#annoucementinfoform') //内容
-        //                 ,btn: 0
-        //                 ,cancel: function(index, layero){
-        //                     if(confirm('确定要关闭么')){ //只有当点击confirm框的确定时，该层才会关闭
-        //                         // $('#userinfoform').css("display","none");
-        //                         $('#title').val("");
-        //                         $("#content").val("");
-        //                         layer.close(index);
-        //                     }
-        //                     return false;
-        //                 }
-        //                 //如果设定了yes回调，需进行手工关闭
-        //             });
-        //             layui.use('form', function(){
-        //                 var form = layui.form;
-        //                 form.render();
-        //                 form.on('submit(insertconfirm)', function(data){
-        //                     $.ajax({
-        //                         type: 'POST',
-        //                         url: '/annoucementController/insertAnnoucement',
-        //                         dataType: 'JSON',
-        //                         data: data.field,
-        //                         success: function (msg) {
-        //                             alert(msg.msg);
-        //                             layer.close(layerinsert);
-        //                             $('#title').val("");
-        //                             $("#content").val("");
-        //                             window.parent.location.reload();//修改成功后刷新父界面
-        //                         }
-        //                     })
-        //                     return false;
-        //                 });
-        //             });
-        //             break;
-        //     };
-        // });
+        table.on('toolbar(test)', function (obj) {
+            var checkStatus = table.checkStatus(obj.config.id);
+
+            // 获取下拉框的值
+            $(".layui-anim-upbit>dd").each(function () {
+                if ($(this).attr('class') == "layui-this") {
+                    address = $(this).html();
+                }
+            })
+
+            switch (obj.event) {
+                case 'queryAddress':
+                    table.reload('test', {
+                        url: '/companyManageController/queryCompany'
+                        // ,methods:"post"
+                        , page: {
+                            curr: 1 //重新从第 1 页开始
+                        }
+                        , where: {
+                            address: address
+                        }
+                    });
+                    //查询完以后将下拉框的数据再次获取一次
+                    $.ajax({
+                        type: 'POST',
+                        url: '/staffController/regionList',
+                        dataType: 'JSON',
+                        success: function (msg) {
+                            $("#regionlist").html("<option value=''></option>");
+                            $.each(msg.data, function (i, item) {
+                                $("#regionlist").append("<option value='" + item.id + "'>" + item.region + "</option>")
+                            });
+                            layui.use('form', function () {
+                                var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+                                form.render();
+                            });
+                        }
+                    });
+                    break;
+            }
+            ;
+        });
 
 
         //监听行工具事件
