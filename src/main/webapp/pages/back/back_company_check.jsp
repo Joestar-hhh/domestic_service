@@ -135,7 +135,6 @@
                 case 'queryAddress':
                     table.reload('test', {
                         url: '/companyManageController/queryCompany'
-                        // ,methods:"post"
                         , page: {
                             curr: 1 //重新从第 1 页开始
                         }
