@@ -20,14 +20,40 @@
 
     <link rel="stylesheet" href="<%=path%>/static/layui/css/layui.css">
     <script type="text/javascript" src="<%=path%>/static/layui/layui.js"></script>
+
+    <style>
+        .layui-form-item {
+            margin-bottom: 0;
+        }
+        #serviceListView .layui-form-label {
+            float: left;
+            display: block;
+            padding: 9px 15px;
+            width: 114px;
+            font-weight: 400;
+            line-height: 31px;
+            text-align: right;
+            /*background-color:lightgreen;*/
+            margin-left: 50px;
+        }
+        #serviceListView .layui-input-block {
+            margin-left: 247px;
+        }
+        #serviceListView .rightlabel{
+            margin-bottom: 15px;
+            text-align: left;
+            line-height: 30px;
+            width: 170px;
+            background-color: #beffed;
+
+        }
+    </style>
 </head>
 <body>
 <table class="layui-hide" id="test" lay-filter="test"></table>
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
-        <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
-        <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
+
         <button class="layui-btn layui-btn-sm" lay-event="insert">添加</button>
 
     </div>
@@ -39,6 +65,7 @@
     <a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
+
 
 
 
@@ -79,31 +106,38 @@
 <form class="layui-form" id="serviceListView" action="" style="display: none">
     <div class="layui-form-item">
         <label class="layui-form-label">服务名：</label>
-        <input type="text" id="seeTypeName" readonly="readonly">
+        <label class="layui-form-label rightlabel" id="seeTypeName"></label>
+<%--        <input type="text" id="seeTypeName" readonly="readonly">--%>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">服务描述：</label>
-        <input type="text" id="seeDescription" readonly="readonly">
+        <label class="layui-form-label rightlabel" id="seeDescription"></label>
+<%--        <input type="text" id="seeDescription" readonly="readonly">--%>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">所属服务类别：</label>
-        <input type="text" id="seeServiceTypeId" readonly="readonly">
+        <label class="layui-form-label rightlabel" id="seeServiceTypeId"></label>
+<%--        <input type="text" id="seeServiceTypeId" readonly="readonly">--%>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">更新时间：</label>
-        <input type="text" id="seeUpdateTime" readonly="readonly">
+        <label class="layui-form-label rightlabel" id="seeUpdateTime"></label>
+<%--        <input type="text" id="seeUpdateTime" readonly="readonly">--%>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">地址：</label>
-        <input type="text" id="seePath" readonly="readonly">
+        <label class="layui-form-label rightlabel" id="seePath"></label>
+<%--        <input type="text" id="seePath" readonly="readonly">--%>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">服务单数：</label>
-        <input type="text" id="seeOrderNum" readonly="readonly">
+        <label class="layui-form-label rightlabel" id="seeOrderNum"></label>
+<%--        <input type="text" id="seeOrderNum" readonly="readonly">--%>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">单价：</label>
-        <input type="text" id="seeUnitPrice" readonly="readonly">
+        <label class="layui-form-label rightlabel" id="seeUnitPrice"></label>
+<%--        <input type="text" id="seeUnitPrice" readonly="readonly">--%>
     </div>
 </form>
 
@@ -226,13 +260,13 @@
                     dataType: 'JSON',
                     data: data,
                     success: function (msg) {
-                        $("#seeTypeName").val(msg.data[0].typeName);
-                        $("#seeDescription").val(msg.data[0].description);
-                        $("#seeServiceTypeId").val(msg.data[0].serviceCategory);
-                        $("#seeUpdateTime").val(msg.data[0].updateTime);
-                        $("#seePath").val(msg.data[0].path);
-                        $("#seeOrderNum").val(msg.data[0].orderNum);
-                        $("#seeUnitPrice").val(msg.data[0].unitPrice);
+                        $("#seeTypeName").html(msg.data[0].typeName);
+                        $("#seeDescription").html(msg.data[0].description);
+                        $("#seeServiceTypeId").html(msg.data[0].serviceCategory);
+                        $("#seeUpdateTime").html(msg.data[0].updateTime);
+                        $("#seePath").html(msg.data[0].path);
+                        $("#seeOrderNum").html(msg.data[0].orderNum);
+                        $("#seeUnitPrice").html(msg.data[0].unitPrice);
                     }
                 });
 
