@@ -33,13 +33,7 @@
             display: inline-block;
         }
         #orderinfoform .layui-form-label {
-            float: left;
-            display: block;
-            padding: 9px 15px;
             width: 114px;
-            font-weight: 400;
-            line-height: 31px;
-            text-align: right;
         }
         #orderinfoform .layui-input-block {
             margin-left: 247px;
@@ -133,7 +127,7 @@
         var $ = layui.jquery;
         table.render({
             elem: '#test'
-            ,url:'/orderController/queryOrder'
+            ,url:'<%=path%>/orderController/queryOrder'
             ,toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
             ,defaultToolbar: []//自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
             ,title: '用户数据表'
@@ -173,7 +167,7 @@
                         })
                         $.ajax({
                             type : "post",
-                            url : "/orderController/deleteOrder",
+                            url : "<%=path%>/orderController/deleteOrder",
                             dataType: 'JSON',
                             data : {idList:JSON.stringify(idList)},
                             error : function(request) {
@@ -195,7 +189,7 @@
                     var inputname = $('#intput_company').val();
                     //执行重载
                     table.reload('test', {
-                        url: '/orderController/queryOrder'
+                        url: '<%=path%>/orderController/queryOrder'
                         // ,methods:"post"
                         ,page: {
                             curr: 1 //重新从第 1 页开始

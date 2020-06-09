@@ -1,6 +1,7 @@
 package com.cykj.domestic.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.cykj.domestic.entity.Menu;
 import com.cykj.domestic.entity.MenuData;
 import com.cykj.domestic.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,8 @@ public class MenuController {
     private MenuService menuService;
 
     @RequestMapping("/queryMenu")
-    public String queryMenu(){
-        List<MenuData> menuDataList = menuService.queryList();
-        return JSON.toJSONString(menuDataList);
+    public Object queryMenu(){
+        List<Menu> menuDataList = menuService.queryList();
+        return menuDataList;
     }
 }
