@@ -26,4 +26,46 @@ public class TrainPlanServiceImpl implements TrainPlanService {
         resultData.setData(list);
         return resultData;
     }
+
+    @Override
+    public ResultData deletePlan(int id) {
+        int i = trainPlanMapper.deletePlan(id);
+        ResultData resultData = new ResultData();
+        if (i > 0) {
+            resultData.setCode(0);
+            resultData.setMsg("删除成功");
+        } else {
+            resultData.setCode(1);
+            resultData.setMsg("删除失败");
+        }
+        return resultData;
+    }
+
+    @Override
+    public ResultData updatePlan(TrainPlan trainPlan) {
+        int i = trainPlanMapper.updatePlan(trainPlan);
+        ResultData resultData = new ResultData();
+        if (i > 0) {
+            resultData.setCode(0);
+            resultData.setMsg("修改成功");
+        } else {
+            resultData.setCode(1);
+            resultData.setMsg("修改失败");
+        }
+        return resultData;
+    }
+
+    @Override
+    public ResultData insertPlan(TrainPlan trainPlan) {
+        int i = trainPlanMapper.insertPlan(trainPlan);
+        ResultData resultData = new ResultData();
+        if (i > 0) {
+            resultData.setCode(0);
+            resultData.setMsg("增加成功");
+        } else {
+            resultData.setCode(1);
+            resultData.setMsg("增加失败");
+        }
+        return resultData;
+    }
 }

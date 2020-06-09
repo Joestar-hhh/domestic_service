@@ -15,4 +15,12 @@ public interface CounselorMapper {
 
     int queryCounselorCount(@Param("e") Counselor counselor);
 
+    //删除计划
+    int deleteCounselor(int id);
+
+    //修改计划
+    int updateCounselor(Counselor counselor);
+
+    //增加计划
+    int insertCounselor(Counselor counselor);
 }

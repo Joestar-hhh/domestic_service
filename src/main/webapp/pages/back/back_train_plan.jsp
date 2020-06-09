@@ -29,31 +29,49 @@
 <script type="text/html" id="toolbarDemo">
     <div class="layui-form-item" id="querydiv">
         <div class="layui-btn-container">
-            <button class="layui-btn layui-btn-sm" lay-event="insertPlan">添加</button>
+            <button class="layui-btn layui-btn-sm" lay-event="insertPlan">
+                <i class="layui-icon layui-icon-add-circle"></i> 添加</button>
         </div>
     </div>
 </script>
 
 
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="updateTrainPlan">修改</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</a>
+    <a class="layui-btn layui-btn-xs" lay-event="update">
+        <i class="layui-icon layui-icon-edit"></i> 修改</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">
+        <i class="layui-icon layui-icon-delete"></i>删除</a>
 </script>
-
 
 
 <form class="layui-form" id="userinfoform" action="" style="display: none">
 
     <div class="layui-form-item">
-        <label class="layui-form-label">角色名：</label>
+        <label class="layui-form-label">培训标题：</label>
         <div class="layui-input-block">
-            <input type="text" name="roleName" id="roleName" required  lay-verify="required" placeholder="请输入角色名字" autocomplete="off" class="layui-input">
+            <input type="text" name="title" id="title" required lay-verify="required" placeholder="请输入培训标题"
+                   autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">职责：</label>
+        <label class="layui-form-label">培训内容：</label>
         <div class="layui-input-block">
-            <input type="text" name="roleDescribe" id="roleDescribe" required  lay-verify="required" placeholder="请输入职责描述" autocomplete="off" class="layui-input">
+            <input type="text" name="content" id="content" required lay-verify="required" placeholder="请输入培训内容"
+                   autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">培训人数：</label>
+        <div class="layui-input-block">
+            <input type="text" name="peopleNum" id="peopleNum" required lay-verify="required" placeholder="请输入培训人数"
+                   autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">培训时间：</label>
+        <div class="layui-input-block">
+            <input type="text" name="trainTime" id="trainTime" required lay-verify="required" placeholder="请输入培训时间"
+                   autocomplete="off" class="layui-input">
         </div>
     </div>
 
@@ -67,153 +85,151 @@
 
 
 <script>
-    layui.use('table', function(){
+    layui.use('table', function () {
         var table = layui.table;
         var $ = layui.jquery;
+
+        //打印表格数据
         table.render({
             elem: '#test'
-            ,url:'/trainPlanController/queryTrainPlanList'
-            ,toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
-            ,defaultToolbar: []//自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
-            ,title: '用户数据表'
-            ,cols: [[
-                {type: 'checkbox',fixed: 'left'}
-                ,{field:'trainTime', title: '培训时间'}
-                ,{field:'title', title: '培训标题'}
-                ,{field:'content', title: '培训内容'}
-                ,{field:'peopleNum', title: '培训人数'}
-                ,{fixed: 'right',title:'操作', width: 250, toolbar: '#barDemo'}
+            , url: '/trainPlanController/queryTrainPlanList'
+            , toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
+            , defaultToolbar: []//自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
+            , title: '用户数据表'
+            , cols: [[
+                {type: 'checkbox', fixed: 'left'}
+                , {field: 'id', title: '序号'}
+                , {field: 'trainTime', title: '培训时间'}
+                , {field: 'title', title: '培训标题'}
+                , {field: 'content', title: '培训内容'}
+                , {field: 'peopleNum', title: '培训人数'}
+                , {fixed: 'right', title: '操作', width: 250, toolbar: '#barDemo'}
                 // ,{field:'downloadDiscount', title: '下载文档积分比例'}
             ]]
-            ,page: {limit: 5,//指定每页显示的条数
+            , page: {
+                limit: 5,//指定每页显示的条数
                 limits: [5, 10, 15, 20,
-                    25, 30, 35, 40, 45, 50],} //每页条数的选择项
+                    25, 30, 35, 40, 45, 50],
+            } //每页条数的选择项
 
         });
 
 
         //头工具栏事件
-        table.on('toolbar(test)', function(obj){
+        table.on('toolbar(test)', function (obj) {
             var checkStatus = table.checkStatus(obj.config.id);
-            switch(obj.event){
-                case 'deleterole':
-                    var data = checkStatus.data;
-                    var idList = new Array();
-                    $.each(data, function (index,val) {
-                        idList.push(val.id);
-                    })
-                    layer.alert("删除id:"+JSON.stringify({idList:idList}))
-                    $.ajax({
-                        type : "post",
-                        url : "/roleController/deleteRole",
-                        dataType: 'JSON',
-                        data : {idList:JSON.stringify(idList)},
-                        error : function(request) {
-                            layer.alert('操作失败', {
-                                icon: 2,
-                                title:"提示"
-                            });
-                        },
-                        success : function(msg) {
-                            alert(msg.msg);
-                            window.location.reload();//修改成功后刷新父界面
-                        }
-                    });
-
-                    break;
-                case 'insertrole':
+            switch (obj.event) {
+                case 'insertPlan':
                     var layerinsert = layer.open({
                         type: 1
-                        ,title: '添加角色'
-                        ,area: ['500px','400px']
-                        ,shade: [0.8, '#314949'] //遮罩
-                        ,resize: false //不可拉伸
-                        ,content: $('#userinfoform') //内容
-                        ,btn: 0
-                        ,cancel: function(index, layero){
-                            if(confirm('确定要关闭么')){ //只有当点击confirm框的确定时，该层才会关闭
-                                // $('#userinfoform').css("display","none");
-                                $('#roleName').val("");
-                                $("#roleDescribe").val("");
+                        , title: '增加培训计划'
+                        , area: ['500px', '400px']
+                        , shade: [0.8, '#314949'] //遮罩
+                        , resize: false //不可拉伸
+                        , content: $('#userinfoform') //内容
+                        , btn: 0
+                        , cancel: function (index, layero) {
+                            if (confirm('确定要关闭么')) { //只有当点击confirm框的确定时，该层才会关闭
+                                $('#title').val("");
+                                $("#content").val("");
+                                $("#peopleNum").val("");
+                                $("#trainTime").val("");
                                 layer.close(index);
                             }
                             return false;
                         }
                         //如果设定了yes回调，需进行手工关闭
                     });
-                    layui.use('form', function(){
+                    layui.use('form', function () {
                         var form = layui.form;
                         form.render();
-                        form.on('submit(insertconfirm)', function(data){
+                        form.on('submit(insertconfirm)', function (data) {
                             $.ajax({
                                 type: 'POST',
-                                url: '/roleController/insertRole',
+                                url: '/trainPlanController/insertPlan',
                                 dataType: 'JSON',
                                 data: data.field,
                                 success: function (msg) {
-                                    alert(msg.msg);
                                     layer.close(layerinsert);
-                                    $('#roleName').val("");
-                                    $("#roleDescribe").val("");
-                                    window.location.reload();//修改成功后刷新父界面
+                                    layer.alert(msg.msg, {icon: 6}, function () {
+                                        window.parent.location.reload();//成功后刷新父界面
+                                    });//成功提示
                                 }
                             })
                             return false;
                         });
                     });
                     break;
-            };
+            }
+            ;
         });
 
 
         //监听行工具事件
-        table.on('tool(test)', function(obj){
+        table.on('tool(test)', function (obj) {
             var tabdata = obj.data;
-            //console.log(obj)s
-            if(obj.event === 'del'){
-                layer.confirm('真的删除行么', function(index){
-                    obj.del();
-                    layer.close(index);
+
+            //删除计划
+            if (obj.event === 'delete') {
+                layer.confirm('真的要删除此行数据么?', function (index) {
+                    $.ajax({
+                        url: '/trainPlanController/deletePlan',
+                        type: 'POST',
+                        dataType: 'JSON',
+                        data: {
+                            id: tabdata.id
+                        },
+                        success: function (msg) {
+                            layer.msg(msg.msg)
+                            obj.del();
+                            layer.close(index);
+                        }
+                    })
                 });
-            } else if(obj.event === 'updaterole'){
-                $('#roleName').val(tabdata.roleName);
-                $("#roleDescribe").val(tabdata.roleDescribe);
-                var roleId = tabdata.id
+            }
+            //修改计划
+            else if (obj.event === 'update') {
+                $('#title').val(tabdata.title);
+                $("#content").val(tabdata.content);
+                $("#trainTime").val(tabdata.trainTime);
+                $("#peopleNum").val(tabdata.peopleNum);
+                var planid = tabdata.id
                 var layerupdate = layer.open({
                     type: 1
-                    ,title: '修改角色'
-                    ,area: ['500px','400px']
-                    ,shade: [0.8, '#314949'] //遮罩
-                    ,resize: false //不可拉伸
-                    ,content: $('#userinfoform') //内容
-                    ,btn: 0
-                    ,cancel: function(index, layero){
-                        if(confirm('确定要关闭么')){ //只有当点击confirm框的确定时，该层才会关闭
+                    , title: '修改计划'
+                    , area: ['500px', '400px']
+                    , shade: [0.8, '#314949'] //遮罩
+                    , resize: false //不可拉伸
+                    , content: $('#userinfoform') //内容
+                    , btn: 0
+                    , cancel: function (index, layero) {
+                        if (confirm('确定要关闭么')) { //只有当点击confirm框的确定时，该层才会关闭
                             // $('#userinfoform').css("display","none");
-                            $('#roleName').val("");
-                            $("#roleDescribe").val("");
+                            $('#title').val("");
+                            $("#content").val("");
+                            $("#trainTime").val("");
+                            $("#peopleNum").val("");
                             layer.close(index);
                         }
                         return false;
                     }
                     //如果设定了yes回调，需进行手工关闭
                 });
-                layui.use('form', function(){
+                layui.use('form', function () {
                     var form = layui.form;
                     form.render();
-                    form.on('submit(insertconfirm)', function(data){
-                        data.field.id = roleId;
+                    form.on('submit(insertconfirm)', function (data) {
+                        data.field.id = planid;
                         $.ajax({
                             type: 'POST',
-                            url: '/roleController/updateRole',
+                            url: '/trainPlanController/updatePlan',
                             dataType: 'JSON',
                             data: data.field,
                             success: function (msg) {
-                                layer.alert(msg.msg);
                                 layer.close(layerupdate);
-                                $('#roleName').val("");
-                                $("#roleDescribe").val("");
-                                window.location.reload();//修改成功后刷新父界面
+                                layer.alert(msg.msg, {icon: 1}, function () {
+                                    window.parent.location.reload();//成功后刷新父界面
+                                });//成功提示
                             }
                         })
                         return false;

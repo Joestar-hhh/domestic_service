@@ -21,6 +21,13 @@
     <link rel="stylesheet" href="<%=path%>/static/layui/css/layui.css">
     <script type="text/javascript" src="<%=path%>/static/layui/layui.js"></script>
     <link rel="stylesheet" href="<%=path%>/static/css/back_page.css">
+    <style>
+        .layui-form-label {
+            width: 100px;
+        }
+    </style>
+
+
 </head>
 <body>
 
@@ -30,14 +37,17 @@
 
     <div class="layui-form-item" id="querydiv">
         <div class="layui-btn-container">
-            <button class="layui-btn layui-btn-sm" lay-event="insertadmin">添加</button>
+            <button class="layui-btn layui-btn-sm" lay-event="insertadmin">
+                <i class="layui-icon layui-icon-add-circle-fine"></i>添加</button>
         </div>
     </div>
 </script>
 
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="see_details">查看详情</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="see_details">
+        <i class="layui-icon layui-icon-list"></i> 查看详情</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">
+        <i class="layui-icon layui-icon-delete"></i>删除</a>
 </script>
 
 
@@ -68,20 +78,25 @@
 <form class="layui-form" id="see_company" action="" style="display: none">
     <div class="layui-form-item">
         <label class="layui-form-label">公司名称：</label>
-        <label class="layui-form-label rightlabel" id="company_name"></label>
-    </div>
-    <div class="layui-form-item">
         <label class="layui-form-label">创建时间：</label>
-        <label class="layui-form-label rightlabel" id="creation_time"></label>
-    </div>
-    <div class="layui-form-item">
         <label class="layui-form-label">公司地址：</label>
-        <label class="layui-form-label" id="company_address"></label>
+        <label class="layui-form-label">公司电话：</label>
+
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">公司电话：</label>
+        <label class="layui-form-label rightlabel" id="company_name"></label>
+        <label class="layui-form-label rightlabel" id="creation_time"></label>
+        <label class="layui-form-label" id="company_address"></label>
         <label class="layui-form-label" id="company_phone"></label>
     </div>
+<%--    <div class="layui-form-item">--%>
+<%--        --%>
+<%--        --%>
+<%--    </div>--%>
+<%--    <div class="layui-form-item">--%>
+<%--       --%>
+<%--        --%>
+<%--    </div>--%>
 </form>
 
 <script>
@@ -93,7 +108,7 @@
             , url: '/companyController/queryRegion'
             , toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
             , defaultToolbar: []//自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
-            , title: '顾问管理表'
+            , title: '区域列表'
             , cols: [[
                 // {type: 'checkbox',fixed: 'left'}
                 {field: 'regionId', title: '序号'}
@@ -131,7 +146,6 @@
 
         layui.use('form', function () {
             var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
-
             //select 监听事件
             layui.use('form', function () {
                 var form = layui.form;
@@ -185,35 +199,40 @@
                         }
                         //如果设定了yes回调，需进行手工关闭
                     });
+
+                    //dialog submit提交添加
+                    layui.use('form', function () {
+                        var form = layui.form;
+                        form.render();
+                        form.on('submit(insertconfirm)', function (data) {
+                            $.ajax({
+                                type: 'POST',
+                                url: '/companyController/insertRegion',
+                                dataType: 'JSON',
+                                data: {
+                                    firstLevelRegion: $("#City_level").find("option:selected").text(),
+                                    secondaryZone: $("#County_level").find("option:selected").text()
+                                },
+                                success: function (msg) {
+
+                                    layer.close(layerinsert);
+                                    $('#City_level').val("");
+                                    $("#County_level").val("");
+                                    layer.alert(msg.msg, {icon: 6},function () {
+                                        window.parent.location.reload();//修改成功后刷新父界面
+                                    });
+
+                                }
+                            })
+                            return false;
+                        });
+                    });
                     break;
             }
             ;
         });
 
-        //dialog submit提交添加
-        layui.use('form', function () {
-            var form = layui.form;
-            form.render();
-            form.on('submit(insertconfirm)', function (data) {
-                $.ajax({
-                    type: 'POST',
-                    url: '/companyController/insertRegion',
-                    dataType: 'JSON',
-                    data: {
-                        firstLevelRegion: $("#City_level").find("option:selected").text(),
-                        secondaryZone: $("#County_level").find("option:selected").text()
-                    },
-                    success: function (msg) {
-                        layer.alert(msg.msg, {icon: 6})
-                        layer.close(layerupdate);
-                        $('#City_level').val("");
-                        $("#County_level").val("");
-                        window.parent.location.reload();//修改成功后刷新父界面
-                    }
-                })
-                return false;
-            });
-        });
+
 
         //监听行工具事件 删除、查看详情
         table.on('tool(test)', function (obj) {
@@ -223,7 +242,7 @@
                 if (tabdata.regioncount > 0) {
                     layer.confirm('不能删除有公司的区域')
                 } else {
-                    layer.confirm('真的删除行么', function (index) {
+                    layer.confirm('<i class="layui-icon layui-icon-face-smile" style="font-size: 30px; color: #1E9FFF;"></i> 真的要删除这个区域码么', function (index) {
                         $.ajax({
                             url: '/companyController/deleteRegion',
                             type: 'POST',
@@ -240,47 +259,49 @@
                     });
                 }
             } else if (obj.event === 'see_details') {
-                $.ajax({
-                    url: '/companyController/queryRegionCompany',
-                    type: 'POST',
-                    dataType: 'JSON',
-                    data: {
-                        regionId: tabdata.regionId
-                    },
-                    success: function (msg) {
-                        // alert(msg.data.companyName);
-                        $.each(msg.data, function (j, item) {
-                            // $("#County_level").append("<option value='" + item.id + "'>" + item.secondaryZone + "</option>")
-                            $("#company_name").text(item.companyName);
-                            $("#creation_time").text(item.joinTime);
-                            $("#company_address").text(item.address);
-                            $("#company_phone").text(item.phone);
-                        });
-
-                    }
-                })
-                var see = layer.open({
-                    type: 1
-                    , title: '查看详情'
-                    , area: ['500px', '400px']
-                    , shade: [0.8, '#314949'] //遮罩
-                    , resize: false //不可拉伸
-                    , content: $('#see_company') //内容
-                    , btn: 0
-                    , cancel: function (index, layero) {
-                        if (confirm('确定要关闭么')) { //只有当点击confirm框的确定时，该层才会关闭
-                            layer.close(index);
+                if(tabdata.regioncount==0){
+                    layer.alert("该区域目前暂无公司");
+                }else{
+                    $.ajax({
+                        url: '/companyController/queryRegionCompany',
+                        type: 'POST',
+                        dataType: 'JSON',
+                        data: {
+                            regionId: tabdata.regionId
+                        },
+                        success: function (msg) {
+                            // alert(msg.data.companyName);
+                            $.each(msg.data, function (j, item) {
+                                $("#company_name").append(item.companyName+"<br><br><br>");
+                                $("#creation_time").append(item.joinTime+"<br><br>");
+                                $("#company_address").append(item.address+"<br><br>");
+                                $("#company_phone").append(item.phone+"<br><br><br>");
+                            });
                         }
-                        return false;
-                    }
-                    //如果设定了yes回调，需进行手工关闭
-                });
-
-
+                    })
+                    var see = layer.open({
+                        type: 1
+                        , title: '查看详情'
+                        , area: ['600px', '480px']
+                        , shade: [0.8, '#314949'] //遮罩
+                        , resize: false //不可拉伸
+                        , content: $('#see_company') //内容
+                        , btn: 0
+                        , cancel: function (index, layero) {
+                            if (confirm('确定要关闭么')) { //只有当点击confirm框的确定时，该层才会关闭
+                                layer.close(index);
+                                $("#company_name").text("");
+                                $("#creation_time").text("");
+                                $("#company_address").text("");
+                                $("#company_phone").text("");
+                            }
+                            return false;
+                        }
+                        //如果设定了yes回调，需进行手工关闭
+                    });
+                }
             }
         });
-
-
     });
 
 </script>

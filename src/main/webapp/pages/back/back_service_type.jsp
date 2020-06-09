@@ -54,15 +54,23 @@
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
         <button class="layui-btn layui-btn-sm" lay-event="insert">添加</button>
+        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
+        <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
+        <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
+        <button class="layui-btn layui-btn-sm" lay-event="insert">
+            <i class="layui-icon layui-icon-add-circle-fine"></i>添加</button>
         <link rel="stylesheet" href="<%=path%>/static/css/back_page.css">
     </div>
 </script>
 
 <script type="text/html" id="barDemo">
 
-    <a class="layui-btn layui-btn-xs" lay-event="viewDetails">查看详情</a>
-    <a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="viewDetails">
+        <i class="layui-icon layui-icon-list"></i>查看详情</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">
+        <i class="layui-icon layui-icon-edit"></i> 修改</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">
+        <i class="layui-icon layui-icon-delete"></i>删除</a>
 </script>
 
 

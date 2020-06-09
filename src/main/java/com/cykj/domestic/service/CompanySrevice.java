@@ -9,6 +9,9 @@ import java.util.List;
 
 public interface CompanySrevice {
 
+    //    平台端登入
+    ResultData companyLogin(Company company);
+
     //平台端区域列表
     ResultData queryRegion(int page, int limit);
 

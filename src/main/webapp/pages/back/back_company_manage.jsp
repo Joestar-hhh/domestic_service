@@ -21,6 +21,35 @@
     <link rel="stylesheet" href="<%=path%>/static/layui/css/layui.css">
     <script type="text/javascript" src="<%=path%>/static/layui/layui.js"></script>
     <link rel="stylesheet" href="<%=path%>/static/css/back_page.css">
+    <style>
+        .layui-form-item {
+            margin-bottom: 0;
+        }
+
+        #querydiv .layui-btn-container{
+            display: inline-block;
+        }
+        #orderinfoform .layui-form-label {
+            width: 114px;
+        }
+        #orderinfoform .layui-input-block {
+            margin-left: 247px;
+        }
+        #orderinfoform .rightlabel{
+            margin-bottom: 15px;
+            text-align: left;
+            line-height: 30px;
+            background-color: #beffed;
+        }
+        #orderinfoform .companyProfile{
+            margin-bottom: 15px;
+            text-align: left;
+            line-height: 30px;
+            background-color: #beffed;
+            width: 400px;
+        }
+    </style>
+
 </head>
 <body>
 
@@ -42,35 +71,60 @@
 
 
 <script type="text/html" id="barDemo">
-    <a class="layui-btn" lay-event="detail">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="showinfo">
         <i class="layui-icon layui-icon-list"></i>  查看详情
     </a>
 </script>
 
-<form class="layui-form" id="detail" action="" style="display: none">
+<form class="layui-form" id="orderinfoform" action="" style="display: none">
 
     <div class="layui-form-item">
-        <label class="layui-form-label">标题：</label>
-        <div class="layui-input-block">
-            <input type="text" name="title" id="title" required  lay-verify="required" placeholder="请输入标题内容" autocomplete="off" class="layui-input">
-        </div>
+        <label class="layui-form-label">公司ID：</label>
+        <label class="layui-form-label rightlabel" id="id"></label>
+        <label class="layui-form-label">公司名称：</label>
+        <label class="layui-form-label rightlabel" id="companyName"></label>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">内容：</label>
-        <div class="layui-input-block">
-            <textarea rows="10" cols="39" name="content" id="content" required  lay-verify="required" placeholder="请输入具体公告内容"></textarea>
-        </div>
+        <label class="layui-form-label">公司法人：</label>
+        <label class="layui-form-label rightlabel" id="boss"></label>
+        <label class="layui-form-label">公司地址：</label>
+        <label class="layui-form-label rightlabel" id="address"></label>
     </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">公司电话：</label>
+        <label class="layui-form-label rightlabel" id="phone"></label>
+        <label class="layui-form-label">公司服务类别：</label>
+        <label class="layui-form-label rightlabel" id="typeName"></label>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">状态：</label>
+        <label class="layui-form-label rightlabel" id="state"></label>
+        <%--        <label class="layui-form-label">订单状态：</label>--%>
+        <%--        <label class="layui-form-label rightlabel" id="stateComName"></label>--%>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">公司简介：</label>
+        <label class="layui-form-label companyProfile" id="companyProfile"></label>
+
+    </div>
+    <%--    <div class="layui-form-item">--%>
+    <%--        <label class="layui-form-label">频次：</label>--%>
+    <%--        <label class="layui-form-label rightlabel" id="frequency"></label>--%>
+    <%--        <label class="layui-form-label">用户联系电话：</label>--%>
+    <%--        <label class="layui-form-label rightlabel" id="phone"></label>--%>
+    <%--        &lt;%&ndash;        <label class="layui-form-label">订单状态：</label>&ndash;%&gt;--%>
+    <%--        &lt;%&ndash;        <label class="layui-form-label" id="stateComName"></label>&ndash;%&gt;--%>
+    <%--    </div>--%>
 
     <div class="layui-form-item">
         <div class="layui-input-block">
             <button class="layui-btn formbtn" id="insertconfirm" lay-submit lay-filter="insertconfirm">确定</button>
-            <button type="reset" class="layui-btn layui-btn-primary formbtn">重置</button>
         </div>
     </div>
 </form>
 
-<%--<script src="<%=path%>/back/js/layui.js" charset="utf-8"></script>--%>
+
 <script>
     var address;
     layui.use('table', function(){
@@ -111,6 +165,7 @@
                 ,{field:'phone', title: '公司电话'}
                 ,{field:'typeName', title: '公司服务类别'}
                 ,{field:'state', title: '状态'}
+                ,{field:'companyProfile', title: '公司简介',hide:true}
                 ,{fixed: 'right',title:'操作', width: 250, toolbar: '#barDemo'}
             ]]
             ,page: {limit: 5,//指定每页显示的条数
@@ -162,7 +217,6 @@
             ;
         });
 
-
         //监听行工具事件
         table.on('tool(test)', function(obj){
             var tabdata = obj.data;
@@ -189,6 +243,46 @@
                     layer.close(index);
                 });
 
+            }
+            else if(obj.event === 'showinfo'){
+                $('#id').html(tabdata.id);
+                $('#companyName').html(tabdata.companyName);
+                $('#boss').html(tabdata.boss);
+                $('#address').html(tabdata.address);
+                $('#phone').html(tabdata.phone);
+                $('#typeName').html(tabdata.typeName);
+                $('#state').html(tabdata.state);
+                $('#companyProfile').html(tabdata.companyProfile);
+                // $('#frequency').html(tabdata.frequency);
+                // $('#startTime').html(tabdata.startTime);
+                // $('#endTime').html(tabdata.endTime);
+                var layerupdate = layer.open({
+                    type: 1
+                    ,title: '查看公司详情'
+                    ,area: ['640px','580px']
+                    ,shade: [0.8, '#314949'] //遮罩
+                    ,resize: false //不可拉伸
+                    ,content: $('#orderinfoform') //内容
+                    ,btn: 0
+                    ,cancel: function(index, layero){
+                        if(confirm('确定要关闭么')){ //只有当点击confirm框的确定时，该层才会关闭
+                            // $('#userinfoform').css("display","none");
+                            // $('#roleName').val("");
+                            // $("#roleDescribe").val("");
+                            layer.close(index);
+                        }
+                        return false;
+                    }
+                    //如果设定了yes回调，需进行手工关闭
+                });
+                layui.use('form', function(){
+                    var form = layui.form;
+                    form.render();
+                    form.on('submit(insertconfirm)', function(data){
+                        layer.close(layerupdate);
+                        return false;
+                    });
+                });
             }
         });
 
