@@ -134,7 +134,6 @@
                 case 'queryAddress':
                     table.reload('test', {
                         url: '/companyManageController/queryCompany'
-                        // ,methods:"post"
                         , page: {
                             curr: 1 //重新从第 1 页开始
                         }
@@ -191,51 +190,6 @@
                 });
 
             }
-            // else if(obj.event === 'detail'){
-            //     $('#title').val(tabdata.title);
-            //     $("#content").val(tabdata.content);
-            //     var annouceId = tabdata.id
-            //     var layerupdate = layer.open({
-            //         type: 1
-            //         ,title: '修改公告'
-            //         ,area: ['500px','400px']
-            //         ,shade: [0.8, '#314949'] //遮罩
-            //         ,resize: false //不可拉伸
-            //         ,content: $('#annoucementinfoform') //内容
-            //         ,btn: 0
-            //         ,cancel: function(index, layero){
-            //             if(confirm('确定要关闭么')){ //只有当点击confirm框的确定时，该层才会关闭
-            //                 // $('#userinfoform').css("display","none");
-            //                 $('#title').val("");
-            //                 $("#content").val("");
-            //                 layer.close(index);
-            //             }
-            //             return false;
-            //         }
-            //         //如果设定了yes回调，需进行手工关闭
-            //     });
-            //     layui.use('form', function(){
-            //         var form = layui.form;
-            //         form.render();
-            //         form.on('submit(insertconfirm)', function(data){
-            //             data.field.id = annouceId;
-            //             $.ajax({
-            //                 type: 'POST',
-            //                 url: '/annoucementController/updateAnnouncement',
-            //                 dataType: 'JSON',
-            //                 data: data.field,
-            //                 success: function (msg) {
-            //                     layer.alert(msg.msg);
-            //                     layer.close(layerupdate);
-            //                     $('#title').val("");
-            //                     $("#content").val("");
-            //                     window.parent.location.reload();//修改成功后刷新父界面
-            //                 }
-            //             })
-            //             return false;
-            //         });
-            //     });
-            // }
         });
 
     });
