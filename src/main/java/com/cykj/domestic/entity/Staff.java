@@ -25,6 +25,7 @@ public class Staff {
     private String avatar;
     private String materialRelationId;
     private int orderNum;
-//    private Region region;
+    private String name;// 职位名
     private String region;
+    private String position;
 }
