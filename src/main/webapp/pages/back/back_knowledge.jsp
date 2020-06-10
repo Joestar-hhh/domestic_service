@@ -39,16 +39,8 @@
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">文件类型：</label>
-        <%--        <div class="layui-input-block">--%>
-        <%--            &lt;%&ndash;            <select name="type" id="type" lay-filter="selecttest" lay-verify="required">&ndash;%&gt;--%>
-        <%--            &lt;%&ndash;                <option value=""></option>&ndash;%&gt;--%>
-        <%--            &lt;%&ndash;                <option value="文章">文章</option>&ndash;%&gt;--%>
-        <%--            &lt;%&ndash;                <option value="视频">视频</option>&ndash;%&gt;--%>
-        <%--            &lt;%&ndash;            </select>&ndash;%&gt;--%>
-        <%--            <input type="text" name="title" id="title" required lay-verify="required" placeholder="请输入标题"--%>
-        <%--                   autocomplete="off" class="layui-input" value="视频" disabled="disabled">--%>
-        <%--        </div>--%>
-        <label class="layui-form-label" name="type" id="type">视频</label>
+        <label class="layui-form-label" >视频</label>
+        <input type="hidden" name="type" id="type" value="视频">
     </div>
 
     <div class="layui-form-item">
@@ -61,7 +53,7 @@
 
 <%--上传弹出框--%>
 <form class="layui-form" id="upload_video" action="" style="display: none">
-    <div class="layui-form-item">
+    <div class="layui-form-item" style="text-align: center">
         <button type="button" class="layui-btn" id="test5"><i class="layui-icon"></i>上传视频</button>
         <input type="hidden" id="id" value="">
     </div>
@@ -71,10 +63,10 @@
     <%--    skill_train--%>
     <div class="layui-form-item" id="querydiv">
         <div class="layui-btn-container" style="display: inline-block">
-            <button class="layui-btn layui-btn-danger layui-btn-sm" lay-event="deleterole">
+            <button class="layui-btn layui-btn-danger " lay-event="deleterole">
                 <i class="layui-icon layui-icon-delete"></i>删除
             </button>
-            <button class="layui-btn layui-btn-sm" lay-event="insertknowledge">
+            <button class="layui-btn " lay-event="insertknowledge">
                 <i class="layui-icon layui-icon-add-circle-fine"></i>添加育婴知识
             </button>
         </div>
@@ -90,7 +82,7 @@
 <script type="text/html" id="barDemo">
     <a class="layui-btn  layui-btn-xs" lay-event="see_details">
         <i class="layui-icon layui-icon-edit"></i>查看详情</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="File_Upload">上传</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="File_Upload"><i class="layui-icon"></i>上传</a>
 </script>
 
 <script>
@@ -218,7 +210,6 @@
         table.on('tool(test)', function (obj) {
             var tabdata = obj.data;
             //console.log(obj)s
-
             //查看详情
             if (obj.event === 'see_details') {
                 var path = tabdata.path;
@@ -233,7 +224,7 @@
                     ,
                     resize: false//不可拉伸
                     ,
-                    content: '<a href=' + path + '><input type="button" value="点击预览" class="layui-btn layui-btn-lg layui-btn-radius layui-btn-normal"></a>'//内容
+                    content: '<a href=' + path + ' target="_blank" ><input type="button" value="点击预览" class="layui-btn layui-btn-lg layui-btn-radius layui-btn-normal"></a>'//内容
                     // ,
                     // content: '<video width="100%" height="100%"  controls="controls" autobuffer="autobuffer"  autoplay="autoplay" loop="loop"><source src=' + path + ' type="video/mp4"></source></video>'
                     // <img src="/i/eg_tulip.jpg"  alt="上海鲜花港 - 郁金香" />
@@ -254,7 +245,6 @@
                 var id = tabdata.id
                 $("#id").val(id);
                 if (path === undefined) {
-
                     var layerupdate = layer.open({
                         type: 1
                         ,

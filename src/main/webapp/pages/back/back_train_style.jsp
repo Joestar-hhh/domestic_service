@@ -30,15 +30,13 @@
 
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="updaterole">查看详情</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">修改</a>
-    <button type="button" class="layui-btn " id="test8" lay-type="file" lay-event="file">选择图片</button>
+
 </script>
 <style>
     <%--    表格行高自适应--%>
     .layui-table-cell {
         height: inherit;
     }
-
     /*
     调整图片宽度
     */
@@ -208,32 +206,6 @@
     });
 </script>
 
-<%--文件上传--%>
-<script>
-    layui.use('upload', function () {
-        var $ = layui.jquery
-            , upload = layui.upload;
-        //选完文件后不自动上传
-        upload.render({
-            elem: '#test8'
-            , url: '<%=path%>/skillTrainController/fileUpload' //改成您自己的上传接口
-            , auto: false
-            , accept: 'file'
-            , size: 102400 //限制文件大小，单位 KB
-            //,multiple: true
-            , bindAction: '#test9'
-            , done: function (res) {
-                if (res.code == 0) {
-                    $("#picturePath").val(res.msg);
-                    // alert(res.msg)
-                } else {
-                    layer.msg(res.msg)
-                }
-                console.log(res)
-            }
-        });
-    });
-</script>
 <%--修改技能培训界面--%>
 <div id="update_div" style="display:none;">
     <form class="layui-form" action="" id="add_submits">
@@ -273,6 +245,5 @@
         </div>
     </form>
 </div>
-
 </body>
 </html>
