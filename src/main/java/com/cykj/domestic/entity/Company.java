@@ -25,7 +25,6 @@ public class Company {
     private String typeName;   //公司服务类别
 
     private int countNum;//统计数量
-    private List<String> rowList;//柱状图行 list
-    private List<String> colList;//柱状图行 list
+    private String joinDay;
 
 }

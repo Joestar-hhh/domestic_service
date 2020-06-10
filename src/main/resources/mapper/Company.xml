@@ -57,5 +57,13 @@
         left join tb_company c on r.id = c.region_id
         group by r.id
     </select>
+    <!--    按日期统计-->
+    <select id="dateStatistics" parameterType="java.lang.String" resultType="com.cykj.domestic.entity.Company">
+        select date(c.join_time) as join_day,count(c.id) count_num from tb_company c
+        where c.join_time between date_format(#{startDate},'%Y%m%d')
+        and date_format(#{endDate},'%Y%m%d') group by join_day;
+    </select>
+
+
 
 </mapper>

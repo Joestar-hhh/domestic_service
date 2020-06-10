@@ -98,12 +98,14 @@ public class CompanyImpl implements CompanySrevice {
     }
 
     @Override
-    public List<Company> serviceTypeStatistics(String statisticsType) {
+    public List<Company> serviceTypeStatistics(String statisticsType, String startDate, String endDate) {
         List<Company> companyList = null;
         if(statisticsType.equals("1")){
             companyList = companyMapper.serviceTypeStatistics();
-        }else{
+        }else if (statisticsType.equals("2")){
             companyList = companyMapper.regionStatistics();
+        }else {
+            companyList = companyMapper.dateStatistics(startDate, endDate);
         }
         return companyList;
     }

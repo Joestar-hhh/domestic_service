@@ -25,5 +25,5 @@ public interface CompanySrevice {
     //    根据地区查看平台详情
     ResultData queryRegionCompany(String regionId);
 
-    List<Company> serviceTypeStatistics(String statisticsType);
+    List<Company> serviceTypeStatistics(String statisticsType, String startDate, String endDate);
 }

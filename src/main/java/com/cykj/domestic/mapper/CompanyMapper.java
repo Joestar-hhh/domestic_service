@@ -35,4 +35,5 @@ public interface CompanyMapper {
 
     List<Company> serviceTypeStatistics();
     List<Company> regionStatistics();
+    List<Company> dateStatistics(@Param("startDate") String startDate, @Param("endDate") String endDate);
 }

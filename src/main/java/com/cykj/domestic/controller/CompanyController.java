@@ -78,10 +78,9 @@ public class CompanyController {
 
     //    根据服务类型统计公司数量
     @RequestMapping("/serviceStatistics")
-    public String serviceStatistics(String statisticsType) {
-        List<Company> list = companySrevice.serviceTypeStatistics(statisticsType);
+    public String serviceStatistics(String statisticsType, String startDate, String endDate) {
+        List<Company> list = companySrevice.serviceTypeStatistics(statisticsType, startDate, endDate);
         return JSON.toJSONString(list);
     }
-
 
 }

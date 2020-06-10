@@ -39,7 +39,7 @@
         <div id="control" class="layui-layout-control"></div>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item layui-hide-xs"><a href="#" class="fullScreen layui-icon layui-icon-screen-full"></a></li>
-            <li class="layui-nav-item layui-hide-xs"><a href="http://www.pearadmin.cn" class="layui-icon layui-icon-website"></a></li>
+            <li class="layui-nav-item layui-hide-xs"><a href="#" class="layui-icon layui-icon-website"></a></li>
             <li class="layui-nav-item layui-hide-xs" id="headerNotice"></li>
             <li class="layui-nav-item" lay-unselect="">
                 <a href="javascript:;"><img src="<%=path%>/static/pear_layui/admin/images/avatar.jpg" class="layui-nav-img">就眠仪式</a>
@@ -55,8 +55,8 @@
     </div>
     <div class="layui-side layui-bg-black">
         <div class="layui-logo">
-            <img class="logo" src="admin/images/logo.png" />
-            <span class="title">Pear Admin</span>
+            <img class="logo" src="<%=path%>/static/pear_layui/admin/images/logo.png" />
+            <span class="title">平台管理</span>
         </div>
         <div class="layui-side-scroll">
             <div id="sideMenu"></div>

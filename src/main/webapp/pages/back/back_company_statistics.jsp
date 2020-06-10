@@ -28,18 +28,22 @@
         #chartmain{
             border:2px solid #666;
             width:49%;
-            height:450px;
-            margin: 30px auto;
+            height:400px;
+            margin: 10px auto;
             margin-bottom: 0;
         }
         #querydiv{
             display: inline-block;
-            padding: 20px 30% 0 30%;
+            padding: 20px 20% 0 16%;
         }
         #querydiv .layui-btn{
             height: 50px;
             width: 200px;
-            margin-right: 40px;
+            margin-left: 60px;
+        }
+        #querydiv .layui-form{
+            display: inline-block;
+            margin: 30px 0 0 200px;
         }
     </style>
 </head>
@@ -54,34 +58,79 @@
         <button class="layui-btn layui-btn-sm" id="regionStatistics">
             按区域统计
         </button>
+        <button class="layui-btn layui-btn-sm" id="dateStatistics">
+            按周期统计
+        </button>
     </div>
+    <div class="layui-form">
+        <div class="layui-form-item" id="dateChoose">
+            <div class="layui-inline">
+                <label class="layui-form-label">日期范围</label>
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" id="test6" placeholder=" - ">
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 <div style="" id="chartmain"></div>
+
 
 <script>
     layui.use('table',function () {
         var $ = layui.jquery;
 
         $(function () {
+            var startDate;
+            var end_Date;
+            //日期范围
+            layui.use('laydate', function() {
+                var laydate = layui.laydate;
+                laydate.render({
+                    elem: '#test6'
+                    ,range: true
+                    ,max: getNowFormatDate() //设置最大为当前时间
+                    ,range: '~' //或 range: '~' 来自定义分割字符
+                    ,done: function(value, date, endDate){
+                        startDate = value.trim().split('~')[0];
+                        end_Date = value.trim().split('~')[1];
+                        // alert("选中时间startDate："+startDate+"    选中结束时间："+endDate.year+"-"+endDate.month+"-"+endDate.date)
+                        statisitcs(statisticsType,startDate,end_Date);
+                    }
+                });
+            });
 
-            var statisticsType = "2";
+
+            var statisticsType = 1;
             $("#typeStatistics").click(function () {
                 statisticsType = "1";
-                statisitcs(statisticsType);
+                $("#dateChoose").css("display","none");
+                statisitcs(statisticsType,null,null);
             });
             $("#regionStatistics").click(function () {
                 statisticsType = "2";
-                statisitcs(statisticsType);
+                $("#dateChoose").css("display","none");
+                statisitcs(statisticsType,null,null);
             });
+            $("#dateStatistics").click(function () {
+                statisticsType = "3";
+                $("#dateChoose").css("display", "block");
+            });
+            $("#dateChoose").css("display","none");
             statisitcs(statisticsType);
         });
 
-        function statisitcs(statisticsType) {
+        function statisitcs(statisticsType,startDate,endDate) {
             $.ajax({
                 type : "post",
                 url : "<%=path%>/companyController/serviceStatistics",
                 dataType: 'JSON',
-                data : {statisticsType:statisticsType},
+                data : {
+                    statisticsType:statisticsType,
+                    startDate:startDate,
+                    endDate:endDate
+                },
                 error : function(request) {
                     layer.alert('操作失败', {
                         icon: 2,
@@ -95,8 +144,10 @@
                     $.each(msg,function (i,item) {
                         if (statisticsType==="1"){
                             rowList.push(item.typeName);
-                        }else{
+                        }else if (statisticsType==="2"){
                             rowList.push(item.region);
+                        }else {
+                            rowList.push(item.joinDay);
                         }
                         colList.push(item.countNum);
                     })
@@ -118,11 +169,7 @@
                             data: rowList,
                             axisLabel: {
                                 interval: 0,
-                                rotate:40,
-                                // formatter:function(value)
-                                // {
-                                //     return value.split("").join("\n");
-                                // }
+                                rotate:40
                             },
                         },
                         yAxis: {},
@@ -142,6 +189,29 @@
                     myChart.setOption(option);
                 }
             });
+        }
+
+
+
+
+
+        //获取当前时间
+        function getNowFormatDate() {
+            var date = new Date();
+            var seperator1 = "-";
+            var seperator2 = ":";
+            var month = date.getMonth() + 1;
+            var strDate = date.getDate();
+            if (month >= 1 && month <= 9) {
+                month = "0" + month;
+            }
+            if (strDate >= 0 && strDate <= 9) {
+                strDate = "0" + strDate;
+            }
+            var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+                + " " + date.getHours() + seperator2 + date.getMinutes()
+                + seperator2 + date.getSeconds();
+            return currentdate;
         }
 
     });
