@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @RestController
 @RequestMapping("/companyController")
@@ -70,9 +71,17 @@ public class CompanyController {
     @RequestMapping(value = "/queryRegionCompany")
     public String queryRegionCompany(HttpServletRequest request, HttpServletResponse response) {
         String regionId = request.getParameter("regionId");
-        System.out.println("地区id" + regionId);
         ResultData resultData = companySrevice.queryRegionCompany(regionId);
         return JSON.toJSONString(resultData);
     }
+
+
+    //    根据服务类型统计公司数量
+    @RequestMapping("/serviceStatistics")
+    public String serviceStatistics(String statisticsType) {
+        List<Company> list = companySrevice.serviceTypeStatistics(statisticsType);
+        return JSON.toJSONString(list);
+    }
+
 
 }

@@ -23,8 +23,6 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public List<Menu> queryList() {
         List<Menu> tablist = menuMapper.queryList();
-//        System.out.println(" menuList:"+tablist);
-
         List<Menu> mList = new ArrayList<>();
         for(Menu menu : tablist){
             menu.setId(menu.getId());
@@ -37,33 +35,8 @@ public class MenuServiceImpl implements MenuService {
             }
             mList.add(menu);
         }
-//        System.out.println(" 存入--："+ JSON.toJSONString(mList));
         List<Menu> menuList = TreeUtil.toTree(mList, 0);
 
         return menuList;
     }
-
-
-
-//    public List<Menu> toTree(List<Menu> treeList, int pid) {
-//        List<Menu> retList = new ArrayList<Menu>();
-//        for (Menu parent : treeList) {
-//            if (pid == parent.getParentId()) {
-//                retList.add(findChildren(parent, treeList));
-//            }
-//        }
-//        return retList;
-//    }
-//
-//    private Menu findChildren(Menu parent, List<Menu> treeList) {
-//        for (Menu child : treeList) {
-//            if (parent.getId()==child.getParentId()) {
-//                if (parent.getChildren() == null) {
-//                    parent.setChildren(new ArrayList<>());
-//                }
-//                parent.getChildren().add(findChildren(child, treeList));
-//            }
-//        }
-//        return parent;
-//    }
 }

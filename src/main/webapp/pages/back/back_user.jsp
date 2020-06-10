@@ -13,7 +13,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>员工管理</title>
+    <title>用户管理</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -23,42 +23,33 @@
     <link rel="stylesheet" href="<%=path%>/static/css/back_page.css">
 
     <style>
-        .layui-input-block {
-            margin-left: 10px;
-        }
-
-        #seldiv .layui-input-block {
-            width: 25%;
-        }
-
-        #seldiv .layui-form-select dl {
-            min-width: 75%;
-        }
-
         .layui-form-item {
             margin-bottom: 0;
         }
-
-        #querydiv .layui-btn-container {
+        #querydiv .layui-btn-container{
             display: inline-block;
         }
-
-        #userInformation .layui-form-label {
-            width: 170px;
+        #orderinfoform .layui-form-label {
+            width: 114px;
         }
-
-        #userInformation .layui-input-block {
+        #orderinfoform .layui-input-block {
             margin-left: 247px;
         }
-
-        #userInformation .rightlabel {
+        #orderinfoform .rightlabel{
             margin-bottom: 15px;
             text-align: left;
             line-height: 30px;
             background-color: #beffed;
         }
-
+        #orderinfoform .address{
+            margin-bottom: 15px;
+            text-align: left;
+            line-height: 30px;
+            background-color: #beffed;
+            width: 400px;
+        }
     </style>
+
 </head>
 <body>
 
@@ -90,38 +81,51 @@
 </script>
 
 
-<form class="layui-form" id="userInformation" action="" style="display: none">
+<form class="layui-form" id="orderinfoform" action="" style="display: none">
+
     <div class="layui-form-item">
         <label class="layui-form-label">姓名：</label>
-        <label class="layui-form-label rightlabel" id="username"></label>
-    </div>
-    <div class="layui-form-item">
+        <label class="layui-form-label rightlabel" id="name"></label>
         <label class="layui-form-label">性别：</label>
         <label class="layui-form-label rightlabel" id="sex"></label>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">籍贯：</label>
-        <label class="layui-form-label rightlabel" id="nativeplace"></label>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">婚姻状况：</label>
-        <label class="layui-form-label rightlabel" id="marriage"></label>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">学历：</label>
-        <label class="layui-form-label rightlabel" id="education"></label>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">身份证号：</label>
-        <label class="layui-form-label rightlabel" id="idcard"></label>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">联系方式：</label>
+        <label class="layui-form-label">年龄：</label>
+        <label class="layui-form-label rightlabel" id="age"></label>
+        <label class="layui-form-label">电话：</label>
         <label class="layui-form-label rightlabel" id="phone"></label>
     </div>
+
     <div class="layui-form-item">
-        <label class="layui-form-label">所在地：</label>
-        <label class="layui-form-label rightlabel" id="address"></label>
+        <label class="layui-form-label">状态：</label>
+        <label class="layui-form-label rightlabel" id="status"></label>
+        <label class="layui-form-label">注册时间：</label>
+        <label class="layui-form-label rightlabel" id="createTime"></label>
+    </div>
+<%--    <div class="layui-form-item">--%>
+<%--        <label class="layui-form-label">公司地址：</label>--%>
+<%--        <label class="layui-form-label rightlabel" id="address"></label>--%>
+<%--        &lt;%&ndash;        <label class="layui-form-label">订单状态：</label>&ndash;%&gt;--%>
+<%--        &lt;%&ndash;        <label class="layui-form-label rightlabel" id="stateComName"></label>&ndash;%&gt;--%>
+<%--    </div>--%>
+    <div class="layui-form-item">
+        <label class="layui-form-label">公司地址：</label>
+        <label class="layui-form-label address" id="address"></label>
+
+    </div>
+    <%--    <div class="layui-form-item">--%>
+    <%--        <label class="layui-form-label">频次：</label>--%>
+    <%--        <label class="layui-form-label rightlabel" id="frequency"></label>--%>
+    <%--        <label class="layui-form-label">用户联系电话：</label>--%>
+    <%--        <label class="layui-form-label rightlabel" id="phone"></label>--%>
+    <%--        &lt;%&ndash;        <label class="layui-form-label">订单状态：</label>&ndash;%&gt;--%>
+    <%--        &lt;%&ndash;        <label class="layui-form-label" id="stateComName"></label>&ndash;%&gt;--%>
+    <%--    </div>--%>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn formbtn" id="insertconfirm" lay-submit lay-filter="insertconfirm">确定</button>
+        </div>
     </div>
 </form>
 
@@ -151,19 +155,20 @@
 
         table.render({
             elem: '#test'
-            , url: "<%=path%>/staffController/queryStaff"
+            , url: "<%=path%>/staffController/queryUser"
             , toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
             , defaultToolbar: []//自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
-            , title: '员工管理表'
+            , title: '用户管理表'
             , cols: [[
                 {type: 'checkbox', fixed: 'left'}
                 , {field: 'id', title: '序号'}
-                , {field: 'userName', title: '姓名'}
+                , {field: 'name', title: '姓名'}
                 , {field: 'sex', title: '性别'}
-                , {field: 'workage', title: '工龄'}
-                , {field: 'skill', title: '技能'}
-                , {field: 'state', title: '状态'}
-                , {field: 'region', title: '所在地'}
+                , {field: 'age', title: '年龄'}
+                , {field: 'phone', title: '电话'}
+                , {field: 'detailAddress', title: '地址'}
+                , {field: 'status', title: '状态'}
+                , {field: 'createTime', title: '注册时间'}
                 , {fixed: 'right', title: '操作', width: 250, toolbar: '#barDemo'}
                 // ,{field:'downloadDiscount', title: '下载文档积分比例'}
             ]]
@@ -190,7 +195,7 @@
             switch (obj.event) {
                 case 'queryRegion':
                     table.reload('test', {
-                        url: "<%=path%>/staffController/queryStaff"
+                        url: "<%=path%>/staffController/queryUser"
                         // ,methods:"post"
                         , page: {
                             curr: 1 //重新从第 1 页开始
@@ -265,53 +270,41 @@
                     })
                     layer.close(index);
                 });
-            } else if (obj.event === 'check') {
-                var layercheck = layer.open({
+            }
+            else if(obj.event === 'check'){
+                $('#name').html(tabdata.name);
+                $('#sex').html(tabdata.sex);
+                $('#age').html(tabdata.age);
+                $('#phone').html(tabdata.phone);
+                $('#status').html(tabdata.status);
+                $('#createTime').html(tabdata.createTime);
+                $('#address').html(tabdata.detailAddress);
+                var layerupdate = layer.open({
                     type: 1
-                    , title: '查看详情'
-                    , area: ['500px', '600px']
-                    , shade: [0.8, '#314949'] //遮罩
-                    , resize: false //不可拉伸
-                    , content: $('#userInformation') //内容
-                    , btn: 0
-                    , cancel: function (index, layero) {
-                        if (confirm('确定要关闭么')) { //只有当点击confirm框的确定时，该层才会关闭
-                            $('#username').val("");
-                            $("#sex").val("");
-                            $("#nativeplace").val("");
-                            $("#marriage").val("");
-                            $("#education").val("");
-                            $("#idcard").val("");
-                            $("#phone").val("");
-                            $("#address").val("");
+                    ,title: '查看用户详情'
+                    ,area: ['640px','580px']
+                    ,shade: [0.8, '#314949'] //遮罩
+                    ,resize: false //不可拉伸
+                    ,content: $('#orderinfoform') //内容
+                    ,btn: 0
+                    ,cancel: function(index, layero){
+                        if(confirm('确定要关闭么')){ //只有当点击confirm框的确定时，该层才会关闭
                             layer.close(index);
                         }
                         return false;
                     }
                     //如果设定了yes回调，需进行手工关闭
                 });
-                layui.use('form', function () {
+                layui.use('form', function(){
                     var form = layui.form;
-                    $.ajax({
-                        type: 'POST',
-                        url: "<%=path%>/staffController/checkStaff",
-                        dataType: 'JSON',
-                        data: {
-                            id: tabdata.id
-                        },
-                        success: function (msg) {
-                            $("#username").html(msg[0].userName);
-                            $("#sex").html(msg[0].sex);
-                            $("#marriage").html(msg[0].marriage);
-                            $("#nativeplace").html(msg[0].nativeplace);
-                            $("#education").html(msg[0].education);
-                            $("#idcard").html(msg[0].idcard);
-                            $("#phone").html(msg[0].phone);
-                            $("#address").html(msg[0].address);
-                        }
+                    form.render();
+                    form.on('submit(insertconfirm)', function(data){
+                        layer.close(layerupdate);
+                        return false;
                     });
                 });
             }
+
         });
     });
 

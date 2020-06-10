@@ -105,7 +105,7 @@
         var $ = layui.jquery;
         table.render({
             elem: '#test'
-            , url: '/companyController/queryRegion'
+            , url: '<%=path%>/companyController/queryRegion'
             , toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
             , defaultToolbar: []//自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
             , title: '区域列表'
@@ -129,7 +129,7 @@
         //-------------------------------------------
         //查询下拉框区域数据
         $.ajax({
-            url: '/mapController/queryfirstLevelRegion',
+            url: '<%=path%>/mapController/queryfirstLevelRegion',
             type: 'POST',
             dataType: 'JSON',
             success: function (msg) {
@@ -154,7 +154,7 @@
                     // alert("选中的值:"+data.value);//得到被选中的值
                     //获取次一级地区
                     $.ajax({
-                        url: '/mapController/querySecondaryZone',
+                        url: '<%=path%>/mapController/querySecondaryZone',
                         type: 'POST',
                         dataType: 'JSON',
                         data: {id: data.value},
@@ -207,7 +207,7 @@
                         form.on('submit(insertconfirm)', function (data) {
                             $.ajax({
                                 type: 'POST',
-                                url: '/companyController/insertRegion',
+                                url: '<%=path%>/companyController/insertRegion',
                                 dataType: 'JSON',
                                 data: {
                                     firstLevelRegion: $("#City_level").find("option:selected").text(),
@@ -219,7 +219,7 @@
                                     $('#City_level').val("");
                                     $("#County_level").val("");
                                     layer.alert(msg.msg, {icon: 6},function () {
-                                        window.parent.location.reload();//修改成功后刷新父界面
+                                        window.location.reload();//修改成功后刷新父界面
                                     });
 
                                 }
@@ -244,7 +244,7 @@
                 } else {
                     layer.confirm('<i class="layui-icon layui-icon-face-smile" style="font-size: 30px; color: #1E9FFF;"></i> 真的要删除这个区域码么', function (index) {
                         $.ajax({
-                            url: '/companyController/deleteRegion',
+                            url: '<%=path%>/companyController/deleteRegion',
                             type: 'POST',
                             dataType: 'JSON',
                             data: {
@@ -263,7 +263,7 @@
                     layer.alert("该区域目前暂无公司");
                 }else{
                     $.ajax({
-                        url: '/companyController/queryRegionCompany',
+                        url: '<%=path%>/companyController/queryRegionCompany',
                         type: 'POST',
                         dataType: 'JSON',
                         data: {

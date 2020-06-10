@@ -19,6 +19,8 @@ public interface KnowledgeMapper {
 
     int addKnowledeg(Knowledge knowledge);
 
+    int updateknowledeg(Knowledge knowledge);
+
 
 
 }

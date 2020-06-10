@@ -96,4 +96,15 @@ public class CompanyImpl implements CompanySrevice {
         resultData.setData(list);
         return resultData;
     }
+
+    @Override
+    public List<Company> serviceTypeStatistics(String statisticsType) {
+        List<Company> companyList = null;
+        if(statisticsType.equals("1")){
+            companyList = companyMapper.serviceTypeStatistics();
+        }else{
+            companyList = companyMapper.regionStatistics();
+        }
+        return companyList;
+    }
 }

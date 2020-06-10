@@ -27,6 +27,15 @@ spring:
     useGlobalDataSourceStat: true
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
 
+  servlet:
+    multipart:
+      #开启文件上传
+      enabled: true
+      #单个文件最大值
+      max-file-size: 100MB
+      #上传文件的最大值
+      max-request-size: 500MB
+
   aop:
     proxy-target-class: true
 
@@ -43,13 +52,6 @@ mybatis:
   config-location: classpath:mybatis-config.xml
   mapper-locations: classpath:mapper/*.xml
 
-servlet:
-  multipart:
-    #开启文件上传
-    enabled: true
-    #单个文件最大值
-    max-file-size: 100MB
-    #上传文件的最大值
-    max-request-size: 500MB
+
 
 

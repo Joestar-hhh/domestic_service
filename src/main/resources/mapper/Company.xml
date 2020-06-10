@@ -45,4 +45,17 @@
     </select>
 
 
+    <!--    服务类型数量统计-->
+    <select id="serviceTypeStatistics" parameterType="java.lang.String" resultType="com.cykj.domestic.entity.Company">
+        select st.type_name,count(c.service_relation_id) count_num from tb_service_type st
+        left join tb_company c on st.id = c.service_relation_id
+        group by st.id
+    </select>
+    <!--    区域数量统计-->
+    <select id="regionStatistics" parameterType="java.lang.String" resultType="com.cykj.domestic.entity.Company">
+        select r.region,count(c.region_id) count_num from tb_region r
+        left join tb_company c on r.id = c.region_id
+        group by r.id
+    </select>
+
 </mapper>

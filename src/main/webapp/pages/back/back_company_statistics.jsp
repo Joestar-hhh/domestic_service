@@ -23,88 +23,130 @@
 
     <script type="text/javascript" src="<%=path%>/static/js/echarts.min.js"></script>
     <%--    <link rel="stylesheet" href="<%=path%>/static/css/back_page.css">--%>
+
+    <style>
+        #chartmain{
+            border:2px solid #666;
+            width:49%;
+            height:450px;
+            margin: 30px auto;
+            margin-bottom: 0;
+        }
+        #querydiv{
+            display: inline-block;
+            padding: 20px 30% 0 30%;
+        }
+        #querydiv .layui-btn{
+            height: 50px;
+            width: 200px;
+            margin-right: 40px;
+        }
+    </style>
 </head>
 <body>
 
 <%--<table class="layui-hide" id="test" lay-filter="test"></table>--%>
-
-<div style="border:2px solid #666;width:49%;height:450px;float:left" id="chartmain"></div>
-<script type="text/html" id="toolbarDemo">
-    <%--    skill_train--%>
-    <div class="layui-form-item" id="querydiv">
-        <div class="layui-btn-container">
-            <button class="layui-btn layui-btn-danger layui-btn-sm" lay-event="deleterole">
-                <i class="layui-icon layui-icon-delete"></i>删除
-            </button>
-            <button class="layui-btn layui-btn-sm" lay-event="insertrole">
-                <i class="layui-icon layui-icon-add-circle-fine"></i>添加
-            </button>
-        </div>
+<div class="layui-form-item" id="querydiv">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" id="typeStatistics">
+            按服务类型统计
+        </button>
+        <button class="layui-btn layui-btn-sm" id="regionStatistics">
+            按区域统计
+        </button>
     </div>
-</script>
-
-
-<script type="text/html" id="barDemo">
-    <a class="layui-btn  layui-btn-xs" lay-event="updaterole">
-        <i class="layui-icon layui-icon-edit"></i>修改</a>
-    <%--    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>--%>
-</script>
-
+</div>
+<div style="" id="chartmain"></div>
 
 <script>
     layui.use('table',function () {
         var $ = layui.jquery;
 
         $(function () {
-            option = {
-                xAxis: {
-                    type: 'category',
-                    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-                },
-                yAxis: {
-                    type: 'value'
-                },
-                series: [{
-                    data: [120, 200, 150, 80, 70, 110, 130],
-                    type: 'bar',
-                    showBackground: true,
-                    backgroundStyle: {
-                        color: 'rgba(220, 220, 220, 0.8)'
-                    }
-                }]
-            };
-            alert(123);
-            //获取要赋值的DOM控件
-            var myChart = echarts.init(document.getElementById('chartmain'));
-            //赋值
-            myChart.setOption(option);
+
+            var statisticsType = "2";
+            $("#typeStatistics").click(function () {
+                statisticsType = "1";
+                statisitcs(statisticsType);
+            });
+            $("#regionStatistics").click(function () {
+                statisticsType = "2";
+                statisitcs(statisticsType);
+            });
+            statisitcs(statisticsType);
         });
-        <%--$.ajax({--%>
-        <%--    type : "post",--%>
-        <%--    url : "<%=path%>/",--%>
-        <%--    dataType: 'JSON',--%>
-        <%--    data : '',--%>
-        <%--    error : function(request) {--%>
-        <%--        layer.alert('操作失败', {--%>
-        <%--            icon: 2,--%>
-        <%--            title:"提示"--%>
-        <%--        });--%>
-        <%--    },--%>
-        <%--    success : function(msg) {--%>
-        <%--        layer.alert(msg.msg,function () {--%>
-        <%--            window.location.reload();//修改成功后刷新父界面--%>
-        <%--        });--%>
-        <%--    }--%>
-        <%--});--%>
 
+        function statisitcs(statisticsType) {
+            $.ajax({
+                type : "post",
+                url : "<%=path%>/companyController/serviceStatistics",
+                dataType: 'JSON',
+                data : {statisticsType:statisticsType},
+                error : function(request) {
+                    layer.alert('操作失败', {
+                        icon: 2,
+                        title:"提示"
+                    });
+                },
+                success : function(msg) {
 
+                    var rowList = [];
+                    var colList = [];
+                    $.each(msg,function (i,item) {
+                        if (statisticsType==="1"){
+                            rowList.push(item.typeName);
+                        }else{
+                            rowList.push(item.region);
+                        }
+                        colList.push(item.countNum);
+                    })
+                    var title;
+                    if (statisticsType==="1"){
+                        title="家政公司服务类别统计";
+                    }else{
+                        title="家政公司区域统计";
+                    }
+                    option = {
+                        title: {
+                            text: title
+                        },
+                        tooltip: {},
+                        legend: {
+                            data:['公司数量']
+                        },
+                        xAxis: {
+                            data: rowList,
+                            axisLabel: {
+                                interval: 0,
+                                rotate:40,
+                                // formatter:function(value)
+                                // {
+                                //     return value.split("").join("\n");
+                                // }
+                            },
+                        },
+                        yAxis: {},
+                        series: [{
+                            name: '公司数量',
+                            type: 'bar',
+                            data: colList,
+                            showBackground: true,
+                            backgroundStyle: {
+                                color: 'rgba(220, 220, 220, 0.8)'
+                            }
+                        }]
+                    };
+                    //获取要赋值的DOM控件
+                    var myChart = echarts.init(document.getElementById('chartmain'));
+                    //赋值
+                    myChart.setOption(option);
+                }
+            });
+        }
 
-        // var form = layui.form;
-        // form.render('select');
-        // form.on('select(selecttest)', function (data) {
-        //     alert("选中：" + JSON.stringify(data));
-        // });
     });
+
+
 </script>
 </body>
 </html>

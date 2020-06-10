@@ -27,118 +27,221 @@
 
 <table class="layui-hide" id="test" lay-filter="test"></table>
 
-<script type="text/html" id="toolbarDemo">
-<%--    skill_train--%>
-    <div class="layui-form-item" id="querydiv">
-        <div class="layui-btn-container">
-            <button class="layui-btn layui-btn-danger layui-btn-sm" lay-event="deleterole">
-                <i class="layui-icon layui-icon-delete"></i>删除</button>
-            <button class="layui-btn layui-btn-sm" lay-event="insertrole">
-                <i class="layui-icon layui-icon-add-circle-fine"></i>添加</button>
+<%--添加育婴知识标题弹出款--%>
+<form class="layui-form" id="knowledgeinfoform" action="" style="display: none">
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">标题：</label>
+        <div class="layui-input-block">
+            <input type="text" name="title" id="title" required lay-verify="required" placeholder="请输入标题"
+                   autocomplete="off" class="layui-input">
         </div>
     </div>
-</script>
+    <div class="layui-form-item">
+        <label class="layui-form-label">文件类型：</label>
+        <%--        <div class="layui-input-block">--%>
+        <%--            &lt;%&ndash;            <select name="type" id="type" lay-filter="selecttest" lay-verify="required">&ndash;%&gt;--%>
+        <%--            &lt;%&ndash;                <option value=""></option>&ndash;%&gt;--%>
+        <%--            &lt;%&ndash;                <option value="文章">文章</option>&ndash;%&gt;--%>
+        <%--            &lt;%&ndash;                <option value="视频">视频</option>&ndash;%&gt;--%>
+        <%--            &lt;%&ndash;            </select>&ndash;%&gt;--%>
+        <%--            <input type="text" name="title" id="title" required lay-verify="required" placeholder="请输入标题"--%>
+        <%--                   autocomplete="off" class="layui-input" value="视频" disabled="disabled">--%>
+        <%--        </div>--%>
+        <label class="layui-form-label" name="type" id="type">视频</label>
+    </div>
 
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn formbtn" id="insertconfirm" lay-submit lay-filter="insertconfirm">确定</button>
+            <button type="reset" class="layui-btn layui-btn-primary formbtn">重置</button>
+        </div>
+    </div>
+</form>
+
+<%--上传弹出框--%>
+<form class="layui-form" id="upload_video" action="" style="display: none">
+    <div class="layui-form-item">
+        <button type="button" class="layui-btn" id="test5"><i class="layui-icon"></i>上传视频</button>
+        <input type="hidden" id="id" value="">
+    </div>
+</form>
+
+<script type="text/html" id="toolbarDemo">
+    <%--    skill_train--%>
+    <div class="layui-form-item" id="querydiv">
+        <div class="layui-btn-container" style="display: inline-block">
+            <button class="layui-btn layui-btn-danger layui-btn-sm" lay-event="deleterole">
+                <i class="layui-icon layui-icon-delete"></i>删除
+            </button>
+            <button class="layui-btn layui-btn-sm" lay-event="insertknowledge">
+                <i class="layui-icon layui-icon-add-circle-fine"></i>添加育婴知识
+            </button>
+        </div>
+        <input type="text" name="intput_company" id="intput_company" lay-verify="title" autocomplete="off"
+               placeholder="请输入标题名字" class="layui-input">
+        <button class="layui-btn layui-btn-warm" id="querybtn" lay-event="querybtn" data-type="reload">
+            <i class="layui-icon layui-icon-search"></i> 查询
+        </button>
+    </div>
+
+</script>
 
 <script type="text/html" id="barDemo">
     <a class="layui-btn  layui-btn-xs" lay-event="see_details">
         <i class="layui-icon layui-icon-edit"></i>查看详情</a>
-<%--    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>--%>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="File_Upload">上传</a>
 </script>
 
-
-
-<form class="layui-form" id="userinfoform" action="" style="display: none">
-    '<video width="100%" height="100%"  controls="controls" autobuffer="autobuffer"  autoplay="autoplay" loop="loop"><source src="/upload/baby1.mp4" type="video/mp4"></source></video>'
-</form>
-
-
-<%--<script src="<%=path%>/back/js/layui.js" charset="utf-8"></script>--%>
 <script>
-    layui.use('table', function(){
+    layui.use('table', function () {
         var table = layui.table;
         var $ = layui.jquery;
         table.render({
             elem: '#test'
-            ,url:'/knowledgeController/queryKnowledeg'
-            ,toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
-            ,defaultToolbar: []//自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
-            ,title: '育婴知识表'
-            ,cols: [[
-                {type: 'checkbox',fixed: 'left'}
-                ,{field:'id', title: '序号'}
-                ,{field:'title', title: '标题'}
-                ,{field:'type', title: '知识类别'}
-                ,{field:'time', title: '时间'}
-                ,{field:'path',title:'路径',hide: true}
-                ,{fixed: 'right',title:'操作', width: 250, toolbar: '#barDemo'}
+            , url: '<%=path%>/knowledgeController/queryKnowledeg'
+            , toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
+            , defaultToolbar: []//自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
+            , title: '育婴知识表'
+            , cols: [[
+                {type: 'checkbox', fixed: 'left'}
+                , {field: 'id', title: '序号'}
+                , {field: 'title', title: '标题'}
+                , {field: 'type', title: '知识类别'}
+                , {field: 'time', title: '时间'}
+                , {field: 'path', title: '路径'}
+                // , hide: true
+                , {fixed: 'right', title: '操作', width: 250, toolbar: '#barDemo'}
                 // ,{field:'downloadDiscount', title: '下载文档积分比例'}
             ]]
-            ,page: {limit: 5,//指定每页显示的条数
-            limits: [5, 10, 15, 20,
-            25, 30, 35, 40, 45, 50],} //每页条数的选择项
+            , page: {
+                limit: 5,//指定每页显示的条数
+                limits: [5, 10, 15, 20,
+                    25, 30, 35, 40, 45, 50],
+            } //每页条数的选择项
 
-        });
-
-
-        layui.use('form', function() {
-            var form = layui.form;
-            form.render('select');
-            form.on('select(selecttest)', function(data){
-                alert("选中："+JSON.stringify(data));
-            });
         });
 
         //头工具栏事件
-        table.on('toolbar(test)', function(obj){
+        table.on('toolbar(test)', function (obj) {
             var checkStatus = table.checkStatus(obj.config.id);
-            switch(obj.event){
+            switch (obj.event) {
+                //删除
                 case 'deleterole':
                     var data = checkStatus.data;
                     var idList = new Array();
-                    $.each(data, function (index,val) {
+                    $.each(data, function (index, val) {
                         idList.push(val.id);
                     })
                     $.ajax({
-                        type : "post",
-                        url : "/knowledgeController/deleteKnowledeg",
+                        type: "post",
+                        url: "<%=path%>/knowledgeController/deleteKnowledeg",
                         dataType: 'JSON',
-                        data : {idList:JSON.stringify(idList)},
-                        error : function(request) {
+                        data: {idList: JSON.stringify(idList)},
+                        error: function (request) {
                             layer.alert('操作失败', {
                                 icon: 2,
-                                title:"提示"
+                                title: "提示"
                             });
                         },
-                        success : function(msg) {
-                            layer.alert(msg.msg,function () {
+                        success: function (msg) {
+                            layer.alert(msg.msg, function () {
                                 window.location.reload();//修改成功后刷新父界面
                             });
                         }
                     });
                     break;
 
-            };
+                //模糊查询标题
+                case'querybtn':
+                    //查询
+                    var title = $("#intput_company").val();
+                    var inputname = $('#intput_company').val();
+                    //执行重载
+                    table.reload('test', {
+                        url: '<%=path%>/knowledgeController/queryKnowledeg'
+                        // ,methods:"post"
+                        , page: {
+                            curr: 1 //重新从第 1 页开始
+                        }
+                        , where: {
+                            title: inputname
+                        }
+                    });
+                    $('#intput_company').val(inputname);
+                    break;
+
+                /*头栏添加育婴知识*/
+                case 'insertknowledge':
+                    var layerinsert = layer.open({
+                        type: 1
+                        , title: '添加育婴知识'
+                        , area: ['500px', '400px']
+                        , shade: [0.8, '#314949'] //遮罩
+                        , resize: false //不可拉伸
+                        , content: $('#knowledgeinfoform') //内容
+                        , btn: 0
+                        , cancel: function (index, layero) {
+                            if (confirm('确定要关闭么')) { //只有当点击confirm框的确定时，该层才会关闭
+                                layer.close(index);
+                            }
+                            return false;
+                        }
+                        //如果设定了yes回调，需进行手工关闭
+                    });
+                    layui.use('form', function () {
+                        var form = layui.form;
+                        form.render();
+                        form.on('submit(insertconfirm)', function (data) {
+                            $.ajax({
+                                type: 'POST',
+                                url: '<%=path%>/knowledgeController/addKnowledeg',
+                                dataType: 'JSON',
+                                data: data.field,
+                                success: function (msg) {
+                                    // alert(msg.msg);
+                                    layer.close(layerinsert);
+                                    layer.alert(msg.msg, function () {
+                                        window.location.reload();//修改成功后刷新父界面
+                                    });
+                                }
+                            })
+                            return false;
+                        });
+                    });
+                    break;
+
+            }
+            ;
         });
-
-
         //监听行工具事件
-        table.on('tool(test)', function(obj) {
+        table.on('tool(test)', function (obj) {
             var tabdata = obj.data;
             //console.log(obj)s
+
+            //查看详情
             if (obj.event === 'see_details') {
-                var path =tabdata.path;
-                var layerupdate = layer.open({
+                var path = tabdata.path;
+                var layerupload = layer.open({
                     type: 1
-                    ,title: '播放视频'
-                    ,area: ['500px','400px']
-                    ,shade: [0.8, '#314949'] //遮罩
-                    ,resize: false//不可拉伸
-                    ,content: '<a href=path></a>'//内容
-                    ,content:'<video width="100%" height="100%"  controls="controls" autobuffer="autobuffer"  autoplay="autoplay" loop="loop"><source src='+path+' type="video/mp4"></source></video>'
-                    ,btn: 0
-                    ,cancel: function(index, layero){
-                        if(confirm('确定要关闭么')){ //只有当点击confirm框的确定时，该层才会关闭
+                    ,
+                    title: '播放视频'
+                    ,
+                    area: ['200px', '150px']
+                    ,
+                    shade: [0.8, '#314949'] //遮罩
+                    ,
+                    resize: false//不可拉伸
+                    ,
+                    content: '<a href=' + path + '><input type="button" value="点击预览" class="layui-btn layui-btn-lg layui-btn-radius layui-btn-normal"></a>'//内容
+                    // ,
+                    // content: '<video width="100%" height="100%"  controls="controls" autobuffer="autobuffer"  autoplay="autoplay" loop="loop"><source src=' + path + ' type="video/mp4"></source></video>'
+                    // <img src="/i/eg_tulip.jpg"  alt="上海鲜花港 - 郁金香" />
+                    ,
+                    btn: 0
+                    ,
+                    cancel: function (index, layero) {
+                        if (confirm('确定要关闭么')) { //只有当点击confirm框的确定时，该层才会关闭
                             // layer.close(index);
                             layer.closeAll();
                         }
@@ -146,10 +249,81 @@
                     }
                     //如果设定了yes回调，需进行手工关闭
                 });
+            } else if (obj.event === 'File_Upload') {
+                var path = tabdata.path;
+                var id = tabdata.id
+                $("#id").val(id);
+                if (path === undefined) {
+
+                    var layerupdate = layer.open({
+                        type: 1
+                        ,
+                        title: '资源上传'
+                        ,
+                        area: ['300px', '150px']
+                        ,
+                        shade: [0.8, '#314949'] //遮罩
+                        ,
+                        resize: false//不可拉伸
+                        ,
+                        content: $("#upload_video")
+                        // content: '<video width="100%" height="100%"  controls="controls" autobuffer="autobuffer"  autoplay="autoplay" loop="loop"><source src=' + path + ' type="video/mp4"></source></video>'
+                        // <img src="/i/eg_tulip.jpg"  alt="上海鲜花港 - 郁金香" />
+                        ,
+                        btn: 0
+                        ,
+                        cancel: function (index, layero) {
+                            if (confirm('确定要关闭么')) { //只有当点击confirm框的确定时，该层才会关闭
+                                // layer.close(index);
+                                layer.closeAll();
+                            }
+                            return false;
+                        }
+                        //如果设定了yes回调，需进行手工关闭
+                    });
+
+                } else {
+                    alert("视频已上传")
+                }
             }
         });
     });
-
 </script>
+
+
+<%--文件上传--%>
+<script>
+    layui.use('upload', function () {
+        var $ = layui.jquery
+            , upload = layui.upload;
+        var uploadInst = upload.render({
+            elem: '#test5'
+            , url: '<%=path%>/skillTrainController/fileUpload' //改成您自己的上传接口
+            , accept: 'video' //视频
+            // , size: 1889356 //限制文件大小，单位 KB
+            , done: function (res) {
+                var id = $("#id").val();
+                $.ajax({
+                    type: 'POST',
+                    url: '<%=path%>/knowledgeController/updateknowledeg',
+                    dataType: 'JSON',
+                    data: {
+                        path: res.msg,
+                        id: id
+                    },
+                    success: function (msg) {
+                        // alert(msg.msg)
+                        layer.alert(msg.msg, function () {
+                            window.location.reload();//修改成功后刷新父界面
+                        });
+                        layer.close(layerupload);
+                    }
+                })
+                console.log(res)
+            }
+        });
+    });
+</script>
+
 </body>
 </html>
