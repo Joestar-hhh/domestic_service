@@ -133,7 +133,7 @@
             type: 'POST',
             dataType: 'JSON',
             success: function (msg) {
-                $("#City_level").html("<option value='请选择区域'></option>");
+                $("#City_level").html("<option value=''></option>");
                 $.each(msg.data, function (i, item) {
                     $("#City_level").append("<option value='" + item.id + "'>" + item.firstLevelRegion + "</option>")
                 });
