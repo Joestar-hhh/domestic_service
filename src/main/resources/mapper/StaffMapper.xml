@@ -72,4 +72,10 @@
         UPDATE tb_user SET status = '禁用' WHERE id = #{id}
     </update>
 
+<!--    用户统计-->
+    <select id="userStatistics" parameterType="java.lang.String" resultType="com.cykj.domestic.entity.User">
+        select date(c.join_time) as one_day,count(c.id) count_num from tb_company c where c.join_time between date_format(#{startDate},'%Y%m%d')
+       and date_format(#{endDate},'%Y%m%d') group by one_day order by one_day desc;
+
+    </select>
 </mapper>

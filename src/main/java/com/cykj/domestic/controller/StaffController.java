@@ -1,8 +1,6 @@
 package com.cykj.domestic.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.cykj.domestic.entity.Counselor;
-import com.cykj.domestic.entity.Region;
 import com.cykj.domestic.entity.Staff;
 import com.cykj.domestic.entity.User;
 import com.cykj.domestic.service.StaffService;
@@ -78,4 +76,14 @@ public class StaffController {
         ResultData resultData = staffService.disableUser(id);
         return resultData;
     }
+
+//    用户统计
+    @RequestMapping("/userStatistics")
+    public String userStatistics(HttpServletRequest request, HttpServletResponse response) {
+        String startDate= request.getParameter("startDate");
+        String endDate= request.getParameter("endDate");
+        List<User> list= staffService.userStatistics(startDate,endDate);
+        return JSON.toJSONString(list);
+    }
 }
+

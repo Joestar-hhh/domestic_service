@@ -100,5 +100,13 @@ public class StaffServiceImpl implements StaffService {
         return resultData;
     }
 
+    @Override
+    public List<User> userStatistics(String startDate, String endDate) {
+
+        List<User>userList=staffMapper.userStatistics(startDate,endDate);
+
+        return userList;
+    }
+
 
 }

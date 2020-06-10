@@ -51,4 +51,10 @@ public interface StaffMapper {
 
     //禁用状态
     int disableUser(int id);
+
+    /*
+    用户统计
+     */
+    List<User>userStatistics(@Param("startDate")String startDate,@Param("endDate")String endDate);
+
 }

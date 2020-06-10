@@ -25,4 +25,8 @@ public interface StaffService {
     ResultData enableUser(int id);
 
     ResultData disableUser(int id);
+
+//    用户统计
+    List<User>userStatistics(String startDate,String endDate);
+
 }
