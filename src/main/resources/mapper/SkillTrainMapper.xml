@@ -45,5 +45,12 @@
         value (#{trainProjectName},#{time},#{qualificationId},#{picturePath})
     </insert>
 
+    <!--    添加技能证书-->
+    <insert id="insertqualification" parameterType="com.cykj.domestic.entity.Qualification" >
+        insert into tb_qualification (qualification_name)
+        value (#{qualificationName})
+    </insert>
+
+
 
 </mapper>

@@ -31,46 +31,47 @@
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="updaterole">查看详情</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">修改</a>
+    <button type="button" class="layui-btn " id="test8" lay-type="file" lay-event="file">选择图片</button>
 </script>
 <style>
-<%--    表格行高自适应--%>
+    <%--    表格行高自适应--%>
     .layui-table-cell {
         height: inherit;
     }
+
     /*
     调整图片宽度
     */
     .layui-table img {
-        max-width: 300px;
+        max-width: 200px;
     }
 
 </style>
 
 <script>
-    style="border-style:none"
+    style = "border-style:none"
     layui.use('table', function () {
         // var layer = layui.layer;
         var table = layui.table;
         var $ = layui.jquery;
         table.render({
             elem: '#test'
-            , url: '/skillTrainController/querySkillTrain'
+            , url: '<%=path%>/skillTrainController/querySkillTrain'
             , toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
             , defaultToolbar: []//自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
             , title: '用户数据表'
             , cols: [[
-
                 {field: 'id', title: '序号', width: 70}
                 , {
                     title: '',
                     field: 'picturePath',
-                    templet: '<div><img style="height:300px;width:300px;" src="{{d.picturePath}}"></div>'
+                    templet: '<div><img style="height:200px;width:200px;" src="{{d.picturePath}}"></div>'
                 }
                 , {field: 'trainProjectName', title: '培训项目名'}
                 , {field: 'time', title: '培训时长'}
-                ,{field:'upload',title:'头像',templet: function () {
-                  return'<button class="layui-btn layui-btn-xs upload_btn">选择图片</button>'
-                    }}
+                // ,{field:'upload',title:'头像',templet: function () {
+                //   return '<button type="button" class="layui-btn " id="test8" lay-type="file" lay-event="file">选择图片</button>'
+                //     }}
                 , {fixed: 'right', title: '操作', width: 250, toolbar: '#barDemo'}
             ]]
             , page: {
@@ -89,7 +90,7 @@
                 layer.confirm('真的删除行么', function (index) {
                     $.ajax({
                         type: 'POST',
-                        url: '/skillTrainController/deleteSkillTrain',
+                        url: '<%=path%>/skillTrainController/deleteSkillTrain',
                         dataType: 'JSON',
                         data: {
                             id: tabdata.id
@@ -112,7 +113,7 @@
                 var id = tabdata.id
                 $.ajax({
                     type: 'POST',
-                    url: '/skillTrainController/queryqualification',
+                    url: '<%=path%>/skillTrainController/queryqualification',
                     dataType: 'JSON',
                     data: {
                         id: tabdata.id
@@ -159,7 +160,7 @@
                     form.on('submit(updataskillTrain)', function (data) {
                         data.field.id = id;
                         $.ajax({
-                            url: '/skillTrainController/updateSkillTrain',
+                            url: '<%=path%>/skillTrainController/updateSkillTrain',
                             type: 'POST',
                             dataType: 'JSON',
                             data: data.field,
@@ -168,13 +169,18 @@
                                 layer.close(updatediv);
                                 $('#trainProjectName').val("");
                                 $("#time").val("");
-                                window.parent.location.reload();//修改成功后刷新父界面
+                                window.location.reload();//修改成功后刷新父界面
                             }
                         })
                         return false;
                     });
                 });
+            } else if (obj.event === 'file') {
+                var tabdata = obj.data;
+                // alert("1");
+
             }
+
         });
 
         //添加数据
@@ -185,7 +191,7 @@
             form.on('submit(updataskillTrain)', function (data) {
                 $.ajax({
                     type: 'POST',
-                    url: '/skillTrainController/insertSkillTrain',
+                    url: '<%=path%>/skillTrainController/insertSkillTrain',
                     dataType: 'JSON',
                     data: data.field,
                     success: function (msg) {
@@ -193,7 +199,7 @@
                         $('#trainProjectName').val("");
                         $("#time").val("");
                         layer.close(layerupdate);
-                        window.parent.location.reload();//修改成功后刷新父界面
+                        window.location.reload();//修改成功后刷新父界面
                     }
                 })
                 return false;
@@ -201,17 +207,36 @@
         });
     });
 </script>
+
+<%--文件上传--%>
+<script>
+    layui.use('upload', function () {
+        var $ = layui.jquery
+            , upload = layui.upload;
+        //选完文件后不自动上传
+        upload.render({
+            elem: '#test8'
+            , url: '<%=path%>/skillTrainController/fileUpload' //改成您自己的上传接口
+            , auto: false
+            , accept: 'file'
+            , size: 102400 //限制文件大小，单位 KB
+            //,multiple: true
+            , bindAction: '#test9'
+            , done: function (res) {
+                if (res.code == 0) {
+                    $("#picturePath").val(res.msg);
+                    // alert(res.msg)
+                } else {
+                    layer.msg(res.msg)
+                }
+                console.log(res)
+            }
+        });
+    });
+</script>
 <%--修改技能培训界面--%>
 <div id="update_div" style="display:none;">
     <form class="layui-form" action="" id="add_submits">
-        <%--        &lt;%&ndash;        <input type="hidden" id="skillid" value="">&ndash;%&gt;--%>
-        <%--        <div class="layui-form-item" style="display:none" id="Item_Number">--%>
-        <%--            <label class="layui-form-label">项目编号：</label>--%>
-        <%--            <div class="layui-input-block">--%>
-        <%--                <input type="text" name="id" id="id" required lay-verify="required"--%>
-        <%--                       disabled="disabled" class="layui-input"  autocomplete="off">--%>
-        <%--            </div>--%>
-        <%--        </div>--%>
         <div class="layui-form-item">
             <label class="layui-form-label">项目名：</label>
             <div class="layui-input-block">

@@ -1,5 +1,6 @@
 package com.cykj.domestic.service;
 
+import com.cykj.domestic.entity.Qualification;
 import com.cykj.domestic.entity.SkillTrain;
 import com.cykj.domestic.util.ResultData;
 
@@ -17,5 +18,9 @@ public interface SkillTrainService {
     ResultData updateSkillTrain(SkillTrain skillTrain);
 
     ResultData insertSkillTrain(SkillTrain skillTrain);
+
+    //添加技能证书
+    ResultData insertqualification(Qualification qualification);
+
 
 }

@@ -30,5 +30,9 @@ public interface SkillTrainMapper {
     //添加技能培训
     int insertSkillTrain(SkillTrain skillTrain);
 
+    //添加技能证书
+    int insertqualification(Qualification qualification);
+
+
 
 }

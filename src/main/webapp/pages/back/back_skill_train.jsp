@@ -26,22 +26,46 @@
 
 <table class="layui-hide" id="test" lay-filter="test"></table>
 
+
+<%--添加证书弹出框--%>
+<form class="layui-form" id="qualificationinfoform" action="" style="display: none">
+    <div class="layui-form-item">
+        <label class="layui-form-label">证书名：</label>
+        <div class="layui-input-block">
+            <input type="text" name="qualificationName" id="qualificationName" required  lay-verify="required" placeholder="请输入证书名字" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn formbtn" id="insertconfirm" lay-submit lay-filter="insertconfirm">确定</button>
+            <button type="reset" class="layui-btn layui-btn-primary formbtn">重置</button>
+        </div>
+    </div>
+</form>
+
+<%--头工具栏按钮--%>
 <script type="text/html" id="toolbarDemo">
     <%--    skill_train--%>
-    <div class="layui-form-item" id="querydiv">
-        <div class="layui-btn-container">
+    <div class="layui-form-item" id="querydiv" >
+        <div class="layui-btn-container" style="display: inline-block">
             <button class="layui-btn layui-btn-sm" lay-event="insert_Skill_train">
-                <i class="layui-icon layui-icon-add-circle-fine"></i> 添加
+                <i class="layui-icon layui-icon-add-circle-fine"></i> 添加技能培训项目
+            </button>
+            <button class="layui-btn layui-btn-sm" lay-event="insert_qualification">
+                <i class="layui-icon layui-icon-add-circle-fine"></i> 增加证书
             </button>
         </div>
     </div>
 </script>
+
+<%--行级按钮--%>
 <script type="text/html" id="barDemo">
     <a class="layui-btn  layui-btn-xs" lay-event="updaterole">
         <i class="layui-icon layui-icon-edit"></i> 修改</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">
         <i class="layui-icon layui-icon-delete"></i>删除</a>
 </script>
+
 
 <%--<script src="<%=path%>/back/js/layui.js" charset="utf-8"></script>--%>
 <script>
@@ -50,10 +74,10 @@
         var $ = layui.jquery;
         table.render({
             elem: '#test'
-            , url: '/skillTrainController/querySkillTrain'
+            , url: '<%=path%>/skillTrainController/querySkillTrain'
             , toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
             , defaultToolbar: []//自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
-            , title: '用户数据表'
+            , title: '技能培训表'
             , cols: [[
 
                 {field: 'id', title: '序号', align: 'center'}
@@ -75,12 +99,52 @@
         table.on('toolbar(test)', function (obj) {
             var checkStatus = table.checkStatus(obj.config.id);
             switch (obj.event) {
-                case 'deletetype':
+                case 'insert_qualification':
+                    var qualification = layer.open({
+                        type: 1
+                        , title: '添加技能证书'
+                        , area: ['500px', '250px']
+                        , shade: [0.8, '#314949'] //遮罩
+                        , resize: false //不可拉伸
+                        , content: $('#qualificationinfoform') //内容
+                        , btn: 0
+                        , cancel: function (index, layero) {
+                            if (confirm('确定要关闭么')) { //只有当点击confirm框的确定时，该层才会关闭
+                                // $('#userinfoform').css("display","none");
+                                $('#trainProjectName').val("");
+                                $("#time").val("");
+                                layer.close(index);
+                            }
+                            return false;
+                        }
+                        //如果设定了yes回调，需进行手工关闭
+                    });
+                    layui.use('form', function(){
+                        var form = layui.form;
+                        form.render();
+                        form.on('submit(insertconfirm)', function(data){
+                            $.ajax({
+                                type: 'POST',
+                                url: '<%=path%>/skillTrainController/insertqualification',
+                                dataType: 'JSON',
+                                data: data.field,
+                                success: function (msg) {
+                                    layer.close(layerinsert);
+                                    $('#qualificationName').val("");
+                                    layer.alert(msg.msg,function () {
+                                        window.location.reload();//修改成功后刷新父界面
+                                    });
+                                }
+                            })
+                            return false;
+                        });
+                    });
                     break;
+                    //添加技能培训项目
                 case 'insert_Skill_train':
                     $.ajax({
                         type: 'POST',
-                        url: '/skillTrainController/queryqualification',
+                        url: '<%=path%>/skillTrainController/queryqualification',
                         dataType: 'JSON',
                         success: function (msg) {
                             $("#qualificationId").html("<option value=''></option>");
@@ -125,7 +189,7 @@
                 layer.confirm('真的删除行么', function (index) {
                     $.ajax({
                         type: 'POST',
-                        url: '/skillTrainController/deleteSkillTrain',
+                        url: '<%=path%>/skillTrainController/deleteSkillTrain',
                         dataType: 'JSON',
                         data: {
                             id: tabdata.id
@@ -148,7 +212,7 @@
                 var id = tabdata.id
                 $.ajax({
                     type: 'POST',
-                    url: '/skillTrainController/queryqualification',
+                    url: '<%=path%>/skillTrainController/queryqualification',
                     dataType: 'JSON',
                     data: {
                         id: tabdata.id
@@ -195,7 +259,7 @@
                     form.on('submit(updataskillTrain)', function (data) {
                         data.field.id = id;
                         $.ajax({
-                            url: '/skillTrainController/updateSkillTrain',
+                            url: '<%=path%>/skillTrainController/updateSkillTrain',
                             type: 'POST',
                             dataType: 'JSON',
                             data: data.field,
@@ -215,7 +279,7 @@
             }
         });
 
-        //添加数据
+        //添加技能培训项目数据
         layui.use('form', function () {
             var form = layui.form;
             form.render();
@@ -223,7 +287,7 @@
             form.on('submit(updataskillTrain)', function (data) {
                 $.ajax({
                     type: 'POST',
-                    url: '/skillTrainController/insertSkillTrain',
+                    url: '<%=path%>/skillTrainController/insertSkillTrain',
                     dataType: 'JSON',
                     data: data.field,
                     success: function (msg) {
@@ -231,7 +295,7 @@
                         $('#trainProjectName').val("");
                         $("#time").val("");
                         layer.close(layerupdate);
-                        window.parent.location.reload();//修改成功后刷新父界面
+                        window.location.reload();//修改成功后刷新父界面
                     }
                 })
                 return false;
@@ -251,7 +315,7 @@
         //选完文件后不自动上传
         upload.render({
             elem: '#test8'
-            , url: '/skillTrainController/fileUpload' //改成您自己的上传接口
+            , url: '<%=path%>/skillTrainController/fileUpload' //改成您自己的上传接口
             , auto: false
             , accept: 'file'
             , size: 102400 //限制文件大小，单位 KB

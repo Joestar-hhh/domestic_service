@@ -70,9 +70,12 @@ public class CompanyController {
     @RequestMapping(value = "/queryRegionCompany")
     public String queryRegionCompany(HttpServletRequest request, HttpServletResponse response) {
         String regionId = request.getParameter("regionId");
-        System.out.println("地区id" + regionId);
         ResultData resultData = companySrevice.queryRegionCompany(regionId);
         return JSON.toJSONString(resultData);
     }
+
+
+
+
 
 }

@@ -3,6 +3,7 @@ package com.cykj.domestic.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.cykj.domestic.entity.Qualification;
 import com.cykj.domestic.entity.SkillTrain;
 import com.cykj.domestic.service.SkillTrainService;
 import com.cykj.domestic.util.ResultData;
@@ -72,6 +73,15 @@ public class SkillTrainController {
         return JSON.toJSONString(resultData);
     }
 
+    //添加技能证书
+    @ResponseBody
+    @RequestMapping(value = "/insertqualification")
+    public String insertqualification(HttpServletRequest request, HttpServletResponse response, Qualification qualification) {
+        System.out.println("qualification=" + JSON.toJSONString(qualification));
+        ResultData resultData = skillTrainService.insertqualification(qualification);
+        System.out.println(JSON.toJSONString(resultData));
+        return JSON.toJSONString(resultData);
+    }
 
     //上传
     @ResponseBody
@@ -90,7 +100,6 @@ public class SkillTrainController {
             String savePath = request.getSession().getServletContext().getRealPath("/upload/");
             String projectPath = savePath + dateStr + File.separator + uuid + "." + prefix;
             String fileupload="/upload/"+dateStr + File.separator + uuid + "." + prefix;
-
             System.out.println("projectPath==" + projectPath);
             File files = new File(projectPath);
             //打印查看上传路径

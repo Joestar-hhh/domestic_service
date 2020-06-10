@@ -29,6 +29,7 @@ public class KnowledgeImpI implements KnowledgeService {
         return resultData;
     }
 
+    //批量删除育婴知识
     @Override
     public ResultData deleteKnowledeg(String idList) {
         List<String> list = JSON.parseArray(idList,String.class);
@@ -44,6 +45,8 @@ public class KnowledgeImpI implements KnowledgeService {
         return resultData;
     }
 
+
+    //添加育儿知识
     @Override
     public ResultData addKnowledeg(Knowledge knowledge) {
        int res= knowledgeMapper.addKnowledeg(knowledge);
@@ -54,6 +57,20 @@ public class KnowledgeImpI implements KnowledgeService {
         } else {
             resultData.setCode(1);
             resultData.setMsg("添加失败");
+        }
+        return resultData;
+    }
+
+    @Override
+    public ResultData updateknowledeg(Knowledge knowledge) {
+       int res= knowledgeMapper.updateknowledeg(knowledge);
+        ResultData resultData = new ResultData();
+        if(res==1){
+            resultData.setCode(0);
+            resultData.setMsg("上传成功");
+        } else {
+            resultData.setCode(1);
+            resultData.setMsg("上传失败");
         }
         return resultData;
     }

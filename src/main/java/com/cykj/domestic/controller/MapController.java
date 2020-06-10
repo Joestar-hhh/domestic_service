@@ -38,7 +38,6 @@ public class MapController {
         return JSON.toJSONString(resultData);
     }
     //    查找次一级地区
-
     @ResponseBody
     @RequestMapping(value = "/querySecondaryZone")
     public String querySecondaryZone(HttpServletResponse response, HttpServletRequest request) {

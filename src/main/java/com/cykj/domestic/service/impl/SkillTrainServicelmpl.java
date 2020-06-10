@@ -79,11 +79,26 @@ public class SkillTrainServicelmpl implements SkillTrainService {
     @Override
     public ResultData insertSkillTrain(SkillTrain skillTrain) {
         int i = skillTrainMapper.insertSkillTrain(skillTrain);
-        ResultData resultData=new ResultData();
-        if(i>0){
+        ResultData resultData = new ResultData();
+        if (i > 0) {
             resultData.setCode(0);
             resultData.setMsg("添加成功");
-        }else{
+        } else {
+            resultData.setCode(1);
+            resultData.setMsg("添加失败");
+        }
+        return resultData;
+    }
+
+    //添加技能证书
+    @Override
+    public ResultData insertqualification(Qualification qualification) {
+        int res = skillTrainMapper.insertqualification(qualification);
+        ResultData resultData = new ResultData();
+        if(res==1){
+            resultData.setCode(0);
+            resultData.setMsg("添加成功");
+        } else {
             resultData.setCode(1);
             resultData.setMsg("添加失败");
         }
