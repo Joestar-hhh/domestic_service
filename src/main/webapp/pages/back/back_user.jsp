@@ -102,25 +102,11 @@
         <label class="layui-form-label">注册时间：</label>
         <label class="layui-form-label rightlabel" id="createTime"></label>
     </div>
-<%--    <div class="layui-form-item">--%>
-<%--        <label class="layui-form-label">公司地址：</label>--%>
-<%--        <label class="layui-form-label rightlabel" id="address"></label>--%>
-<%--        &lt;%&ndash;        <label class="layui-form-label">订单状态：</label>&ndash;%&gt;--%>
-<%--        &lt;%&ndash;        <label class="layui-form-label rightlabel" id="stateComName"></label>&ndash;%&gt;--%>
-<%--    </div>--%>
     <div class="layui-form-item">
         <label class="layui-form-label">公司地址：</label>
         <label class="layui-form-label address" id="address"></label>
 
     </div>
-    <%--    <div class="layui-form-item">--%>
-    <%--        <label class="layui-form-label">频次：</label>--%>
-    <%--        <label class="layui-form-label rightlabel" id="frequency"></label>--%>
-    <%--        <label class="layui-form-label">用户联系电话：</label>--%>
-    <%--        <label class="layui-form-label rightlabel" id="phone"></label>--%>
-    <%--        &lt;%&ndash;        <label class="layui-form-label">订单状态：</label>&ndash;%&gt;--%>
-    <%--        &lt;%&ndash;        <label class="layui-form-label" id="stateComName"></label>&ndash;%&gt;--%>
-    <%--    </div>--%>
 
     <div class="layui-form-item">
         <div class="layui-input-block">
@@ -246,7 +232,6 @@
                             });//启用成功提示
                         }
                     })
-                    // layer.close(index);
                 });
             } else if (obj.event === 'disable') {
                 layer.confirm('确定要禁用吗?', function (index) {
@@ -264,7 +249,6 @@
                             });//禁用成功提示
                         }
                     })
-                    // layer.close(index);
                 });
             }
             else if(obj.event === 'check'){
