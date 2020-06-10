@@ -9,6 +9,7 @@ public class TrainPlan {
   private String title;
   private String content;
   private String peopleNum;
-  private String trainTime;
+  private String startTime;
+  private String endTime;
 
 }

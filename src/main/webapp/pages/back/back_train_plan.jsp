@@ -21,6 +21,14 @@
     <link rel="stylesheet" href="<%=path%>/static/layui/css/layui.css">
     <script type="text/javascript" src="<%=path%>/static/layui/layui.js"></script>
     <link rel="stylesheet" href="<%=path%>/static/css/back_page.css">
+
+    <style>
+        .layui-form-item .layui-input-inline {
+            float: left;
+            width: 350px;
+            margin-right: 10px;
+        }
+    </style>
 </head>
 <body>
 
@@ -30,7 +38,8 @@
     <div class="layui-form-item" id="querydiv">
         <div class="layui-btn-container">
             <button class="layui-btn layui-btn-sm" lay-event="insertPlan">
-                <i class="layui-icon layui-icon-add-circle"></i> 添加</button>
+                <i class="layui-icon layui-icon-add-circle"></i> 添加
+            </button>
         </div>
     </div>
 </script>
@@ -68,10 +77,24 @@
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">培训时间：</label>
-        <div class="layui-input-block">
-            <input type="text" name="trainTime" id="trainTime" required lay-verify="required" placeholder="请输入培训时间"
-                   autocomplete="off" class="layui-input">
+        <label class="layui-form-label">开始时间：</label>
+        <%--        <div class="layui-input-block">--%>
+        <%--            <input type="text" name="trainTime" id="trainTime" required lay-verify="required" placeholder="请输入培训时间"--%>
+        <%--                   autocomplete="off" class="layui-input">--%>
+        <%--        </div>--%>
+        <div class="layui-inline">
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input" name="startTime" id="startTime" placeholder="yyyy-MM-dd-hh" required lay-verify="required">
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">结束时间：</label>
+        <div class="layui-inline">
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input" name="endTime" id="endTime" placeholder="yyyy-MM-dd-hh" required lay-verify="required">
+            </div>
         </div>
     </div>
 
@@ -85,6 +108,32 @@
 
 
 <script>
+
+    var startTime;
+    var endTime;
+    //时间选择器
+    layui.use('laydate', function () {
+
+        var laydate = layui.laydate;
+
+        laydate.render({
+            elem: '#startTime'
+            , type: 'datetime'
+            , done: function (value, date, endDate) {
+                startTime = value;
+                // alert("开始时间"+startTime); //得到日期生成的值，如：2017-08-18
+            }
+        });
+        laydate.render({
+            elem: '#endTime'
+            , type: 'datetime'
+            , done: function (value, date, endDate) {
+                endTime = value;
+                // alert("停止时间"+stopTime); //得到日期生成的值，如：2017-08-18
+            }
+        });
+    });
+
     layui.use('table', function () {
         var table = layui.table;
         var $ = layui.jquery;
@@ -99,7 +148,8 @@
             , cols: [[
                 {type: 'checkbox', fixed: 'left'}
                 , {field: 'id', title: '序号'}
-                , {field: 'trainTime', title: '培训时间'}
+                , {field: 'startTime', title: '开始时间'}
+                , {field: 'endTime', title: '结束时间'}
                 , {field: 'title', title: '培训标题'}
                 , {field: 'content', title: '培训内容'}
                 , {field: 'peopleNum', title: '培训人数'}
@@ -123,7 +173,7 @@
                     var layerinsert = layer.open({
                         type: 1
                         , title: '增加培训计划'
-                        , area: ['500px', '400px']
+                        , area: ['500px', '420px']
                         , shade: [0.8, '#314949'] //遮罩
                         , resize: false //不可拉伸
                         , content: $('#userinfoform') //内容
@@ -133,7 +183,8 @@
                                 $('#title').val("");
                                 $("#content").val("");
                                 $("#peopleNum").val("");
-                                $("#trainTime").val("");
+                                $("#startTime").val("");
+                                $("#endTime").val("");
                                 layer.close(index);
                             }
                             return false;
@@ -191,7 +242,8 @@
             else if (obj.event === 'update') {
                 $('#title').val(tabdata.title);
                 $("#content").val(tabdata.content);
-                $("#trainTime").val(tabdata.trainTime);
+                $("#startTime").val(tabdata.startTime);
+                $("#endTime").val(tabdata.endTime);
                 $("#peopleNum").val(tabdata.peopleNum);
                 var planid = tabdata.id
                 var layerupdate = layer.open({

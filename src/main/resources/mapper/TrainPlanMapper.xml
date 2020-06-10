@@ -19,11 +19,11 @@
     </delete>
 
     <update id="updatePlan" parameterType="com.cykj.domestic.entity.TrainPlan">
-        update tb_train_plan set title = #{title},content = #{content},people_num = #{peopleNum},train_time = #{trainTime}
+        update tb_train_plan set title = #{title},content = #{content},people_num = #{peopleNum},start_time = #{startTime},end_time = #{endTime}
         where id = #{id}
     </update>
 
     <insert id="insertPlan" parameterType="com.cykj.domestic.entity.TrainPlan">
-        insert into tb_train_plan (title,content,people_num,train_time) values (#{title},#{content},#{peopleNum},#{trainTime})
+        insert into tb_train_plan (title,content,people_num,start_time,end_time) values (#{title},#{content},#{peopleNum},#{startTime},#{endTime})
     </insert>
 </mapper>
