@@ -35,9 +35,10 @@ public class ServiceInformationImpl implements ServiceInformationService {
             resultData.setCount(count);
             resultData.setData(list);
             System.out.println(information);
+            System.out.println("服务信息时间段查询得到的list"+list);
         } else {
             resultData.setCode(1);
-            resultData.setMsg("查询失败");
+            resultData.setMsg("无数据显示");
         }
         return resultData;
     }

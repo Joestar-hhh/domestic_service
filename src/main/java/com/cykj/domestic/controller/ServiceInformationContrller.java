@@ -27,12 +27,6 @@ public class ServiceInformationContrller {
         return JSON.toJSONString(resultData);
     }
 
-//    //查询所有服务类型
-//   @RequestMapping("/selectService")
-//    public String selectService(HttpServletRequest request, HttpServletResponse response) {
-//        ResultData resultData = serviceInformationService.selectService();
-//        return JSON.toJSONString(resultData);
-//    }
 
 
     //查询详情

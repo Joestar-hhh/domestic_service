@@ -14,5 +14,7 @@ public class Information {
     private String startTime;
     private String companyName;
     private String orderStateName;
+    private String endTime;
+
 
 }

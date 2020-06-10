@@ -134,19 +134,32 @@
 
 <script>
 
+
+    var startTime;
+    var endTime;
     //时间选择器
     layui.use('laydate', function() {
+
         var laydate = layui.laydate;
 
         laydate.render({
             elem: '#test1'
+            ,type:'datetime'
+            ,done: function(value, date, endDate){
+                startTime=value;
+                // alert("开始时间"+startTime); //得到日期生成的值，如：2017-08-18
+            }
         });
-
         laydate.render({
             elem: '#test2'
-
-
+            ,type:'datetime'
+            ,done: function(value, date, endDate){
+                endTime=value;
+                // alert("停止时间"+stopTime); //得到日期生成的值，如：2017-08-18
+            }
         });
+
+
     });
 
     layui.use('table', function(){
@@ -197,64 +210,22 @@
                     break;
                     //根据时间查询服务信息表
                 case 'query':
-                    $.ajax({
-                        type: 'POST',
-                        url: '/serviceInformationContrller/selectInformationListView',
-                        dataType: 'JSON',
-                        success: function (msg) {
-                            $("#serviceCategory").html("<option value=''></option>");
-                            $.each(msg.data, function (i, item) {
-                                $("#serviceCategory").append("<option value='" + item.id + "'>" + item.typeName + "</option>")
-                            });
-                            layui.use('form', function () {
-                                var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
-                                form.render();
-                            });
+                    alert("点击了查询")
+                    //查询时间段
+                    //执行重载
+                    table.reload('test', {
+                        url:'/serviceInformationContrller/selectInformationList'
+                        // ,methods:"post"
+                        ,page: {
+                            curr: 1 //重新从第 1 页开始
+                        }
+                        ,where: {
+                            startTime:startTime,
+                            endTime:endTime,
                         }
                     });
-                    var layerinsert = layer.open({
-                        type: 1
-                        ,title: '添加服务类型'
-                        ,area: ['500px','400px']
-                        ,shade: [0.8, '#314949'] //遮罩
-                        ,resize: false //不可拉伸
-                        ,content: $('#userinfoform') //内容
-                        ,btn: 0
-                        ,cancel: function(index, layero){
-                            if(confirm('确定要关闭么')){ //只有当点击confirm框的确定时，该层才会关闭
-                                // $('#userinfoform').css("display","none");
-                                // $('#roleName').val("");
-                                // $("#roleDescribe").val("");
-                                layer.close(index);
-                            }
-                            return false;
-                        }
-                        //如果设定了yes回调，需进行手工关闭
-                    });
-                    layui.use('form', function(){
-                        var form = layui.form;
-                        form.render();
-                        form.on('submit(insertconfirm)', function(data){
-                            $.ajax({
-                                url:"/serviceListContrller/addServiceList",
-                                type: "POST",
-                                dataType: 'JSON',
-                                data: data.field,
-                                success: function (msg) {
-                                    if (msg.code == "0") {
-                                        alert(msg.msg);
-                                        layer.close(layerinsert);
-                                        $('#typeName').val("");
-                                        $("#description").val("");
-                                        window.parent.location.reload();//修改成功后刷新父界面
-                                    } else {
-                                        alert(msg.msg);
-                                    }
-                                }
-                            });
-                            return false;
-                        });
-                    });
+                    // $('#test1').val(startTime);
+                    // $('#test2').val(endTime);
                     break;
             }
         });

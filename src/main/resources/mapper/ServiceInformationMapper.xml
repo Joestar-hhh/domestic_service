@@ -16,19 +16,20 @@
         on oi.user_order_state_id = os.id
         left join tb_user u
         on oi.user_id = u.id
+        <where>
+            <if test="e.startTime != null and e.startTime != ''">and oi.start_time &gt; #{e.startTime} and oi.start_time &lt; #{e.endTime}
+            </if>
+        </where>
         limit #{start},#{pageSize}
     </select>
 
     <select id="selectListCount" resultType="int" parameterType="com.cykj.domestic.entity.Information">
-        select count(A.id) from(select oi.*,u.name,st.type_name,c.company_name,os.order_state_name from tb_order_info oi
-        left join tb_service_type st
-        on oi.service_id = st.id
-        left join tb_company c
-        on oi.company_id = c.id
-        left join tb_order_state os
-        on oi.user_order_state_id = os.id
-        left join tb_user u
-        on oi.user_id = u.id)A
+
+        select count(id) from tb_order_info
+        <where>
+            <if test="e.startTime != null and e.startTime != ''">and start_time &gt; #{e.startTime} and start_time &lt; #{e.endTime}
+            </if>
+        </where>
     </select>
 
 <!--    <select id="selectService" resultType="com.cykj.domestic.entity.ServiceType">-->
