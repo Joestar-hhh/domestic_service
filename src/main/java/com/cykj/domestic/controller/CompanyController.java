@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @RestController
 @RequestMapping("/companyController")
@@ -75,7 +76,12 @@ public class CompanyController {
     }
 
 
-
+    //    根据服务类型统计公司数量
+    @RequestMapping("/serviceStatistics")
+    public String serviceStatistics(String statisticsType) {
+        List<Company> list = companySrevice.serviceTypeStatistics(statisticsType);
+        return JSON.toJSONString(list);
+    }
 
 
 }

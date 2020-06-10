@@ -5,6 +5,7 @@ import com.cykj.domestic.mapper.CompanyMapper;
 import com.cykj.domestic.util.ResultData;
 import org.apache.ibatis.annotations.Param;
 
+import java.awt.*;
 import java.util.List;
 
 public interface CompanySrevice {
@@ -24,5 +25,5 @@ public interface CompanySrevice {
     //    根据地区查看平台详情
     ResultData queryRegionCompany(String regionId);
 
-
+    List<Company> serviceTypeStatistics(String statisticsType);
 }
