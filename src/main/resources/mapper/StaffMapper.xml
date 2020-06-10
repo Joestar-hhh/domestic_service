@@ -63,4 +63,13 @@
         </where>
     </select>
 
+<!--    启用/禁用用户-->
+    <update id="enableUser" parameterType="com.cykj.domestic.entity.User">
+        UPDATE tb_user SET status = '启用' WHERE id = #{id}
+    </update>
+
+    <update id="disableUser" parameterType="com.cykj.domestic.entity.User">
+        UPDATE tb_user SET status = '禁用' WHERE id = #{id}
+    </update>
+
 </mapper>

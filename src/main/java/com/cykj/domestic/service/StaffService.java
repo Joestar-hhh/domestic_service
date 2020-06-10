@@ -19,5 +19,10 @@ public interface StaffService {
 
     ResultData regionList();
 
+    //用户管理
     ResultData queryUser(User user, int page, int limit, String region);
+
+    ResultData enableUser(int id);
+
+    ResultData disableUser(int id);
 }

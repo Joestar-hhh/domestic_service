@@ -45,4 +45,10 @@ public interface StaffMapper {
 
     //查询用户总数
     int queryUserCount(@Param("e") User user, @Param("region") String region);
+
+    //启用状态
+    int enableUser(int id);
+
+    //禁用状态
+    int disableUser(int id);
 }

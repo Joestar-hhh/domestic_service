@@ -58,10 +58,24 @@ public class StaffController {
         return JSON.toJSONString(resultData);
     }
 //    用户查询
-@RequestMapping("/queryUser")
-public String queryUser(HttpServletRequest request, HttpServletResponse response,
-                        User user, String page, String limit , String region) {
-    ResultData resultData = staffService.queryUser(user, Integer.parseInt(page), Integer.parseInt(limit) ,region);
-    return JSON.toJSONString(resultData);
-}
+    @RequestMapping("/queryUser")
+    public String queryUser(HttpServletRequest request, HttpServletResponse response,
+                            User user, String page, String limit , String region) {
+        ResultData resultData = staffService.queryUser(user, Integer.parseInt(page), Integer.parseInt(limit) ,region);
+        return JSON.toJSONString(resultData);
+    }
+
+    //启用
+    @RequestMapping("/enableUser")
+    public ResultData enableUser(HttpServletRequest request, HttpServletResponse response, int id) {
+        ResultData resultData = staffService.enableUser(id);
+        return resultData;
+    }
+
+    //禁用
+    @RequestMapping("/disableUser")
+    public ResultData disableUser(HttpServletRequest request, HttpServletResponse response, int id) {
+        ResultData resultData = staffService.disableUser(id);
+        return resultData;
+    }
 }

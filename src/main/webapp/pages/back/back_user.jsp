@@ -234,41 +234,37 @@
                 layer.confirm('确定要启用吗?', function (index) {
                     $.ajax({
                         type: 'POST',
-                        url: "<%=path%>/staffController/enableState",
+                        url: "<%=path%>/staffController/enableUser",
                         dataType: 'JSON',
                         data: {
                             id: tabdata.id
                         },
                         success: function (msg) {
-                            if (msg.code == 0) {
-                                alert("修改失败，请重试");
-                            } else {
-                                alert("修改成功");
-                                window.location.reload();
-                            }
+                            layer.close(index);
+                            layer.alert(msg.msg,{icon: 6},function () {
+                                window.location.reload();//启用成功后刷新界面
+                            });//启用成功提示
                         }
                     })
-                    layer.close(index);
+                    // layer.close(index);
                 });
             } else if (obj.event === 'disable') {
                 layer.confirm('确定要禁用吗?', function (index) {
                     $.ajax({
                         type: 'POST',
-                        url: "<%=path%>/staffController/disableState",
+                        url: "<%=path%>/staffController/disableUser",
                         dataType: 'JSON',
                         data: {
                             id: tabdata.id
                         },
                         success: function (msg) {
-                            if (msg.code == "0") {
-                                alert("修改失败，请重试");
-                            } else {
-                                alert("修改成功");
-                                window.location.reload();
-                            }
+                            layer.close(index);
+                            layer.alert(msg.msg,{icon: 6},function () {
+                                window.location.reload();//禁用成功后刷新界面
+                            });//禁用成功提示
                         }
                     })
-                    layer.close(index);
+                    // layer.close(index);
                 });
             }
             else if(obj.event === 'check'){

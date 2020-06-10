@@ -235,7 +235,7 @@
                         success: function (msg) {
                             layer.close(index);
                             layer.alert(msg.msg,{icon: 6},function () {
-                                window.location.reload();//审核成功后刷新父界面
+                                window.location.reload();//审核成功后刷新界面
                             });//审核成功提示
 
                         }
@@ -264,9 +264,6 @@
                     ,btn: 0
                     ,cancel: function(index, layero){
                         if(confirm('确定要关闭么')){ //只有当点击confirm框的确定时，该层才会关闭
-                            // $('#userinfoform').css("display","none");
-                            // $('#roleName').val("");
-                            // $("#roleDescribe").val("");
                             layer.close(index);
                         }
                         return false;

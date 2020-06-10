@@ -72,16 +72,33 @@ public class StaffServiceImpl implements StaffService {
         return resultData;
     }
 
-//    @Override
-//    public ResultData queryRegion(Staff staff, int page, int limit, String region) {
-//        List<Staff> list = staffMapper.queryRegion(staff, (page - 1) * limit, limit, region);
-//        int count = staffMapper.queryStaffCount(staff);
-//
-//        ResultData resultData = new ResultData();
-//        resultData.setCode(0);
-//        resultData.setMsg("");
-//        resultData.setCount(count);
-//        resultData.setData(list);
-//        return resultData;
-//    }
+    @Override
+    public ResultData enableUser(int id) {
+        int res = staffMapper.enableUser(id);
+        ResultData resultData=new ResultData();
+        if (res==1){
+            resultData.setCode(0);
+            resultData.setMsg("启用成功！");
+        }else {
+            resultData.setCode(1);
+            resultData.setMsg("启用失败！");
+        }
+        return resultData;
+    }
+
+    @Override
+    public ResultData disableUser(int id) {
+        int res = staffMapper.disableUser(id);
+        ResultData resultData=new ResultData();
+        if (res==1){
+            resultData.setCode(0);
+            resultData.setMsg("禁用成功！");
+        }else {
+            resultData.setCode(1);
+            resultData.setMsg("禁用失败！");
+        }
+        return resultData;
+    }
+
+
 }
