@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.cykj.domestic.entity.Counselor;
 import com.cykj.domestic.entity.Region;
 import com.cykj.domestic.entity.Staff;
+import com.cykj.domestic.entity.User;
 import com.cykj.domestic.service.StaffService;
 import com.cykj.domestic.util.ResultData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,13 +57,11 @@ public class StaffController {
         ResultData resultData = staffService.regionList();
         return JSON.toJSONString(resultData);
     }
-
-//    //根据区域查询数据
-//    @RequestMapping("/queryRegion")
-//    public String queryRegion(HttpServletRequest request, HttpServletResponse response,
-//                              Staff staff, String page, String limit, String region) {
-//        ResultData resultData = staffService.queryRegion(staff, Integer.parseInt(page), Integer.parseInt(limit), region);
-//        System.out.println("查询：" + JSON.toJSONString(resultData));
-//        return JSON.toJSONString(resultData);
-//    }
+//    用户查询
+@RequestMapping("/queryUser")
+public String queryUser(HttpServletRequest request, HttpServletResponse response,
+                        User user, String page, String limit , String region) {
+    ResultData resultData = staffService.queryUser(user, Integer.parseInt(page), Integer.parseInt(limit) ,region);
+    return JSON.toJSONString(resultData);
+}
 }

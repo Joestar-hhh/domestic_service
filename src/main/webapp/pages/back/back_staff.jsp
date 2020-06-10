@@ -154,7 +154,7 @@
             , url: "<%=path%>/staffController/queryStaff"
             , toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
             , defaultToolbar: []//自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
-            , title: '顾问管理表'
+            , title: '员工管理表'
             , cols: [[
                 {type: 'checkbox', fixed: 'left'}
                 , {field: 'id', title: '序号'}

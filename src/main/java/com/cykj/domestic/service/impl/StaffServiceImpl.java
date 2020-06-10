@@ -2,6 +2,7 @@ package com.cykj.domestic.service.impl;
 
 import com.cykj.domestic.entity.Region;
 import com.cykj.domestic.entity.Staff;
+import com.cykj.domestic.entity.User;
 import com.cykj.domestic.mapper.StaffMapper;
 import com.cykj.domestic.service.StaffService;
 import com.cykj.domestic.util.ResultData;
@@ -15,6 +16,7 @@ public class StaffServiceImpl implements StaffService {
 
     @Autowired
     private StaffMapper staffMapper;
+
 
     @Override
     public ResultData queryStaffList(Staff staff, int page, int limit, String region) {
@@ -53,6 +55,19 @@ public class StaffServiceImpl implements StaffService {
     public ResultData regionList() {
         List<Region> list = staffMapper.regionList();
         ResultData resultData = new ResultData();
+        resultData.setData(list);
+        return resultData;
+    }
+//用户管理查询
+    @Override
+    public ResultData queryUser(User user, int page, int limit, String region) {
+        List<User> list = staffMapper.queryUser(user, (page - 1) * limit, limit, region);
+        int count = staffMapper.queryUserCount(user,region);
+
+        ResultData resultData = new ResultData();
+        resultData.setCode(0);
+        resultData.setMsg("");
+        resultData.setCount(count);
         resultData.setData(list);
         return resultData;
     }

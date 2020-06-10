@@ -254,9 +254,6 @@
                 $('#typeName').html(tabdata.typeName);
                 $('#state').html(tabdata.state);
                 $('#companyProfile').html(tabdata.companyProfile);
-                // $('#frequency').html(tabdata.frequency);
-                // $('#startTime').html(tabdata.startTime);
-                // $('#endTime').html(tabdata.endTime);
                 var layerupdate = layer.open({
                     type: 1
                     ,title: '查看公司详情'
