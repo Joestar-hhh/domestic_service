@@ -199,6 +199,7 @@
                             region: region
                         }
                     });
+                    // alert("下拉框的值："+region);
                     //查询完以后将下拉框的数据再次获取一次
                     $.ajax({
                         type: 'POST',
@@ -207,7 +208,8 @@
                         success: function (msg) {
                             $("#regionlist").html("<option value=''></option>");
                             $.each(msg.data, function (i, item) {
-                                $("#regionlist").append("<option value='" + item.id + "'>" + item.region + "</option>")
+                                $("#regionlist").append("<option value='" + item.id + "'>" + item.region + "</option>");
+                                region = "";
                             });
                             layui.use('form', function () {
                                 var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
