@@ -40,14 +40,15 @@
 
         <input type="text" name="typeName" id="typeName" lay-verify="title" autocomplete="off"
                placeholder="请输入服务类别名" class="layui-input">
-        <button class="layui-btn layui-btn-warm" id="querybtn" lay-event="querybtn" data-type="reload">
+        <button class="layui-btn layui-btn-radius " id="querybtn" lay-event="querybtn" data-type="reload">
             <i class="layui-icon layui-icon-search"></i> 查询
         </button>
     </div>
 </script>
 
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="updatestyle">审核</a>
+    <a class="layui-btn layui-btn-xs" lay-event="updatestyle">
+        <i class="layui-icon layui-icon-auz"></i>审核</a>
 </script>
 
 
