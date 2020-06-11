@@ -31,6 +31,7 @@
         </foreach>
     </delete>
 
+
     <!--    订单统计前先执行公司列表下拉框-->
     <select id="queryCompanyList" parameterType="com.cykj.domestic.entity.Company"
             resultType="com.cykj.domestic.entity.Company">
