@@ -39,9 +39,9 @@ public class ServiceTypeImpl implements ServiceTypeService {
 
     @Override
     public ResultData addServiceType(ServiceType serviceType) {
-        int res=serviceTypeMapper.addServiceType(serviceType);
+        int res = serviceTypeMapper.addServiceType(serviceType);
         ResultData resultData = new ResultData();
-        if(res==1){
+        if (res == 1) {
             resultData.setCode(0);
             resultData.setMsg("添加成功");
         } else {
@@ -55,7 +55,7 @@ public class ServiceTypeImpl implements ServiceTypeService {
     public ResultData updateServiceType(ServiceType serviceType) {
         int res = serviceTypeMapper.updateServiceType(serviceType);
         ResultData resultData = new ResultData();
-        if(res==1){
+        if (res == 1) {
             resultData.setCode(0);
             resultData.setMsg("修改成功");
         } else {
@@ -67,9 +67,9 @@ public class ServiceTypeImpl implements ServiceTypeService {
 
     @Override
     public ResultData deleteServiceType(int id) {
-        int res=serviceTypeMapper.deleteServiceType(id);
+        int res = serviceTypeMapper.deleteServiceType(id);
         ResultData resultData = new ResultData();
-        if(res==1){
+        if (res == 1) {
             resultData.setCode(0);
             resultData.setMsg("删除成功");
         } else {
@@ -82,9 +82,48 @@ public class ServiceTypeImpl implements ServiceTypeService {
     @Override
     public ResultData serviceTypeView(int id) {
         List<ServiceType> list = serviceTypeMapper.serviceTypeView(id);
-        System.out.println("list_______"+list);
+        System.out.println("list_______" + list);
         ResultData resultData = new ResultData();
         resultData.setData(list);
         return resultData;
     }
+
+    /*公司端服务类别查询*/
+    @Override
+    public ResultData queryCompanyServiceType(String id, int page, int limit) {
+        List<ServiceType> list = serviceTypeMapper.queryCompanyServiceType(id, (page - 1) * limit, limit);
+        int count = serviceTypeMapper.queryCompanyServiceTypeCount(id);
+        ResultData resultData = new ResultData();
+        resultData.setCode(0);
+        resultData.setMsg("");
+        resultData.setCount(count);
+        resultData.setData(list);
+        return resultData;
+    }
+    /*公司申请添加服务类别关系*/
+    @Override
+    public ResultData addServicerelstion(ServiceType serviceType) {
+        int res=serviceTypeMapper.addServicerelstion(serviceType);
+        ResultData resultData = new ResultData();
+        if (res == 1) {
+            resultData.setCode(0);
+            resultData.setMsg("添加成功");
+        } else {
+            resultData.setCode(1);
+            resultData.setMsg("添加失败");
+        }
+        return resultData;
+    }
+
+    /*查询所有服务类别*/
+    @Override
+    public ResultData queryServiceType() {
+        List<ServiceType> list = serviceTypeMapper.queryServiceType();
+        ResultData resultData = new ResultData();
+        resultData.setCode(0);
+        resultData.setMsg("");
+        resultData.setData(list);
+        return resultData;
+    }
+
 }

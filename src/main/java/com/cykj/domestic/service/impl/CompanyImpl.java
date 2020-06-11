@@ -8,6 +8,8 @@ import com.cykj.domestic.util.ResultData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Service
@@ -16,15 +18,23 @@ public class CompanyImpl implements CompanySrevice {
     public CompanyMapper companyMapper;
 
 
-    //    平台端登入
+    //    家政公司端登入
     @Override
-    public ResultData companyLogin(Company company) {
+    public ResultData companyLogin(Company company, HttpServletRequest request) {
         ResultData resultData = new ResultData();
         Company company1 = companyMapper.companyLogin(company);
         if (company1 != null) {
             if (company.getPwd().equals(company1.getPwd())) {
-                resultData.setCode(0);
-                resultData.setMsg("登入成功");
+                HttpSession session = request.getSession();
+                session.setAttribute("company",company1);
+
+                if (company1.getState().equals("审核通过")) {
+                    resultData.setCode(3);
+                    resultData.setMsg("登入成功");
+                } else {
+                    resultData.setCode(0);
+                    resultData.setMsg("登入成功");
+                }
             } else {
                 resultData.setCode(1);
                 resultData.setMsg("密码错误");
@@ -35,6 +45,23 @@ public class CompanyImpl implements CompanySrevice {
         }
         return resultData;
     }
+
+
+    //家政公司端修改密码
+    @Override
+    public ResultData phone_update_pwd(Company company) {
+        ResultData resultData = new ResultData();
+        int res = companyMapper.phone_update_pwd(company);
+        if (res == 1) {
+            resultData.setCode(0);
+            resultData.setMsg("修改成功");
+        } else {
+            resultData.setCode(1);
+            resultData.setMsg("修改失败");
+        }
+        return resultData;
+    }
+
 
     //区域列表
     @Override
@@ -97,14 +124,15 @@ public class CompanyImpl implements CompanySrevice {
         return resultData;
     }
 
+
     @Override
     public List<Company> serviceTypeStatistics(String statisticsType, String startDate, String endDate) {
         List<Company> companyList = null;
-        if(statisticsType.equals("1")){
+        if (statisticsType.equals("1")) {
             companyList = companyMapper.serviceTypeStatistics();
-        }else if (statisticsType.equals("2")){
+        } else if (statisticsType.equals("2")) {
             companyList = companyMapper.regionStatistics();
-        }else {
+        } else {
             companyList = companyMapper.dateStatistics(startDate, endDate);
         }
         return companyList;

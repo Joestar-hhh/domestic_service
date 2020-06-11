@@ -29,7 +29,7 @@
 <table class="layui-hide" id="test" lay-filter="test"></table>
 
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="updaterole">查看详情</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="updatestyle">查看详情</a>
 
 </script>
 <style>
@@ -37,6 +37,7 @@
     .layui-table-cell {
         height: inherit;
     }
+
     /*
     调整图片宽度
     */
@@ -45,6 +46,32 @@
     }
 
 </style>
+
+
+<%--修改技能培训界面--%>
+<div id="update_div" style="display:none;">
+    <form class="layui-form" action="" id="add_submits">
+        <div class="layui-form-item">
+            <label class="layui-form-label">项目名：</label>
+            <div class="layui-input-block">
+                <%--                <label id="trainProjectName"></label>--%>
+                <label class="layui-form-label rightlabel" id="trainProjectName"></label>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">培训时长：</label>
+            <div class="layui-input-block">
+                <label class="layui-form-label rightlabel" id="time"></label>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">认证证书：</label>
+            <div class="layui-input-block">
+                <label class="layui-form-label rightlabel" id="qualificationId"></label>
+            </div>
+        </div>
+    </form>
+</div>
 
 <script>
     style = "border-style:none"
@@ -65,11 +92,9 @@
                     field: 'picturePath',
                     templet: '<div><img style="height:200px;width:200px;" src="{{d.picturePath}}"></div>'
                 }
+                // , {title: '认证证书', field: 'qualification', emplet: '<div>{{d.qualification.qualificationName}}</div>'}
                 , {field: 'trainProjectName', title: '培训项目名'}
                 , {field: 'time', title: '培训时长'}
-                // ,{field:'upload',title:'头像',templet: function () {
-                //   return '<button type="button" class="layui-btn " id="test8" lay-type="file" lay-event="file">选择图片</button>'
-                //     }}
                 , {fixed: 'right', title: '操作', width: 250, toolbar: '#barDemo'}
             ]]
             , page: {
@@ -85,57 +110,22 @@
 
             //删除
             if (obj.event === 'del') {
-                layer.confirm('真的删除行么', function (index) {
-                    $.ajax({
-                        type: 'POST',
-                        url: '<%=path%>/skillTrainController/deleteSkillTrain',
-                        dataType: 'JSON',
-                        data: {
-                            id: tabdata.id
-                        },
-                        success: function (msg) {
-                            if (msg.code == "0") {
-                                alert(msg.msg);
-                                obj.del();
-                            } else {
-                                alert(msg.msg);
-                            }
-                        }
-                    })
-                    layer.close(index);
-                });
+
             }
             //修改
-            else if (obj.event === 'updaterole') {
+            else if (obj.event === 'updatestyle') {
                 var tabdata = obj.data;
-                var id = tabdata.id
-                $.ajax({
-                    type: 'POST',
-                    url: '<%=path%>/skillTrainController/queryqualification',
-                    dataType: 'JSON',
-                    data: {
-                        id: tabdata.id
-                    },
-                    success: function (msg) {
-                        //jsp界面赋值
-                        $("#id").val(tabdata.id);
-                        $("#trainProjectName").val(tabdata.trainProjectName);
-                        $("#time").val(tabdata.time);
-                        $("#qualificationId").html("<option value=''></option>");
-
-                        $.each(msg.data, function (i, item) {
-                            $("#qualificationId").append("<option value='" + item.id + "'>" + item.qualificationName + "</option>")
-                        });
-                        layui.use('form', function () {
-                            var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
-                            form.render();
-                        });
-                    }
-                });
+                // var id = tabdata.id
+                var i = tabdata.qualification.qualificationName
+                // tabdata.trainProjectName;
+                $("#id").html(tabdata.id);
+                $("#qualificationId").html(i);
+                $("#time").html(tabdata.time);
+                $("#trainProjectName").html(tabdata.trainProjectName)
                 //打开修改技能培训弹窗
                 var updatediv = layer.open({
                     type: 1,
-                    title: '修改技能培训项目',
+                    title: '培训风采',
                     area: ['540px', '400px'],
                     // shade: [0.8, '#314949'],//遮罩
                     resize: false,//不可拉伸
@@ -151,99 +141,12 @@
                         return false;
                     }
                 });
-                //修改数据
-                layui.use('form', function () {
-                    var form = layui.form;
-                    form.render();
-                    form.on('submit(updataskillTrain)', function (data) {
-                        data.field.id = id;
-                        $.ajax({
-                            url: '<%=path%>/skillTrainController/updateSkillTrain',
-                            type: 'POST',
-                            dataType: 'JSON',
-                            data: data.field,
-                            success: function (data) {
-                                alert(data.msg);
-                                layer.close(updatediv);
-                                $('#trainProjectName').val("");
-                                $("#time").val("");
-                                window.location.reload();//修改成功后刷新父界面
-                            }
-                        })
-                        return false;
-                    });
-                });
-            } else if (obj.event === 'file') {
-                var tabdata = obj.data;
-                // alert("1");
 
             }
-
         });
 
-        //添加数据
-        layui.use('form', function () {
-            var form = layui.form;
-            form.render();
-            $("#Item_Number").hide();
-            form.on('submit(updataskillTrain)', function (data) {
-                $.ajax({
-                    type: 'POST',
-                    url: '<%=path%>/skillTrainController/insertSkillTrain',
-                    dataType: 'JSON',
-                    data: data.field,
-                    success: function (msg) {
-                        layer.alert(msg.msg);
-                        $('#trainProjectName').val("");
-                        $("#time").val("");
-                        layer.close(layerupdate);
-                        window.location.reload();//修改成功后刷新父界面
-                    }
-                })
-                return false;
-            });
-        });
     });
 </script>
 
-<%--修改技能培训界面--%>
-<div id="update_div" style="display:none;">
-    <form class="layui-form" action="" id="add_submits">
-        <div class="layui-form-item">
-            <label class="layui-form-label">项目名：</label>
-            <div class="layui-input-block">
-                <input type="text" name="trainProjectName" id="trainProjectName" required lay-verify="required"
-                       placeholder="请输入培训项目的名称"
-                       autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">培训时长：</label>
-            <div class="layui-input-block">
-                <select name="time" id="time" lay-verify="required">
-                    <option value=""></option>
-                    <option value="一周">一周</option>
-                    <option value="一个月">一个月</option>
-                    <option value="两个月">两个月</option>
-                </select>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">认证证书：</label>
-            <div class="layui-input-block">
-                <select name="qualificationId" id="qualificationId" lay-verify="required">
-                </select>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <div class="layui-input-block">
-                <button class="layui-btn formbtn" id="insertconfirm" lay-submit="add_submits"
-                        lay-filter="updataskillTrain">确定
-                </button>
-                <%--                <button type="reset" class="layui-btn layui-btn-primary formbtn">重置</button>--%>
-            </div>
-        </div>
-    </form>
-</div>
 </body>
 </html>

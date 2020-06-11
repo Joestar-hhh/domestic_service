@@ -15,6 +15,9 @@ public interface CompanyMapper {
      //    平台端登入
     Company companyLogin(Company company);
 
+//    家政公司端修改密码
+    int phone_update_pwd(Company company);
+
     //平台端区域列表
     List<Company> queryRegion(@Param("start") int start, @Param("pageSize") int pageSize);
 

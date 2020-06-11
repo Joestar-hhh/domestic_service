@@ -22,8 +22,8 @@
 <body background="<%=path%>/static/pear_layui/admin/images/background.svg">
 <form class="layui-form" action="javascript:void(0);">
     <div class="layui-form-item">
-        <img class="logo" src="admin/images/logo.png" />
-        <div class="title">传一家政</div>
+        <img class="logo" src="<%=path%>/static/pear_layui/admin/images/logo.png" />
+        <div class="title">传一家政平台</div>
         <div class="desc">
             福 建 省 最 具 影 响 力 的 家 政 公 司 之 一
         </div>
@@ -85,6 +85,7 @@
                         // alert(msg.msg)
                         layer.msg(msg.msg)
                         if(msg.code=='0'){
+
                             layer.msg(msg.msg);
                             location.href="<%=path%>/pages/back/back_adminhome.jsp"
                         }else{
@@ -98,7 +99,6 @@
                 draw(show_num);
                 return false;
             }
-
         })
     })
 </script>

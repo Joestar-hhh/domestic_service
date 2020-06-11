@@ -17,7 +17,8 @@
          delete from tb_service_type where id=#{id}
     </delete>
 
-    <select id="selectList" resultType="com.cykj.domestic.entity.ServiceType" parameterType="com.cykj.domestic.entity.ServiceType">
+    <select id="selectList" resultType="com.cykj.domestic.entity.ServiceType"
+            parameterType="com.cykj.domestic.entity.ServiceType">
         select * from tb_service_type
         limit #{start},#{pageSize}
     </select>
@@ -26,8 +27,34 @@
         select count(id) from tb_service_type
     </select>
 
-    <select id="serviceTypeView" resultType="com.cykj.domestic.entity.ServiceType" parameterType="com.cykj.domestic.entity.ServiceType">
+    <select id="serviceTypeView" resultType="com.cykj.domestic.entity.ServiceType"
+            parameterType="com.cykj.domestic.entity.ServiceType">
        select * from tb_service_type where id=#{id}
     </select>
+
+
+    <!--    公司端服务类别查询-->
+    <select id="queryCompanyServiceType" resultType="com.cykj.domestic.entity.ServiceType">
+        SELECT a.type_name  typeName,a.description description, b.apply_time updateTime,b.state FROM tb_company c
+          LEFT JOIN tb_service_relation b ON c.id=b.company_id
+          LEFT JOIN  tb_service_type a ON a.id=b.service_type_id WHERE c.id=#{id} limit #{start},#{pageSize}
+    </select>
+
+    <select id="queryCompanyServiceTypeCount" resultType="int" parameterType="java.lang.String">
+        SELECT COUNT(*) FROM tb_company c
+          LEFT JOIN tb_service_relation b ON c.id=b.company_id
+          LEFT JOIN  tb_service_type a ON a.id=b.service_type_id WHERE c.id=#{id}
+    </select>
+
+    <!--    公司申请添加服务类别关系-->
+    <insert id="addServicerelstion" parameterType="com.cykj.domestic.entity.ServiceType">
+         INSERT INTO tb_service_relation(company_id,service_type_id,state)VALUES(#{companyId},#{id},#{state})
+    </insert>
+
+    <!--    查询所有服务类别-->
+    <select id="queryServiceType" resultType="com.cykj.domestic.entity.ServiceType">
+        SELECT * FROM tb_service_type
+    </select>
+
 
 </mapper>

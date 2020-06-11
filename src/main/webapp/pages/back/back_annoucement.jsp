@@ -83,10 +83,12 @@
                 ,{field:'title', title: '公告标题'}
                 // ,{field:'content', title: '公告内容'}
                 ,{fixed: 'right',title:'操作', width: 250, toolbar: '#barDemo'}
+
             ]]
             ,page: {limit: 5,//指定每页显示的条数
             limits: [5, 10, 15, 20,
-            25, 30, 35, 40, 45, 50],} //每页条数的选择项
+            25, 30, 35, 40, 45, 50],}
+            //每页条数的选择项
 
         });
 
