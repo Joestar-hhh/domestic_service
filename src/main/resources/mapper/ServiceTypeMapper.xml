@@ -56,5 +56,37 @@
         SELECT * FROM tb_service_type
     </select>
 
+    <!--     /*查询平台端审核服务类别*/-->
+    <select id="querySericeTypeRelation" resultType="com.cykj.domestic.entity.ServiceType" parameterType="com.cykj.domestic.entity.ServiceType">
+        SELECT r.id as id,r.state as state, t.description as description,r.apply_time as update_time,t.type_name as
+        typeName,c.company_name as companyName FROM tb_service_relation r
+        LEFT JOIN tb_service_type t ON t.id=r.service_type_id
+        LEFT JOIN tb_company c ON c.id=r.company_id
+        <where>
+            <if test="e.typeName!=null and e.typeName!=''">
+                and t.type_name like concat('%',#{e.typeName},'%')
+            </if>
+        </where>
+        ORDER BY r.state DESC
+        limit #{start},#{pageSize}
+    </select>
+
+    <select id="querySericeTypeRelationCount" resultType="int">
+        SELECT COUNT(*) FROM tb_service_relation r
+         LEFT JOIN tb_service_type t ON t.id=r.service_type_id
+        LEFT JOIN tb_company c ON c.id=r.company_id
+        <where>
+            <if test="e.typeName!=null and e.typeName!=''">
+                and t.type_name like concat('%',#{e.typeName},'%')
+            </if>
+        </where>
+        ORDER BY r.state DESC
+    </select>
+
+    <!--平台修改公司端发送的服务类别申请变 审核通过-->
+    <update id="updateSericeTypeRelation" parameterType="com.cykj.domestic.entity.ServiceType">
+        UPDATE tb_service_relation SET state=#{state} WHERE id=#{id}
+    </update>
+
 
 </mapper>

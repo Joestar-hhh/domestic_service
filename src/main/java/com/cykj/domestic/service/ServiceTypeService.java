@@ -19,4 +19,13 @@ public interface ServiceTypeService {
 
     /*查询所有服务类别*/
     ResultData queryServiceType();
+
+    /*查询平台端审核服务类别*/
+    ResultData querySericeTypeRelation(ServiceType serviceType,int page, int pageSize);
+
+    /*平台修改公司端发送的服务类别申请变 审核通过*/
+    ResultData updateSericeTypeRelation(ServiceType serviceType);
+
+
+
 }

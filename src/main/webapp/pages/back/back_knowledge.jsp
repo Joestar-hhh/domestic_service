@@ -80,8 +80,7 @@
 </script>
 
 <script type="text/html" id="barDemo">
-    <a class="layui-btn  layui-btn-xs" lay-event="see_details">
-        <i class="layui-icon layui-icon-edit"></i>查看详情</a>
+    <a class="layui-btn  layui-btn-xs" lay-event="see_details"><i class="layui-icon layui-icon-edit"></i>查看详情</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="File_Upload"><i class="layui-icon"></i>上传</a>
 </script>
 

@@ -100,10 +100,11 @@ public class ServiceTypeImpl implements ServiceTypeService {
         resultData.setData(list);
         return resultData;
     }
+
     /*公司申请添加服务类别关系*/
     @Override
     public ResultData addServicerelstion(ServiceType serviceType) {
-        int res=serviceTypeMapper.addServicerelstion(serviceType);
+        int res = serviceTypeMapper.addServicerelstion(serviceType);
         ResultData resultData = new ResultData();
         if (res == 1) {
             resultData.setCode(0);
@@ -123,6 +124,34 @@ public class ServiceTypeImpl implements ServiceTypeService {
         resultData.setCode(0);
         resultData.setMsg("");
         resultData.setData(list);
+        return resultData;
+    }
+
+    /*查询平台端审核服务类别*/
+    @Override
+    public ResultData querySericeTypeRelation(ServiceType serviceType,int page, int limit) {
+        List<ServiceType> list = serviceTypeMapper.querySericeTypeRelation(serviceType,(page - 1) * limit, limit);
+        int count=serviceTypeMapper.querySericeTypeRelationCount(serviceType);
+        ResultData resultData = new ResultData();
+        resultData.setCode(0);
+        resultData.setMsg("");
+        resultData.setCount(count);
+        resultData.setData(list);
+        return resultData;
+    }
+
+   /* 平台修改公司端发送的服务类别申请变 审核通过*/
+    @Override
+    public ResultData updateSericeTypeRelation(ServiceType serviceType) {
+       int res= serviceTypeMapper.updateSericeTypeRelation(serviceType);
+        ResultData resultData = new ResultData();
+        if (res == 1) {
+            resultData.setCode(0);
+            resultData.setMsg("审核通过");
+        } else {
+            resultData.setCode(1);
+            resultData.setMsg("审核失败");
+        }
         return resultData;
     }
 

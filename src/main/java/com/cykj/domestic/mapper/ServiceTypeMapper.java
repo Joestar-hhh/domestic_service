@@ -37,4 +37,13 @@ public interface ServiceTypeMapper {
     /*查询所有服务类别*/
     List<ServiceType> queryServiceType();
 
+
+    /*查询平台端审核服务类别*/
+    List<ServiceType> querySericeTypeRelation(@Param("e") ServiceType serviceType,@Param("start") int start, @Param("pageSize") int pageSize);
+
+    int querySericeTypeRelationCount(@Param("e")ServiceType serviceType);
+
+    /*平台修改公司端发送的服务类别申请变 审核通过*/
+    int updateSericeTypeRelation(ServiceType serviceType);
+
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.transform.Result;
 
 @RestController
 @RequestMapping("/serviceTypeContrller")
@@ -87,5 +88,19 @@ public class ServiceTypeContrller {
         return JSON.toJSONString(resultData);
     }
 
+    /*查询平台端审核服务类别*/
+    @RequestMapping("/querySericeTypeRelation")
+    public String querySericeTypeRelation(HttpServletRequest request, HttpServletResponse response, ServiceType serviceType, String page, String limit) {
+        ResultData resultData = serviceTypeService.querySericeTypeRelation(serviceType,Integer.parseInt(page), Integer.parseInt(limit));
+        return JSON.toJSONString(resultData);
+    }
 
+
+    /*平台修改公司端发送的服务类别申请变 审核通过*/
+
+    @RequestMapping("/updateSericeTypeRelation")
+    public String updateSericeTypeRelation(HttpServletResponse response,HttpServletRequest request,ServiceType serviceType){
+        ResultData resultData=serviceTypeService.updateSericeTypeRelation(serviceType);
+        return JSON.toJSONString(resultData);
+    }
 }

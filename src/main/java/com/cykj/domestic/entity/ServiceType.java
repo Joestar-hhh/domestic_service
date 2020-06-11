@@ -10,4 +10,6 @@ public class ServiceType {
     private String description;//描述
     private String updateTime;//申请时间
     private String state;//公司端申请服务类别状态
+    private String companyName;//公司名称
+
 }
