@@ -32,6 +32,7 @@ public interface CompanyMapper {
 
 //    根据地区查看平台详情
     List<Company>queryRegionCompany(@Param("regionId") String regionId);
+
 //    家政公司统计
     List<Company> serviceTypeStatistics();
     List<Company> regionStatistics();

@@ -5,7 +5,8 @@
 <mapper namespace="com.cykj.domestic.mapper.OrderMapper">
 
     <select id="queryList" resultType="com.cykj.domestic.entity.OrderInfo">
-        select o.*,u.name user_name,stf.user_name staff_name,s.type_name,c.company_name com_name,os_c.order_state_name state_com_name from tb_order_info o
+        select o.*,u.name user_name,stf.user_name staff_name,s.type_name,c.company_name com_name,os_c.order_state_name
+        state_com_name from tb_order_info o
         left join tb_order_state os_c on os_c.id = o.company_order_state_id
         left join tb_staff stf on stf.id = o.staff_id
         left join tb_user u on u.id = o.user_id
@@ -25,9 +26,24 @@
     </select>
     <delete id="deleteOrder">
         delete from tb_order_info where id in
-        <foreach collection="list" item="item" open = "(" separator="," close=")">
+        <foreach collection="list" item="item" open="(" separator="," close=")">
             #{item}
         </foreach>
     </delete>
+
+    <!--    订单统计前先执行公司列表下拉框-->
+    <select id="queryCompanyList" parameterType="com.cykj.domestic.entity.Company"
+            resultType="com.cykj.domestic.entity.Company">
+        select * from tb_company
+    </select>
+
+    <select id="orderStatistics" parameterType="java.lang.String" resultType="com.cykj.domestic.entity.OrderInfo">
+        select date(o.start_time) as one_day,count(o.id) as count_num from tb_order_info o
+				left join tb_company c on o.company_id = c.id
+				where o.start_time between date_format(#{startDate},'%Y%m%d')
+       and date_format(#{endDate},'%Y%m%d') and c.company_name = #{companyName} group by one_day order by one_day asc;
+
+
+    </select>
 
 </mapper>

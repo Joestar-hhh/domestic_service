@@ -1,6 +1,7 @@
 package com.cykj.domestic.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.cykj.domestic.entity.Company;
 import com.cykj.domestic.entity.OrderInfo;
 import com.cykj.domestic.entity.Role;
 import com.cykj.domestic.service.OrderService;
@@ -11,10 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /*
-* 订单controller
-*/
+ * 订单controller
+ */
 @RestController
 @RequestMapping("/orderController")
 public class OrderController {
@@ -27,8 +29,8 @@ public class OrderController {
      * 查询订单信息
      */
     @RequestMapping("/queryOrder")
-    public String queryOrder(String companyName, String page, String limit){
-        ResultData resultData =  orderService.queryOrderInfo(companyName, Integer.parseInt(page), Integer.parseInt(limit));
+    public String queryOrder(String companyName, String page, String limit) {
+        ResultData resultData = orderService.queryOrderInfo(companyName, Integer.parseInt(page), Integer.parseInt(limit));
         return JSON.toJSONString(resultData);
     }
 
@@ -36,8 +38,25 @@ public class OrderController {
      * 删除订单信息
      */
     @RequestMapping("/deleteOrder")
-    public String deleteOrder(String idList){
+    public String deleteOrder(String idList) {
         ResultData resultData = orderService.deleteOrder(idList);
         return JSON.toJSONString(resultData);
+    }
+
+    // 统计前先显示公司列表下拉框
+    @RequestMapping("/queryCompanyList")
+    public String queryCompanyList(Company company) {
+        ResultData resultData = orderService.queryCompanyList(company);
+        return JSON.toJSONString(resultData);
+    }
+
+    //统计订单数
+    @RequestMapping("/orderStatistics")
+    public String orderStatistics(HttpServletRequest request, HttpServletResponse response) {
+        String startDate = request.getParameter("startDate");
+        String endDate = request.getParameter("endDate");
+        String companyName = request.getParameter("companyName");
+        List<OrderInfo> list = orderService.orderStatistics(startDate, endDate, companyName);
+        return JSON.toJSONString(list);
     }
 }

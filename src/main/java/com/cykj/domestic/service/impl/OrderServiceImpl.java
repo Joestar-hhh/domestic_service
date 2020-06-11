@@ -1,6 +1,7 @@
 package com.cykj.domestic.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.cykj.domestic.entity.Company;
 import com.cykj.domestic.entity.OrderInfo;
 import com.cykj.domestic.entity.Role;
 import com.cykj.domestic.mapper.OrderMapper;
@@ -19,7 +20,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public ResultData queryOrderInfo(String companyName, int page, int limit) {
-        List<OrderInfo> list = orderMapper.queryList(companyName,(page-1)*limit,limit);
+        List<OrderInfo> list = orderMapper.queryList(companyName, (page - 1) * limit, limit);
         int count = orderMapper.queryCount(companyName);
         ResultData resultData = new ResultData();
         resultData.setCode(0);
@@ -31,10 +32,10 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public ResultData deleteOrder(String idList) {
-        List<String> list = JSON.parseArray(idList,String.class);
+        List<String> list = JSON.parseArray(idList, String.class);
         int res = orderMapper.deleteOrder(list);
         ResultData resultData = new ResultData();
-        if(res>=1){
+        if (res >= 1) {
             resultData.setCode(0);
             resultData.setMsg("删除成功");
         } else {
@@ -42,5 +43,19 @@ public class OrderServiceImpl implements OrderService {
             resultData.setMsg("删除失败");
         }
         return resultData;
+    }
+
+    @Override
+    public ResultData queryCompanyList(Company company) {
+        List<Company> list = orderMapper.queryCompanyList(company);
+        ResultData resultData = new ResultData();
+        resultData.setData(list);
+        return resultData;
+    }
+
+    @Override
+    public List<OrderInfo> orderStatistics(String startDate, String endDate, String companyName) {
+        List<OrderInfo> list = orderMapper.orderStatistics(startDate, endDate, companyName);
+        return list;
     }
 }
