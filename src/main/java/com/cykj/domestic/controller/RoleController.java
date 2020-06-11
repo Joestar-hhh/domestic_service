@@ -55,4 +55,14 @@ public class RoleController {
         ResultData resultData = roleService.deleteRole(idList);
         return JSON.toJSONString(resultData);
     }
+
+    /*
+     * 查询所有角色
+     */
+    @RequestMapping("/queryAllRole")
+    public String queryAllRole(){
+        ResultData resultData = roleService.queryAllRole();
+        return JSON.toJSONString(resultData);
+    }
+
 }

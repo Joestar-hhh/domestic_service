@@ -19,4 +19,6 @@ public interface RoleMapper {
     int updateRole(Role role);
 
     int deleteRole(List<String> list);
+
+    List<Role> queryAllRole();
 }

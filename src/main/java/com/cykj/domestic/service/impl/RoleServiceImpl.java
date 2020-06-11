@@ -71,4 +71,14 @@ public class RoleServiceImpl implements RoleService {
         }
         return resultData;
     }
+
+    @Override
+    public ResultData queryAllRole() {
+        List<Role> list = roleMapper.queryAllRole();
+        ResultData resultData = new ResultData();
+        resultData.setCode(0);
+        resultData.setMsg("");
+        resultData.setData(list);
+        return resultData;
+    }
 }

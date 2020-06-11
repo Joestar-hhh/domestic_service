@@ -4,10 +4,12 @@ import com.alibaba.fastjson.JSON;
 import com.cykj.domestic.entity.Menu;
 import com.cykj.domestic.entity.MenuData;
 import com.cykj.domestic.service.MenuService;
+import com.cykj.domestic.util.ResultData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -18,8 +20,27 @@ public class MenuController {
     private MenuService menuService;
 
     @RequestMapping("/queryMenu")
-    public Object queryMenu(){
-        List<Menu> menuDataList = menuService.queryList();
+    public Object queryMenu(HttpServletRequest request){
+        List<Menu> menuDataList = menuService.queryList("3");
         return menuDataList;
     }
+
+    /*
+    * 权限
+    */
+    @RequestMapping("/permissions")
+    public Object permissions(String roleId){
+        List<Menu> menuDataList = menuService.queryList(roleId);
+        return menuDataList;
+    }
+
+    /*
+     * 保存菜单修改
+     */
+    @RequestMapping("/roleMenuUpdate")
+    public Object roleMenuUpdate(String rolemenuList, String roleId){
+        ResultData resultData = menuService.insertRoleMenu(rolemenuList,roleId);
+        return JSON.toJSONString(resultData);
+    }
+
 }

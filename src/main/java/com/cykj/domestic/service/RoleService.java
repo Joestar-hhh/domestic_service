@@ -14,4 +14,6 @@ public interface RoleService {
     ResultData updateRole(Role role);
 
     ResultData deleteRole(String idList);
+
+    ResultData queryAllRole();
 }

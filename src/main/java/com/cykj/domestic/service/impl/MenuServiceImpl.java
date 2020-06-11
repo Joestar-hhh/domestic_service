@@ -3,8 +3,10 @@ package com.cykj.domestic.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.cykj.domestic.entity.Menu;
 import com.cykj.domestic.entity.MenuData;
+import com.cykj.domestic.entity.RoleMenu;
 import com.cykj.domestic.mapper.MenuMapper;
 import com.cykj.domestic.service.MenuService;
+import com.cykj.domestic.util.ResultData;
 import com.cykj.domestic.util.TreeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,8 +23,8 @@ public class MenuServiceImpl implements MenuService {
     private MenuMapper menuMapper;
 
     @Override
-    public List<Menu> queryList() {
-        List<Menu> tablist = menuMapper.queryList();
+    public List<Menu> queryList(String roleId) {
+        List<Menu> tablist = menuMapper.queryList(roleId);
         List<Menu> mList = new ArrayList<>();
         for(Menu menu : tablist){
             menu.setId(menu.getId());
@@ -38,5 +40,23 @@ public class MenuServiceImpl implements MenuService {
         List<Menu> menuList = TreeUtil.toTree(mList, 0);
 
         return menuList;
+    }
+
+    @Override
+    public ResultData insertRoleMenu(String rolemenuList, String roleId) {
+        List<RoleMenu> list = JSON.parseArray(rolemenuList,RoleMenu.class);
+        int res = menuMapper.deleteRoleMenu(roleId);
+        if(list.size()>0){
+            res = menuMapper.insertRoleMenu(list,roleId);
+        }
+        ResultData resultData = new ResultData();
+        if (res >= 1) {
+            resultData.setCode(0);
+            resultData.setMsg("菜单保存成功");
+        } else {
+            resultData.setCode(1);
+            resultData.setMsg("保存失败");
+        }
+        return resultData;
     }
 }

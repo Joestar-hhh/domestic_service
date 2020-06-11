@@ -12,6 +12,7 @@ public class Menu {
     private String icon;
     private String openType;
     private String href;
+    private String checked;
 
     private List<Menu> children;
 
