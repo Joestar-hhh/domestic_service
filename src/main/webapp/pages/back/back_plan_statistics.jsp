@@ -99,7 +99,6 @@
 
     });
 
-
     layui.use('table',function () {
         var $ = layui.jquery;
 
