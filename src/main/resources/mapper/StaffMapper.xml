@@ -74,7 +74,7 @@
 
 <!--    用户统计-->
     <select id="userStatistics" parameterType="java.lang.String" resultType="com.cykj.domestic.entity.User">
-        select date(c.join_time) as one_day,count(c.id) count_num from tb_company c where c.join_time between date_format(#{startDate},'%Y%m%d')
+        select date(c.create_time) as one_day,count(c.id) count_num from tb_user c where c.create_time between date_format(#{startDate},'%Y%m%d')
        and date_format(#{endDate},'%Y%m%d') group by one_day order by one_day desc;
 
     </select>

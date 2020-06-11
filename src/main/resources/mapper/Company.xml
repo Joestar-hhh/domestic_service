@@ -7,9 +7,15 @@
 
     <!--    登入-->
     <select id="companyLogin" parameterType="com.cykj.domestic.entity.Company"
-            resultType="com.cykj.domestic.entity.Company">
+                      resultType="com.cykj.domestic.entity.Company">
              SELECT * FROM tb_company WHERE account=#{account}
     </select>
+
+
+<!--    家政公司端修改密码-->
+    <update id="phone_update_pwd" parameterType="com.cykj.domestic.entity.Company">
+               UPDATE tb_company SET pwd=#{pwd} WHERE phone=#{phone}
+    </update>
 
     <!--    平台端区域列表-->
     <select id="queryRegion" parameterType="com.cykj.domestic.entity.Company"

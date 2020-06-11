@@ -5,13 +5,17 @@ import com.cykj.domestic.mapper.CompanyMapper;
 import com.cykj.domestic.util.ResultData;
 import org.apache.ibatis.annotations.Param;
 
+import javax.servlet.http.HttpServletRequest;
 import java.awt.*;
 import java.util.List;
 
 public interface CompanySrevice {
 
-    //    平台端登入
-    ResultData companyLogin(Company company);
+    //   家政公司端登入
+    ResultData companyLogin(Company company, HttpServletRequest request);
+
+    //家政公司端修改密码
+    ResultData phone_update_pwd(Company company);
 
     //平台端区域列表
     ResultData queryRegion(int page, int limit);

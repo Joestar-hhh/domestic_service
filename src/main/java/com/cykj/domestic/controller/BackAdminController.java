@@ -22,9 +22,13 @@ public class BackAdminController {
     //管理平台端登入
     @RequestMapping("/backadminLogin")
     public String backadminLogin(HttpServletResponse response, HttpServletRequest request, BackAdmin backAdmin) {
+//        request.
         ResultData resultData=backAdminService.backadminLogin(backAdmin);
         return JSON.toJSONString(resultData);
     }
+
+
+
 
 
 }

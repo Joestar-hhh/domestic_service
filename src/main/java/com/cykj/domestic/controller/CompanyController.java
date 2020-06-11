@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
@@ -22,15 +23,22 @@ public class CompanyController {
     public CompanySrevice companySrevice;
 
 
-    //平台登入
-    @ResponseBody
-    @RequestMapping(value = "/companyLogin")
+    //家政公司端登入
+
+    @RequestMapping("/companyLogin")
     public String companyLogin(HttpServletResponse response, HttpServletRequest request) {
         Company company = new Company();
         company.setAccount("10001");
-        company.setPwd("123");
-        ResultData resultData = companySrevice.companyLogin(company);
+        company.setPwd("123456");
+        ResultData resultData = companySrevice.companyLogin(company,request);
         System.out.println(JSON.toJSONString(resultData));
+        return JSON.toJSONString(resultData);
+    }
+
+    //家政公司端修改密码
+    @RequestMapping("/phone_update_pwd")
+    public String phone_update_pwd(HttpServletRequest request,HttpServletResponse response,Company company) {
+        ResultData resultData=companySrevice.phone_update_pwd(company);
         return JSON.toJSONString(resultData);
     }
 
