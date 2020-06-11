@@ -52,10 +52,17 @@ public class OrderServiceImpl implements OrderService {
         resultData.setData(list);
         return resultData;
     }
-
+//    订单统计
     @Override
     public List<OrderInfo> orderStatistics(String startDate, String endDate, String companyName) {
         List<OrderInfo> list = orderMapper.orderStatistics(startDate, endDate, companyName);
+        return list;
+    }
+
+//    发布需求统计
+    @Override
+    public List<OrderInfo> requireStatistics(String startDate, String endDate) {
+        List<OrderInfo> list = orderMapper.requireStatistics(startDate,endDate);
         return list;
     }
 }

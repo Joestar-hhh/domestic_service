@@ -14,6 +14,9 @@ public interface OrderService {
     ResultData deleteOrder(String idList);
 
     ResultData queryCompanyList(Company company);
-
+//    订单统计
     List<OrderInfo> orderStatistics(String startDate, String endDate, String companyName);
+
+//    发布需求统计
+    List<OrderInfo> requireStatistics(String startDate, String endDate);
 }

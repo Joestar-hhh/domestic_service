@@ -59,4 +59,13 @@ public class OrderController {
         List<OrderInfo> list = orderService.orderStatistics(startDate, endDate, companyName);
         return JSON.toJSONString(list);
     }
+
+//    发布需求统计
+@RequestMapping("/requireStatistics")
+    public String requireStatistics(HttpServletRequest request, HttpServletResponse response) {
+    String startDate = request.getParameter("startDate");
+    String endDate = request.getParameter("endDate");
+    List<OrderInfo> list = orderService.requireStatistics(startDate, endDate);
+    return JSON.toJSONString(list);
+}
 }

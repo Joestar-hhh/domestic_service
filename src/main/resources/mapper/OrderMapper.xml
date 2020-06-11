@@ -43,8 +43,13 @@
 				left join tb_company c on o.company_id = c.id
 				where o.start_time between date_format(#{startDate},'%Y%m%d')
        and date_format(#{endDate},'%Y%m%d') and c.company_name = #{companyName} group by one_day order by one_day asc;
+    </select>
 
-
+<!--    发布需求统计-->
+    <select id="requireStatistics" parameterType="java.lang.String" resultType="com.cykj.domestic.entity.OrderInfo">
+        select date(c.pulish_time) as one_day,count(c.id) count_num from tb_order_info c
+            where c.pulish_time between date_format(#{startDate},'%Y%m%d')
+        and date_format(#{endDate},'%Y%m%d') group by one_day order by one_day asc;
     </select>
 
 </mapper>

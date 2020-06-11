@@ -20,6 +20,11 @@ public interface OrderMapper {
     int deleteOrder(List<String> list);
 
     List<Company> queryCompanyList(Company company);
-
+//        订单统计
     List<OrderInfo> orderStatistics(@Param("startDate") String startDate, @Param("endDate") String endDate, @Param("companyName") String companyName);
+
+//   发布需求统计
+    List<OrderInfo> requireStatistics(@Param("startDate") String startDate, @Param("endDate") String endDate);
+
+
 }
