@@ -44,7 +44,6 @@
 </head>
 <body>
 
-
     <div class="layui-form-item" id="querydiv">
 
     <div class="layui-btn-container" style="display: inline-block">
