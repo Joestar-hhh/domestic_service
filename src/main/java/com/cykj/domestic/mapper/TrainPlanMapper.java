@@ -1,6 +1,7 @@
 package com.cykj.domestic.mapper;
 
 import com.cykj.domestic.entity.TrainPlan;
+import com.cykj.domestic.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -26,4 +27,12 @@ public interface TrainPlanMapper {
 
     //增加计划
     int insertPlan(TrainPlan trainPlan);
+
+//    培训统计
+    List<TrainPlan>planStatistics(@Param("startDate")String startDate, @Param("endDate")String endDate);
+
+    List<TrainPlan>peopleStatistics(@Param("startDate")String startDate,@Param("endDate")String endDate);
+
+
 }
+

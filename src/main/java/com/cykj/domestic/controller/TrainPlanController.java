@@ -3,6 +3,7 @@ package com.cykj.domestic.controller;
 import com.alibaba.fastjson.JSON;
 import com.cykj.domestic.entity.Staff;
 import com.cykj.domestic.entity.TrainPlan;
+import com.cykj.domestic.entity.User;
 import com.cykj.domestic.service.TrainPlanService;
 import com.cykj.domestic.util.ResultData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/trainPlanController")
@@ -49,4 +53,18 @@ public class TrainPlanController {
         ResultData resultData = trainPlanService.insertPlan(trainPlan);
         return JSON.toJSONString(resultData);
     }
+
+    //    培训次数统计
+    @RequestMapping("/planStatistics")
+    public String planStatistics(HttpServletRequest request, HttpServletResponse response) {
+        String startDate= request.getParameter("startDate");
+        String endDate= request.getParameter("endDate");
+        List<TrainPlan> colList= trainPlanService.planStatistics(startDate,endDate);
+        List<TrainPlan> peoList= trainPlanService.peopleStatistics(startDate,endDate);
+        Map<String,List<?>> map=new HashMap<>();
+        map.put("colList",colList);
+        map.put("peoList",peoList);
+        return JSON.toJSONString(map);
+    }
+
 }

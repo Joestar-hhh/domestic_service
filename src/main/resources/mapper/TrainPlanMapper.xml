@@ -26,4 +26,18 @@
     <insert id="insertPlan" parameterType="com.cykj.domestic.entity.TrainPlan">
         insert into tb_train_plan (title,content,people_num,start_time,end_time) values (#{title},#{content},#{peopleNum},#{startTime},#{endTime})
     </insert>
+
+<!--    培训统计-->
+    <select id="planStatistics" parameterType="java.lang.String" resultType="com.cykj.domestic.entity.TrainPlan">
+    select date(c.start_time) as one_day,count(c.id) count_num from tb_train_plan c where c.start_time between date_format(#{startDate},'%Y%m%d')
+       and date_format(#{endDate},'%Y%m%d') group by one_day order by one_day asc ;
+    </select>
+
+    <select id="peopleStatistics" parameterType="java.lang.String" resultType="com.cykj.domestic.entity.TrainPlan">
+       	select date(c.start_time) as one_day,count(a.staff_id) peo_num from tb_train_plan c
+			left join tb_train_staff_relation a on c.id=a.train_plan_id
+			where c.start_time between date_format(#{startDate},'%Y%m%d')
+       and date_format(#{endDate},'%Y%m%d') group by one_day order by one_day asc;
+    </select>
+
 </mapper>

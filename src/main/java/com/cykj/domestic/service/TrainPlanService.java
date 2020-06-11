@@ -1,7 +1,10 @@
 package com.cykj.domestic.service;
 
 import com.cykj.domestic.entity.TrainPlan;
+import com.cykj.domestic.entity.User;
 import com.cykj.domestic.util.ResultData;
+
+import java.util.List;
 
 
 public interface TrainPlanService {
@@ -16,4 +19,13 @@ public interface TrainPlanService {
 
     //增加计划
     ResultData insertPlan(TrainPlan trainPlan);
+
+    //培训统计
+    List<TrainPlan> planStatistics(String startDate, String endDate);
+
+    List<TrainPlan> peopleStatistics(String startDate, String endDate);
+
+
+
 }
+

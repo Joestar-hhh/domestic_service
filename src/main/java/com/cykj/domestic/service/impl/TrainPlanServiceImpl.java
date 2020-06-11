@@ -68,4 +68,19 @@ public class TrainPlanServiceImpl implements TrainPlanService {
         }
         return resultData;
     }
+    /*
+    培训统计
+    */
+    @Override
+    public List<TrainPlan> planStatistics(String startDate, String endDate) {
+        List<TrainPlan>planlist=trainPlanMapper.planStatistics(startDate,endDate);
+
+        return planlist;
+    }
+
+    @Override
+    public List<TrainPlan> peopleStatistics(String startDate, String endDate) {
+        List<TrainPlan>peolist=trainPlanMapper.peopleStatistics(startDate,endDate);
+        return peolist;
+    }
 }
