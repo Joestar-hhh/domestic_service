@@ -117,7 +117,7 @@
         var $ = layui.jquery;
         table.render({
             elem: '#test'
-            ,url:'/serviceTypeContrller/selectServiceType'
+            ,url:'<%=path%>/serviceTypeContrller/selectServiceType'
             ,toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
             ,defaultToolbar: []
             ,title: '用户数据表'
@@ -179,7 +179,7 @@
                         form.on('submit(insertconfirm)', function (data) {
                             $.ajax({
                                 type: 'POST',
-                                url: '/serviceTypeContrller/addServiceType',
+                                url: "<%=path%>/serviceTypeContrller/addServiceType",
                                 dataType: 'JSON',
                                 data: data.field,
                                 success: function (msg) {
@@ -210,7 +210,7 @@
 
                 $.ajax({
                     type: 'POST',
-                    url: '/serviceTypeContrller/serviceTypeView',
+                    url: "<%=path%>/serviceTypeContrller/serviceTypeView",
                     dataType: 'JSON',
                     data: data,
                     success: function (msg) {
@@ -249,7 +249,7 @@
                 layer.confirm('真的删除行么', function(index){
                     obj.del();
                     $.ajax({
-                        url:"/serviceTypeContrller/deleteServiceType",
+                        url:"<%=path%>/serviceTypeContrller/deleteServiceType",
                         type: "POST",
                         dataType: 'JSON',
                         data: data,
@@ -285,7 +285,7 @@
                         // layer.alert("ssssssss:"+adminId)
                         data.field.id = adminId;
                         $.ajax({
-                            url:"/serviceTypeContrller/updateServiceType",
+                            url:"<%=path%>/serviceTypeContrller/updateServiceType",
                             type: "POST",
                             dataType: 'JSON',
                             data: data.field,

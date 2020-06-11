@@ -167,7 +167,7 @@
         var $ = layui.jquery;
         table.render({
             elem: '#test'
-            ,url:'/serviceInformationContrller/selectInformationList'
+            ,url:'<%=path%>/serviceInformationContrller/selectInformationList'
             ,toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
             ,defaultToolbar: []
             ,title: '用户数据表'
@@ -214,7 +214,7 @@
                     //查询时间段
                     //执行重载
                     table.reload('test', {
-                        url:'/serviceInformationContrller/selectInformationList'
+                        url:'<%=path%>/serviceInformationContrller/selectInformationList'
                         // ,methods:"post"
                         ,page: {
                             curr: 1 //重新从第 1 页开始
@@ -238,7 +238,7 @@
 
                 $.ajax({
                     type: 'POST',
-                    url: '/serviceInformationContrller/selectInformationListView',
+                    url: "<%=path%>/serviceInformationContrller/selectInformationListView",
                     dataType: 'JSON',
                     data: data,
                     success: function (msg) {
@@ -278,5 +278,4 @@
     });
 </script>
 </body>
-
 </html>

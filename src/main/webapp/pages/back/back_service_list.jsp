@@ -149,7 +149,7 @@
         var $ = layui.jquery;
         table.render({
             elem: '#test'
-            ,url:'/serviceListContrller/selectServiceList'
+            ,url:'<%=path%>/serviceListContrller/selectServiceList'
             ,toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
             ,defaultToolbar: []
             ,title: '用户数据表'
@@ -189,7 +189,7 @@
                 case 'insert':
                     $.ajax({
                         type: 'POST',
-                        url: '/serviceListContrller/selectService',
+                        url: "<%=path%>/serviceListContrller/selectService",
                         dataType: 'JSON',
                         success: function (msg) {
                             $("#serviceCategory").html("<option value=''></option>");
@@ -226,7 +226,7 @@
                         form.render();
                         form.on('submit(insertconfirm)', function(data){
                             $.ajax({
-                                url:"/serviceListContrller/addServiceList",
+                                url:"<%=path%>/serviceListContrller/addServiceList",
                                 type: "POST",
                                 dataType: 'JSON',
                                 data: data.field,
@@ -257,7 +257,7 @@
 
                 $.ajax({
                     type: 'POST',
-                    url: '/serviceListContrller/serviceListView',
+                    url: "<%=path%>/serviceListContrller/serviceListView",
                     dataType: 'JSON',
                     data: data,
                     success: function (msg) {
@@ -301,7 +301,7 @@
                 layer.confirm('真的删除行么', function(index){
                     obj.del();
                     $.ajax({
-                        url:"/serviceListContrller/deleteServiceList",
+                        url:"<%=path%>/serviceListContrller/deleteServiceList",
                         type: "POST",
                         dataType: 'JSON',
                         data: data,
@@ -322,7 +322,7 @@
 
                 $.ajax({
                     type: 'POST',
-                    url: '/serviceListContrller/selectService',
+                    url: "<%=path%>/serviceListContrller/selectService",
                     dataType: 'JSON',
                     success: function (msg) {
                         $("#serviceCategory").html("<option value=''></option>");
@@ -353,7 +353,7 @@
                     form.on('submit(insertconfirm)', function(data){
                         data.field.id = adminId;
                         $.ajax({
-                            url:"/serviceListContrller/updateServiceList",
+                            url:"<%=path%>/serviceListContrller/updateServiceList",
                             type: "POST",
                             dataType: 'JSON',
                             data: data.field,
