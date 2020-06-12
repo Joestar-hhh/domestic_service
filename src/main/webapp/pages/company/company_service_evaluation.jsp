@@ -17,14 +17,17 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
+    <link rel="stylesheet" href="/static/layui/css/layui.css"  media="all">
     <link rel="stylesheet" href="<%=path%>/static/layui/css/layui.css">
     <script type="text/javascript" src="<%=path%>/static/layui/layui.js"></script>
+    <script src="<%=path%>/static/layui/lay/layui.js" charset="utf-8"></script>
     <link rel="stylesheet" href="<%=path%>/static/css/back_page.css">
 </head>
 <body>
 
 <table class="layui-hide" id="test" lay-filter="test"></table>
+
+
 
 <script type="text/html" id="toolbarDemo">
 
@@ -44,7 +47,6 @@
     <a class="layui-btn layui-btn-xs" lay-event="check">
         <i class="layui-icon layui-icon-edit"></i>查看回复</a>
 </script>
-<div id="test2"></div>
 
 <form class="layui-form" id="userinfoform" action="" style="display: none">
 
@@ -59,11 +61,21 @@
 
 <%--<script src="<%=path%>/back/js/layui.js" charset="utf-8"></script>--%>
 <script>
-    layui.use('table', 'rate', function () {
+
+    layui.use(['rate'], function(){
+        var rate = layui.rate;
+        //基础效果
+        rate.render({
+            elem: '#evaluationLevel'
+
+        });
+    });
+
+
+
+    layui.use('table',function () {
         var table = layui.table;
         var $ = layui.jquery;
-        var rate = layui.rate;
-
         table.render({
             elem: '#test'
             , url: "<%=path%>/serviceEvaluationController/queryServiceEvaluationList"
@@ -75,16 +87,37 @@
                 {field: 'id', title: '序号', width: 60}
                 , {field: 'userName', title: '用户名', width: 200}
                 , {field: 'time', title: '评价时间', width: 220}
-                , {field: 'evaluationLevel', title: '评价星级', width: 100}
+                , {field: 'evaluationLevel', title: '评价星级', width: 150,height:100,
+                  templet: function(d){
+                      return '<div id="evaluationLevel"></div>'}
+                        }
                 , {field: 'evaluationContent', title: '评价内容'}
                 , {fixed: 'right', title: '操作', width: 250, toolbar: '#barDemo'}
-                // ,{field:'downloadDiscount', title: '下载文档积分比例'}
             ]]
+
+            ,done:function(res){
+                var data = res.data;//返回的json中data数据
+                // alert(JSON.stringify(data));
+                //司机星级
+                layui.use(['rate'], function(){
+                    var rate = layui.rate;
+                rate.render({
+                    elem: '#evaluationLevel'         //绑定元素
+                    , length: 5            //星星个数
+                    , value: res.data[0].evaluationLevel             //初始化值
+                    , theme: '#f30808'     //颜色
+                    , half: false           //支持半颗星
+                   
+                    , readonly: true      //只读
+                });
+                });
+            }
             , page: {
                 limit: 5,//指定每页显示的条数
                 limits: [5, 10, 15, 20,
                     25, 30, 35, 40, 45, 50],
             } //每页条数的选择项
+
 
         });
 
