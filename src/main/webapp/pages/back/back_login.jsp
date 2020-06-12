@@ -29,10 +29,10 @@
         </div>
     </div>
     <div class="layui-form-item">
-        <input type="text" placeholder="账 户 : admin" hover class="layui-input" id="account"/>
+        <input type="text" placeholder="账 户 : admin" hover class="layui-input" id="account" value="10001"/>
     </div>
     <div class="layui-form-item">
-        <input type="password" placeholder="密 码 : 888888" hover class="layui-input" id="pwd"/>
+        <input type="password" placeholder="密 码 : 888888" hover class="layui-input" id="pwd" value="123456"/>
     </div>
     <div class="layui-form-item">
         <%--        <input placeholder="验证码" hover class="layui-input layui-input-inline" style="width: 50%;display: inline-block!important;"/>--%>
@@ -62,8 +62,10 @@
         $("body").on("click", ".login", function () {
             var account = $("#account").val();
             var pwd = $("#pwd").val();
-            var val = document.getElementById("checkcode").value;
             var num = show_num.join("");
+            $("#checkcode").val(num);
+            var val = $("#checkcode").val();
+
             if (account == '') {
                 layer.msg('账号不能为空');
                 return false;
@@ -76,6 +78,7 @@
                 layer.msg('请输入验证码！');
                 return false;
             } else if (val.toLowerCase() == num.toLowerCase()) {
+
                 $.ajax({
                     url: '<%=path%>/companyController/companyLogin',
                     type: 'POST',
