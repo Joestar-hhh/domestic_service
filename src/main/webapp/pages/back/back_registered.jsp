@@ -13,7 +13,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>忘记密码</title>
+    <title>家政公司账号注册</title>
     <%--    registered--%>
     <link rel="stylesheet" href="<%=path%>/static/pear_layui/admin/css/pearForm.css"/>
     <link rel="stylesheet" href="<%=path%>/static/pear_layui/component/layui/css/layui.css"/>
@@ -27,23 +27,22 @@
 <form class="layui-form" action="javascript:void(0);">
     <div class="layui-form-item">
         <img class="logo" src="<%=path%>/static/pear_layui/admin/images/logo.png"/>
-        <div class="title">修改密码</div>
+        <div class="title">家政公司账号注册</div>
     </div>
     <div class="layui-form-item">
-        <input type="text" placeholder="手 机 号 码 : phone" hover class="layui-input" id="phone" name="phone"
-               lay-verify="required|phone"/>
+    <input type="text" placeholder="公 司 账 号" hover class="layui-input" id="account" name="account"
+           lay-verify="required"/>
+     </div>
+    <input type="text" placeholder="公 司 名称" hover class="layui-input" id="companyName" name="companyName"
+           lay-verify="required"/>
     </div>
     <div class="layui-form-item">
-        <input type="text" value="" placeholder="请输入验证码" class="layui-input layui-input-inline" lay-verify="required"
-               lay-reqtext="验证码是必填项，岂能为空？"
-               style="width: 50%;display: inline-block!important;" id="checkcode"/>
-        <input type="button" value="获取验证码" id="vcodebtn"
-               style="border-radius:3px;border: 1px #e6e6e6 solid;height: 100%;width: 45%;display: inline-block!important;height: 42px"/>
+        <input type="text" placeholder="法 人 代 表" hover class="layui-input" id="boss" name="boss"
+               lay-verify="required"/>
     </div>
-
     <div class="layui-form-item">
         <%--        <input type="password" placeholder="密 码 : 888888" hover class="layui-input" id="pwd" lay-verify="pass"/>--%>
-        <input type="password" name="pwd" lay-verify="required" placeholder="请输入密码" lay-verify="required"
+        <input type="password" name="pwd" lay-verify="required" placeholder="请 输 入 密 码" lay-verify="required"
                lay-reqtext="密码是必填项，岂能为空？"
                class="layui-input" autocomplete="off" id="pwd">
     </div>
@@ -53,12 +52,26 @@
                lay-reqtext="密码是必填项，岂能为空？"
                class="layui-input" autocomplete="off" id="pwd2">
     </div>
+    <div class="layui-form-item">
+        <input type="text" placeholder="手 机 号 码 : phone" hover class="layui-input" id="phone" name="phone"
+               lay-verify="required|phone"/>
+    </div>
+    <div class="layui-form-item">
+        <input type="text" value="" placeholder="请 输 入 验 证 码" class="layui-input layui-input-inline" lay-verify="required"
+               lay-reqtext="验证码是必填项，岂能为空？"
+               style="width: 50%;display: inline-block!important;" id="checkcode"/>
+        <input type="button" value="获取验证码" id="vcodebtn"
+               style="border-radius:3px;border: 1px #e6e6e6 solid;height: 100%;width: 45%;display: inline-block!important;height: 42px"/>
+    </div>
+    <div class="layui-form-item">
+        <input type="text" placeholder="公 司 地 址" hover class="layui-input" id="address" name="address"
+               lay-verify="required"/>
+    </div>
+
+<%--    ---------------------%>
+    <input type="hidden" id="state" name="state" value="未审核">
     <div class="layui-input-item">
         <button type="submit" class="layui-btn pear-btn-primary login" lay-submit="" lay-filter="formDemo">立即提交</button>
-
-        <a href="<%=path%>/pages/back/back_login.jsp/">
-           <input type="button" value="返回">
-        </a>
     </div>
 
 </form>
@@ -66,8 +79,6 @@
 <script>
 
     //监听提交
-
-
     layui.use(['form', 'element', 'jquery'], function () {
         var randomNum;
         var from = layui.form;
@@ -77,6 +88,7 @@
 
         from.on('submit(formDemo)', function (data) {
             if ($("#checkcode").val() != randomNum) {
+                // alert($("#checkcode").val())
                 layer.msg("验证码错误");
                 return false;
             }
@@ -90,12 +102,18 @@
             }
             // layer.msg(JSON.stringify(data.field));//此处显示输入内容
             $.ajax({
-                url: '<%=path%>/companyController/phone_update_pwd',
+                url: '<%=path%>/companyController/insertCompany',
                 type: 'POST',
                 dataType: 'JSON',
                 data: data.field,
                 success: function (msg) {
-                    layer.msg(msg.msg);
+                    if(msg.code=='0'){
+                        layer.msg(msg.msg);
+                        location.href="<%=path%>/pages/back/back_login.jsp'"
+                    }else{
+                        layer.msg(msg.msg);
+                    }
+
                 }
             })
             return false;

@@ -19,8 +19,8 @@ public class SmsController {
 
 
     @RequestMapping("/smsSend")
-    private String smsSend(HttpServletRequest request, HttpServletResponse response,String phone){
-        System.out.println("手机号码="+phone);
+    private String smsSend(HttpServletRequest request, HttpServletResponse response,String phone,String checkcode){
+        System.out.println("手机号码="+phone+"+++++++++++验证码="+checkcode);
 //        smsService.Sms("15160603831","159789");
         return null;
     }

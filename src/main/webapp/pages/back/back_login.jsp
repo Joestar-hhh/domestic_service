@@ -43,10 +43,11 @@
                 style="border-radius:3px;border: 1px #e6e6e6 solid;height: 100%;width: 45%;display: inline-block!important;height: 42px"
         ></canvas>
     </div>
-        <div class="layui-form-item">
-<%--            <input type="checkbox" name="" title="记住密码" lay-skin="primary" checked src="<%=path%>/pages/back/back_updatepwd.jsp">--%>
+    <div class="layui-form-item">
+        <%--            <input type="checkbox" name="" title="记住密码" lay-skin="primary" checked src="<%=path%>/pages/back/back_updatepwd.jsp">--%>
         <a href="<%=path%>/pages/back/back_updatepwd.jsp">忘记密码</a>
-        </div>
+        <a href="<%=path%>/pages/back/back_registered.jsp">快速注册</a>
+    </div>
     <div class="layui-form-item">
         <button class="pear-btn pear-btn-primary login">
             登 入
@@ -78,7 +79,6 @@
                 layer.msg('请输入验证码！');
                 return false;
             } else if (val.toLowerCase() == num.toLowerCase()) {
-
                 $.ajax({
                     url: '<%=path%>/companyController/companyLogin',
                     type: 'POST',

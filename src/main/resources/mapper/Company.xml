@@ -7,15 +7,25 @@
 
     <!--    登入-->
     <select id="companyLogin" parameterType="com.cykj.domestic.entity.Company"
-                      resultType="com.cykj.domestic.entity.Company">
+            resultType="com.cykj.domestic.entity.Company">
              SELECT * FROM tb_company WHERE account=#{account}
     </select>
 
+    <!--    家政公司根据手机号码查询-->
+    <select id="querycompanyphone" parameterType="com.cykj.domestic.entity.Company" resultType="com.cykj.domestic.entity.Company">
+              select * from tb_company where phone=#{phone}
+    </select>
 
-<!--    家政公司端修改密码-->
+    <!--    家政公司端修改密码-->
     <update id="phone_update_pwd" parameterType="com.cykj.domestic.entity.Company">
                UPDATE tb_company SET pwd=#{pwd} WHERE phone=#{phone}
     </update>
+
+    <!--家政公司注册-->
+    <insert id="insertCompany" parameterType="com.cykj.domestic.entity.Company">
+        INSERT INTO tb_company(account,pwd,company_name,boss,address,phone,state)
+        VALUES(#{account},#{pwd},#{companyName},#{boss},#{address},#{phone},#{state})
+    </insert>
 
     <!--    平台端区域列表-->
     <select id="queryRegion" parameterType="com.cykj.domestic.entity.Company"
@@ -69,7 +79,6 @@
         where c.join_time between date_format(#{startDate},'%Y%m%d')
         and date_format(#{endDate},'%Y%m%d') group by join_day;
     </select>
-
 
 
 </mapper>
