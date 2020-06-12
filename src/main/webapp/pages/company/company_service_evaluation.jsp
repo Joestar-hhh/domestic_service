@@ -61,21 +61,10 @@
 
 <%--<script src="<%=path%>/back/js/layui.js" charset="utf-8"></script>--%>
 <script>
-
-    layui.use(['rate'], function(){
-        var rate = layui.rate;
-        //基础效果
-        rate.render({
-            elem: '#evaluationLevel'
-
-        });
-    });
-
-
-
-    layui.use('table',function () {
+    layui.use('table', function () {
         var table = layui.table;
-        var $ = layui.jquery;
+
+
         table.render({
             elem: '#test'
             , url: "<%=path%>/serviceEvaluationController/queryServiceEvaluationList"
@@ -107,7 +96,7 @@
                     , value: res.data[0].evaluationLevel             //初始化值
                     , theme: '#f30808'     //颜色
                     , half: false           //支持半颗星
-                   
+
                     , readonly: true      //只读
                 });
                 });
