@@ -52,4 +52,26 @@
         and date_format(#{endDate},'%Y%m%d') group by one_day order by one_day asc;
     </select>
 
+<!--    售后追踪-->
+    <select id="afterSaleList"  parameterType="com.cykj.domestic.entity.OrderInfo" resultType="com.cykj.domestic.entity.OrderInfo">
+     select o.*,u.name user_name,stf.user_name staff_name,s.type_name,c.company_name com_name,os_c.order_state_name
+        state_com_name,os.order_state_name from tb_order_info o
+				left join tb_order_state os on o.company_order_state_id=os.id
+        left join tb_order_state os_c on os_c.id = o.company_order_state_id
+        left join tb_staff stf on stf.id = o.staff_id
+        left join tb_user u on u.id = o.user_id
+        left join tb_company c on c.id = o.company_id
+        left join tb_service s on s.id = o.service_id
+				and os.order_state_name='已服务'
+        <where>
+            <if test="orderNumber!=null and orderNumber!=''">and o.order_number like concat('%',#{orderNumber},'%')</if>
+        </where>
+                ORDER BY id limit #{start},#{pageSize}
+    </select>
+
+    <select id="afterSaleCount"  parameterType="com.cykj.domestic.entity.OrderInfo" resultType="int">
+    select count(oi.id) from tb_order_info oi left join tb_order_state os
+        on oi.company_order_state_id=os.id where os.order_state_name='已服务'
+    </select>
+
 </mapper>

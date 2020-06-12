@@ -3,6 +3,7 @@ package com.cykj.domestic.service;
 import com.cykj.domestic.entity.Company;
 import com.cykj.domestic.entity.OrderInfo;
 import com.cykj.domestic.util.ResultData;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -19,4 +20,10 @@ public interface OrderService {
 
 //    发布需求统计
     List<OrderInfo> requireStatistics(String startDate, String endDate);
+
+//    售后追踪
+    ResultData afterSaleList(OrderInfo orderInfo,int page, int limit,String orderNumber);
+
+
+
 }

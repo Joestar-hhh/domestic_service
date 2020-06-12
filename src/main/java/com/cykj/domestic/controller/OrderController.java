@@ -61,11 +61,24 @@ public class OrderController {
     }
 
 //    发布需求统计
-@RequestMapping("/requireStatistics")
-    public String requireStatistics(HttpServletRequest request, HttpServletResponse response) {
-    String startDate = request.getParameter("startDate");
-    String endDate = request.getParameter("endDate");
-    List<OrderInfo> list = orderService.requireStatistics(startDate, endDate);
-    return JSON.toJSONString(list);
-}
+    @RequestMapping("/requireStatistics")
+        public String requireStatistics(HttpServletRequest request, HttpServletResponse response) {
+        String startDate = request.getParameter("startDate");
+        String endDate = request.getParameter("endDate");
+        List<OrderInfo> list = orderService.requireStatistics(startDate, endDate);
+        return JSON.toJSONString(list);
+
+//        售后追踪
+
+        }
+
+    /*
+     * 查询订单信息
+     */
+    @RequestMapping("/afterSale")
+    public Object afterSale(OrderInfo orderInfo, String page, String limit,String orderNumber) {
+        ResultData resultData = orderService.afterSaleList(orderInfo, Integer.parseInt(page), Integer.parseInt(limit),orderNumber);
+        return resultData;
+    }
+
 }
