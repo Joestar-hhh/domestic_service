@@ -59,10 +59,9 @@
 
 <%--<script src="<%=path%>/back/js/layui.js" charset="utf-8"></script>--%>
 <script>
-    layui.use('table', 'rate', function () {
+    layui.use('table', function () {
         var table = layui.table;
         var $ = layui.jquery;
-        var rate = layui.rate;
 
         table.render({
             elem: '#test'
