@@ -1,6 +1,7 @@
 package com.cykj.domestic.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.cykj.domestic.entity.Company;
 import com.cykj.domestic.entity.Menu;
 import com.cykj.domestic.entity.MenuData;
 import com.cykj.domestic.service.MenuService;
@@ -21,7 +22,8 @@ public class MenuController {
 
     @RequestMapping("/queryMenu")
     public Object queryMenu(HttpServletRequest request){
-        List<Menu> menuDataList = menuService.queryList("3");
+        Company company = (Company) request.getSession().getAttribute("company");
+        List<Menu> menuDataList = menuService.queryList(String.valueOf(company.getRoleId()));
         return menuDataList;
     }
 

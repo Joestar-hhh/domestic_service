@@ -31,6 +31,7 @@ public class OrderInfo {
   private String typeName;
   private String comName;
   private String stateComName;
+  private String orderStateName;
 
   private String oneDay;//统计日期
   private int countNum;//统计数量

@@ -26,5 +26,8 @@ public interface OrderMapper {
 //   发布需求统计
     List<OrderInfo> requireStatistics(@Param("startDate") String startDate, @Param("endDate") String endDate);
 
+//    售后追踪
+    List<OrderInfo> afterSaleList( @Param("e")OrderInfo orderInfo,@Param("start") int start, @Param("pageSize") int pageSize,@Param("orderNumber")String orderNumber);
 
+    int afterSaleCount(@Param("e")OrderInfo orderInfo);
 }

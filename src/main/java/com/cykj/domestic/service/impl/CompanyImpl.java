@@ -22,23 +22,27 @@ public class CompanyImpl implements CompanySrevice {
     @Override
     public ResultData companyLogin(Company company, HttpServletRequest request) {
         ResultData resultData = new ResultData();
+        HttpSession session = request.getSession();
         Company company1 = companyMapper.companyLogin(company);
         if (company1 != null) {
-            if (company.getPwd().equals(company1.getPwd())) {
-                HttpSession session = request.getSession();
-                session.setAttribute("company",company1);
-
-                if (company1.getState().equals("审核通过")) {
-                    resultData.setCode(3);
-                    resultData.setMsg("登入成功");
-                } else {
-                    resultData.setCode(0);
-                    resultData.setMsg("登入成功");
-                }
-            } else {
+            if (!company.getPwd().equals(company1.getPwd())) {
                 resultData.setCode(1);
                 resultData.setMsg("密码错误");
+            } else { // if (company1.getRoleId() == 3)
+                session.setAttribute("company",company1);
+                resultData.setCode(0);
+                resultData.setMsg("管理员登入成功");
             }
+//            else if(company1.getState().equals("审核通过")){
+//                session.setAttribute("company",company1);
+//                if (company1.getState().equals("审核通过")) {
+//                    resultData.setCode(3);
+//                    resultData.setMsg("登入成功");
+//                } else {
+//                    resultData.setCode(0);
+//                    resultData.setMsg("登入成功");
+//                }
+//            }
         } else {
             resultData.setCode(2);
             resultData.setMsg("账号不存在");

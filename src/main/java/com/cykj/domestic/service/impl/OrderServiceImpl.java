@@ -65,4 +65,17 @@ public class OrderServiceImpl implements OrderService {
         List<OrderInfo> list = orderMapper.requireStatistics(startDate,endDate);
         return list;
     }
+
+    @Override
+    public ResultData afterSaleList(OrderInfo orderInfo, int page, int limit,String orderNumber) {
+        List<OrderInfo> list = orderMapper.afterSaleList(orderInfo, (page - 1) * limit, limit,orderNumber);
+        int count = orderMapper.afterSaleCount(orderInfo);
+        ResultData resultData = new ResultData();
+        resultData.setCode(0);
+        resultData.setMsg("");
+        resultData.setCount(count);
+        resultData.setData(list);
+        return resultData;
+    }
+
 }

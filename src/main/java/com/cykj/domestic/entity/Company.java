@@ -23,7 +23,7 @@ public class Company {
     private int regioncount;
     private String region;  //区域名称
     private String typeName;   //公司服务类别
-
+    private int roleId;//角色id
     private int countNum;//统计数量
     private String joinDay;
 

@@ -66,7 +66,7 @@
 
     <div class="layui-form-item">
         <label class="layui-form-label">职位：</label>
-        <select name="id" id="counselorList" lay-verify="required">
+        <select name="counselorId" id="counselorList" lay-verify="required">
         </select>
     </div>
 
@@ -246,11 +246,28 @@
                 $('#idcard').val(tabdata.idcard);
                 $('#phone').val(tabdata.phone);
                 $('#sex').val(tabdata.sex);
-                $('#skill').val(tabdata.skill);
                 $('#workage').val(tabdata.workage);
                 $('#nativeplace').val(tabdata.nativeplace);
 
-                var officeid = tabdata.id
+                // 下拉框列表
+                $.ajax({
+                    type: 'POST',
+                    url: "<%=path%>/officeController/counselorList",
+                    dataType: 'JSON',
+                    success: function (msg) {
+                        $("#counselorList").html("<option value=''></option>");
+                        $.each(msg.data, function (i, item) {
+                            $("#counselorList").append("<option value='" + item.id + "'>" + item.position + "</option>")
+                        });
+                        layui.use('form', function () {
+                            var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+                            form.render();
+                        });
+                    }
+                });
+
+                var officeid = tabdata.id;
+
                 var layerupdate = layer.open({
                     type: 1
                     , title: '修改职位'
@@ -261,7 +278,6 @@
                     , btn: 0
                     , cancel: function (index, layero) {
                         if (confirm('确定要关闭么')) { //只有当点击confirm框的确定时，该层才会关闭
-                            // $('#userinfoform').css("display","none");
                             $('#userName').val("");
                             $('#idcard').val("");
                             $('#phone').val("");
@@ -296,10 +312,7 @@
                 });
             }
         });
-
-
     });
-
 </script>
 </body>
 </html>

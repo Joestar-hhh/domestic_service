@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cykj.domestic.mapper.ServiceEvaluationMapper">
+
+    <!--查询公告列表-->
+    <select id="queryServiceEvaluationList" parameterType="com.cykj.domestic.entity.ServiceEvaluation"
+            resultType="com.cykj.domestic.entity.ServiceEvaluation">
+        SELECT * FROM tb_service_evaluation
+        ORDER BY id limit #{start},#{pageSize}
+    </select>
+
+    <!--    统计列表总数-->
+    <select id="queryServiceEvaluationCount" resultType="int" parameterType="com.cykj.domestic.entity.ServiceEvaluation">
+        select count(id) from tb_service_evaluation
+    </select>
+
+</mapper>
