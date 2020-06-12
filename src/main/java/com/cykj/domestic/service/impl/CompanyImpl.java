@@ -27,7 +27,6 @@ public class CompanyImpl implements CompanySrevice {
             if (company.getPwd().equals(company1.getPwd())) {
                 HttpSession session = request.getSession();
                 session.setAttribute("company",company1);
-
                 if (company1.getState().equals("审核通过")) {
                     resultData.setCode(3);
                     resultData.setMsg("登入成功");

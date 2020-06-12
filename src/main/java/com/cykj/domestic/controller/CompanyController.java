@@ -26,10 +26,7 @@ public class CompanyController {
     //家政公司端登入
 
     @RequestMapping("/companyLogin")
-    public String companyLogin(HttpServletResponse response, HttpServletRequest request) {
-        Company company = new Company();
-        company.setAccount("10001");
-        company.setPwd("123456");
+    public String companyLogin(HttpServletResponse response, HttpServletRequest request,Company company) {
         ResultData resultData = companySrevice.companyLogin(company,request);
         System.out.println(JSON.toJSONString(resultData));
         return JSON.toJSONString(resultData);

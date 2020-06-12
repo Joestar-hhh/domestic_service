@@ -74,7 +74,7 @@
                 return false;
             } else if (val == num) {
                 $.ajax({
-                    url:'<%=path%>/backAdminController/backadminLogin',
+                    url:'<%=path%>/companyController/companyLogin',
                     type:'POST',
                     dataType:'JSON',
                     data:{
