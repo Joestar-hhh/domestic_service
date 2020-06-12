@@ -75,11 +75,6 @@
 </script>
 
 
-
-
-
-
-
 <form class="layui-form" id="userinfoform" action="" style="display: none">
 
     <div class="layui-form-item">
