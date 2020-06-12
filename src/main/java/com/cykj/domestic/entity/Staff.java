@@ -28,4 +28,5 @@ public class Staff {
     private String name;// 职位名
     private String region;
     private String position;
+    private int counselorId;
 }

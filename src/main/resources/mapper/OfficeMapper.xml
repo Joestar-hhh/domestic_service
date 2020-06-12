@@ -26,13 +26,13 @@
 
     <update id="updateOffice" parameterType="com.cykj.domestic.entity.Staff">
         update tb_staff set user_name = #{userName} ,idcard = #{idcard} ,phone = #{phone} ,sex = #{sex} , workage = #{workage}
-        , nativeplace = #{nativeplace}
+        , nativeplace = #{nativeplace} ,counselor_id = #{counselorId}
         where id = #{id}
     </update>
 
     <insert id="insertOffice" parameterType="com.cykj.domestic.entity.Staff">
         insert into tb_staff (user_name,idcard,phone,sex,skill,workage,nativeplace,counselor_id)
-        values (#{userName},#{idcard},#{phone},#{sex},#{position},#{workage},#{nativeplace},#{id})
+        values (#{userName},#{idcard},#{phone},#{sex},#{position},#{workage},#{nativeplace},#{counselorId})
     </insert>
 
     <select id="counselorList" parameterType="com.cykj.domestic.entity.Counselor"
