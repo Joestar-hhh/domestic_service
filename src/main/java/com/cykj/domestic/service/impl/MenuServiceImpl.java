@@ -34,6 +34,7 @@ public class MenuServiceImpl implements MenuService {
             if(menu.getParentId()!=0){
                 menu.setType("1");
                 menu.setOpenType("_iframe");
+                menu.setChecked("true");
             }
             mList.add(menu);
         }
