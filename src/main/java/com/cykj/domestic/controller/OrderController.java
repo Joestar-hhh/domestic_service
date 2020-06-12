@@ -29,9 +29,9 @@ public class OrderController {
      * 查询订单信息
      */
     @RequestMapping("/queryOrder")
-    public String queryOrder(String companyName, String page, String limit) {
+    public Object queryOrder(String companyName, String page, String limit) {
         ResultData resultData = orderService.queryOrderInfo(companyName, Integer.parseInt(page), Integer.parseInt(limit));
-        return JSON.toJSONString(resultData);
+        return resultData;
     }
 
     /*
