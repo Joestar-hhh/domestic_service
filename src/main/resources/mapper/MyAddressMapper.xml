@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cykj.domestic.mapper.MyAddressMapper">
+
+
+    <insert id="addAddress" parameterType="com.cykj.domestic.entity.MyAddress">
+     INSERT INTO tb_user_address(name,region,detail_address,phone,user_id)VALUES(#{name},#{firstLevelRegion}#{secondaryZone},#{detailAddress},#{phone},#{id});
+
+    </insert>
+
+    <update id="updateAddress" parameterType="com.cykj.domestic.entity.MyAddress">
+     update tb_user_address set name =#{name},region=#{firstLevelRegion}#{secondaryZone},detail_address=#{detailAddress},phone=#{phone} where id=#{id}
+        </update>
+
+
+    <delete id="deleteAddress">
+         delete from tb_user_address where id=#{id}
+    </delete>
+
+    <select id="selectList" resultType="com.cykj.domestic.entity.MyAddress" parameterType="com.cykj.domestic.entity.MyAddress">
+        SELECT a.*,u.user_address_id FROM tb_user_address a LEFT OUTER JOIN tb_user u ON a.id=u.user_address_id
+	    where a.user_id = #{userAddressId}
+	    order by a.id
+     limit #{start},#{pageSize}
+    </select>
+
+    <select id="selectListCount" resultType="int" parameterType="com.cykj.domestic.entity.MyAddress">
+        select count(id) from tb_user_address where user_id=6
+    </select>
+
+
+    <update id="updateDefultAddress" parameterType="com.cykj.domestic.entity.MyAddress">
+       UPDATE tb_user u SET user_address_id=#{id} WHERE u.id=#{userid}
+        </update>
+
+</mapper>
