@@ -188,7 +188,6 @@
                 })
 
                 //  layer.alert("menuIdList:"+menuIdList);
-                // hh
                 if(selectId===""){
                     layer.alert("请选择角色")
                 }else {
