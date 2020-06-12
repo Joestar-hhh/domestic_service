@@ -17,16 +17,22 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="/static/layui/css/layui.css"  media="all">
+    <link rel="stylesheet" href="/static/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="<%=path%>/static/layui/css/layui.css">
     <script type="text/javascript" src="<%=path%>/static/layui/layui.js"></script>
     <script src="<%=path%>/static/layui/lay/layui.js" charset="utf-8"></script>
     <link rel="stylesheet" href="<%=path%>/static/css/back_page.css">
+
+    <style>
+        .layui-rate {
+            padding: 0px 5px 10px 0;
+            font-size: 0;
+        }
+    </style>
 </head>
 <body>
 
 <table class="layui-hide" id="test" lay-filter="test"></table>
-
 
 
 <script type="text/html" id="toolbarDemo">
@@ -48,23 +54,21 @@
         <i class="layui-icon layui-icon-edit"></i>查看回复</a>
 </script>
 
-<form class="layui-form" id="userinfoform" action="" style="display: none">
+<%--<form class="layui-form" id="userinfoform" action="" style="display: none">--%>
 
-    <%--    <div class="layui-form-item">--%>
-    <%--        <label class="layui-form-label">顾问职位：</label>--%>
-    <%--        <div class="layui-input-block">--%>
-    <%--            <input type="text" name="position" id="position" required lay-verify="required" placeholder="请输入顾问职位"--%>
-    <%--                   autocomplete="off" class="layui-input">--%>
-    <%--        </div>--%>
-    <%--    </div>--%>
-</form>
+<%--        <div class="layui-form-item">--%>
+<%--            <label class="layui-form-label">顾问职位：</label>--%>
+<%--            <div class="layui-input-block">--%>
+<%--                <input type="text" name="position" id="position" required lay-verify="required" placeholder="请输入顾问职位"--%>
+<%--                       autocomplete="off" class="layui-input">--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--</form>--%>
 
 <%--<script src="<%=path%>/back/js/layui.js" charset="utf-8"></script>--%>
 <script>
     layui.use('table', function () {
         var table = layui.table;
-
-
         table.render({
             elem: '#test'
             , url: "<%=path%>/serviceEvaluationController/queryServiceEvaluationList"
@@ -76,29 +80,29 @@
                 {field: 'id', title: '序号', width: 60}
                 , {field: 'userName', title: '用户名', width: 200}
                 , {field: 'time', title: '评价时间', width: 220}
-                , {field: 'evaluationLevel', title: '评价星级', width: 150,height:100,
-                  templet: function(d){
-                      return '<div id="evaluationLevel"></div>'}
-                        }
+                , {
+                    field: 'evaluationLevel', title: '评价星级', width: 150, height: 100,
+                    templet: function (d) {
+                        return '<div id="evaluationLevel"></div>'
+                    }
+                }
                 , {field: 'evaluationContent', title: '评价内容'}
                 , {fixed: 'right', title: '操作', width: 250, toolbar: '#barDemo'}
             ]]
 
-            ,done:function(res){
+            , done: function (res) {
                 var data = res.data;//返回的json中data数据
-                // alert(JSON.stringify(data));
                 //司机星级
-                layui.use(['rate'], function(){
+                layui.use(['rate'], function () {
                     var rate = layui.rate;
-                rate.render({
-                    elem: '#evaluationLevel'         //绑定元素
-                    , length: 5            //星星个数
-                    , value: res.data[0].evaluationLevel             //初始化值
-                    , theme: '#f30808'     //颜色
-                    , half: false           //支持半颗星
-
-                    , readonly: true      //只读
-                });
+                    rate.render({
+                        elem: '#evaluationLevel'         //绑定元素
+                        , length: 5            //星星个数
+                        , value: res.data[0].evaluationLevel             //初始化值
+                        , theme: '#f30808'     //颜色
+                        , half: false           //支持半颗星
+                        , readonly: true      //只读
+                    });
                 });
             }
             , page: {
