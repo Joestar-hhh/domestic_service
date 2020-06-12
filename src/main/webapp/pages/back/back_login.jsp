@@ -22,7 +22,7 @@
 <body background="<%=path%>/static/pear_layui/admin/images/background.svg">
 <form class="layui-form" action="javascript:void(0);">
     <div class="layui-form-item">
-        <img class="logo" src="<%=path%>/static/pear_layui/admin/images/logo.png" />
+        <img class="logo" src="<%=path%>/static/pear_layui/admin/images/logo.png"/>
         <div class="title">传一家政平台</div>
         <div class="desc">
             福 建 省 最 具 影 响 力 的 家 政 公 司 之 一
@@ -32,18 +32,20 @@
         <input type="text" placeholder="账 户 : admin" hover class="layui-input" id="account"/>
     </div>
     <div class="layui-form-item">
-        <input type="password" placeholder="密 码 : 888888" hover class="layui-input" id="pwd" />
+        <input type="password" placeholder="密 码 : 888888" hover class="layui-input" id="pwd"/>
     </div>
     <div class="layui-form-item">
-<%--        <input placeholder="验证码" hover class="layui-input layui-input-inline" style="width: 50%;display: inline-block!important;"/>--%>
-<%--        <img src="https://yun.reg.163.com/urscloud/captcha?type=captcha_pwd&1568683587149" style="border-radius:3px;border: 1px #e6e6e6 solid;height: 100%;width: 45%;display: inline-block!important;height: 42px;" />--%>
-        <input type="text" value="" placeholder="请输入验证码（区分大小写）" class="layui-input layui-input-inline" style="width: 50%;display: inline-block!important;" id="checkcode">
-        <canvas id="canvas"  onclick="dj()" style="border-radius:3px;border: 1px #e6e6e6 solid;height: 100%;width: 45%;display: inline-block!important;height: 42px"
+        <%--        <input placeholder="验证码" hover class="layui-input layui-input-inline" style="width: 50%;display: inline-block!important;"/>--%>
+        <%--        <img src="https://yun.reg.163.com/urscloud/captcha?type=captcha_pwd&1568683587149" style="border-radius:3px;border: 1px #e6e6e6 solid;height: 100%;width: 45%;display: inline-block!important;height: 42px;" />--%>
+        <input type="text" value="" placeholder="请输入验证码" class="layui-input layui-input-inline"
+               style="width: 50%;display: inline-block!important;" id="checkcode">
+        <canvas id="canvas" onclick="dj()"
+                style="border-radius:3px;border: 1px #e6e6e6 solid;height: 100%;width: 45%;display: inline-block!important;height: 42px"
         ></canvas>
     </div>
-<%--    <div class="layui-form-item">--%>
-<%--        <input type="checkbox" name="" title="记住密码" lay-skin="primary" checked>--%>
-<%--    </div>--%>
+    <%--    <div class="layui-form-item">--%>
+    <%--        <input type="checkbox" name="" title="记住密码" lay-skin="primary" checked>--%>
+    <%--    </div>--%>
     <div class="layui-form-item">
         <button class="pear-btn pear-btn-primary login">
             登 入
@@ -52,48 +54,47 @@
 </form>
 <script src="<%=path%>/static/pear_layui/component/layui/layui.js"></script>
 <script>
-    layui.use(['form', 'element','jquery'], function() {
+    layui.use(['form', 'element', 'jquery'], function () {
         var from = layui.form;
         var element = layui.element;
         var $ = layui.jquery;
-        $("body").on("click",".login",function(){
-            var account=$("#account").val();
-            var pwd=$("#pwd").val();
+        $("body").on("click", ".login", function () {
+            var account = $("#account").val();
+            var pwd = $("#pwd").val();
             var val = document.getElementById("checkcode").value;
             var num = show_num.join("");
             if (account == '') {
                 layer.msg('账号不能为空');
                 return false;
             }
-            if(pwd==''){
+            if (pwd == '') {
                 layer.msg('密码不能为空');
                 return false;
             }
             if (val == '') {
                 layer.msg('请输入验证码！');
                 return false;
-            } else if (val == num) {
+            } else if (val.toLocaleString() == num.toLocaleString()) {
                 $.ajax({
-                    url:'<%=path%>/companyController/companyLogin',
-                    type:'POST',
-                    dataType:'JSON',
-                    data:{
-                        account:account,
-                        pwd:pwd
+                    url: '<%=path%>/companyController/companyLogin',
+                    type: 'POST',
+                    dataType: 'JSON',
+                    data: {
+                        account: account,
+                        pwd: pwd
                     },
-                    success:function (msg) {
+                    success: function (msg) {
                         // alert(msg.msg)
                         layer.msg(msg.msg)
-                        if(msg.code=='0'){
-
+                        if (msg.code == '0') {
                             layer.msg(msg.msg);
-                            location.href="<%=path%>/pages/back/back_adminhome.jsp"
-                        }else{
+                            location.href = "<%=path%>/pages/back/back_adminhome.jsp"
+                        } else {
                             layer.msg(msg.msg);
                         }
                     }
                 })
-            }else {
+            } else {
                 layer.msg('验证码错误！\n你输入的是:  ' + val + "\n正确的是:  " + num + '\n请重新输入！');
                 document.getElementById("checkcode").value = '';
                 draw(show_num);
@@ -113,6 +114,7 @@
     function dj() {
         draw(show_num);
     }
+
     function draw(show_num) {
         var canvas_width = document.getElementById('canvas').clientWidth;
         var canvas_height = document.getElementById('canvas').clientHeight;
@@ -166,6 +168,7 @@
         var b = Math.floor(Math.random() * 256);
         return "rgb(" + r + "," + g + "," + b + ")";
     }
+
     function showErrorMsg(msg) {
         alert(msg);
     }
