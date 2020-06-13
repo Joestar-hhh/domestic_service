@@ -158,8 +158,6 @@
                 // alert("停止时间"+stopTime); //得到日期生成的值，如：2017-08-18
             }
         });
-
-
     });
 
     layui.use('table', function(){
@@ -210,7 +208,6 @@
                     break;
                     //根据时间查询服务信息表
                 case 'query':
-                    alert("点击了查询")
                     //查询时间段
                     //执行重载
                     table.reload('test', {

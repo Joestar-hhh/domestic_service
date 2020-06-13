@@ -10,6 +10,9 @@ public class ServiceEvaluation {
     private String evaluationLevel;
     private int userId;
     private String time;
+    private String startTime;
+    private String endTime;
     private int companyId;
+    private String name;
 
 }
