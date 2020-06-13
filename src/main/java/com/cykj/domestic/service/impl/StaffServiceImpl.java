@@ -110,5 +110,18 @@ public class StaffServiceImpl implements StaffService {
         return userList;
     }
 
+    @Override
+    public ResultData queryCompanyStaff(int companyId, int page, int limit) {
+        List<Staff> list = staffMapper.queryCompanyStaff(companyId, (page - 1) * limit, limit);
+        int count = staffMapper.queryCompanyStaffConut(companyId);
+
+        ResultData resultData = new ResultData();
+        resultData.setCode(0);
+        resultData.setMsg("");
+        resultData.setCount(count);
+        resultData.setData(list);
+        return resultData;
+    }
+
 
 }

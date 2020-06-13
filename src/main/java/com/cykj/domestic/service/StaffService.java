@@ -29,4 +29,7 @@ public interface StaffService {
 //    用户统计
     List<User>userStatistics(String startDate,String endDate);
 
+
+    ResultData queryCompanyStaff(int companyId, int page, int limit);
+
 }

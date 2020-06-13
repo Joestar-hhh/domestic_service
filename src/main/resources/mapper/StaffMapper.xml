@@ -77,4 +77,14 @@
         select date(c.create_time) as one_day,count(c.id) count_num from tb_user c where c.create_time between date_format(#{startDate},'%Y%m%d')
        and date_format(#{endDate},'%Y%m%d') group by one_day order by one_day desc;
     </select>
+
+
+<!--    公司端-员工信息-->
+    <select id="queryCompanyStaff" parameterType="com.cykj.domestic.entity.Staff" resultType="com.cykj.domestic.entity.Staff">
+        SELECT * FROM tb_staff where company_id = #{cId}
+        ORDER BY id limit #{start},#{pageSize}
+    </select>
+    <select id="queryCompanyStaffConut" parameterType="com.cykj.domestic.entity.Staff" resultType="int">
+        SELECT count(id) FROM tb_staff where company_id = #{cId}
+    </select>
 </mapper>

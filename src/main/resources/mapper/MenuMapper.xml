@@ -4,6 +4,16 @@
 
 <mapper namespace="com.cykj.domestic.mapper.MenuMapper">
 
+    <select id="queryMenuList" resultType="com.cykj.domestic.entity.Menu">
+        select m.*,rm.role_id from tb_menu m left OUTER join tb_role_menu rm on rm.menu_id = m.id
+        <where>
+            <if test="roleId!=null and roleId!='0' and roleId!=''">
+                and role_id = #{roleId}
+            </if>
+        </where>
+        order by m.id
+    </select>
+
     <select id="queryList" resultType="com.cykj.domestic.entity.Menu">
 --         select menuo.menu_name parent_name,menus.id,menus.parent_id,menus.menu_name title,menus.menu_path herf from tb_menu menuo
 --         INNER JOIN tb_menu menus on menus.parent_id = menuo.id

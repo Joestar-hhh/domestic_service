@@ -1,6 +1,7 @@
 package com.cykj.domestic.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.cykj.domestic.entity.Company;
 import com.cykj.domestic.entity.Staff;
 import com.cykj.domestic.entity.User;
 import com.cykj.domestic.service.StaffService;
@@ -84,6 +85,21 @@ public class StaffController {
         String endDate= request.getParameter("endDate");
         List<User> list= staffService.userStatistics(startDate,endDate);
         return JSON.toJSONString(list);
+    }
+
+
+
+
+    /*
+    * 公司端--员工信息
+    */
+    @RequestMapping("/queryCompanyStaffInfo")
+    public String queryCompanyStaffInfo(HttpServletRequest request,Staff staff, String page, String limit) {
+        Company company = (Company) request.getSession().getAttribute("company");
+        System.out.println(" session中："+company);
+        ResultData resultData = staffService.queryCompanyStaff(company.getId(),
+                Integer.parseInt(page), Integer.parseInt(limit));
+        return JSON.toJSONString(resultData);
     }
 }
 

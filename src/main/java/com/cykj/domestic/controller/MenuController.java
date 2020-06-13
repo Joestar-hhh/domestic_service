@@ -25,7 +25,7 @@ public class MenuController {
         Company company = (Company) request.getSession().getAttribute("company");
         List<Menu> menuDataList = null;
         if(company!=null){
-            menuDataList = menuService.queryList(String.valueOf(company.getRoleId()));
+            menuDataList = menuService.queryMenuList(String.valueOf(company.getRoleId()));
         }
         return menuDataList;
     }

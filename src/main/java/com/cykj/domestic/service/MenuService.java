@@ -10,6 +10,8 @@ import java.util.List;
 
 public interface MenuService {
 
+    List<Menu> queryMenuList(String roleId);
+
     List<Menu> queryList(String roleId);
 
     ResultData insertRoleMenu(String menuIdList, String roleId);
