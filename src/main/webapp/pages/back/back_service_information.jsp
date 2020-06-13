@@ -210,7 +210,6 @@
                     break;
                     //根据时间查询服务信息表
                 case 'query':
-                    alert("点击了查询")
                     //查询时间段
                     //执行重载
                     table.reload('test', {

@@ -61,7 +61,7 @@
 
 <%--<script src="<%=path%>/back/js/layui.js" charset="utf-8"></script>--%>
 <script>
-    layui.use('table', function () {
+    layui.use(['table','rate'], function () {
         var table = layui.table;
 
 
@@ -78,7 +78,7 @@
                 , {field: 'time', title: '评价时间', width: 220}
                 , {field: 'evaluationLevel', title: '评价星级', width: 150,height:100,
                   templet: function(d){
-                      return '<div id="evaluationLevel"></div>'}
+                      return '<div id="star'+d.id+'"></div>'}
                         }
                 , {field: 'evaluationContent', title: '评价内容'}
                 , {fixed: 'right', title: '操作', width: 250, toolbar: '#barDemo'}
@@ -86,19 +86,22 @@
 
             ,done:function(res){
                 var data = res.data;//返回的json中data数据
-                // alert(JSON.stringify(data));
+                alert(JSON.stringify(data));
                 //司机星级
                 layui.use(['rate'], function(){
-                    var rate = layui.rate;
-                rate.render({
-                    elem: '#evaluationLevel'         //绑定元素
-                    , length: 5            //星星个数
-                    , value: res.data[0].evaluationLevel             //初始化值
-                    , theme: '#f30808'     //颜色
-                    , half: false           //支持半颗星
+                    for(var item in data){
+                        var rate = layui.rate;
+                        rate.render({
+                            elem: '#star'+data[item].id+''     //绑定元素
+                            , length: 5            //星星个数
+                            , value: data[item].evaluationLevel             //初始化值
+                            , theme: '#f30808'     //颜色
+                            , half: false           //支持半颗星
 
-                    , readonly: true      //只读
-                });
+                            , readonly: true      //只读
+                        });
+                    }
+
                 });
             }
             , page: {
@@ -106,11 +109,7 @@
                 limits: [5, 10, 15, 20,
                     25, 30, 35, 40, 45, 50],
             } //每页条数的选择项
-
-
         });
-
-
         //头工具栏事件
         table.on('toolbar(test)', function (obj) {
             var checkStatus = table.checkStatus(obj.config.id);
