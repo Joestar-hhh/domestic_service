@@ -110,6 +110,14 @@
             },
             success : function(msg) {
                 menuData = msg
+                alert(JSON.stringify(menuData))
+                $.each(menuData,function (i,item) {
+                    // alert("0000:"+JSON.stringify(item))
+                    item.checked = ''
+                    $.each(item.children,function (j,child) {
+                        child.checked = ''
+                    });
+                })
                 tree.render({
                     elem: '#test12'
                     ,data: menuData
@@ -132,9 +140,7 @@
             form.render('select');
             form.on('select(roleSelect)', function(data){
                 selectId = data.value;
-                $.each(menuData,function (i,item) {
-                    item.checked = ''
-                })
+
                 $.ajax({
                     type : "post",
                     url : "<%=path%>/menuController/permissions",
@@ -147,23 +153,28 @@
                     },
                     success : function(msg) {
 
-                        // $.each(menuData,function (i,item) {
-                        //
-                        //     selectChild(msg,item)
-                        //     // $.each(msg,function (j,msgItem){
-                        //     //     // alert("item.id:"+item.id+"    msg.id:"+msgItem.id)
-                        //     //     if(msg.children==null || msg.children===''){
-                        //     //         if (item.id == msgItem.id){
-                        //     //             item.checked = 'true'
-                        //     //         }
-                        //     //     }else{
-                        //     //         if (item.children == msgItem.id){
-                        //     //             item.checked = 'true'
-                        //     //         }
-                        //     //     }
-                        //     //
-                        //     // })
-                        // })
+                        $.each(menuData,function (i,item) {
+                            // selectChild(msg,item)
+                            $.each(msg,function (j,msgItem){
+                                // $.each(item.children,function (z,child){
+                                //     if (item.children == msgItem.id){
+                                //         item.checked = 'true'
+                                //     }
+                                // });
+                                item = msgItem
+                            //     // alert("item.id:"+item.id+"    msg.id:"+msgItem.id)
+                            //     if(msg.children==null || msg.children===''){
+                            //         if (item.id == msgItem.id){
+                            //             item.checked = 'true'
+                            //         }
+                            //     }else{
+                            //         if (item.children == msgItem.id){
+                            //             item.checked = 'true'
+                            //         }
+                            //     }
+
+                            })
+                        })
                         tree.reload('demoId1',{
                             data: menuData
                         });

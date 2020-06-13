@@ -34,12 +34,14 @@ public class MenuServiceImpl implements MenuService {
             if(menu.getParentId()!=0){
                 menu.setType("1");
                 menu.setOpenType("_iframe");
-                menu.setChecked("true");
             }
             mList.add(menu);
         }
         List<Menu> menuList = TreeUtil.toTree(mList, 0);
 
+        TreeUtil.checkedMenu(menuList);
+
+        System.out.println(">>>>>>>>>>>>>>>menuList:"+JSON.toJSONString(menuList));
         return menuList;
     }
 
