@@ -7,15 +7,17 @@
     <!--家政公司管理端列表-->
     <select id="queryCompany" parameterType="com.cykj.domestic.entity.Company" resultType="com.cykj.domestic.entity.Company">
 --              select C.*,T.type_name typeName from tb_company C,tb_service_relation R,tb_service_type T where C.id=R.company_id and R.service_type_id=T.id
-        SELECT C.*,type_name FROM
-            (tb_service_relation R LEFT JOIN tb_service_type T ON  R.service_type_id=T.id)
-            LEFT JOIN tb_company C ON C.id=R.company_id
+
+        SELECT C.*,GROUP_CONCAT(T.type_name separator'、') type_name FROM tb_company C
+        LEFT JOIN tb_service_relation R ON C.id=R.company_id
+        LEFT JOIN tb_service_type T ON  R.service_type_id=T.id
         <where>
             <if test="address != null and address != ''">
                 address = #{address}
             </if>
+            and C.role_id = 2
         </where>
-        LIMIT ${start},${pageSize};
+        group by C.id LIMIT ${start},${pageSize};
     </select>
 
     <select id="CompanyCount" resultType="int" parameterType="com.cykj.domestic.entity.Company">

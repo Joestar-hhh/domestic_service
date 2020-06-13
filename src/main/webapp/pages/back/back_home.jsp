@@ -90,8 +90,12 @@
 <script src="<%=path%>/pages/back/js/layui.js"></script>
 <script>
     //JavaScript代码区域
-    layui.use('element', function(){
-        var element = layui.element;
+    layui.use('body', function(){
+        // var element = layui.element;
+        var $ = layui.jquery;
+        $.ajax({
+
+        })
     });
 </script>
 </body>

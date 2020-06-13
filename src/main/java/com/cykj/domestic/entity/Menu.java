@@ -20,5 +20,6 @@ public class Menu {
     private String parentName;
     private String menuName;
     private String menuPath;
+    private int roleId;
 
 }
