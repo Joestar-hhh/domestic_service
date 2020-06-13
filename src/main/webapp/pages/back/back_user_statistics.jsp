@@ -52,23 +52,23 @@
             <i class="layui-icon layui-icon-search"></i> 查询</button>
     </div>
     <input type="button" value="时间段:" style="background-color:transparent;border:0">
-    <div class="layui-form" style="display: inline-block">
-        <div class="layui-form-item" style="display: inline-block">
-            <div class="layui-inline">
-                <%--                <label class="layui-form-label">中文版</label>--%>
-                <div class="layui-input-inline">
-                    <input type="text" class="layui-input" id="test1" placeholder="yyyy-MM-dd">
+        <div class="layui-form" style="display: inline-block">
+            <div class="layui-form-item" style="display: inline-block">
+                <div class="layui-inline">
+                    <%--                <label class="layui-form-label">中文版</label>--%>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" id="test1" placeholder="yyyy-MM-dd">
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="layui-form-item" style="display: inline-block">
-            <div class="layui-inline">
-                <%--                <label class="layui-form-label">中文版</label>--%>
-                <div class="layui-input-inline">
-                    <input type="text" class="layui-input" id="test2" placeholder="yyyy-MM-dd">
+            <div class="layui-form-item" style="display: inline-block">
+                <div class="layui-inline">
+                    <%--                <label class="layui-form-label">中文版</label>--%>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" id="test2" placeholder="yyyy-MM-dd">
+                    </div>
                 </div>
             </div>
-        </div>
     </div>
     </div>
     <div style="" id="chartmain"></div>

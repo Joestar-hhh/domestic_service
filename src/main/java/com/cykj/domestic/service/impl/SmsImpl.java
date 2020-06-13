@@ -40,6 +40,5 @@ public class SmsImpl implements SmsService {
         } catch (ClientException e) {
             e.printStackTrace();
         }
-
     }
 }

@@ -158,8 +158,6 @@
                 // alert("停止时间"+stopTime); //得到日期生成的值，如：2017-08-18
             }
         });
-
-
     });
 
     layui.use('table', function(){
