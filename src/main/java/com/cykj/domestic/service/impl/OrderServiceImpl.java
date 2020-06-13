@@ -3,6 +3,7 @@ package com.cykj.domestic.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.cykj.domestic.entity.Company;
 import com.cykj.domestic.entity.OrderInfo;
+import com.cykj.domestic.entity.OrderState;
 import com.cykj.domestic.entity.Role;
 import com.cykj.domestic.mapper.OrderMapper;
 import com.cykj.domestic.service.OrderService;
@@ -65,11 +66,31 @@ public class OrderServiceImpl implements OrderService {
         List<OrderInfo> list = orderMapper.requireStatistics(startDate,endDate);
         return list;
     }
-
+//售后追踪
     @Override
     public ResultData afterSaleList(OrderInfo orderInfo, int page, int limit,String orderNumber) {
         List<OrderInfo> list = orderMapper.afterSaleList(orderInfo, (page - 1) * limit, limit,orderNumber);
         int count = orderMapper.afterSaleCount(orderInfo);
+        ResultData resultData = new ResultData();
+        resultData.setCode(0);
+        resultData.setMsg("");
+        resultData.setCount(count);
+        resultData.setData(list);
+        return resultData;
+    }
+//获取下拉框订单状态
+    @Override
+    public ResultData orderStatelist(OrderState orderState) {
+        List<OrderState> list = orderMapper.orderStatelist(orderState);
+        ResultData resultData = new ResultData();
+        resultData.setData(list);
+        return resultData;
+    }
+//家政公司订单管理
+    @Override
+    public ResultData companyOrderList(OrderInfo orderInfo, int page, int limit, String stateComName) {
+        List<OrderInfo> list = orderMapper.companyOrderList(orderInfo, (page - 1) * limit, limit,stateComName);
+        int count = orderMapper.companyOrderCount(orderInfo,stateComName);
         ResultData resultData = new ResultData();
         resultData.setCode(0);
         resultData.setMsg("");

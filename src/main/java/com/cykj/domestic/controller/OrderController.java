@@ -3,6 +3,7 @@ package com.cykj.domestic.controller;
 import com.alibaba.fastjson.JSON;
 import com.cykj.domestic.entity.Company;
 import com.cykj.domestic.entity.OrderInfo;
+import com.cykj.domestic.entity.OrderState;
 import com.cykj.domestic.entity.Role;
 import com.cykj.domestic.service.OrderService;
 import com.cykj.domestic.util.ResultData;
@@ -73,7 +74,7 @@ public class OrderController {
         }
 
     /*
-     * 查询订单信息
+     * 售后追踪
      */
     @RequestMapping("/afterSale")
     public Object afterSale(OrderInfo orderInfo, String page, String limit,String orderNumber) {
@@ -81,4 +82,17 @@ public class OrderController {
         return resultData;
     }
 
+//    获取下拉框订单状态
+    @RequestMapping("/orderStatelist")
+    public String orderStatelist(OrderState orderState){
+        ResultData resultData=orderService.orderStatelist(orderState);
+        return JSON.toJSONString(resultData);
+    }
+
+//    家政公司订单管理
+    @RequestMapping("/companyOrderList")
+    public Object companyOrderList(OrderInfo orderInfo, String page, String limit,String stateComName) {
+        ResultData resultData = orderService.companyOrderList(orderInfo, Integer.parseInt(page), Integer.parseInt(limit),stateComName);
+        return resultData;
+    }
 }
