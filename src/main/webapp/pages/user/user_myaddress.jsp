@@ -75,11 +75,6 @@
 </script>
 
 
-
-
-
-
-
 <form class="layui-form" id="userinfoform" action="" style="display: none">
 
     <div class="layui-form-item">
@@ -126,7 +121,7 @@
     </div>
 </form>
 
-
+<%--需求信息--%>
 <script>
     layui.use('table', function(){
         var table = layui.table;

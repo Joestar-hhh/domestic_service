@@ -29,7 +29,7 @@ public class CompanyImpl implements CompanySrevice {
                 resultData.setCode(1);
                 resultData.setMsg("密码错误");
             } else { // if (company1.getRoleId() == 3)
-                session.setAttribute("company",company1);
+                session.setAttribute("company", company1);
                 resultData.setCode(0);
                 resultData.setMsg("管理员登入成功");
             }
@@ -55,14 +55,51 @@ public class CompanyImpl implements CompanySrevice {
     @Override
     public ResultData phone_update_pwd(Company company) {
         ResultData resultData = new ResultData();
-        int res = companyMapper.phone_update_pwd(company);
-        if (res == 1) {
-            resultData.setCode(0);
-            resultData.setMsg("修改成功");
+        Company company1 = companyMapper.querycompanyphone(company);
+        if (company1 == null) {
+            resultData.setCode(3);
+            resultData.setMsg("手机号码不存在，请重新输入");
         } else {
-            resultData.setCode(1);
-            resultData.setMsg("修改失败");
+            int res = companyMapper.phone_update_pwd(company);
+            if (res == 1) {
+                resultData.setCode(0);
+                resultData.setMsg("修改成功");
+            } else {
+                resultData.setCode(1);
+                resultData.setMsg("修改失败");
+            }
         }
+        return resultData;
+    }
+
+    /*
+        家政公司注册
+    */
+    @Override
+    public ResultData insertCompany(Company company) {
+        ResultData resultData = new ResultData();
+//        判断账号和手机号是否纯在
+        Company companyphone=companyMapper.querycompanyphone(company);
+        if(companyphone==null){
+           Company companyLogin =companyMapper.companyLogin(company);
+           if(companyLogin==null){
+               int res= companyMapper.insertCompany(company);
+               if (res == 1) {
+                   resultData.setCode(0);
+                   resultData.setMsg("注册成功");
+               } else {
+                   resultData.setCode(1);
+                   resultData.setMsg("注册失败");
+               }
+           }else{
+                resultData.setCode(2);
+                resultData.setMsg("公司账号已存在");
+            }
+        }else{
+            resultData.setCode(3);
+            resultData.setMsg("手机号已被注册");
+        }
+
         return resultData;
     }
 
