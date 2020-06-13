@@ -147,11 +147,9 @@
                             , value: data[item].evaluationLevel             //初始化值
                             , theme: '#f30808'     //颜色
                             , half: false           //支持半颗星
-
                             , readonly: true      //只读
                         });
                     }
-
                 });
             }
             , page: {
