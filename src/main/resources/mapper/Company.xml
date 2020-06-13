@@ -24,7 +24,7 @@
     <!--家政公司注册-->
     <insert id="insertCompany" parameterType="com.cykj.domestic.entity.Company">
         INSERT INTO tb_company(account,pwd,company_name,boss,address,phone,state)
-        VALUES(#{account},#{pwd},#{companyName},#{boss},#{address},#{phone},#{state})
+        VALUES(#{account},#{pwd},#{companyName},#{boss},#{address},#{phone},'未审核')
     </insert>
 
     <!--    平台端区域列表-->

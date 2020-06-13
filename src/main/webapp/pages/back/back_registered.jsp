@@ -69,7 +69,6 @@
     </div>
 
 <%--    ---------------------%>
-    <input type="hidden" id="state" name="state" value="未审核">
     <div class="layui-input-item">
         <button type="submit" class="layui-btn pear-btn-primary login" lay-submit="" lay-filter="formDemo">立即提交</button>
     </div>
@@ -109,7 +108,7 @@
                 success: function (msg) {
                     if(msg.code=='0'){
                         layer.msg(msg.msg);
-                        location.href="<%=path%>/pages/back/back_login.jsp'"
+                        location.href="<%=path%>/pages/back/back_login.jsp"
                     }else{
                         layer.msg(msg.msg);
                     }
