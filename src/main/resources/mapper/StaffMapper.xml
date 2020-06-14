@@ -87,4 +87,19 @@
     <select id="queryCompanyStaffConut" parameterType="com.cykj.domestic.entity.Staff" resultType="int">
         SELECT count(id) FROM tb_staff where company_id = #{cId}
     </select>
+    <insert id="insertCompanyStaff" parameterType="com.cykj.domestic.entity.Staff">
+        insert into tb_staff(account,user_name,pwd,phone,sex,region_id,address,company_id,
+        workage,nativeplace,education,marriage,idcard,age,bireh_date)
+        values(#{account},#{userName},#{pwd},#{phone},#{sex},#{regionId},#{address},#{companyId},
+        #{workage},#{nativeplace},#{education},#{marriage},#{idcard},#{age},#{bireh_date})
+    </insert>
+
+    <!--    查询手机号-->
+    <select id="queryStaffPhone" resultType="com.cykj.domestic.entity.Staff">
+        SELECT * FROM tb_staff where phone = #{phone}
+    </select>
+    <!--    查询身份证-->
+    <select id="queryStaffIdcard" resultType="com.cykj.domestic.entity.Staff">
+        SELECT * FROM tb_staff where idcard = #{idcard}
+    </select>
 </mapper>

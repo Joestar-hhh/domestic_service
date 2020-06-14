@@ -1,6 +1,7 @@
 package com.cykj.domestic.service;
 
 import com.cykj.domestic.entity.Company;
+import com.cykj.domestic.entity.Region;
 import com.cykj.domestic.util.ResultData;
 
 import javax.servlet.http.HttpServletRequest;
@@ -36,4 +37,5 @@ public interface CompanySrevice {
     ResultData queryRegionCompany(String regionId);
 
     List<Company> serviceTypeStatistics(String statisticsType, String startDate, String endDate);
+
 }

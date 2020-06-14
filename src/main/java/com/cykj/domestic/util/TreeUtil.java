@@ -29,13 +29,4 @@ public class TreeUtil {
         return parent;
     }
 
-    public static void checkedMenu(List<Menu> menuList) {
-        for(Menu menu : menuList){
-            if(menu.getChildren()!=null){
-                for(Menu child : menu.getChildren()){
-                    child.setChecked("true");
-                }
-            }
-        }
-    }
 }

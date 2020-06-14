@@ -32,4 +32,10 @@ public interface StaffService {
 
     ResultData queryCompanyStaff(int companyId, int page, int limit);
 
+    ResultData insertCompanyStaff(Staff staff, String CityLevel,String CountyLevel);
+
+    //查询手机号是否存在
+    ResultData queryStaffPhone(String phone);
+    //查询身份证是否存在
+    ResultData queryStaffIdcard(String idcard);
 }

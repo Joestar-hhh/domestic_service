@@ -101,5 +101,42 @@ public class StaffController {
                 Integer.parseInt(page), Integer.parseInt(limit));
         return JSON.toJSONString(resultData);
     }
+
+    /*
+     * 公司端--添加员工
+     */
+    @RequestMapping("/insertCompanyStaff")
+    public String insertCompanyStaff(HttpServletRequest request,Staff staff, String CityLevel,String CountyLevel) {
+        Company company = (Company) request.getSession().getAttribute("company");
+        System.out.println(" session中："+company);
+        System.out.println(" staff："+staff);
+        System.out.println(" CityLevel："+CityLevel);
+//        ResultData resultData = staffService.queryCompanyStaff(company.getId(),
+//                Integer.parseInt(page), Integer.parseInt(limit));
+//        return JSON.toJSONString(resultData);
+        return null;
+    }
+
+
+
+    /*
+     * 公司端--查询手机号是否存在
+     */
+    @RequestMapping("/queryStaffPhone")
+    public String queryStaffPhone(String phone) {
+        System.out.println(" phone："+phone);
+        ResultData resultData = staffService.queryStaffPhone(phone);
+        return JSON.toJSONString(resultData);
+    }
+
+    /*
+     * 公司端--查询身份证是否存在
+     */
+    @RequestMapping("/queryStaffIdcard")
+    public String queryStaffIdcard(String idcard) {
+        System.out.println(" idcard："+idcard);
+        ResultData resultData = staffService.queryStaffIdcard(idcard);
+        return JSON.toJSONString(resultData);
+    }
 }
 

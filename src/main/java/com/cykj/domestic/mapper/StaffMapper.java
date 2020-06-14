@@ -62,4 +62,9 @@ public interface StaffMapper {
     */
     List<Staff> queryCompanyStaff(@Param("cId") int companyId, @Param("start") int start, @Param("pageSize") int pageSize);
     int queryCompanyStaffConut(@Param("cId") int companyId);
+
+    int insertCompanyStaff(Staff staff);
+
+    Staff queryStaffPhone(@Param("phone") String phone);
+    Staff queryStaffIdcard(@Param("idcard") String idcard);
 }
