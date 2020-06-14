@@ -80,7 +80,6 @@
 
 <table class="layui-hide" id="test" lay-filter="test"></table>
 
-
 <script type="text/html" id="toolbarDemo">
 
     <div class="layui-form-item" id="querydiv">
