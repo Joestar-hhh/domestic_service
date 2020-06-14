@@ -14,5 +14,7 @@ public class ServiceEvaluation {
     private String endTime;
     private int companyId;
     private String name;
+    private String content;
+    private String contentTime;
 
 }

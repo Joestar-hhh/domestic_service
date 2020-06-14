@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @RestController
 @RequestMapping("/serviceEvaluationController")
@@ -23,6 +25,11 @@ public class ServiceEvaluationController {
                                              ServiceEvaluation serviceEvaluation, String page, String limit) {
         ResultData resultData = serviceEvaluationService.queryServiceEvaluationList(serviceEvaluation, Integer.parseInt(page), Integer.parseInt(limit));
         return JSON.toJSONString(resultData);
+    }
 
+    @RequestMapping("/updateContent")
+    public String insertContent(HttpServletRequest request, HttpServletResponse response,String content,int id) {
+        ResultData resultData = serviceEvaluationService.updateContent(content, new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss").format(new Date()),id);
+        return JSON.toJSONString(resultData);
     }
 }

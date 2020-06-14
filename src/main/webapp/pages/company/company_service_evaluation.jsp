@@ -35,6 +35,45 @@
             margin: 0 10px 10px 10px;
         }
 
+        .layui-form-item {
+            /*margin-bottom: 15px;*/
+            /*margin-top: 10px;*/
+            margin-left: 124px;
+            clear: both;
+        }
+
+        .layui-btn-sm {
+            height: 30px;
+            line-height: 30px;
+            padding: 0 10px;
+            font-size: 12px;
+            margin-left: 95px;
+        }
+
+        .querybtn {
+            margin: 10px 5px 10px 20px;
+        }
+        #querydiv .layui-btn-container{
+            display: inline-block;
+        }
+        #orderinfoform .layui-form-label {
+            width: 114px;
+        }
+        #orderinfoform .layui-input-block {
+            margin-left: 247px;
+        }
+        #orderinfoform .rightlabel{
+            margin-bottom: 15px;
+            text-align: left;
+            line-height: 30px;
+            background-color: #beffed;
+        }
+        #confirm {
+            margin-left: -100px;
+        }
+        #orderinfoform .layui-form-label {
+            width: 130px;
+        }
     </style>
 </head>
 <body>
@@ -48,7 +87,6 @@
         <div class="layui-form" style="display: inline-block">
             <div class="layui-form-item" style="display: inline-block">
                 <div class="layui-inline">
-                    <%--                <label class="layui-form-label">中文版</label>--%>
                     <div class="layui-input-inline">
                         <input type="text" class="layui-input" id="test1" placeholder="yyyy-MM-dd">
                     </div>
@@ -56,7 +94,6 @@
             </div>
             <div class="layui-form-item" style="display: inline-block">
                 <div class="layui-inline">
-                    <%--                <label class="layui-form-label">中文版</label>--%>
                     <div class="layui-input-inline">
                         <input type="text" class="layui-input" id="test2" placeholder="yyyy-MM-dd">
                     </div>
@@ -75,20 +112,39 @@
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs" lay-event="reply">
         <i class="layui-icon layui-icon-edit"></i>回复</a>
-    <a class="layui-btn layui-btn-xs" lay-event="check">
+    <a class="layui-btn layui-btn-xs" lay-event="checkReply">
         <i class="layui-icon layui-icon-edit"></i>查看回复</a>
 </script>
 
-<%--<form class="layui-form" id="userinfoform" action="" style="display: none">--%>
+<form class="layui-form" id="userinfoform" action="" style="display: none">
+    <div class="layui-form-item">
+        <ul class="items"></ul>
+        <textarea id="text" name="replyContext" cols="30" rows="10"></textarea>
+        <br>
+        <button class="layui-btn layui-btn-sm" id="insertconfirm" lay-submit lay-filter="insertconfirm">
+            <i class="layui-icon"></i>回复
+        </button>
+    </div>
+</form>
 
-<%--        <div class="layui-form-item">--%>
-<%--            <label class="layui-form-label">顾问职位：</label>--%>
-<%--            <div class="layui-input-block">--%>
-<%--                <input type="text" name="position" id="position" required lay-verify="required" placeholder="请输入顾问职位"--%>
-<%--                       autocomplete="off" class="layui-input">--%>
-<%--            </div>--%>
-<%--        </div>--%>
-<%--</form>--%>
+<form class="layui-form" id="orderinfoform" action="" style="display: none">
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">回复时间：</label>
+        <label class="layui-form-label rightlabel" id="contentTime"></label>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">回复内容：</label>
+        <label class="layui-form-label rightlabel" id="content"></label>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn formbtn" id="confirm" lay-submit lay-filter="confirm">确定</button>
+        </div>
+    </div>
+</form>
+
 
 <script>
     var startTime;
@@ -124,10 +180,10 @@
             , cols: [[
                 // {type: 'checkbox',fixed: 'left'}
                 {field: 'id', title: '序号', width: 60}
-                , {field: 'name', title: '用户名', width: 200}
-                , {field: 'time', title: '评价时间', width: 220}
+                , {field: 'name', title: '用户名', width: 100}
+                , {field: 'time', title: '评价时间', width: 170}
                 , {
-                    field: 'evaluationLevel', title: '评价星级', width: 150, height: 100,
+                    field: 'evaluationLevel', title: '评价星级', width: 160, height: 100,
                     templet: function (d) {
                         return '<div id="star' + d.id + '"></div>'
                     }
@@ -145,7 +201,7 @@
                             elem: '#star' + data[item].id + ''     //绑定元素
                             , length: 5            //星星个数
                             , value: data[item].evaluationLevel             //初始化值
-                            , theme: '#f30808'     //颜色
+                            , theme: '#28FF28'     //颜色
                             , half: false           //支持半颗星
                             , readonly: true      //只读
                         });
@@ -185,60 +241,40 @@
         //监听行工具事件
         table.on('tool(test)', function (obj) {
             var tabdata = obj.data;
-            //console.log(obj)s
-            if (obj.event === 'delete') {
-                layer.confirm('真的要删除此行数据么?', function (index) {
-                    $.ajax({
-                        url: "<%=path%>/counselorController/deleteCounselor",
-                        type: 'POST',
-                        dataType: 'JSON',
-                        data: {
-                            id: tabdata.id
-                        },
-                        success: function (msg) {
-                            layer.msg(msg.msg)
-                            obj.del();
-                            layer.close(index);
-                        }
-                    })
-                });
-            } else if (obj.event === 'update') {
-                $('#position').val(tabdata.position);
-                $("#duties").val(tabdata.duties);
-                var cid = tabdata.id
-                var layerupdate = layer.open({
+            var $ = layui.jquery;
+            if (obj.event === 'reply') {
+                var layerreply = layer.open({
                     type: 1
-                    , title: '修改计划'
-                    , area: ['500px', '400px']
+                    , title: '回复评价'
+                    , area: ['500px', '320px']
                     , shade: [0.8, '#314949'] //遮罩
                     , resize: false //不可拉伸
                     , content: $('#userinfoform') //内容
                     , btn: 0
                     , cancel: function (index, layero) {
                         if (confirm('确定要关闭么')) { //只有当点击confirm框的确定时，该层才会关闭
-                            // $('#userinfoform').css("display","none");
-                            $('#position').val("");
-                            $("#duties").val("");
                             layer.close(index);
                         }
                         return false;
                     }
-                    //如果设定了yes回调，需进行手工关闭
                 });
                 layui.use('form', function () {
                     var form = layui.form;
                     form.render();
                     form.on('submit(insertconfirm)', function (data) {
-                        data.field.id = cid;
+                        var content = $("#text").val();
                         $.ajax({
                             type: 'POST',
-                            url: "<%=path%>/counselorController/updateCounselor",
+                            url: "<%=path%>/serviceEvaluationController/updateContent",
                             dataType: 'JSON',
-                            data: data.field,
+                            data: {
+                                id:tabdata.id,
+                                content: content,
+                            },
                             success: function (msg) {
-                                layer.close(layerupdate);
-                                layer.alert(msg.msg, {icon: 1}, function () {
-                                    window.location.reload();//成功后刷新父界面..
+                                layer.close(layerreply);
+                                layer.alert(msg.msg, {icon: 1}, function (index) {
+                                    layer.close(index);
                                 });//成功提示
                             }
                         })
@@ -246,11 +282,38 @@
                     });
                 });
             }
+            else if (obj.event === 'checkReply'){
+                $("#contentTime").html(tabdata.contentTime);
+                $("#content").html(tabdata.content);
+                var layercheck = layer.open({
+                    type: 1
+                    ,title: '查看回复'
+                    ,area: ['640px','450px']
+                    ,shade: [0.8, '#314949'] //遮罩
+                    ,resize: false //不可拉伸
+                    ,content: $('#orderinfoform') //内容
+                    ,btn: 0
+                    ,cancel: function(index, layero){
+                        if(confirm('确定要关闭么')){ //只有当点击confirm框的确定时，该层才会关闭
+                            $('#contentTime').val("");
+                            $("#content").val("");
+                            layer.close(index);
+                        }
+                        return false;
+                    }
+                    //如果设定了yes回调，需进行手工关闭
+                });
+                layui.use('form', function(){
+                    var form = layui.form;
+                    form.render();
+                    form.on('submit(confirm)', function(data){
+                        layer.close(layercheck);
+                        return false;
+                    });
+                });
+            }
         });
-
-
     });
-
 </script>
 </body>
 </html>

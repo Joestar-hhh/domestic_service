@@ -5,6 +5,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -14,4 +16,6 @@ public interface ServiceEvaluationMapper {
     List<ServiceEvaluation> queryServiceEvaluationList(@Param("e") ServiceEvaluation serviceEvaluation, @Param("start") int start, @Param("pageSize") int pageSize);
 
     int queryServiceEvaluationCount(@Param("e") ServiceEvaluation serviceEvaluation);
+
+    int updateContent(String content,String contentTime,int id);
 }

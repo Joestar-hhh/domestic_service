@@ -7,6 +7,7 @@ import com.cykj.domestic.util.ResultData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.naming.ldap.Rdn;
 import java.util.List;
 
 @Service
@@ -26,5 +27,19 @@ public class ServiceEvaluationImpl implements ServiceEvaluationService {
         resultData.setData(list);
         return resultData;
 
+    }
+
+    @Override
+    public ResultData updateContent(String content, String contentTime,int id) {
+        int res = serviceEvaluationMapper.updateContent(content,contentTime,id);
+        ResultData resultData  = new ResultData();
+        if(res==1){
+            resultData.setCode(0);
+            resultData.setMsg("回复成功");
+        } else {
+            resultData.setCode(1);
+            resultData.setMsg("回复失败");
+        }
+        return resultData;
     }
 }

@@ -7,4 +7,6 @@ public interface ServiceEvaluationService {
 
     ResultData queryServiceEvaluationList(ServiceEvaluation serviceEvaluation, int page, int limit);
 
+    ResultData updateContent(String content,String contentTime,int id);
+
 }
