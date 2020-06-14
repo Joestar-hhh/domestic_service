@@ -85,31 +85,31 @@
 <form class="layui-form" id="orderinfoform" action="" style="display: none">
 
     <div class="layui-form-item">
-        <label class="layui-form-label">公司ID：</label>
-        <label class="layui-form-label rightlabel" id="id"></label>
-        <label class="layui-form-label">公司名称：</label>
-        <label class="layui-form-label rightlabel" id="companyName"></label>
+        <label class="layui-form-label">订单号ID：</label>
+        <label class="layui-form-label rightlabel" id="orderNumber"></label>
+        <label class="layui-form-label">服务人员：</label>
+        <label class="layui-form-label rightlabel" id="staffName"></label>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">公司法人：</label>
-        <label class="layui-form-label rightlabel" id="boss"></label>
-        <label class="layui-form-label">公司地址：</label>
-        <label class="layui-form-label rightlabel" id="address"></label>
+        <label class="layui-form-label">订单时间：</label>
+        <label class="layui-form-label rightlabel" id="pulishTime"></label>
+        <label class="layui-form-label">服务时间：</label>
+        <label class="layui-form-label rightlabel" id="startTime"></label>
     </div>
 
     <div class="layui-form-item">
-        <label class="layui-form-label">公司电话：</label>
+        <label class="layui-form-label">费用：</label>
+        <label class="layui-form-label rightlabel" id="fee"></label>
+        <label class="layui-form-label">订单状态：</label>
+        <label class="layui-form-label rightlabel" id="stateComName"></label>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">售后电话：</label>
         <label class="layui-form-label rightlabel" id="phone"></label>
-        <label class="layui-form-label">公司服务类别：</label>
-        <label class="layui-form-label rightlabel" id="typeName"></label>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">状态：</label>
-        <label class="layui-form-label rightlabel" id="state"></label>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">公司简介：</label>
-        <label class="layui-form-label companyProfile" id="companyProfile"></label>
+        <label class="layui-form-label">服务内容：</label>
+        <label class="layui-form-label companyProfile" id="description"></label>
 
     </div>
 
@@ -137,14 +137,16 @@
             ,title: '家政公司订单管理'
             ,cols: [[
                 // {type: 'checkbox',fixed: 'left'}
-                {field:'staffName', title: '保姆名字'}
+                {field:'orderNumber', title: '订单号'}
+                ,{field:'staffName', title: '服务人员'}
                 ,{field:'comName', title: '所属家政公司'}
                 ,{field:'pulishTime', title: '订单时间'}
                 ,{field:'startTime', title: '服务时间'}
                 ,{field:'fee', title: '费用'}
                 ,{field:'stateComName', title: '状态'}
                 ,{field:'userName', title: '服务对象'}
-                // ,{field:'companyProfile', title: '公司简介',hide:true}
+                ,{field:'phone', title: '电话',hide:true}
+                ,{field:'description', title: '服务内容',hide:true}
                 ,{fixed: 'right',title:'操作', width: 250, toolbar: '#barDemo'}
             ]]
             ,page: {limit: 5,//指定每页显示的条数
@@ -211,14 +213,14 @@
 
             }
             else if(obj.event === 'showinfo'){
-                $('#id').html(tabdata.id);
-                $('#companyName').html(tabdata.companyName);
-                $('#boss').html(tabdata.boss);
-                $('#address').html(tabdata.address);
+                $('#orderNumber').html(tabdata.orderNumber);
+                $('#staffName').html(tabdata.staffName);
+                $('#pulishTime').html(tabdata.pulishTime);
+                $('#startTime').html(tabdata.startTime);
                 $('#phone').html(tabdata.phone);
-                $('#typeName').html(tabdata.typeName);
-                $('#state').html(tabdata.state);
-                $('#companyProfile').html(tabdata.companyProfile);
+                $('#stateComName').html(tabdata.stateComName);
+                $('#userName').html(tabdata.userName);
+                $('#description').html(tabdata.description);
                 var layerupdate = layer.open({
                     type: 1
                     ,title: '查看公司详情'
