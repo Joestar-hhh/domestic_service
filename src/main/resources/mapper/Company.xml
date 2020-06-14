@@ -23,8 +23,8 @@
 
     <!--家政公司注册-->
     <insert id="insertCompany" parameterType="com.cykj.domestic.entity.Company">
-        INSERT INTO tb_company(account,pwd,company_name,boss,address,phone,state)
-        VALUES(#{account},#{pwd},#{companyName},#{boss},#{address},#{phone},'未审核')
+        INSERT INTO tb_company(account,pwd,company_name,boss,address,phone,state,role_id)
+        VALUES(#{account},#{pwd},#{companyName},#{boss},#{address},#{phone},'未审核','2')
     </insert>
 
     <!--    平台端区域列表-->
@@ -40,6 +40,12 @@
              (SELECT B.region,COUNT(*)C
                   FROM tb_region B LEFT JOIN tb_company A on A.region_id =B.id GROUP BY B.id)D;
     </select>
+
+    <!--    查询平台所有服务区域-->
+        <select id="queryregionList" parameterType="com.cykj.domestic.entity.Company" resultType="com.cykj.domestic.entity.Company">
+             select * from tb_region
+        </select>
+
 
     <!--    删除区域-->
     <delete id="deleteRegion" parameterType="java.lang.String">
@@ -60,7 +66,6 @@
                     SELECT * FROM tb_company WHERE region_id=#{regionId}
     </select>
 
-
     <!--    服务类型数量统计-->
     <select id="serviceTypeStatistics" parameterType="java.lang.String" resultType="com.cykj.domestic.entity.Company">
         select st.type_name,count(c.service_relation_id) count_num from tb_service_type st
@@ -73,6 +78,15 @@
         left join tb_company c on r.id = c.region_id
         group by r.id
     </select>
+
+<!--    公司申请入职添加地区和口号-->
+    <update id="insertregionId" parameterType="java.lang.String">
+        update tb_company set region_id=#{regionId},company_profile=#{companyProfile} where id=#{id}
+    </update>
+
+
+
+
     <!--    按日期统计-->
     <select id="dateStatistics" parameterType="java.lang.String" resultType="com.cykj.domestic.entity.Company">
         select date(c.join_time) as join_day,count(c.id) count_num from tb_company c

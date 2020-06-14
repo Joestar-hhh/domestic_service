@@ -41,4 +41,7 @@ public interface OrderMapper {
     List<OrderInfo>companyOrderList(@Param("e")OrderInfo orderInfo, @Param("start") int start, @Param("pageSize") int pageSize, @Param("stateComName") String stateComName);
 
     int companyOrderCount(@Param("e")OrderInfo orderInfo,@Param("stateComName") String stateComName);
+
+//    接单
+    int orders(OrderInfo orderInfo);
 }

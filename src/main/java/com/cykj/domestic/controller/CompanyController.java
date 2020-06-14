@@ -24,25 +24,25 @@ public class CompanyController {
 
     //家政公司端登入
     @RequestMapping("/companyLogin")
-    public String companyLogin(HttpServletResponse response, HttpServletRequest request,Company company) {
+    public String companyLogin(HttpServletResponse response, HttpServletRequest request, Company company) {
 
-        ResultData resultData = companySrevice.companyLogin(company,request);
+        ResultData resultData = companySrevice.companyLogin(company, request);
 //        System.out.println(JSON.toJSONString(resultData));
         return JSON.toJSONString(resultData);
     }
 
     //家政公司端修改密码
     @RequestMapping("/phone_update_pwd")
-    public String phone_update_pwd(HttpServletRequest request,HttpServletResponse response,Company company) {
-        ResultData resultData=companySrevice.phone_update_pwd(company);
+    public String phone_update_pwd(HttpServletRequest request, HttpServletResponse response, Company company) {
+        ResultData resultData = companySrevice.phone_update_pwd(company);
         return JSON.toJSONString(resultData);
     }
 
     /*家政公司注册*/
     @RequestMapping("/insertCompany")
-    public String insertCompany(HttpServletRequest request,HttpServletResponse response,Company company) {
+    public String insertCompany(HttpServletRequest request, HttpServletResponse response, Company company) {
 //        System.out.println(JSON.toJSONString(company));
-        ResultData resultData=companySrevice.insertCompany(company);
+        ResultData resultData = companySrevice.insertCompany(company);
         return JSON.toJSONString(resultData);
 //        return null;
     }
@@ -55,6 +55,15 @@ public class CompanyController {
         ResultData resultData = companySrevice.queryRegion(Integer.parseInt(page), Integer.parseInt(limit));
         return JSON.toJSONString(resultData);
     }
+
+
+    /* 查询平台所有服务区域*/
+    @RequestMapping("/queryregionList")
+    public String queryregionList() {
+        ResultData resultData = companySrevice.queryregionList();
+        return JSON.toJSONString(resultData);
+    }
+
 
     //删除区域
     @ResponseBody

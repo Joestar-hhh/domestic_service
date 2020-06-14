@@ -46,10 +46,21 @@
           LEFT JOIN  tb_service_type a ON a.id=b.service_type_id WHERE c.id=#{id}
     </select>
 
+<!--  1 -->
     <!--    公司申请添加服务类别关系-->
     <insert id="addServicerelstion" parameterType="com.cykj.domestic.entity.ServiceType">
          INSERT INTO tb_service_relation(company_id,service_type_id,state)VALUES(#{companyId},#{id},#{state})
     </insert>
+
+    <!--    公司申请入驻添加服务服务类别-->
+    <insert id="addServiceContinuous" parameterType="com.cykj.domestic.entity.ServiceType">
+        INSERT INTO tb_service_relation(company_id,service_type_id,state)VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{companyId},#{item},'审核通过')
+        </foreach>
+    </insert>
+
+
 
     <!--    查询所有服务类别-->
     <select id="queryServiceType" resultType="com.cykj.domestic.entity.ServiceType">
@@ -87,6 +98,11 @@
     <update id="updateSericeTypeRelation" parameterType="com.cykj.domestic.entity.ServiceType">
         UPDATE tb_service_relation SET state=#{state} WHERE id=#{id}
     </update>
+
+<!--    查询所有服务-->
+    <select id="selectSerice" resultType="com.cykj.domestic.entity.ServiceType">
+        select * from tb_service
+    </select>
 
 
 </mapper>

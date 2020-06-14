@@ -76,9 +76,9 @@
 
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="showinfo">
-        <i class="layui-icon layui-icon-list"></i> 查看详情</a>
-    <a class="layui-btn layui-btn-xs" lay-event="check">
-        <i class="layui-icon layui-icon-auz"></i> 审核</a>
+        <i class="layui-icon layui-icon-list"></i> 详情</a>
+    <a class="layui-btn layui-btn-xs" lay-event="orders">
+        <i class="layui-icon layui-icon-auz"></i> 接单</a>
 </script>
 
 
@@ -143,9 +143,11 @@
                 ,{field:'pulishTime', title: '订单时间'}
                 ,{field:'startTime', title: '服务时间'}
                 ,{field:'fee', title: '费用'}
-                ,{field:'stateComName', title: '状态'}
+                ,{field:'stateComName', title: '公司订单状态'}
+                // ,{field:'orderStateName', title: '用户订单状态'}
                 ,{field:'userName', title: '服务对象'}
                 ,{field:'phone', title: '电话',hide:true}
+                ,{field:'id', title: '订单ID',hide:true}
                 ,{field:'description', title: '服务内容',hide:true}
                 ,{fixed: 'right',title:'操作', width: 250, toolbar: '#barDemo'}
             ]]
@@ -181,35 +183,41 @@
                     orderState="";
                     break;
             }
-            ;
         });
 
 
         //监听行工具事件
         table.on('tool(test)', function(obj){
             var tabdata = obj.data;
-            var companyId = tabdata.id;
-            if(obj.event === 'check'){//审核
+            var orderId = tabdata.id;
+            var stateName=tabdata.stateComName;
+            if(obj.event === 'orders'){//审核
                 //询问框
-                layer.confirm('确定是否审核？', {
-                    btn: ['确定','取消'] //按钮
-                }, function(index){
-                    $.ajax({
-                        type: 'POST',
-                        url: '<%=path%>/companyManageController/checkJoin',
-                        dataType: 'JSON',
-                        data: {id: companyId},
-                        success: function (msg) {
-                            layer.close(index);
-                            layer.alert(msg.msg,{icon: 6},function () {
-                                window.location.reload();//审核成功后刷新界面
-                            });//审核成功提示
+                if(stateName==="待处理"
+            ){
+                    layer.confirm('确定是否接单？', {
+                        btn: ['确定','取消'] //按钮
+                    }, function(index){
+                        $.ajax({
+                            type: 'POST',
+                            url: '<%=path%>/orderController/orders',
+                            dataType: 'JSON',
+                            data: {id: orderId},
+                            success: function (msg) {
+                                layer.close(index);
+                                layer.alert(msg.msg,{icon: 6},function () {
+                                    window.location.reload();//接单成功后刷新界面
+                                });//接单成功提示
+                            }
+                        })
+                    }, function(index){
+                        layer.close(index);
+                    });
 
-                        }
-                    })
-                }, function(index){
-                    layer.close(index);
-                });
+                }
+                else {
+                    layer.msg("此订单已接单！");
+                }
 
             }
             else if(obj.event === 'showinfo'){
@@ -223,7 +231,7 @@
                 $('#description').html(tabdata.description);
                 var layerupdate = layer.open({
                     type: 1
-                    ,title: '查看公司详情'
+                    ,title: '查看订单详情'
                     ,area: ['640px','580px']
                     ,shade: [0.8, '#314949'] //遮罩
                     ,resize: false //不可拉伸

@@ -89,14 +89,7 @@
         <label class="layui-form-label" id="company_address"></label>
         <label class="layui-form-label" id="company_phone"></label>
     </div>
-<%--    <div class="layui-form-item">--%>
-<%--        --%>
-<%--        --%>
-<%--    </div>--%>
-<%--    <div class="layui-form-item">--%>
-<%--       --%>
-<%--        --%>
-<%--    </div>--%>
+
 </form>
 
 <script>

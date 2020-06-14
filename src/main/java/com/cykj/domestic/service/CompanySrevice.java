@@ -22,6 +22,10 @@ public interface CompanySrevice {
     //平台端区域列表
     ResultData queryRegion(int page, int limit);
 
+    /* 查询平台所有服务区域*/
+    ResultData queryregionList();
+
+
     //删除区域
     ResultData deleteRegion(String region);
 

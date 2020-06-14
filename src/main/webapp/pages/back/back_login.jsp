@@ -44,9 +44,9 @@
         ></canvas>
     </div>
     <div class="layui-form-item">
-        <%--            <input type="checkbox" name="" title="记住密码" lay-skin="primary" checked src="<%=path%>/pages/back/back_updatepwd.jsp">--%>
-        <a href="<%=path%>/pages/back/back_updatepwd.jsp">忘记密码</a>
-        <a href="<%=path%>/pages/back/back_registered.jsp">快速注册</a>
+        <a href="<%=path%>/pages/company/company_updatepwd.jsp">忘记密码</a>
+        &nbsp;&nbsp;&nbsp;
+        <a href="<%=path%>/pages/company/company_registered.jsp">快速注册</a>
     </div>
     <div class="layui-form-item">
         <button class="pear-btn pear-btn-primary login">
@@ -91,7 +91,6 @@
                         // alert(msg.msg)
                         layer.msg(msg.msg)
                         if (msg.code == '0') {
-                            layer.msg(msg.msg);
                             location.href = "<%=path%>/pages/back/back_adminhome.jsp"
                         } else {
                             layer.msg(msg.msg);

@@ -13,18 +13,18 @@ public class OrderInfo {
   private int id;
   private String orderNumber;
   private String pulishTime;
-  private int userId;
+  private int userId;//用户id
   private int staffId;
   private int serviceId;
-  private String frequency;
+  private String frequency;//服务频次
   private String startTime;
   private String endTime;
-  private int companyId;
+  private int companyId;//公司id
   private int companyOrderStateId;
   private int userOrderStateId;
-  private String title;
-  private String description;
-  private String phone;
+  private String title;//标题
+  private String description;//要求描述
+  private String phone;//电话
 
   private String userName;
   private String staffName;
@@ -32,6 +32,10 @@ public class OrderInfo {
   private String comName;
   private String stateComName;
   private String orderStateName;
+
+
+  private String detailAddress;//用户详细地址
+
 
   private String oneDay;//统计日期
   private int countNum;//统计数量

@@ -53,12 +53,11 @@
                lay-reqtext="密码是必填项，岂能为空？"
                class="layui-input" autocomplete="off" id="pwd2">
     </div>
+    <div class="layui-form-item">
+        <a href="<%=path%>/pages/back/back_login.jsp">登入</a>
+    </div>
     <div class="layui-input-item">
         <button type="submit" class="layui-btn pear-btn-primary login" lay-submit="" lay-filter="formDemo">立即提交</button>
-
-        <a href="<%=path%>/pages/back/back_login.jsp/">
-           <input type="button" value="返回">
-        </a>
     </div>
 
 </form>
