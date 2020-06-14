@@ -12,7 +12,8 @@
     </select>
 
     <!--    家政公司根据手机号码查询-->
-    <select id="querycompanyphone" parameterType="com.cykj.domestic.entity.Company" resultType="com.cykj.domestic.entity.Company">
+    <select id="querycompanyphone" parameterType="com.cykj.domestic.entity.Company"
+            resultType="com.cykj.domestic.entity.Company">
               select * from tb_company where phone=#{phone}
     </select>
 
@@ -42,18 +43,19 @@
     </select>
 
     <!--    查询平台所有服务区域-->
-        <select id="queryregionList" parameterType="com.cykj.domestic.entity.Company" resultType="com.cykj.domestic.entity.Company">
+    <select id="queryregionList" parameterType="com.cykj.domestic.entity.Company"
+            resultType="com.cykj.domestic.entity.Company">
              select * from tb_region
         </select>
 
 
     <!--    删除区域-->
     <delete id="deleteRegion" parameterType="java.lang.String">
-                DELETE FROM tb_region WHERE region=#{region}
+          DELETE FROM tb_region WHERE region=#{region}
     </delete>
     <!--    查询区域是否 存在-->
     <select id="selectRegionPresence" parameterType="java.lang.String" resultType="com.cykj.domestic.entity.Region">
-                     SELECT * FROM tb_region WHERE region=#{region}
+           SELECT * FROM tb_region WHERE region=#{region}
     </select>
 
     <!--    添加区域-->
@@ -63,7 +65,7 @@
 
     <!--    根据地区查看平台详情-->
     <select id="queryRegionCompany" parameterType="java.lang.String" resultType="com.cykj.domestic.entity.Company">
-                    SELECT * FROM tb_company WHERE region_id=#{regionId}
+        SELECT * FROM tb_company WHERE region_id=#{regionId}
     </select>
 
     <!--    服务类型数量统计-->
@@ -79,12 +81,10 @@
         group by r.id
     </select>
 
-<!--    公司申请入职添加地区和口号-->
+    <!--    公司申请入职添加地区和口号-->
     <update id="insertregionId" parameterType="java.lang.String">
         update tb_company set region_id=#{regionId},company_profile=#{companyProfile} where id=#{id}
     </update>
-
-
 
 
     <!--    按日期统计-->
@@ -93,6 +93,7 @@
         where c.join_time between date_format(#{startDate},'%Y%m%d')
         and date_format(#{endDate},'%Y%m%d') group by join_day;
     </select>
+
 
 
 </mapper>

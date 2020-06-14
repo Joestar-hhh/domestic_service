@@ -18,7 +18,7 @@ public class User {
   private int userAddressId;
   private String status;
   private String createTime;
-  private String detailAddress;
+  private String detailAddress;//默认地址
   private String region;
   private String oneDay;//统计日期
   private int countNum;//统计数量

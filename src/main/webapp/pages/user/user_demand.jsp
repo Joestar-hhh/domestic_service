@@ -90,6 +90,25 @@
         var element = layui.element;
         var $ = layui.jquery;
         from.render();
+
+        //获取用户默认地址
+        $.ajax({
+            url: '<%=path%>/userController/queryUserAddress',
+            type: 'POST',
+            dataType: 'JSON',
+            success: function (msg) {
+
+                $.each(msg.data, function (i, item) {
+                    $("#detailAddress").val(item.detailAddress);
+                });
+                layui.use('form', function () {
+                    var form = layui.form;
+                    form.render();
+                })
+            }
+        })
+
+
         //获取公司服务类别
         $.ajax({
             url: '<%=path%>/serviceTypeContrller/selectSerice',
@@ -107,7 +126,7 @@
             }
         })
         from.on('submit(formDemo)', function (data) {
-            alert($("#serviceId").val());
+            // alert($("#serviceId").val()+"==>服务id");
           $.ajax({
               url:'<%=path%>/userOrderController/insertUserOrder',
               type:'POST',

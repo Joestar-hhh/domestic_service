@@ -49,9 +49,12 @@ public interface CompanyMapper {
 //   公司申请入职添加地区和口号
     int insertregionId(@Param("id")String companyId,@Param("regionId")String regionId,@Param("companyProfile")String companyProfile);
 
-
 //    家政公司统计
     List<Company> serviceTypeStatistics();
     List<Company> regionStatistics();
     List<Company> dateStatistics(@Param("startDate") String startDate, @Param("endDate") String endDate);
+
+
+
+
 }

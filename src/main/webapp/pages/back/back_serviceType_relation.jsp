@@ -35,9 +35,7 @@
 <table class="layui-hide" id="test" lay-filter="test"></table>
 
 <script type="text/html" id="toolbarDemo">
-    <%--    skill_train--%>
     <div class="layui-form-item" id="querydiv">
-
         <input type="text" name="typeName" id="typeName" lay-verify="title" autocomplete="off"
                placeholder="请输入服务类别名" class="layui-input">
         <button class="layui-btn layui-btn-radius " id="querybtn" lay-event="querybtn" data-type="reload">
