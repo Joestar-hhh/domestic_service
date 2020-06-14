@@ -104,4 +104,10 @@
             <if test="stateComName!=null and stateComName!=''"> and os.order_state_name=#{stateComName}</if>
         </where>
     </select>
+
+<!--接单-->
+    <update id="orders" parameterType="com.cykj.domestic.entity.OrderInfo" >
+        update tb_order_info set company_order_state_id=2,user_order_state_id=6 where id=#{id}
+    </update>
+
 </mapper>

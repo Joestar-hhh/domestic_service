@@ -95,4 +95,12 @@ public class OrderController {
         ResultData resultData = orderService.companyOrderList(orderInfo, Integer.parseInt(page), Integer.parseInt(limit),stateComName);
         return resultData;
     }
+
+//    接单
+    @RequestMapping("/orders")
+    public String orders(OrderInfo orderInfo) {
+        ResultData resultData = orderService.orders(orderInfo);
+        return JSON.toJSONString(resultData);
+    }
+
 }

@@ -29,6 +29,8 @@ public interface OrderService {
     ResultData orderStatelist(OrderState orderState);
 
 //    家政公司订单管理
-ResultData companyOrderList(OrderInfo orderInfo,int page, int limit,String stateComName);
+    ResultData companyOrderList(OrderInfo orderInfo,int page, int limit,String stateComName);
 
+    //接单
+    ResultData orders(OrderInfo orderInfo);
 }

@@ -99,4 +99,18 @@ public class OrderServiceImpl implements OrderService {
         return resultData;
     }
 
+    @Override
+    public ResultData orders(OrderInfo orderInfo) {
+        int result=orderMapper.orders(orderInfo);
+        ResultData resultData=new ResultData();
+        if (result==1){
+            resultData.setCode(0);
+            resultData.setMsg("接单成功！");
+        }else {
+            resultData.setCode(1);
+            resultData.setMsg("接单失败！");
+        }
+        return resultData;
+    }
+
 }
