@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
@@ -95,4 +96,11 @@ public class CompanyController {
         return JSON.toJSONString(list);
     }
 
+    // 家政公司端退出登录
+    @RequestMapping("/quit")
+    public String remove(HttpServletRequest request) {
+        request.getSession().invalidate();
+        System.out.println("退出登录了>>>>>>");
+        return "1";
+    }
 }

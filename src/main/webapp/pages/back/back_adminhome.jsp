@@ -29,6 +29,7 @@
     </style>
 </head>
 <body class="layui-layout-body pear-admin">
+
 <!-- 布局框架 -->
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
@@ -47,7 +48,7 @@
                     <dd><a href="javascript:;" class="pearson">个人信息</a></dd>
                     <dd><a href="javascript:;">安全配置</a></dd>
                     <dd><a href="javascript:;">打开百度</a></dd>
-                    <dd><a href="javascript:;">注销登陆</a></dd>
+                    <dd><a href="javascript:;" id="quit">注销登陆</a></dd>
                 </dl>
             </li>
             <li class="setting layui-nav-item"><a href="#" class="layui-icon layui-icon-more-vertical"></a></li>
@@ -110,10 +111,26 @@
                 layer.alert("点击消息 : " + id);
             }
         }
-
         pearAdmin.render(config);
         pearNotice.render(option);
-
+        $("#quit").click(function () {
+            layer.confirm('<i class="layui-icon layui-icon-face-smile" style="font-size: 30px; color: #1E9FFF;"></i> 真的要退出么', function (index) {
+                $.ajax({
+                    url: '<%=path%>/companyController/quit',
+                    type: 'POST',
+                    dataType: 'JSON',
+                    success: function (msg) {
+                        layer.msg(msg.msg);
+                        layer.close(index);
+                    }
+                });
+                layer.close(index);
+                window.location.href="<%=path%>/pages/back/back_login.jsp";
+            },function(index){
+                //停止运作
+                layer.close(index);
+            });
+        })
     })
 </script>
 <!-- 新 增 百 度 统 计  ( 可 移 除 )-->
