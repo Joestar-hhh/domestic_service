@@ -208,7 +208,6 @@
                                 layer.alert(msg.msg,{icon: 6},function () {
                                     window.location.reload();//接单成功后刷新界面
                                 });//接单成功提示
-
                             }
                         })
                     }, function(index){
