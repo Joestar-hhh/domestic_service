@@ -31,7 +31,7 @@ public class CompanyImpl implements CompanySrevice {
             } else { // if (company1.getRoleId() == 3)
                 session.setAttribute("company", company1);
                 resultData.setCode(0);
-                resultData.setMsg("管理员登入成功");
+//                resultData.setMsg("管理员登入成功");
             }
 //            else if(company1.getState().equals("审核通过")){
 //                session.setAttribute("company",company1);
@@ -79,23 +79,23 @@ public class CompanyImpl implements CompanySrevice {
     public ResultData insertCompany(Company company) {
         ResultData resultData = new ResultData();
 //        判断账号和手机号是否纯在
-        Company companyphone=companyMapper.querycompanyphone(company);
-        if(companyphone==null){
-           Company companyLogin =companyMapper.companyLogin(company);
-           if(companyLogin==null){
-               int res= companyMapper.insertCompany(company);
-               if (res == 1) {
-                   resultData.setCode(0);
-                   resultData.setMsg("注册成功");
-               } else {
-                   resultData.setCode(1);
-                   resultData.setMsg("注册失败");
-               }
-           }else{
+        Company companyphone = companyMapper.querycompanyphone(company);
+        if (companyphone == null) {
+            Company companyLogin = companyMapper.companyLogin(company);
+            if (companyLogin == null) {
+                int res = companyMapper.insertCompany(company);
+                if (res == 1) {
+                    resultData.setCode(0);
+                    resultData.setMsg("注册成功");
+                } else {
+                    resultData.setCode(1);
+                    resultData.setMsg("注册失败");
+                }
+            } else {
                 resultData.setCode(2);
                 resultData.setMsg("公司账号已存在");
             }
-        }else{
+        } else {
             resultData.setCode(3);
             resultData.setMsg("手机号已被注册");
         }
@@ -113,6 +113,17 @@ public class CompanyImpl implements CompanySrevice {
         resultData.setCode(0);
         resultData.setMsg("");
         resultData.setCount(count);
+        resultData.setData(list);
+        return resultData;
+    }
+
+    /* 查询平台所有服务区域*/
+    @Override
+    public ResultData queryregionList() {
+        List<Company> list = companyMapper.queryregionList();
+        ResultData resultData = new ResultData();
+        resultData.setCode(0);
+        resultData.setMsg("111");
         resultData.setData(list);
         return resultData;
     }

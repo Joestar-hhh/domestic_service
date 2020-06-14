@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cykj.domestic.mapper.UserOrderMapper">
+
+<!--    添加用户发布需求和下订单-->
+    <insert id="insertUserOrder" parameterType="com.cykj.domestic.entity.OrderInfo">
+          INSERT INTO tb_order_info (order_number,user_id,service_id,frequency,company_id,company_order_state_id,user_order_state_id,title,description,phone)
+        VALUES(#{orderNumber},#{userId},#{serviceId},#{frequency},#{companyId},#{companyOrderStateId},#{userOrderStateId},#{title},#{description},#{phone})
+    </insert>
+<!--    查看所有未接单的订单-->
+    <select id="queryUserdemand" resultType="com.cykj.domestic.entity.OrderInfo">
+        SELECT * FROM tb_order_info WHERE company_id=0
+    </select>
+
+</mapper>

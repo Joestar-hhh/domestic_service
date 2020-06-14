@@ -1,7 +1,9 @@
 package com.cykj.domestic.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.cykj.domestic.entity.Company;
 import com.cykj.domestic.entity.ServiceType;
-import com.cykj.domestic.entity.TbService;
+import com.cykj.domestic.mapper.CompanyMapper;
 import com.cykj.domestic.mapper.ServiceTypeMapper;
 import com.cykj.domestic.service.ServiceTypeService;
 import com.cykj.domestic.util.ResultData;
@@ -16,6 +18,9 @@ public class ServiceTypeImpl implements ServiceTypeService {
 
     @Autowired
     public ServiceTypeMapper serviceTypeMapper;
+
+    @Autowired
+    public CompanyMapper companyMapper;
 
     @Override
     public ResultData selectList(ServiceType serviceType, int page, int pageSize) {
@@ -88,6 +93,23 @@ public class ServiceTypeImpl implements ServiceTypeService {
         return resultData;
     }
 
+    //  公司申请入驻 添加服务服务类别
+    @Override
+    public ResultData addServiceContinuous(String menuIdList, String companyId, Company company) {
+        List<String> list = JSON.parseArray(menuIdList, String.class);
+        int i = companyMapper.insertregionId(companyId, String.valueOf(company.getRegionId()), company.getCompanyProfile());
+        int res = serviceTypeMapper.addServiceContinuous(list, companyId, company);
+        ResultData resultData = new ResultData();
+        if (res >= 1) {
+            resultData.setCode(0);
+            resultData.setMsg("添加成功");
+        } else {
+            resultData.setCode(1);
+            resultData.setMsg("添加失败");
+        }
+        return resultData;
+    }
+
     /*公司端服务类别查询*/
     @Override
     public ResultData queryCompanyServiceType(String id, int page, int limit) {
@@ -104,6 +126,7 @@ public class ServiceTypeImpl implements ServiceTypeService {
     /*公司申请添加服务类别关系*/
     @Override
     public ResultData addServicerelstion(ServiceType serviceType) {
+//        companyMapper.insertregionId();
         int res = serviceTypeMapper.addServicerelstion(serviceType);
         ResultData resultData = new ResultData();
         if (res == 1) {
@@ -129,9 +152,9 @@ public class ServiceTypeImpl implements ServiceTypeService {
 
     /*查询平台端审核服务类别*/
     @Override
-    public ResultData querySericeTypeRelation(ServiceType serviceType,int page, int limit) {
-        List<ServiceType> list = serviceTypeMapper.querySericeTypeRelation(serviceType,(page - 1) * limit, limit);
-        int count=serviceTypeMapper.querySericeTypeRelationCount(serviceType);
+    public ResultData querySericeTypeRelation(ServiceType serviceType, int page, int limit) {
+        List<ServiceType> list = serviceTypeMapper.querySericeTypeRelation(serviceType, (page - 1) * limit, limit);
+        int count = serviceTypeMapper.querySericeTypeRelationCount(serviceType);
         ResultData resultData = new ResultData();
         resultData.setCode(0);
         resultData.setMsg("");
@@ -140,10 +163,10 @@ public class ServiceTypeImpl implements ServiceTypeService {
         return resultData;
     }
 
-   /* 平台修改公司端发送的服务类别申请变 审核通过*/
+    /* 平台修改公司端发送的服务类别申请变 审核通过*/
     @Override
     public ResultData updateSericeTypeRelation(ServiceType serviceType) {
-       int res= serviceTypeMapper.updateSericeTypeRelation(serviceType);
+        int res = serviceTypeMapper.updateSericeTypeRelation(serviceType);
         ResultData resultData = new ResultData();
         if (res == 1) {
             resultData.setCode(0);
@@ -152,6 +175,18 @@ public class ServiceTypeImpl implements ServiceTypeService {
             resultData.setCode(1);
             resultData.setMsg("审核失败");
         }
+        return resultData;
+    }
+
+
+    /*查询所有服务*/
+    @Override
+    public ResultData selectSerice() {
+        List<ServiceType> list = serviceTypeMapper.selectSerice();
+        ResultData resultData = new ResultData();
+        resultData.setCode(0);
+        resultData.setMsg("");
+        resultData.setData(list);
         return resultData;
     }
 

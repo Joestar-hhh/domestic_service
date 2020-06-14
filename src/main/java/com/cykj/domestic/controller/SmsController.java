@@ -24,8 +24,4 @@ public class SmsController {
         smsService.Sms(phone,checkcode);
         return null;
     }
-
-
-
-
 }

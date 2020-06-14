@@ -19,4 +19,5 @@ public interface MenuMapper {
 
     int insertRoleMenu(List<RoleMenu> list, @Param("roleId") String roleId);
     int deleteRoleMenu(String roleId);
+
 }

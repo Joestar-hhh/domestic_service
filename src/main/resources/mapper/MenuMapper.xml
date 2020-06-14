@@ -34,6 +34,7 @@
     <delete id="deleteRoleMenu">
         delete from tb_role_menu where role_id = #{roleId}
     </delete>
+
     <insert id="insertRoleMenu">
         insert into tb_role_menu(role_id,menu_id) VALUES
         <foreach collection="list" item="item" index="index" separator=",">

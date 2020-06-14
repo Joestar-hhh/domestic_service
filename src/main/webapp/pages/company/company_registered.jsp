@@ -19,9 +19,16 @@
     <link rel="stylesheet" href="<%=path%>/static/pear_layui/component/layui/css/layui.css"/>
     <link rel="stylesheet" href="<%=path%>/static/pear_layui/admin/css/pearButton.css"/>
     <link rel="stylesheet" href="<%=path%>/static/pear_layui/assets/login.css"/>
+<%--    <style>--%>
+<%--        .layui-form-item {--%>
+<%--            margin-top: 5px;--%>
+<%--        }--%>
+<%--    </style>--%>
 </head>
 
 <body background="<%=path%>/static/pear_layui/admin/images/background.svg">
+
+
 
 
 <form class="layui-form" action="javascript:void(0);">
@@ -69,6 +76,10 @@
     </div>
 
 <%--    ---------------------%>
+    <div class="layui-form-item">
+        <a href="<%=path%>/pages/back/back_login.jsp">登入</a>
+    </div>
+
     <div class="layui-input-item">
         <button type="submit" class="layui-btn pear-btn-primary login" lay-submit="" lay-filter="formDemo">立即提交</button>
     </div>
