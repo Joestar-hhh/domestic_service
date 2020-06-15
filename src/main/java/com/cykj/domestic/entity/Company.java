@@ -26,5 +26,7 @@ public class Company {
     private int roleId;//角色id
     private int countNum;//统计数量
     private String joinDay;
+    private int serviceTypeId;
+    private  int userId;
 
 }
