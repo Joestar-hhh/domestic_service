@@ -69,7 +69,7 @@
 
     <button class="layui-btn layui-btn-xs" lay-dropdown="{align:'right',
      menus: [
-     {layIcon:'layui-icon layui-icon-list',txt: '查看详情', event:'info'},
+     {layIcon:'layui-icon layui-icon-list',txt: '查看详情', event:'showinfo'},
      {layIcon:'layui-icon-upload-drag',txt: '上传资料详情', event:'upload'},
      {layIcon:'layui-icon-edit',txt: '修改员工信息', event:'edit'},
      {layIcon:'layui-icon-edit',txt: '修改状态', event:'updatestate'},
@@ -117,9 +117,15 @@
         </div>
     </div>
     <div class="layui-form-item">
+        <label class="layui-form-label">工龄：</label>
+        <div class="layui-input-block">
+            <input type="text" name="workage" id="workage" required  lay-verify="required|ages" placeholder="请输入员工工龄" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
         <label class="layui-form-label">籍贯：</label>
         <div class="layui-input-block">
-            <input type="text" name="nativeplace" id="nativeplace" required  lay-verify="required" placeholder="请输入员工名字" autocomplete="off" class="layui-input">
+            <input type="text" name="nativeplace" id="nativeplace" required  lay-verify="required" placeholder="请输入员工籍贯地址" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -132,22 +138,23 @@
     <div class="layui-form-item">
         <label class="layui-form-label">学历：</label>
         <div class="layui-input-block">
-            <select name="education" lay-verify="required">
+            <select name="education" id="education" lay-verify="required">
                 <option value=""></option>
                 <option value="小学">小学</option>
                 <option value="初中">初中</option>
                 <option value="高中">高中</option>
-                <option value="大学">大学</option>
+                <option value="大专">大专</option>
+                <option value="本科">本科</option>
             </select>
         </div>
     </div>
-    <div class="layui-form-item">
+    <div class="layui-form-item idcardhide">
         <label class="layui-form-label">身份证号：</label>
         <div class="layui-input-block">
             <input type="text" name="idcard" id="idcard" required  lay-verify="required|identity|isidcard" placeholder="请输入身份证号" autocomplete="off" class="layui-input">
         </div>
     </div>
-    <div class="layui-form-item">
+    <div class="layui-form-item phonehide">
         <label class="layui-form-label">联系方式：</label>
         <div class="layui-input-block">
             <input type="text" name="phone" id="phone" required  lay-verify="required|phone|isphone" placeholder="请输入11位手机号" autocomplete="off" class="layui-input">
@@ -155,11 +162,11 @@
     </div>
     <div class="layui-form-item">
 <%--        <label class="layui-form-label">市级：</label>--%>
-        <label class="layui-form-label">市级：</label>
+        <label class="layui-form-label regionhide">市级：</label>
         <div class="layui-input-block addrssel">
             <select name="CityLevel" id="City_level" lay-filter="City_level" lay-verify="required"></select>
         </div>
-        <label class="layui-form-label">县级：</label>
+        <label class="layui-form-label regionhide">县级：</label>
         <div class="layui-input-block addrssel">
             <select name="CountyLevel" id="County_level" lay-filter="County_level" lay-verify="required">
             </select>
@@ -171,7 +178,7 @@
     </div>
 
     <div class="layui-form-item">
-        <div class="layui-input-block">
+        <div class="layui-input-block btnhide">
             <button class="layui-btn formbtn" id="insertconfirm" lay-submit lay-filter="insertconfirm">确定</button>
             <button type="reset" class="layui-btn layui-btn-primary formbtn">重置</button>
         </div>
@@ -217,17 +224,13 @@
             elem: '#birthDate'
             ,value: '2000-01-01'
             ,isInitValue: false //是否允许填充初始值，默认为 true
-            // ,min: '2016-10-14'
             ,max: '2020-01-01'
-            // ,ready: function(){
-            //     ins22.hint('日期可选值设定在 <br> 2016-10-14 到 2080-10-14');
-            // }
         });
 
 
         form.on('select(City_level)', function (data) {
             form.render('select');
-            // alert("选中的值:"+data.value);//得到被选中的值
+            // alert("选中的值:"+JSON.stringify(data));//得到被选中的值
             //获取次一级地区
             $.ajax({
                 url: '<%=path%>/mapController/querySecondaryZone',
@@ -237,7 +240,7 @@
                 success: function (msg) {
                     $("#County_level").html("<option value=''></option>");
                     $.each(msg.data, function (j, item) {
-                        $("#County_level").append("<option value='" + item.id + "'>" + item.secondaryZone + "</option>")
+                        $("#County_level").append("<option value='" + item.secondaryZone + "'>" + item.secondaryZone + "</option>")
                     });
                     form.render();
                     form.render('select');
@@ -261,8 +264,10 @@
                 ,{field:'skill', title: '职业技能'}
                 ,{field:'jobState', title: '状态'}
                 ,{field:'inductionTime', title: '入职时间'}
+                ,{field:'address', title: '地址',hide:true}
                 ,{fixed: 'right',title:'操作', width: 250, toolbar: '#tablebtn'}
                 // ,{field:'downloadDiscount', title: '下载文档积分比例'}
+
             ]]
             ,page: {limit: 5,//指定每页显示的条数
                 limits: [5, 10, 15, 20,
@@ -270,6 +275,15 @@
             , done: function (res) {
                 // 在表格渲染完成后进行下拉框渲染。
                 dropdown.suite();
+                $("[data-field='auditState']").children().each(function () {
+                    if ($(this).text() == '0') {
+                        $(this).text("待审核")
+                    } else if ($(this).text() == '1') {
+                        $(this).text("审核通过")
+                    } else if ($(this).text() == '2'){
+                        $(this).text("审核不通过")
+                    }
+                });
             }
 
         });
@@ -344,9 +358,12 @@
                     form.render();
                     form.on('submit(insertconfirm)', function(data){
 
+                        data.field.CityLevel = $("#City_level").find("option:selected").text();
+                        data.field.CountyLevel = $("#County_level").find("option:selected").text();
+
                         $.ajax({
                             type: 'POST',
-                            url: '<%=path%>//',
+                            url: '<%=path%>/staffController/insertCompanyStaff',
                             dataType: 'JSON',
                             data: data.field,
                             success: function (msg) {
@@ -372,49 +389,167 @@
             var tabdata = obj.data;
             //console.log(obj)s
             if(obj.event === 'delete'){
-                layer.confirm('真的删除行么', function(index){
+                var staffId = tabdata.id;
+                layer.confirm('确定要删除该员工吗？', function (index) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '<%=path%>/staffController/deleteStaff',
+                        dataType: 'JSON',
+                        data: {
+                            staffId:staffId,
+                        },
+                        success: function (msg) {
+                            layer.alert(msg.msg,function () {
+                                window.location.reload();//修改成功后刷新父界面
+                            });
+                        }
+                    })
                     obj.del();
                     layer.close(index);
                 });
+
             } else if(obj.event === 'showinfo'){
-                $('#orderNumber').html(tabdata.orderNumber);
-                $('#userName').html(tabdata.userName);
-                $('#staffName').html(tabdata.staffName);
-                $('#typeName').html(tabdata.typeName);
-                $('#comName').html(tabdata.comName);
-                $('#stateComName').html(tabdata.stateComName);
-                $('#phone').html(tabdata.phone);
-                $('#description').html(tabdata.description);
-                $('#frequency').html(tabdata.frequency);
-                $('#startTime').html(tabdata.startTime);
-                $('#endTime').html(tabdata.endTime);
-                var layerupdate = layer.open({
+
+                $("#userName").val(tabdata.userName);
+                $("#sex").val(tabdata.sex);
+                $("#birthDate").val(tabdata.birthDate);
+                $("#workage").val(tabdata.workage);
+                $("#nativeplace").val(tabdata.nativeplace);
+                $("#marriage").val(tabdata.marriage);
+                $("#idcard").val(tabdata.idcard);
+                $("#phone").val(tabdata.phone);
+                $("#address").val(tabdata.address);
+
+                $(".regionhide").css("display","none");
+                $(".addrssel").css("display","none");
+                $(".btnhide").css("display","none");
+                $("#education").val(tabdata.education);
+                form.render();
+
+                layer.open({
                     type: 1
-                    ,title: '查看订单信息'
+                    ,title: '查看员工信息'
                     ,area: ['640px','580px']
                     ,shade: [0.8, '#314949'] //遮罩
                     ,resize: false //不可拉伸
-                    ,content: $('#orderinfoform') //内容
+                    ,content: $('#staffInfo') //内容
+                    ,btn: 0
+                    ,cancel: function(index, layero){
+                        $(".regionhide").css("display","block");
+                        $(".addrssel").css("display","block");
+                        $(".btnhide").css("display","block");
+                        $('#staffInfo')[0].reset();//重置表单
+                        form.render();
+                        layer.close(index);
+                        return false;
+                    }
+                });
+            } else if (obj.event === 'edit'){
+                //修改员工信息
+                $("#userName").val(tabdata.userName);
+                $("#sex").val(tabdata.sex);
+                $("#birthDate").val(tabdata.birthDate);
+                $("#workage").val(tabdata.workage);
+                $("#nativeplace").val(tabdata.nativeplace);
+                $("#marriage").val(tabdata.marriage);
+                $("#education").val(tabdata.education);
+
+                $(".phonehide").css("display","none");
+                $(".phonehide input").attr("lay-verify","");
+                $(".idcardhide").css("display","none");
+                $(".idcardhide input").attr("lay-verify","");
+
+                $("#idcard").val(tabdata.idcard);
+                $("#phone").val(tabdata.phone);
+                $("#address").val(tabdata.address);
+                var staffId = tabdata.id;
+
+                var layerinsert = layer.open({
+                    type: 1
+                    ,title: '修改员工信息'
+                    ,area: ['540px','540px']
+                    ,shade: [0.8, '#314949'] //遮罩
+                    ,resize: false //不可拉伸
+                    ,content: $('#staffInfo') //内容
                     ,btn: 0
                     ,cancel: function(index, layero){
                         if(confirm('确定要关闭么')){ //只有当点击confirm框的确定时，该层才会关闭
                             // $('#userinfoform').css("display","none");
-                            $('#roleName').val("");
-                            $("#roleDescribe").val("");
+                            $(".phonehide").css("display","block");
+                            $(".phonehide input").attr("lay-verify","required|phone|isphone");
+                            $(".idcardhide").css("display","block");
+                            $(".idcardhide input").attr("lay-verify","required|phone|isphone");
+                            $('#staffInfo')[0].reset();//重置表单
+                            form.render();
                             layer.close(index);
                         }
                         return false;
                     }
                     //如果设定了yes回调，需进行手工关闭
                 });
-                layui.use('form', function(){
-                    var form = layui.form;
-                    form.render();
-                    form.on('submit(insertconfirm)', function(data){
-                        layer.close(layerupdate);
-                        return false;
+
+                form.render();
+                form.on('submit(insertconfirm)', function(data){
+
+                    layer.confirm('确定要修改该员工信息吗？', function(index){
+                        data.field.id = staffId;
+                        data.field.CityLevel = $("#City_level").find("option:selected").text();
+                        data.field.CountyLevel = $("#County_level").find("option:selected").text();
+                        $.ajax({
+                            type: 'POST',
+                            url: '<%=path%>/staffController/updateCompanyStaff',
+                            dataType: 'JSON',
+                            data: data.field,
+                            success: function (msg) {
+                                // alert(msg.msg);
+                                $(".phonehide").css("display","block");
+                                $(".phonehide input").attr("lay-verify","required|phone|isphone");
+                                $(".idcardhide").css("display","block");
+                                $(".idcardhide input").attr("lay-verify","required|phone|isphone");
+
+                                $('#staffInfo')[0].reset(); //重置表单
+                                form.render();
+                                layer.close(layerinsert);
+
+                                layer.alert(msg.msg,function () {
+                                    window.location.reload();//修改成功后刷新父界面
+                                });
+                            }
+                        })
+                        layer.close(index);
                     });
+
+                    return false;
                 });
+            } else if(obj.event === 'updatestate'){
+                // alert("修改状态")
+                var staffId = tabdata.id;
+                var jobState = tabdata.jobState;
+                var newState = "";
+                if (jobState=="在职"){
+                    newState = "离职";
+                }else {
+                    newState = "在职";
+                }
+                layer.confirm('确定要修改该员工的状态为'+newState+'吗？', function (index) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '<%=path%>/staffController/updateStaffJobState',
+                        dataType: 'JSON',
+                        data: {
+                            staffId:staffId,
+                            newState:newState
+                        },
+                        success: function (msg) {
+                            layer.alert(msg.msg,function () {
+                                window.location.reload();//修改成功后刷新父界面
+                            });
+                        }
+                    })
+                    layer.close(index);
+                });
+            } else if (obj.event === 'dalete') {
+
             }
         });
 
@@ -429,7 +564,6 @@
                 }
             },
             isphone:  function (value) {
-                alert("-----"+value)
                 var msgtext = '';
                 $.ajax({
                     type: 'POST',
@@ -446,7 +580,6 @@
                 return msgtext;
             },
             isidcard: function (value) {
-                alert("-----"+value)
                 var msgtext = '';
                 $.ajax({
                     type: 'POST',
@@ -464,6 +597,9 @@
             },
             truename: [
                 /^[\u4e00-\u9fa5]{2,4}$/, '您的输入有误，请输入2-4位中文'
+            ],
+            ages: [
+                /^(0|[1-9][0-9]*)$/, '您的输入有误，请输入1-2位数字'
             ]
         });
         

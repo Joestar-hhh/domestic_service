@@ -67,4 +67,11 @@ public interface StaffMapper {
 
     Staff queryStaffPhone(@Param("phone") String phone);
     Staff queryStaffIdcard(@Param("idcard") String idcard);
+    //查询员工最大账号
+    String queryStaffMaxAccount();
+
+    int updateCompanyStaff(Staff staff);
+
+    int updateStaffJobState(@Param("jobState") String jobState,@Param("staffId") int staffId);
+    int deleteStaff(@Param("staffId") int staffId);
 }
