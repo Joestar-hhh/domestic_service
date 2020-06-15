@@ -111,4 +111,13 @@
         update tb_order_info set company_order_state_id=2,user_order_state_id=6 where id=#{id}
     </update>
 
+<!--    家政公司端订单统计-->
+    <select id="companyOrderStatistics" parameterType="java.lang.String" resultType="com.cykj.domestic.entity.OrderInfo">
+        select os.order_state_name,count(oi.id) count_num from tb_order_info oi
+		left join tb_order_state os on oi.company_order_state_id=os.id
+        where oi.pulish_time between date_format(#{startDate},'%Y%m%d')
+        and date_format(#{endDate},'%Y%m%d') group by os.order_state_name order by os.order_state_name asc;
+    </select>
+
+
 </mapper>

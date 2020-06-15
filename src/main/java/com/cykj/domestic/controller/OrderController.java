@@ -69,7 +69,6 @@ public class OrderController {
         List<OrderInfo> list = orderService.requireStatistics(startDate, endDate);
         return JSON.toJSONString(list);
 
-//        售后追踪
         }
 
     /*
@@ -103,8 +102,15 @@ public class OrderController {
         return JSON.toJSONString(resultData);
     }
 
+    //家政公司订单统计
+    @RequestMapping("/companyOrderStatistics")
+    public String companyOrderList(HttpServletRequest request, HttpServletResponse response) {
+        String startDate = request.getParameter("startDate");
+        String endDate = request.getParameter("endDate");
+        List<OrderInfo> list = orderService.companyOrderStatistics(startDate, endDate);
+        return JSON.toJSONString(list);
 
-
+    }
 
 
 
