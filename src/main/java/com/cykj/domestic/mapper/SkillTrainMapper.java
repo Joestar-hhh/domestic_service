@@ -34,5 +34,12 @@ public interface SkillTrainMapper {
     int insertqualification(Qualification qualification);
 
 
+    /*获取培训风采图片路径*/
+    List<SkillTrain> querySkillStyle(SkillTrain skillTrain);
+
+    /*添加上传的培训风采图片*/
+    int insertSkillStyle(SkillTrain skillTrain);
+
+
 
 }

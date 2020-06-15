@@ -11,6 +11,11 @@
              SELECT * FROM tb_company WHERE account=#{account}
     </select>
 
+<!--    查询最大账号-->
+    <select id="MaxAccount" resultType="java.lang.String">
+        SELECT MAX(account) from tb_company where role_id=2
+    </select>
+
     <!--    家政公司根据手机号码查询-->
     <select id="querycompanyphone" parameterType="com.cykj.domestic.entity.Company"
             resultType="com.cykj.domestic.entity.Company">
@@ -24,8 +29,8 @@
 
     <!--家政公司注册-->
     <insert id="insertCompany" parameterType="com.cykj.domestic.entity.Company">
-        INSERT INTO tb_company(account,pwd,company_name,boss,address,phone,state,role_id)
-        VALUES(#{account},#{pwd},#{companyName},#{boss},#{address},#{phone},'未审核','2')
+        INSERT INTO tb_company(account,pwd,company_name,boss,phone,state,role_id)
+        VALUES(#{account},#{pwd},#{companyName},#{boss},#{phone},'未审核','2')
     </insert>
 
     <!--    平台端区域列表-->
@@ -83,9 +88,8 @@
 
     <!--    公司申请入职添加地区和口号-->
     <update id="insertregionId" parameterType="java.lang.String">
-        update tb_company set region_id=#{regionId},company_profile=#{companyProfile} where id=#{id}
+        update tb_company set region_id=#{regionId},company_profile=#{companyProfile},address=#{address} where id=#{id}
     </update>
-
 
     <!--    按日期统计-->
     <select id="dateStatistics" parameterType="java.lang.String" resultType="com.cykj.domestic.entity.Company">

@@ -24,7 +24,6 @@ public interface ServiceTypeMapper {
 
     List<ServiceType> serviceTypeView(int id);
 
-
     /*公司端服务类别查询*/
     List<ServiceType> queryCompanyServiceType(@Param("id") String id, @Param("start") int start, @Param("pageSize") int pageSize);
 

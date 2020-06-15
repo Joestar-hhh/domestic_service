@@ -30,6 +30,7 @@ public class CompanyController {
         return JSON.toJSONString(resultData);
     }
 
+
     //家政公司端修改密码
     @RequestMapping("/phone_update_pwd")
     public String phone_update_pwd(HttpServletRequest request, HttpServletResponse response, Company company) {

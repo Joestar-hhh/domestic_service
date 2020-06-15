@@ -60,8 +60,6 @@
         </foreach>
     </insert>
 
-
-
     <!--    查询所有服务类别-->
     <select id="queryServiceType" resultType="com.cykj.domestic.entity.ServiceType">
         SELECT * FROM tb_service_type

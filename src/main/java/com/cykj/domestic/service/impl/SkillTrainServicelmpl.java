@@ -95,7 +95,7 @@ public class SkillTrainServicelmpl implements SkillTrainService {
     public ResultData insertqualification(Qualification qualification) {
         int res = skillTrainMapper.insertqualification(qualification);
         ResultData resultData = new ResultData();
-        if(res==1){
+        if (res == 1) {
             resultData.setCode(0);
             resultData.setMsg("添加成功");
         } else {
@@ -104,5 +104,32 @@ public class SkillTrainServicelmpl implements SkillTrainService {
         }
         return resultData;
     }
+
+    /*获取培训风采图片路径*/
+    @Override
+    public ResultData querySkillStyle(SkillTrain skillTrain) {
+        List<SkillTrain> list = skillTrainMapper.querySkillStyle(skillTrain);
+        ResultData resultData = new ResultData();
+        resultData.setCode(0);
+        resultData.setMsg("");
+        resultData.setData(list);
+        return resultData;
+    }
+
+    /*添加上传的培训风采图片*/
+    @Override
+    public ResultData insertSkillStyle(SkillTrain skillTrain) {
+        int res = skillTrainMapper.insertSkillStyle(skillTrain);
+        ResultData resultData = new ResultData();
+        if (res == 1) {
+            resultData.setCode(0);
+            resultData.setMsg("上传成功");
+        } else {
+            resultData.setCode(1);
+            resultData.setMsg("上传失败");
+        }
+        return resultData;
+    }
+
 
 }

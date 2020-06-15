@@ -97,7 +97,8 @@ public class ServiceTypeImpl implements ServiceTypeService {
     @Override
     public ResultData addServiceContinuous(String menuIdList, String companyId, Company company) {
         List<String> list = JSON.parseArray(menuIdList, String.class);
-        int i = companyMapper.insertregionId(companyId, String.valueOf(company.getRegionId()), company.getCompanyProfile());
+
+        int i = companyMapper.insertregionId(companyId, String.valueOf(company.getRegionId()), company.getCompanyProfile(),company.getAddress());
         int res = serviceTypeMapper.addServiceContinuous(list, companyId, company);
         ResultData resultData = new ResultData();
         if (res >= 1) {

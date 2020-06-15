@@ -37,12 +37,15 @@
                    autocomplete="off" class="layui-input">
         </div>
     </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">文件类型：</label>
-        <label class="layui-form-label" >视频</label>
-        <input type="hidden" name="type" id="type" value="视频">
-    </div>
-
+<%--    <div class="layui-form-item">--%>
+<%--        <label class="layui-form-label">文件类型：</label>--%>
+<%--        <label class="layui-form-label" >视频</label>--%>
+<%--        <input type="hidden" name="type" id="type" value="视频">--%>
+<%--    </div>--%>
+<%--    <div class="layui-form-item">--%>
+<%--             <button type="button" class="layui-btn" id="test5"><i class="layui-icon"></i>上传视频</button>--%>
+<%--            <input type="hidden" id="id" value="">--%>
+<%--    </div>--%>
     <div class="layui-form-item">
         <div class="layui-input-block">
             <button class="layui-btn formbtn" id="insertconfirm" lay-submit lay-filter="insertconfirm">确定</button>
@@ -51,11 +54,15 @@
     </div>
 </form>
 
+<div id="style_div" style="display:none;">
+    <div class="layui-input-block" id="img-follow">
+    </div>
+</div>
+
 <%--上传弹出框--%>
 <form class="layui-form" id="upload_video" action="" style="display: none">
     <div class="layui-form-item" style="text-align: center">
-        <button type="button" class="layui-btn" id="test5"><i class="layui-icon"></i>上传视频</button>
-        <input type="hidden" id="id" value="">
+        <button type="button" class="layui-btn" id="test3"><i class="layui-icon"></i>上传文件</button>
     </div>
 </form>
 
@@ -76,13 +83,14 @@
             <i class="layui-icon layui-icon-search"></i> 查询
         </button>
     </div>
-
 </script>
+
 
 <script type="text/html" id="barDemo">
     <a class="layui-btn  layui-btn-xs" lay-event="see_details"><i class="layui-icon layui-icon-edit"></i>查看详情</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="File_Upload"><i class="layui-icon"></i>上传</a>
 </script>
+
 
 <script>
     layui.use('table', function () {
@@ -98,9 +106,8 @@
                 {type: 'checkbox', fixed: 'left'}
                 , {field: 'id', title: '序号'}
                 , {field: 'title', title: '标题'}
-                , {field: 'type', title: '知识类别'}
+                // , {field: 'type', title: '知识类别'}
                 , {field: 'time', title: '时间'}
-                , {field: 'path', title: '路径'}
                 // , hide: true
                 , {fixed: 'right', title: '操作', width: 250, toolbar: '#barDemo'}
                 // ,{field:'downloadDiscount', title: '下载文档积分比例'}
@@ -213,20 +220,16 @@
             if (obj.event === 'see_details') {
                 var path = tabdata.path;
                 var layerupload = layer.open({
-                    type: 1
-                    ,
-                    title: '播放视频'
-                    ,
-                    area: ['200px', '150px']
-                    ,
-                    shade: [0.8, '#314949'] //遮罩
-                    ,
-                    resize: false//不可拉伸
-                    ,
-                    content: '<a href=' + path + ' target="_blank" ><input type="button" value="点击预览" class="layui-btn layui-btn-lg layui-btn-radius layui-btn-normal"></a>'//内容
+                    type: 1,
+                    title: '查看详情',
+                    area: ['200px', '150px'],
+                    shade: [0.8, '#314949'],
+                    resize: false,
+                    content: $("#style_div")
+                    // content: '<a href=' + path + ' target="_blank" ><input type="button" value="点击预览" class="layui-btn layui-btn-lg layui-btn-radius layui-btn-normal"></a>'//内容
                     // ,
                     // content: '<video width="100%" height="100%"  controls="controls" autobuffer="autobuffer"  autoplay="autoplay" loop="loop"><source src=' + path + ' type="video/mp4"></source></video>'
-                    // <img src="/i/eg_tulip.jpg"  alt="上海鲜花港 - 郁金香" />
+                    // <img src="/i/eg_tulip.jpg"  alt="上海鲜花港 - 郁金香" />婴儿湿疹
                     ,
                     btn: 0
                     ,
@@ -239,6 +242,26 @@
                     }
                     //如果设定了yes回调，需进行手工关闭
                 });
+                $.ajax({
+                    type: 'POST',
+                    url: '<%=path%>/knowledgeController/queryKnowledegStyle',
+                    dataType: 'JSON',
+                    data: {
+                        id: tabdata.id
+                    },
+                    success: function (msg) {
+                        $.each(msg.data,function (i,item) {
+                            $("#img-follow").append("<a href="+item.path+" target=_blank >详情</a>");
+                        })
+                        layui.use('form', function () {
+                            var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+                            form.render();
+                        });
+                    }
+                })
+
+
+
             } else if (obj.event === 'File_Upload') {
                 var path = tabdata.path;
                 var id = tabdata.id
@@ -270,6 +293,35 @@
                         }
                         //如果设定了yes回调，需进行手工关闭
                     });
+                    layui.use('upload', function () {
+                        var $ = layui.jquery
+                            , upload = layui.upload;
+                        var uploadInst = upload.render({
+                            elem: '#test3'
+                            , url: '<%=path%>/skillTrainController/fileUpload' //改成您自己的上传接口
+                            ,accept: 'file' //普通文件
+                            // , size: 1889356 //限制文件大小，单位 KB
+                            , done: function (res) {
+                                $.ajax({
+                                    type: 'POST',
+                                    url: '<%=path%>/knowledgeController/addKnowledegStyle',
+                                    dataType: 'JSON',
+                                    data: {
+                                        path: res.msg,
+                                        id: id
+                                    },
+                                    success: function (msg) {
+                                        // alert(msg.msg)
+                                        layer.alert(msg.msg, function () {
+                                            window.location.reload();//修改成功后刷新父界面
+                                        });
+                                        layer.close(layerupload);
+                                    }
+                                })
+                                console.log(res)
+                            }
+                        });
+                    });
 
                 } else {
                     alert("视频已上传")
@@ -279,40 +331,6 @@
     });
 </script>
 
-
-<%--文件上传--%>
-<script>
-    layui.use('upload', function () {
-        var $ = layui.jquery
-            , upload = layui.upload;
-        var uploadInst = upload.render({
-            elem: '#test5'
-            , url: '<%=path%>/skillTrainController/fileUpload' //改成您自己的上传接口
-            , accept: 'video' //视频
-            // , size: 1889356 //限制文件大小，单位 KB
-            , done: function (res) {
-                var id = $("#id").val();
-                $.ajax({
-                    type: 'POST',
-                    url: '<%=path%>/knowledgeController/updateknowledeg',
-                    dataType: 'JSON',
-                    data: {
-                        path: res.msg,
-                        id: id
-                    },
-                    success: function (msg) {
-                        // alert(msg.msg)
-                        layer.alert(msg.msg, function () {
-                            window.location.reload();//修改成功后刷新父界面
-                        });
-                        layer.close(layerupload);
-                    }
-                })
-                console.log(res)
-            }
-        });
-    });
-</script>
 
 </body>
 </html>
