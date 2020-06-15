@@ -88,9 +88,9 @@ public class OrderServiceImpl implements OrderService {
     }
 //家政公司订单管理
     @Override
-    public ResultData companyOrderList(OrderInfo orderInfo, int page, int limit, String stateComName) {
-        List<OrderInfo> list = orderMapper.companyOrderList(orderInfo, (page - 1) * limit, limit,stateComName);
-        int count = orderMapper.companyOrderCount(orderInfo,stateComName);
+    public ResultData companyOrderList(OrderInfo orderInfo, int page, int limit, String stateComName,String id) {
+        List<OrderInfo> list = orderMapper.companyOrderList(orderInfo, (page - 1) * limit, limit,stateComName,id);
+        int count = orderMapper.companyOrderCount(orderInfo,stateComName,id);
         ResultData resultData = new ResultData();
         resultData.setCode(0);
         resultData.setMsg("");

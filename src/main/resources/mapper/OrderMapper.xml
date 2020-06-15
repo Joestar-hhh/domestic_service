@@ -92,6 +92,7 @@
         left join tb_company c on c.id = o.company_id
         left join tb_service s on s.id = o.service_id
         <where>
+            o.company_id =#{id}
             <if test="stateComName!=null and stateComName!=''">and os_c.order_state_name =#{stateComName}</if>
         </where>
         ORDER BY id limit #{start},#{pageSize}
@@ -99,7 +100,7 @@
 
     <select id="companyOrderCount"  parameterType="com.cykj.domestic.entity.OrderInfo" resultType="int">
         select count(oi.id) from tb_order_info oi left join tb_order_state os
-        on oi.company_order_state_id=os.id
+        on oi.company_order_state_id=os.id where  oi.company_id =#{id}
         <where>
             <if test="stateComName!=null and stateComName!=''"> and os.order_state_name=#{stateComName}</if>
         </where>

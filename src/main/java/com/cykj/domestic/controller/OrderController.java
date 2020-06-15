@@ -90,8 +90,9 @@ public class OrderController {
 
 //    家政公司订单管理
     @RequestMapping("/companyOrderList")
-    public Object companyOrderList(OrderInfo orderInfo, String page, String limit,String stateComName) {
-        ResultData resultData = orderService.companyOrderList(orderInfo, Integer.parseInt(page), Integer.parseInt(limit),stateComName);
+    public Object companyOrderList(HttpServletRequest request,OrderInfo orderInfo, String page, String limit,String stateComName) {
+        Company company = (Company) request.getSession().getAttribute("company");
+        ResultData resultData = orderService.companyOrderList(orderInfo, Integer.parseInt(page), Integer.parseInt(limit),stateComName,String.valueOf(company.getId()));
         return resultData;
     }
 

@@ -38,9 +38,9 @@ public interface OrderMapper {
 
 //    家政公司订单管理列表
 
-    List<OrderInfo>companyOrderList(@Param("e")OrderInfo orderInfo, @Param("start") int start, @Param("pageSize") int pageSize, @Param("stateComName") String stateComName);
+    List<OrderInfo>companyOrderList(@Param("e")OrderInfo orderInfo, @Param("start") int start, @Param("pageSize") int pageSize, @Param("stateComName") String stateComName,@Param("id") String id);
 
-    int companyOrderCount(@Param("e")OrderInfo orderInfo,@Param("stateComName") String stateComName);
+    int companyOrderCount(@Param("e")OrderInfo orderInfo,@Param("stateComName") String stateComName,@Param("id") String id);
 
 //    接单
     int orders(OrderInfo orderInfo);
