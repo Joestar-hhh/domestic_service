@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
@@ -41,10 +40,8 @@ public class CompanyController {
     /*家政公司注册*/
     @RequestMapping("/insertCompany")
     public String insertCompany(HttpServletRequest request, HttpServletResponse response, Company company) {
-//        System.out.println(JSON.toJSONString(company));
         ResultData resultData = companySrevice.insertCompany(company);
         return JSON.toJSONString(resultData);
-//        return null;
     }
 
 

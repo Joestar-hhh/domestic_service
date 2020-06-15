@@ -34,7 +34,8 @@
     <div class="layui-form-item">
         <label class="layui-form-label">详细地址：</label>
         <div class="layui-input-block">
-            <input type="text" lay-verify="required" name="detailAddress" class="layui-input" id="detailAddress">
+            <input type="text" lay-verify="required" name="detailAddress" class="layui-input" id="detailAddress" disabled="disabled">
+            <input type="hidden"  name="detailAddressId" id="detailAddressId" value="">
         </div>
     </div>
     <div class="layui-form-item">
@@ -97,18 +98,21 @@
             type: 'POST',
             dataType: 'JSON',
             success: function (msg) {
-
-                $.each(msg.data, function (i, item) {
-                    $("#detailAddress").val(item.detailAddress);
-                });
+                if(msg.data.length>0){
+                    $.each(msg.data, function (i, item) {
+                        $("#detailAddress").val(item.detailAddress);
+                        $("#detailAddressId").val(item.id);
+                    });
+                }else{
+                    layer.msg("请先填写地址")
+                    location.href = "<%=path%>/pages/user/user_myaddress.jsp";
+                }
                 layui.use('form', function () {
                     var form = layui.form;
                     form.render();
                 })
             }
         })
-
-
         //获取公司服务类别
         $.ajax({
             url: '<%=path%>/serviceTypeContrller/selectSerice',

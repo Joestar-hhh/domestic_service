@@ -24,7 +24,7 @@ public class UserController {
     @RequestMapping("/queryUserAddress")
     public String queryUserAddress(HttpServletResponse response, HttpServletRequest request , HttpSession session){
         User user=new User();
-        user.setUserAddressId(9);
+        user.setUserAddressId(1);
         ResultData resultData=userService.queryUserAddress(user);
         return JSON.toJSONString(resultData);
     }

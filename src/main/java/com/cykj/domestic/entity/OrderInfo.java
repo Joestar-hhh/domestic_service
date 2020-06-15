@@ -35,6 +35,7 @@ public class OrderInfo {
 
 
   private String detailAddress;//用户详细地址
+  private int detailAddressId;//用户地址id
 
 
   private String oneDay;//统计日期

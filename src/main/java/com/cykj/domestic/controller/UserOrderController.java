@@ -39,8 +39,10 @@ public class UserOrderController {
         orderInfo.setOrderNumber("CY" + newDate + result);
         orderInfo.setUserOrderStateId(5);
         orderInfo.setUserId(2);
+        System.out.println(JSON.toJSONString(orderInfo));
         ResultData resultData = userOrderService.insertUserOrder(orderInfo);
         return JSON.toJSONString(resultData);
+//        return null;
     }
 
     //查看所有未接单的订单-
