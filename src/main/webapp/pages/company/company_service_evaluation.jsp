@@ -274,6 +274,7 @@
                                 layer.close(layerreply);
                                 layer.alert(msg.msg, {icon: 1}, function (index) {
                                     layer.close(index);
+                                    window.location.reload();//接单成功后刷新界面
                                 });//成功提示
                             }
                         })

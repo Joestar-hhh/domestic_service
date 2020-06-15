@@ -1,6 +1,7 @@
 package com.cykj.domestic.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.cykj.domestic.entity.Company;
 import com.cykj.domestic.entity.ServiceEvaluation;
 import com.cykj.domestic.service.ServiceEvaluationService;
 import com.cykj.domestic.util.ResultData;
@@ -23,13 +24,14 @@ public class ServiceEvaluationController {
     @RequestMapping("/queryServiceEvaluationList")
     public String queryServiceEvaluationList(HttpServletRequest request, HttpServletResponse response,
                                              ServiceEvaluation serviceEvaluation, String page, String limit) {
-        ResultData resultData = serviceEvaluationService.queryServiceEvaluationList(serviceEvaluation, Integer.parseInt(page), Integer.parseInt(limit));
+        Company company = (Company) request.getSession().getAttribute("company");
+        ResultData resultData = serviceEvaluationService.queryServiceEvaluationList(serviceEvaluation, Integer.parseInt(page), Integer.parseInt(limit), company.getId());
         return JSON.toJSONString(resultData);
     }
 
     @RequestMapping("/updateContent")
-    public String insertContent(HttpServletRequest request, HttpServletResponse response,String content,int id) {
-        ResultData resultData = serviceEvaluationService.updateContent(content, new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss").format(new Date()),id);
+    public String insertContent(HttpServletRequest request, HttpServletResponse response, String content, int id) {
+        ResultData resultData = serviceEvaluationService.updateContent(content, new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss").format(new Date()), id);
         return JSON.toJSONString(resultData);
     }
 }

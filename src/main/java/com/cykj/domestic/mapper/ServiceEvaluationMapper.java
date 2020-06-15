@@ -13,9 +13,9 @@ import java.util.List;
 @Mapper
 public interface ServiceEvaluationMapper {
 
-    List<ServiceEvaluation> queryServiceEvaluationList(@Param("e") ServiceEvaluation serviceEvaluation, @Param("start") int start, @Param("pageSize") int pageSize);
+    List<ServiceEvaluation> queryServiceEvaluationList(@Param("e") ServiceEvaluation serviceEvaluation, @Param("start") int start, @Param("pageSize") int pageSize ,@Param("id")int id);
 
-    int queryServiceEvaluationCount(@Param("e") ServiceEvaluation serviceEvaluation);
+    int queryServiceEvaluationCount(@Param("e") ServiceEvaluation serviceEvaluation,@Param("id")int id);
 
     int updateContent(String content,String contentTime,int id);
 }

@@ -17,9 +17,9 @@ public class ServiceEvaluationImpl implements ServiceEvaluationService {
     private ServiceEvaluationMapper serviceEvaluationMapper;
 
     @Override
-    public ResultData queryServiceEvaluationList(ServiceEvaluation serviceEvaluation, int page, int limit) {
-        List<ServiceEvaluation> list = serviceEvaluationMapper.queryServiceEvaluationList(serviceEvaluation, (page - 1) * limit, limit);
-        int count = serviceEvaluationMapper.queryServiceEvaluationCount(serviceEvaluation);
+    public ResultData queryServiceEvaluationList(ServiceEvaluation serviceEvaluation, int page, int limit ,int id) {
+        List<ServiceEvaluation> list = serviceEvaluationMapper.queryServiceEvaluationList(serviceEvaluation, (page - 1) * limit, limit ,id);
+        int count = serviceEvaluationMapper.queryServiceEvaluationCount(serviceEvaluation,id);
         ResultData resultData = new ResultData();
         resultData.setCode(0);
         resultData.setMsg("");

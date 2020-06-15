@@ -10,8 +10,11 @@
         SELECT se.*,u.name FROM tb_service_evaluation se
         left join tb_user u
         on se.user_id = u.id
+        left join tb_company c
+        on se.company_id = c.id
         <where>
-            <if test="e.startTime != null and e.startTime != ''">se.time &gt; #{e.startTime} and se.time &lt;
+            se.company_id = #{id}
+            <if test="e.startTime != null and e.startTime != ''">and se.time &gt; #{e.startTime} and se.time &lt;
                 #{e.endTime}
             </if>
         </where>
@@ -24,8 +27,11 @@
         select count(se.id) from tb_service_evaluation se
         left join tb_user u
         on se.user_id = u.id
+        left join tb_company c
+        on se.company_id = c.id
         <where>
-            <if test="e.startTime != null and e.startTime != ''">se.time &gt; #{e.startTime} and se.time &lt;
+            se.company_id = #{id}
+            <if test="e.startTime != null and e.startTime != ''">and se.time &gt; #{e.startTime} and se.time &lt;
                 #{e.endTime}
             </if>
         </where>
