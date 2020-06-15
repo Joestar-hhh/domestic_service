@@ -7,6 +7,7 @@ import com.cykj.domestic.mapper.CompanyMapper;
 import com.cykj.domestic.mapper.StaffMapper;
 import com.cykj.domestic.service.StaffService;
 import com.cykj.domestic.util.AgeUtil;
+import com.cykj.domestic.util.MD5Util;
 import com.cykj.domestic.util.ResultData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -136,7 +137,7 @@ public class StaffServiceImpl implements StaffService {
         int age = AgeUtil.getAgeFromBirthTime(staff.getBirthDate());//计算年龄
         System.out.println("年龄："+age);
         staff.setAge(age);
-        staff.setPwd("123456");
+        staff.setPwd(MD5Util.MakeMd5("123456"));
         return null;
     }
 
