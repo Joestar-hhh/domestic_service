@@ -82,7 +82,7 @@
                 });
             },
             success : function(msg) {
-                $("#roleSelect").html("<option value=''></option>");
+                // $("#roleSelect").html("<option value=''></option>");
 
                 $.each(msg.data, function (i, item) {
                     $("#roleSelect").append("<option value='" + item.id + "'>" + item.roleName + "</option>")
@@ -94,13 +94,13 @@
             }
         })
 
-        var menuData;
+        // var menuData;
         $.ajax({
             type : "post",
             url : "<%=path%>/menuController/permissions",
             dataType: 'JSON',
             data : {
-                roleId:null
+                roleId:'1'
             },
             error : function(msg) {
                 layer.alert('操作失败', {
@@ -109,10 +109,9 @@
                 });
             },
             success : function(msg) {
-                menuData = msg
                 tree.render({
                     elem: '#test12'
-                    ,data: menuData
+                    ,data: msg
                     ,showCheckbox: true  //是否显示复选框
                     ,id: 'demoId1'
                     ,isJump: false //是否允许点击节点时弹出新窗口跳转
@@ -132,9 +131,7 @@
             form.render('select');
             form.on('select(roleSelect)', function(data){
                 selectId = data.value;
-                $.each(menuData,function (i,item) {
-                    item.checked = ''
-                })
+
                 $.ajax({
                     type : "post",
                     url : "<%=path%>/menuController/permissions",
@@ -146,17 +143,8 @@
                         layer.alert('操作失败', {icon: 2, title:"提示"});
                     },
                     success : function(msg) {
-
-                        $.each(menuData,function (i,item) {
-                            $.each(msg,function (j,msgItem){
-                                // alert("item.id:"+item.id+"    msg.id:"+msgItem.id)
-                                if (item.id == msgItem.id){
-                                    item.checked = 'true'
-                                }
-                            })
-                        })
                         tree.reload('demoId1',{
-                            data: menuData
+                            data: msg
                         });
                     }
                 });
@@ -167,8 +155,6 @@
         util.event('lay-demo', {
             save: function () {
                 var checkedData = tree.getChecked('demoId1'); //获取选中节点的数据
-
-                layer.alert(JSON.stringify(checkedData), {shade:0});
 
                 var rolemenuList = [];
                 $.each(checkedData,function (i,item) {
@@ -186,8 +172,6 @@
                         rolemenuList.push(roleMenu);
                     })
                 })
-
-                //  layer.alert("menuIdList:"+menuIdList);
                 if(selectId===""){
                     layer.alert("请选择角色")
                 }else {

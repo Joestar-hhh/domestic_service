@@ -63,18 +63,6 @@
         </div>
     </div>
 
-<%--    <div class="layui-form-item">--%>
-<%--        <label class="layui-form-label">角色：</label>--%>
-<%--        <div class="layui-input-block">--%>
-<%--            <select name="selecttest" id="selecttest" lay-filter="selecttest" lay-verify="required">--%>
-<%--                <option value=""></option>--%>
-<%--                <option value="超级管理员">超级管理员</option>--%>
-<%--                <option value="用户管理员">用户管理员</option>--%>
-<%--                <option value="文档管理员">文档管理员</option>--%>
-<%--            </select>--%>
-<%--        </div>--%>
-<%--    </div>--%>
-
     <div class="layui-form-item">
         <div class="layui-input-block">
             <button class="layui-btn formbtn" id="insertconfirm" lay-submit lay-filter="insertconfirm">确定</button>

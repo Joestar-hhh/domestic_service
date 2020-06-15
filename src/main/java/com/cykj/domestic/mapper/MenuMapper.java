@@ -12,8 +12,12 @@ import java.util.List;
 @Mapper
 public interface MenuMapper {
 
+    //菜单
+    List<Menu> queryMenuList(String roleId);
+    //权限
     List<Menu> queryList(String roleId);
 
     int insertRoleMenu(List<RoleMenu> list, @Param("roleId") String roleId);
     int deleteRoleMenu(String roleId);
+
 }

@@ -1,6 +1,7 @@
 package com.cykj.domestic.service;
 
 import com.cykj.domestic.entity.Company;
+import com.cykj.domestic.entity.Region;
 import com.cykj.domestic.util.ResultData;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +23,10 @@ public interface CompanySrevice {
     //平台端区域列表
     ResultData queryRegion(int page, int limit);
 
+    /* 查询平台所有服务区域*/
+    ResultData queryregionList();
+
+
     //删除区域
     ResultData deleteRegion(String region);
 
@@ -32,4 +37,5 @@ public interface CompanySrevice {
     ResultData queryRegionCompany(String regionId);
 
     List<Company> serviceTypeStatistics(String statisticsType, String startDate, String endDate);
+
 }

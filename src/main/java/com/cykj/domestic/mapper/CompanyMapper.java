@@ -30,6 +30,9 @@ public interface CompanyMapper {
     //区域列表统计
     int RegionCount();
 
+   /* 查询平台所有服务区域*/
+    List<Company>queryregionList();
+
     //删除区域
     int deleteRegion(@Param("region") String region);
 
@@ -42,8 +45,16 @@ public interface CompanyMapper {
 //    根据地区查看平台详情
     List<Company>queryRegionCompany(@Param("regionId") String regionId);
 
+
+//   公司申请入职添加地区和口号
+    int insertregionId(@Param("id")String companyId,@Param("regionId")String regionId,@Param("companyProfile")String companyProfile);
+
 //    家政公司统计
     List<Company> serviceTypeStatistics();
     List<Company> regionStatistics();
     List<Company> dateStatistics(@Param("startDate") String startDate, @Param("endDate") String endDate);
+
+
+
+
 }

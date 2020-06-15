@@ -3,6 +3,7 @@ package com.cykj.domestic.controller;
 import com.alibaba.fastjson.JSON;
 import com.cykj.domestic.entity.Company;
 import com.cykj.domestic.entity.OrderInfo;
+import com.cykj.domestic.entity.OrderState;
 import com.cykj.domestic.entity.Role;
 import com.cykj.domestic.service.OrderService;
 import com.cykj.domestic.util.ResultData;
@@ -69,16 +70,42 @@ public class OrderController {
         return JSON.toJSONString(list);
 
 //        售后追踪
-
         }
 
     /*
-     * 查询订单信息
+     * 售后追踪
      */
     @RequestMapping("/afterSale")
     public Object afterSale(OrderInfo orderInfo, String page, String limit,String orderNumber) {
         ResultData resultData = orderService.afterSaleList(orderInfo, Integer.parseInt(page), Integer.parseInt(limit),orderNumber);
         return resultData;
     }
+
+//    获取下拉框订单状态
+    @RequestMapping("/orderStatelist")
+    public String orderStatelist(OrderState orderState){
+        ResultData resultData=orderService.orderStatelist(orderState);
+        return JSON.toJSONString(resultData);
+    }
+
+//    家政公司订单管理
+    @RequestMapping("/companyOrderList")
+    public Object companyOrderList(HttpServletRequest request,OrderInfo orderInfo, String page, String limit,String stateComName) {
+        Company company = (Company) request.getSession().getAttribute("company");
+        ResultData resultData = orderService.companyOrderList(orderInfo, Integer.parseInt(page), Integer.parseInt(limit),stateComName,String.valueOf(company.getId()));
+        return resultData;
+    }
+
+//    接单
+    @RequestMapping("/orders")
+    public String orders(OrderInfo orderInfo) {
+        ResultData resultData = orderService.orders(orderInfo);
+        return JSON.toJSONString(resultData);
+    }
+
+
+
+
+
 
 }

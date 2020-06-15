@@ -7,6 +7,7 @@ import com.cykj.domestic.util.ResultData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,7 +20,6 @@ public class CompanyManageServiceImpl implements CompanyManageService {
     public ResultData queryCompany(Company company,int page, int limit,String address) {
         List<Company> list=companyMangeMapper.queryCompany(company,(page-1)*limit,limit,address);
         int count=companyMangeMapper.CompanyCount(company,address);
-
         ResultData resultData = new ResultData();
         resultData.setCode(0);
         resultData.setMsg("");

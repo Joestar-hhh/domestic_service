@@ -4,18 +4,14 @@ import com.alibaba.fastjson.JSON;
 import com.cykj.domestic.entity.Company;
 import com.cykj.domestic.entity.ServiceType;
 import com.cykj.domestic.service.ServiceTypeService;
-
 import com.cykj.domestic.util.ResultData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.xml.transform.Result;
 
 @RestController
 @RequestMapping("/serviceTypeContrller")
@@ -101,6 +97,22 @@ public class ServiceTypeContrller {
     @RequestMapping("/updateSericeTypeRelation")
     public String updateSericeTypeRelation(HttpServletResponse response,HttpServletRequest request,ServiceType serviceType){
         ResultData resultData=serviceTypeService.updateSericeTypeRelation(serviceType);
+        return JSON.toJSONString(resultData);
+    }
+
+    //  公司申请入驻添加服务服务类别
+    @RequestMapping("/addServiceContinuous")
+    public String addServiceContinuous(HttpServletResponse response,HttpServletRequest request,ServiceType serviceType,Company company1,String typridList,HttpSession session){
+        Company company = (Company) session.getAttribute("company");
+        ResultData resultData=serviceTypeService.addServiceContinuous(typridList,String.valueOf(company.getId()),company1);
+        return JSON.toJSONString(resultData);
+    }
+
+
+    /*查询所有服务*/
+    @RequestMapping("/selectSerice")
+    public String selectSerice(HttpServletResponse response,HttpServletRequest request){
+        ResultData resultData=serviceTypeService.selectSerice();
         return JSON.toJSONString(resultData);
     }
 }

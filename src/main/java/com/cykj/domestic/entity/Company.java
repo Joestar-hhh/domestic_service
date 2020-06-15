@@ -2,8 +2,6 @@ package com.cykj.domestic.entity;
 
 import lombok.Data;
 
-import java.util.List;
-
 @Data
 public class Company {
 
@@ -18,8 +16,8 @@ public class Company {
     private String state;
     private String joinTime;
     private String materialRelationId;
-    private String companyProfile;
-    private int regionId;
+    private String companyProfile;//描述
+    private int regionId;//区域id
     private int regioncount;
     private String region;  //区域名称
     private String typeName;   //公司服务类别

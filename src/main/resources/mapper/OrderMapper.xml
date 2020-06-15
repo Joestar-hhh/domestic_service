@@ -62,9 +62,10 @@
         left join tb_user u on u.id = o.user_id
         left join tb_company c on c.id = o.company_id
         left join tb_service s on s.id = o.service_id
-				and os.order_state_name='已服务'
+
         <where>
-            <if test="orderNumber!=null and orderNumber!=''">and o.order_number like concat('%',#{orderNumber},'%')</if>
+            os.order_state_name='已服务'
+            <if test="orderNumber!=null and orderNumber!=''"> and o.order_number like concat('%',#{orderNumber},'%')</if>
         </where>
                 ORDER BY id limit #{start},#{pageSize}
     </select>
@@ -73,5 +74,41 @@
     select count(oi.id) from tb_order_info oi left join tb_order_state os
         on oi.company_order_state_id=os.id where os.order_state_name='已服务'
     </select>
+
+
+<!--    获取下拉框订单状态-->
+    <select id="orderStatelist"  parameterType="com.cykj.domestic.entity.OrderState" resultType="com.cykj.domestic.entity.OrderState" >
+    select * from tb_order_state
+    </select>
+
+<!--家政公司订单管理-->
+    <select id="companyOrderList"  parameterType="com.cykj.domestic.entity.OrderInfo" resultType="com.cykj.domestic.entity.OrderInfo">
+        select o.*,u.name user_name,stf.user_name staff_name,s.type_name,c.company_name com_name,os_c.order_state_name
+        state_com_name,os.order_state_name from tb_order_info o
+        left join tb_order_state os on o.user_order_state_id=os.id
+        left join tb_order_state os_c on os_c.id = o.company_order_state_id
+        left join tb_staff stf on stf.id = o.staff_id
+        left join tb_user u on u.id = o.user_id
+        left join tb_company c on c.id = o.company_id
+        left join tb_service s on s.id = o.service_id
+        <where>
+            o.company_id =#{id}
+            <if test="stateComName!=null and stateComName!=''">and os_c.order_state_name =#{stateComName}</if>
+        </where>
+        ORDER BY id limit #{start},#{pageSize}
+    </select>
+
+    <select id="companyOrderCount"  parameterType="com.cykj.domestic.entity.OrderInfo" resultType="int">
+        select count(oi.id) from tb_order_info oi left join tb_order_state os
+        on oi.company_order_state_id=os.id where  oi.company_id =#{id}
+        <where>
+            <if test="stateComName!=null and stateComName!=''"> and os.order_state_name=#{stateComName}</if>
+        </where>
+    </select>
+
+<!--接单-->
+    <update id="orders" parameterType="com.cykj.domestic.entity.OrderInfo" >
+        update tb_order_info set company_order_state_id=2,user_order_state_id=6 where id=#{id}
+    </update>
 
 </mapper>

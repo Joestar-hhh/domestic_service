@@ -2,6 +2,8 @@ package com.cykj.domestic.entity;
 
 import lombok.Data;
 
+import javax.print.attribute.standard.JobState;
+
 @Data
 public class Staff {
 
@@ -26,7 +28,11 @@ public class Staff {
     private String materialRelationId;
     private int orderNum;
     private String name;// 职位名
-    private String region;
+    private int regionId;
     private String position;
     private int counselorId;
+
+    private int age;
+    private String birthDate;//出生日期
+    private String jobState;//工作状态
 }

@@ -3,8 +3,11 @@ package com.cykj.domestic.service.impl;
 import com.cykj.domestic.entity.Region;
 import com.cykj.domestic.entity.Staff;
 import com.cykj.domestic.entity.User;
+import com.cykj.domestic.mapper.CompanyMapper;
 import com.cykj.domestic.mapper.StaffMapper;
 import com.cykj.domestic.service.StaffService;
+import com.cykj.domestic.util.AgeUtil;
+import com.cykj.domestic.util.MD5Util;
 import com.cykj.domestic.util.ResultData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +19,8 @@ public class StaffServiceImpl implements StaffService {
 
     @Autowired
     private StaffMapper staffMapper;
+    @Autowired
+    private CompanyMapper companyMapper;
 
 
     @Override
@@ -108,6 +113,58 @@ public class StaffServiceImpl implements StaffService {
         List<User>userList=staffMapper.userStatistics(startDate,endDate);
 
         return userList;
+    }
+
+    @Override
+    public ResultData queryCompanyStaff(int companyId, int page, int limit) {
+        List<Staff> list = staffMapper.queryCompanyStaff(companyId, (page - 1) * limit, limit);
+        int count = staffMapper.queryCompanyStaffConut(companyId);
+
+        ResultData resultData = new ResultData();
+        resultData.setCode(0);
+        resultData.setMsg("");
+        resultData.setCount(count);
+        resultData.setData(list);
+        return resultData;
+    }
+
+    @Override
+    public ResultData insertCompanyStaff(Staff staff, String CityLevel, String CountyLevel) {
+        String regionName = CityLevel+CountyLevel;
+        System.out.println("地区："+regionName);
+        Region region = companyMapper.selectRegionPresence(regionName); //查询地区
+        staff.setRegionId(region.getId());
+        int age = AgeUtil.getAgeFromBirthTime(staff.getBirthDate());//计算年龄
+        System.out.println("年龄："+age);
+        staff.setAge(age);
+        staff.setPwd(MD5Util.MakeMd5("123456"));
+        return null;
+    }
+
+    @Override
+    public ResultData queryStaffPhone(String phone) {
+        Staff staff = staffMapper.queryStaffPhone(phone);
+        ResultData resultData = new ResultData();
+        if(staff!=null){
+            resultData.setCode(0);
+            resultData.setMsg("该手机号已存在");
+        }else{
+            resultData.setCode(1);
+        }
+        return resultData;
+    }
+
+    @Override
+    public ResultData queryStaffIdcard(String idcard) {
+        Staff staff = staffMapper.queryStaffIdcard(idcard);
+        ResultData resultData = new ResultData();
+        if(staff!=null){
+            resultData.setCode(0);
+            resultData.setMsg("该身份证号已存在");
+        }else{
+            resultData.setCode(1);
+        }
+        return resultData;
     }
 
 

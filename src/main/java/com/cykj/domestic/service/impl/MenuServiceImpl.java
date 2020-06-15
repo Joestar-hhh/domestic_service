@@ -23,8 +23,8 @@ public class MenuServiceImpl implements MenuService {
     private MenuMapper menuMapper;
 
     @Override
-    public List<Menu> queryList(String roleId) {
-        List<Menu> tablist = menuMapper.queryList(roleId);
+    public List<Menu> queryMenuList(String roleId) {
+        List<Menu> tablist = menuMapper.queryMenuList(roleId);
         List<Menu> mList = new ArrayList<>();
         for(Menu menu : tablist){
             menu.setId(menu.getId());
@@ -38,7 +38,28 @@ public class MenuServiceImpl implements MenuService {
             mList.add(menu);
         }
         List<Menu> menuList = TreeUtil.toTree(mList, 0);
+        return menuList;
+    }
 
+    @Override
+    public List<Menu> queryList(String roleId) {
+        List<Menu> tablist = menuMapper.queryList(roleId);
+        List<Menu> mList = new ArrayList<>();
+        for(Menu menu : tablist){
+            menu.setId(menu.getId());
+            menu.setTitle(menu.getMenuName());
+            menu.setType("0");
+            menu.setHref(menu.getMenuPath());
+            if(menu.getParentId()!=0){
+                menu.setType("1");
+                menu.setOpenType("_iframe");
+                if((roleId!=null && !roleId.isEmpty()) && menu.getRoleId()==Integer.parseInt(roleId)){
+                    menu.setChecked("true");
+                }
+            }
+            mList.add(menu);
+        }
+        List<Menu> menuList = TreeUtil.toTree(mList, 0);
         return menuList;
     }
 

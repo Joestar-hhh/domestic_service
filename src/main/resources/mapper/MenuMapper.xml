@@ -4,22 +4,37 @@
 
 <mapper namespace="com.cykj.domestic.mapper.MenuMapper">
 
-    <select id="queryList" resultType="com.cykj.domestic.entity.Menu">
---         select menuo.menu_name parent_name,menus.id,menus.parent_id,menus.menu_name title,menus.menu_path herf from tb_menu menuo
---         INNER JOIN tb_menu menus on menus.parent_id = menuo.id
---         select * from tb_menu
-        select m.* from tb_menu m left join tb_role_menu rm on rm.menu_id = m.id
+    <select id="queryMenuList" resultType="com.cykj.domestic.entity.Menu">
+        select m.*,rm.role_id from tb_menu m left OUTER join tb_role_menu rm on rm.menu_id = m.id
         <where>
             <if test="roleId!=null and roleId!='0' and roleId!=''">
                 and role_id = #{roleId}
             </if>
         </where>
-        group by m.id order by m.id
+        order by m.id
+    </select>
+
+    <select id="queryList" resultType="com.cykj.domestic.entity.Menu">
+--         select menuo.menu_name parent_name,menus.id,menus.parent_id,menus.menu_name title,menus.menu_path herf from tb_menu menuo
+--         INNER JOIN tb_menu menus on menus.parent_id = menuo.id
+--         select * from tb_menu
+--         select m.* from tb_menu m left join tb_role_menu rm on rm.menu_id = m.id
+        select * from tb_menu allmenu
+        left OUTER join
+        (select m.id mid,rm.role_id from tb_menu m left OUTER join tb_role_menu rm on rm.menu_id = m.id
+        <where>
+            <if test="roleId!=null and roleId!='0' and roleId!=''">
+                and role_id = #{roleId}
+            </if>
+        </where>
+        ) rolemenu on allmenu.id = rolemenu.mid
+        order by allmenu.id
     </select>
 
     <delete id="deleteRoleMenu">
         delete from tb_role_menu where role_id = #{roleId}
     </delete>
+
     <insert id="insertRoleMenu">
         insert into tb_role_menu(role_id,menu_id) VALUES
         <foreach collection="list" item="item" index="index" separator=",">

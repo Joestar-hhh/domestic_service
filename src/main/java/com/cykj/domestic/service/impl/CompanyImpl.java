@@ -4,6 +4,7 @@ import com.cykj.domestic.entity.Company;
 import com.cykj.domestic.entity.Region;
 import com.cykj.domestic.mapper.CompanyMapper;
 import com.cykj.domestic.service.CompanySrevice;
+import com.cykj.domestic.util.MD5Util;
 import com.cykj.domestic.util.ResultData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,24 +26,22 @@ public class CompanyImpl implements CompanySrevice {
         HttpSession session = request.getSession();
         Company company1 = companyMapper.companyLogin(company);
         if (company1 != null) {
-            if (!company.getPwd().equals(company1.getPwd())) {
+            if (!MD5Util.MakeMd5(company.getPwd()).equals(company1.getPwd())) {
                 resultData.setCode(1);
                 resultData.setMsg("密码错误");
             } else { // if (company1.getRoleId() == 3)
                 session.setAttribute("company", company1);
                 resultData.setCode(0);
-                resultData.setMsg("管理员登入成功");
             }
-//            else if(company1.getState().equals("审核通过")){
-//                session.setAttribute("company",company1);
-//                if (company1.getState().equals("审核通过")) {
-//                    resultData.setCode(3);
-//                    resultData.setMsg("登入成功");
-//                } else {
-//                    resultData.setCode(0);
-//                    resultData.setMsg("登入成功");
-//                }
+
+//            if (!company.getPwd().equals(company1.getPwd())) {
+//                resultData.setCode(1);
+//                resultData.setMsg("密码错误");
+//            } else { // if (company1.getRoleId() == 3)
+//                session.setAttribute("company", company1);
+//                resultData.setCode(0);
 //            }
+
         } else {
             resultData.setCode(2);
             resultData.setMsg("账号不存在");
@@ -60,6 +59,7 @@ public class CompanyImpl implements CompanySrevice {
             resultData.setCode(3);
             resultData.setMsg("手机号码不存在，请重新输入");
         } else {
+            company.setPwd(MD5Util.MakeMd5(company.getPwd()));
             int res = companyMapper.phone_update_pwd(company);
             if (res == 1) {
                 resultData.setCode(0);
@@ -79,23 +79,24 @@ public class CompanyImpl implements CompanySrevice {
     public ResultData insertCompany(Company company) {
         ResultData resultData = new ResultData();
 //        判断账号和手机号是否纯在
-        Company companyphone=companyMapper.querycompanyphone(company);
-        if(companyphone==null){
-           Company companyLogin =companyMapper.companyLogin(company);
-           if(companyLogin==null){
-               int res= companyMapper.insertCompany(company);
-               if (res == 1) {
-                   resultData.setCode(0);
-                   resultData.setMsg("注册成功");
-               } else {
-                   resultData.setCode(1);
-                   resultData.setMsg("注册失败");
-               }
-           }else{
+        Company companyphone = companyMapper.querycompanyphone(company);
+        if (companyphone == null) {
+            Company companyLogin = companyMapper.companyLogin(company);
+            if (companyLogin == null) {
+                company.setPwd(MD5Util.MakeMd5(company.getPwd()));
+                int res = companyMapper.insertCompany(company);
+                if (res == 1) {
+                    resultData.setCode(0);
+                    resultData.setMsg("注册成功");
+                } else {
+                    resultData.setCode(1);
+                    resultData.setMsg("注册失败");
+                }
+            } else {
                 resultData.setCode(2);
                 resultData.setMsg("公司账号已存在");
             }
-        }else{
+        } else {
             resultData.setCode(3);
             resultData.setMsg("手机号已被注册");
         }
@@ -113,6 +114,17 @@ public class CompanyImpl implements CompanySrevice {
         resultData.setCode(0);
         resultData.setMsg("");
         resultData.setCount(count);
+        resultData.setData(list);
+        return resultData;
+    }
+
+    /* 查询平台所有服务区域*/
+    @Override
+    public ResultData queryregionList() {
+        List<Company> list = companyMapper.queryregionList();
+        ResultData resultData = new ResultData();
+        resultData.setCode(0);
+        resultData.setMsg("111");
         resultData.setData(list);
         return resultData;
     }

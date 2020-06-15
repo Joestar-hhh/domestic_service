@@ -1,8 +1,8 @@
 package com.cykj.domestic.mapper;
 
 
+import com.cykj.domestic.entity.Company;
 import com.cykj.domestic.entity.ServiceType;
-import com.cykj.domestic.entity.TbService;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -34,16 +34,28 @@ public interface ServiceTypeMapper {
     /*公司申请添加服务类别关系*/
     int addServicerelstion(ServiceType serviceType);
 
+
+    //      <!--    公司申请入驻添加服务服务类别-->
+    int addServiceContinuous(List<String> list, @Param("companyId") String companyId, Company company);
+
+
     /*查询所有服务类别*/
     List<ServiceType> queryServiceType();
 
-
     /*查询平台端审核服务类别*/
-    List<ServiceType> querySericeTypeRelation(@Param("e") ServiceType serviceType,@Param("start") int start, @Param("pageSize") int pageSize);
+    List<ServiceType> querySericeTypeRelation(@Param("e") ServiceType serviceType, @Param("start") int start, @Param("pageSize") int pageSize);
 
-    int querySericeTypeRelationCount(@Param("e")ServiceType serviceType);
+    int querySericeTypeRelationCount(@Param("e") ServiceType serviceType);
 
     /*平台修改公司端发送的服务类别申请变 审核通过*/
     int updateSericeTypeRelation(ServiceType serviceType);
+
+    /*查询所有服务*/
+    List<ServiceType>selectSerice();
+
+
+    /*
+
+     */
 
 }

@@ -2,6 +2,7 @@ package com.cykj.domestic.mapper;
 
 import com.cykj.domestic.entity.Company;
 import com.cykj.domestic.entity.OrderInfo;
+import com.cykj.domestic.entity.OrderState;
 import com.cykj.domestic.entity.Role;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -30,4 +31,17 @@ public interface OrderMapper {
     List<OrderInfo> afterSaleList( @Param("e")OrderInfo orderInfo,@Param("start") int start, @Param("pageSize") int pageSize,@Param("orderNumber")String orderNumber);
 
     int afterSaleCount(@Param("e")OrderInfo orderInfo);
+
+//    获取下拉框订单状态
+
+    List<OrderState>orderStatelist(OrderState orderState);
+
+//    家政公司订单管理列表
+
+    List<OrderInfo>companyOrderList(@Param("e")OrderInfo orderInfo, @Param("start") int start, @Param("pageSize") int pageSize, @Param("stateComName") String stateComName,@Param("id") String id);
+
+    int companyOrderCount(@Param("e")OrderInfo orderInfo,@Param("stateComName") String stateComName,@Param("id") String id);
+
+//    接单
+    int orders(OrderInfo orderInfo);
 }
