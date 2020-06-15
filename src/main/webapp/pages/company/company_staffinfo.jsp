@@ -79,21 +79,6 @@
     </button>
 </script>
 
-<%--<script type="text/html" id="barDemo">--%>
-<%--    <a class="layui-btn  layui-btn-xs" lay-event="showinfo">--%>
-<%--        <i class="layui-icon layui-icon-list"></i>查看详情</a>--%>
-<%--    <a class="layui-btn  layui-btn-xs" lay-event="showinfo">--%>
-<%--        <i class="layui-icon layui-icon-list"></i>上传资料详情</a>--%>
-<%--    <a class="layui-btn  layui-btn-xs" lay-event="showinfo">--%>
-<%--        <i class="layui-icon layui-icon-list"></i>修改信息</a>--%>
-<%--    <a class="layui-btn  layui-btn-xs" lay-event="showinfo">--%>
-<%--        <i class="layui-icon layui-icon-list"></i>修改状态</a>--%>
-<%--    <a class="layui-btn  layui-btn-xs" lay-event="showinfo">--%>
-<%--        <i class="layui-icon layui-icon-list"></i>删除</a>--%>
-<%--</script>--%>
-
-
-
 <form class="layui-form" id="staffInfo" action="" style="display: none">
     <div class="layui-form-item">
         <label class="layui-form-label">姓名：</label>
@@ -188,8 +173,6 @@
 <%--<script src="<%=path%>/back/js/layui.js" charset="utf-8"></script>--%>
 <script>
 
-    // layui.use(['table','dropdown'], function(){
-
     layui.config({
         base: '<%=path%>/static/layui/dropdown/' //配置 layui-dropdown 组件基础目录
     }).extend({
@@ -275,17 +258,12 @@
             , done: function (res) {
                 // 在表格渲染完成后进行下拉框渲染。
                 dropdown.suite();
-                $("[data-field='auditState']").children().each(function () {
-                    if ($(this).text() == '0') {
-                        $(this).text("待审核")
-                    } else if ($(this).text() == '1') {
-                        $(this).text("审核通过")
-                    } else if ($(this).text() == '2'){
-                        $(this).text("审核不通过")
+                $("[data-field='skill']").children().each(function () {
+                    if ($(this).text() == '') {
+                        $(this).text("暂无")
                     }
                 });
             }
-
         });
 
 
@@ -320,19 +298,19 @@
                     });
                     break;
                 case 'querybtn':
-                    var inputname = $('#intput_company').val();
+                    var inputname = $('#intput_staff').val();
                     //执行重载
                     table.reload('test', {
-                        url: '<%=path%>/orderController/queryOrder'
+                        url: '<%=path%>/staffController/queryCompanyStaffInfo'
                         // ,methods:"post"
                         ,page: {
                             curr: 1 //重新从第 1 页开始
                         }
                         ,where: {
-                            companyName: inputname
+                            userName: inputname
                         }
                     });
-                    $('#intput_company').val(inputname);
+                    $('#intput_staff').val(inputname);
                     break;
                 case 'insertstaff':
                     var layerinsert = layer.open({

@@ -60,8 +60,8 @@ public interface StaffMapper {
     /*
     * 公司端--员工信息
     */
-    List<Staff> queryCompanyStaff(@Param("cId") int companyId, @Param("start") int start, @Param("pageSize") int pageSize);
-    int queryCompanyStaffConut(@Param("cId") int companyId);
+    List<Staff> queryCompanyStaff(@Param("userName") String userName,@Param("cId") int companyId, @Param("start") int start, @Param("pageSize") int pageSize);
+    int queryCompanyStaffConut(@Param("userName") String userName,@Param("cId") int companyId);
 
     int insertCompanyStaff(Staff staff);
 

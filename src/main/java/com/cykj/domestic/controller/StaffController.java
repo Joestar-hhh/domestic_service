@@ -94,9 +94,10 @@ public class StaffController {
     * 公司端--员工信息
     */
     @RequestMapping("/queryCompanyStaffInfo")
-    public String queryCompanyStaffInfo(HttpServletRequest request,Staff staff, String page, String limit) {
+    public String queryCompanyStaffInfo(HttpServletRequest request,String userName, Staff staff, String page, String limit) {
         Company company = (Company) request.getSession().getAttribute("company");
-        ResultData resultData = staffService.queryCompanyStaff(company.getId(),
+        System.out.println("-----------------userName:"+userName);
+        ResultData resultData = staffService.queryCompanyStaff(userName,company.getId(),
                 Integer.parseInt(page), Integer.parseInt(limit));
         return JSON.toJSONString(resultData);
     }

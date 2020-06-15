@@ -3,6 +3,7 @@ package com.cykj.domestic.mapper;
 
 import com.cykj.domestic.entity.Company;
 import com.cykj.domestic.entity.ServiceType;
+import com.cykj.domestic.entity.TbService;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -53,8 +54,11 @@ public interface ServiceTypeMapper {
     List<ServiceType>selectSerice();
 
 
-    /*
 
-     */
+
+
+    List<ServiceType> queryComServiceType(int companyId);
+
+    List<TbService> queryServiceTypeService(int stId);
 
 }

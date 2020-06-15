@@ -31,7 +31,7 @@ public interface StaffService {
     List<User>userStatistics(String startDate,String endDate);
 
 
-    ResultData queryCompanyStaff(int companyId, int page, int limit);
+    ResultData queryCompanyStaff(String userName, int companyId, int page, int limit);
 
     ResultData insertCompanyStaff(Staff staff, String CityLevel, String CountyLevel, Company company);
 

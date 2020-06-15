@@ -81,11 +81,23 @@
 
 <!--    公司端-员工信息-->
     <select id="queryCompanyStaff" parameterType="com.cykj.domestic.entity.Staff" resultType="com.cykj.domestic.entity.Staff">
-        SELECT * FROM tb_staff where company_id = #{cId}
+        SELECT * FROM tb_staff
+        <where>
+            <if test="userName!=null and userName!=''">
+                and user_name like concat('%',#{userName},'%')
+            </if>
+            and company_id = #{cId}
+        </where>
         ORDER BY id limit #{start},#{pageSize}
     </select>
     <select id="queryCompanyStaffConut" parameterType="com.cykj.domestic.entity.Staff" resultType="int">
-        SELECT count(id) FROM tb_staff where company_id = #{cId}
+        SELECT count(id) FROM tb_staff
+        <where>
+            <if test="userName!=null and userName!=''">
+                and user_name like concat('%',#{userName},'%')
+            </if>
+            and company_id = #{cId}
+        </where>
     </select>
     <insert id="insertCompanyStaff" parameterType="com.cykj.domestic.entity.Staff">
         insert into tb_staff(account,user_name,pwd,phone,sex,address,company_id,

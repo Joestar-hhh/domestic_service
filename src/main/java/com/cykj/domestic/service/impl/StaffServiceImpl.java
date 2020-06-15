@@ -118,9 +118,9 @@ public class StaffServiceImpl implements StaffService {
     }
 
     @Override
-    public ResultData queryCompanyStaff(int companyId, int page, int limit) {
-        List<Staff> list = staffMapper.queryCompanyStaff(companyId, (page - 1) * limit, limit);
-        int count = staffMapper.queryCompanyStaffConut(companyId);
+    public ResultData queryCompanyStaff(String userName, int companyId, int page, int limit) {
+        List<Staff> list = staffMapper.queryCompanyStaff(userName, companyId, (page - 1) * limit, limit);
+        int count = staffMapper.queryCompanyStaffConut(userName, companyId);
 
         ResultData resultData = new ResultData();
         resultData.setCode(0);
