@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cykj.domestic.mapper.MyCompanyMapper">
+
+
+        <update id="updateServiceList" parameterType="com.cykj.domestic.entity.Company">
+         update tb_service set company_name=#{companyName},address=#{address},boss=#{boss},phone=#{phone} where id=#{id}
+        </update>
+
+
+
+<!--//查询我的公司信息-->
+    <select id="selectList" resultType="com.cykj.domestic.entity.Company" parameterType="com.cykj.domestic.entity.Company">
+        SELECT p.account,p.company_name,p.boss,p.address,p.phone,s.type_name,r.service_type_id,g.region from tb_company p
+        LEFT JOIN tb_region g on g.id=p.region_id
+        LEFT JOIN tb_service_relation r on p.id=r.company_id
+        LEFT JOIN tb_service_type s on s.id=r.service_type_id WHERE p.id=#{userId}
+    </select>
+
+<!--//查询我的公司地址ID-->
+<select id="selectAddressID">
+    select r.id from tb_region r where region=#{regionName}
+</select>
+<!--//修改区域id-->
+    <insert id="updateAddressID" parameterType="com.cykj.domestic.entity.Company">
+        insert into tb_company(region_id)values #{id}
+    </insert>
+
+<!--    //添加公司服务类别-->
+    <insert id="addServiceContinuous" parameterType="com.cykj.domestic.entity.ServiceType">
+        INSERT INTO tb_service_relation(company_id,service_type_id)VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{companyId},#{item})
+        </foreach>
+    </insert>
+
+
+
+</mapper>

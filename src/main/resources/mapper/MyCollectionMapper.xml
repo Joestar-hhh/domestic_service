@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cykj.domestic.mapper.MyCollectionMapper">
+
+
+<!--公司-->
+<!--    <delete id="deleteCompany">-->
+<!--         delete from tb_user_collection where id=#{id}-->
+<!--    </delete>-->
+
+    <select id="selectCompany" resultType="com.cykj.domestic.entity.MyCollection" parameterType="com.cykj.domestic.entity.MyCollection">
+         	 SELECT c.id,p.company_name,p.address,p.phone FROM tb_user_collection c
+         	 LEFT JOIN tb_company p ON p.id=c.company_id LEFT JOIN tb_user u on u.id=#{userid}
+        limit #{start},#{pageSize}
+    </select>
+
+    <select id="selectCompanyCount" resultType="int" parameterType="com.cykj.domestic.entity.MyCollection">
+       select count(a.id) from (SELECT c.id,p.company_name,p.address,p.phone FROM tb_user_collection c
+         	 LEFT JOIN tb_company p ON p.id=c.company_id LEFT JOIN tb_user u on u.id=#{userid})a
+    </select>
+
+
+
+<!--服务-->
+<!--    <delete id="deleteService">-->
+<!--         delete tb_user_collection from  where id=#{id}-->
+<!--    </delete>-->
+
+    <select id="selectService" resultType="com.cykj.domestic.entity.MyCollection" parameterType="com.cykj.domestic.entity.MyCollection">
+         	  SELECT c.id,s.type_name FROM tb_user_collection c
+         	  LEFT JOIN tb_service s ON s.id=c.service_id LEFT JOIN tb_user u ON u.id=#{userid}
+        limit #{start},#{pageSize}
+    </select>
+
+    <select id="selectServiceCount" resultType="int" parameterType="com.cykj.domestic.entity.MyCollection">
+       select count(A.id) from ( SELECT c.id,s.type_name FROM tb_user_collection c
+         	  LEFT JOIN tb_service s ON s.id=c.service_id LEFT JOIN tb_user u ON u.id=#{userid})A
+    </select>
+
+
+</mapper>
