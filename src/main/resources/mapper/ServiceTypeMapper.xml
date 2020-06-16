@@ -35,7 +35,7 @@
 
     <!--    公司端服务类别查询-->
     <select id="queryCompanyServiceType" resultType="com.cykj.domestic.entity.ServiceType">
-        SELECT a.type_name  typeName,a.description description, b.apply_time updateTime,b.state FROM tb_company c
+        SELECT b.id id,a.type_name  typeName,a.description description, b.apply_time updateTime,b.state FROM tb_company c
           LEFT JOIN tb_service_relation b ON c.id=b.company_id
           LEFT JOIN  tb_service_type a ON a.id=b.service_type_id WHERE c.id=#{id} limit #{start},#{pageSize}
     </select>
@@ -46,7 +46,7 @@
           LEFT JOIN  tb_service_type a ON a.id=b.service_type_id WHERE c.id=#{id}
     </select>
 
-<!--  1 -->
+    <!--  1 -->
     <!--    公司申请添加服务类别关系-->
     <insert id="addServicerelstion" parameterType="com.cykj.domestic.entity.ServiceType">
          INSERT INTO tb_service_relation(company_id,service_type_id,state)VALUES(#{companyId},#{id},#{state})
@@ -82,7 +82,7 @@
 
     <select id="querySericeTypeRelationCount" resultType="int">
         SELECT COUNT(*) FROM tb_service_relation r
-         LEFT JOIN tb_service_type t ON t.id=r.service_type_id
+        LEFT JOIN tb_service_type t ON t.id=r.service_type_id
         LEFT JOIN tb_company c ON c.id=r.company_id
         <where>
             <if test="e.typeName!=null and e.typeName!=''">
@@ -97,7 +97,7 @@
         UPDATE tb_service_relation SET state=#{state} WHERE id=#{id}
     </update>
 
-<!--    查询所有服务-->
+    <!--    查询所有服务-->
     <select id="selectSerice" resultType="com.cykj.domestic.entity.ServiceType">
         select * from tb_service
     </select>
@@ -123,6 +123,30 @@
         left join tb_service s on s.id = sr.service_id
         where sr.staff_id = #{staffId} and sr.service_type_id = #{stId}
     </select>
+
+    <!--查询所有未审核和Null的服务-->
+    <select id="queryServiceNull" parameterType="com.cykj.domestic.entity.Company" resultType="com.cykj.domestic.entity.ServiceType">
+        SELECT * from (SELECT a.id,a.type_name,b.state FROM tb_service_type a
+            LEFT OUTER JOIN (SELECT state,service_type_id from tb_service_relation where company_id=1) b ON a.id=b.service_type_id) c
+            where  c.state = '未审核' or c.state is null;
+    </select>
+
+
+    <!--查询前三的热门服务-->
+    <select id="ServiceTypeTopthree" parameterType="com.cykj.domestic.entity.ServiceType"
+            resultType="com.cykj.domestic.entity.ServiceType">
+        SELECT c.company_name company_name,t.type_name type_name,COUNT(i.id) count_num FROM tb_order_info i
+          LEFT JOIN  tb_company c ON c.id=i.company_id
+          LEFT JOIN tb_service s ON i.service_id=s.id
+          LEFT JOIN tb_service_type t ON t.id=s.service_type_id
+          WHERE i.user_order_state_id=8 GROUP BY c.company_name,t.type_name ORDER BY count_num DESC LIMIT 0,3
+    </select>
+
+
+    <delete id="">
+        DELETE from tb_service_relation WHERE company_id=1 AND service_type_id=4 AND state='未审核'
+    </delete>
+
 
     <!--    公司端人员配置中添加人员服务-->
     <insert id="insertStaffService">

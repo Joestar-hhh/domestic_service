@@ -1,6 +1,5 @@
 package com.cykj.domestic.service.impl;
 
-import com.cykj.domestic.entity.Company;
 import com.cykj.domestic.entity.User;
 import com.cykj.domestic.mapper.UserMapper;
 import com.cykj.domestic.service.UserService;
@@ -22,11 +21,13 @@ public class UserImpI implements UserService {
     //查询用户默认地址
     @Override
     public ResultData queryUserAddress(User user) {
+
         List<User> list = userMapper.queryUserAddress(user);
         ResultData resultData = new ResultData();
         resultData.setData(list);
         return resultData;
     }
+
     //用户登陆
     @Override
     public ResultData userLogin(User user, HttpServletRequest request) {
@@ -34,16 +35,16 @@ public class UserImpI implements UserService {
         HttpSession session = request.getSession();
         User user1 = userMapper.userLogin(user);
         if (user1 != null) {
-            System.out.println("用户-----"+user.getPwd()+"密码二-"+user1.getPwd());
-                if (!MD5Util.MakeMd5(user.getPwd()).equals(user1.getPwd())) {
-                    resultData.setCode(1);
-                    resultData.setMsg("密码错误");
-                } else {
-                    session.setAttribute("user", user1);
-                    resultData.setCode(0);
-                    resultData.setMsg("登陆成功");
+            System.out.println("用户-----" + user.getPwd() + "密码二-" + user1.getPwd());
+            if (!MD5Util.MakeMd5(user.getPwd()).equals(user1.getPwd())) {
+                resultData.setCode(1);
+                resultData.setMsg("密码错误");
+            } else {
+                session.setAttribute("user", user1);
+                resultData.setCode(0);
+                resultData.setMsg("登陆成功");
 
-                }
+            }
         } else {
             resultData.setCode(2);
             resultData.setMsg("账号不存在，请先注册");

@@ -53,8 +53,11 @@ public interface ServiceTypeMapper {
     /*查询所有服务*/
     List<ServiceType>selectSerice();
 
+    /*查询前三的热门服务*/
+    List<ServiceType> ServiceTypeTopthree();
 
-
+//    查询所有未审核和Null的服务
+    List<ServiceType>queryServiceNull(Company company);
 
 
     List<ServiceType> queryComServiceType(int companyId);
@@ -67,5 +70,8 @@ public interface ServiceTypeMapper {
     int insertStaffService(@Param("staffId") int staffId, @Param("stId") int stId, List<String> list);
 
     int deleteStaffService(@Param("staffId") int staffId, @Param("stId") int stId);
+
+
+
 
 }

@@ -48,7 +48,6 @@
                class="layui-input" autocomplete="off" id="pwd">
     </div>
     <div class="layui-form-item">
-        <%--        <input type="password" placeholder="密 码 : 888888" hover class="layui-input" id="pwd" lay-verify="pass"/>--%>
         <input type="password" lay-verify="required" placeholder="再 次 输 入 密 码  : 888888" lay-verify="required"
                lay-reqtext="密码是必填项，岂能为空？"
                class="layui-input" autocomplete="off" id="pwd2">
@@ -63,10 +62,6 @@
 </form>
        <script src="<%=path%>/static/pear_layui/component/layui/layui.js"></script>
 <script>
-
-    //监听提交
-
-
     layui.use(['form', 'element', 'jquery'], function () {
         var randomNum;
         var from = layui.form;

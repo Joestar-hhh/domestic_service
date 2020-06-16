@@ -66,8 +66,8 @@
             , defaultToolbar: []//自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
             , title: '公司端服务类别表'
             , cols: [[
-
-                {field: 'typeName', title: '服务类别名', align: 'center'}
+                // ,{field: 'id', title: 'id', align: 'center'}
+                ,{field: 'typeName', title: '服务类别名', align: 'center'}
                 , {field: 'description', title: '服务描述', align: 'center'}
                 , {field: 'updateTime', title: '服务申请时间', align: 'center'}
                 , {field: 'state', title: '状态', align: 'center'}
@@ -136,7 +136,7 @@
 
         //查询下拉框区域数据
         $.ajax({
-            url: '<%=path%>/serviceTypeContrller/queryServiceType',
+            url: '<%=path%>/serviceTypeContrller/queryServiceNull',
             type: 'POST',
             dataType: 'JSON',
             success: function (msg) {

@@ -2,7 +2,6 @@ package com.cykj.domestic.controller;
 
 
 import com.alibaba.fastjson.JSON;
-import com.cykj.domestic.entity.Company;
 import com.cykj.domestic.entity.User;
 import com.cykj.domestic.service.UserService;
 import com.cykj.domestic.util.ResultData;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 @RequestMapping("/userController")
 @RestController
@@ -23,9 +21,8 @@ public class UserController {
 
     //查询用户默认地址
     @RequestMapping("/queryUserAddress")
-    public String queryUserAddress(HttpServletResponse response, HttpServletRequest request , HttpSession session){
-        User user=new User();
-        user.setUserAddressId(1);
+    public String queryUserAddress(HttpServletResponse response, HttpServletRequest request){
+        User user = (User) request.getSession().getAttribute("user");
         ResultData resultData=userService.queryUserAddress(user);
         return JSON.toJSONString(resultData);
     }

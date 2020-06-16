@@ -41,7 +41,11 @@ public interface ServiceTypeService {
     /*查询所有服务*/
     ResultData selectSerice();
 
+    /*查询前三的热门服务*/
+    ResultData ServiceTypeTopthree();
 
+//    查询所有未审核和Null的服务
+    ResultData queryServiceNull(Company company);
 
 
     //查询公司已有服务类别

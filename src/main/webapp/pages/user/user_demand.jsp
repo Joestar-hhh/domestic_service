@@ -105,7 +105,7 @@
                     });
                 }else{
                     layer.msg("请先填写地址")
-                    location.href = "<%=path%>/pages/user/user_myaddress.jsp";
+                    <%--location.href = "<%=path%>/pages/user/user_myaddress.jsp";--%>
                 }
                 layui.use('form', function () {
                     var form = layui.form;
