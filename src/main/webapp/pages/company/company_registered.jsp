@@ -74,7 +74,7 @@
 
 <%--    ---------------------%>
     <div class="layui-form-item">
-        <a href="<%=path%>/pages/back/back_login.jsp">登入</a>
+        <a href="<%=path%>/pages/company/company_login.jsp">登入</a>
     </div>
 
     <div class="layui-input-item">
@@ -116,7 +116,7 @@
                 success: function (msg) {
                     if(msg.code=='0'){
                         layer.alert(msg.msg,function () {
-                            location.href="<%=path%>/pages/back/back_login.jsp"
+                            location.href="<%=path%>/pages/company/company_login.jsp"
                         })
                     }else{
                         layer.msg(msg.msg);

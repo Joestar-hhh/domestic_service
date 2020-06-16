@@ -26,22 +26,45 @@ public class CompanyImpl implements CompanySrevice {
         HttpSession session = request.getSession();
         Company company1 = companyMapper.companyLogin(company);
         if (company1 != null) {
-            if (!MD5Util.MakeMd5(company.getPwd()).equals(company1.getPwd())) {
-                resultData.setCode(1);
-                resultData.setMsg("密码错误");
-            } else { // if (company1.getRoleId() == 3)
-                session.setAttribute("company", company1);
-                resultData.setCode(0);
+            if(company1.getRoleId()==2){
+                if (!MD5Util.MakeMd5(company.getPwd()).equals(company1.getPwd())) {
+                    resultData.setCode(1);
+                    resultData.setMsg("密码错误");
+                } else {
+                    session.setAttribute("company", company1);
+                    resultData.setCode(0);
+                }
+            }else{
+                resultData.setCode(2);
+                resultData.setMsg("账号不存在");
             }
+        } else {
+            resultData.setCode(2);
+            resultData.setMsg("账号不存在");
+        }
+        return resultData;
+    }
 
-//            if (!company.getPwd().equals(company1.getPwd())) {
-//                resultData.setCode(1);
-//                resultData.setMsg("密码错误");
-//            } else { // if (company1.getRoleId() == 3)
-//                session.setAttribute("company", company1);
-//                resultData.setCode(0);
-//            }
 
+    //    家政公司端登入
+    @Override
+    public ResultData adminLogin(Company company, HttpServletRequest request) {
+        ResultData resultData = new ResultData();
+        HttpSession session = request.getSession();
+        Company company1 = companyMapper.companyLogin(company);
+        if (company1 != null) {
+            if(company1.getRoleId()==3){
+                if (!MD5Util.MakeMd5(company.getPwd()).equals(company1.getPwd())) {
+                    resultData.setCode(1);
+                    resultData.setMsg("密码错误");
+                } else { // if (company1.getRoleId() == 3)
+                    session.setAttribute("company", company1);
+                    resultData.setCode(0);
+                }
+            }else{
+                resultData.setCode(2);
+                resultData.setMsg("账号不存在");
+            }
         } else {
             resultData.setCode(2);
             resultData.setMsg("账号不存在");

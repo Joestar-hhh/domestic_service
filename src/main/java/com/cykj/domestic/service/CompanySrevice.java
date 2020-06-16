@@ -1,7 +1,6 @@
 package com.cykj.domestic.service;
 
 import com.cykj.domestic.entity.Company;
-import com.cykj.domestic.entity.Region;
 import com.cykj.domestic.util.ResultData;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +10,9 @@ public interface CompanySrevice {
 
     //   家政公司端登入
     ResultData companyLogin(Company company, HttpServletRequest request);
+
+    //   后台管理员登入
+    ResultData adminLogin(Company company, HttpServletRequest request);
 
     //家政公司端修改密码
     ResultData phone_update_pwd(Company company);
