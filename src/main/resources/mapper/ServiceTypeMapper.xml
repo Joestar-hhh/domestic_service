@@ -60,8 +60,6 @@
         </foreach>
     </insert>
 
-
-
     <!--    查询所有服务类别-->
     <select id="queryServiceType" resultType="com.cykj.domestic.entity.ServiceType">
         SELECT * FROM tb_service_type
@@ -103,6 +101,22 @@
     <select id="selectSerice" resultType="com.cykj.domestic.entity.ServiceType">
         select * from tb_service
     </select>
+
+
+    <!--    公司端人员配置中服务类别查询-->
+    <select id="queryComServiceType" resultType="com.cykj.domestic.entity.ServiceType">
+        SELECT a.id,a.type_name,a.description,b.state FROM tb_company c
+          LEFT JOIN tb_service_relation b ON c.id=b.company_id
+          LEFT JOIN  tb_service_type a ON a.id=b.service_type_id WHERE c.id=#{companyId} and b.state='审核通过'
+    </select>
+
+    <!--    公司端人员配置中服务类别的服务-->
+    <select id="queryServiceTypeService" resultType="com.cykj.domestic.entity.TbService">
+        select s.id,s.type_name s_name,st.id st_id,st.type_name st_name from tb_service s
+        left join tb_service_type st on st.id = s.service_type_id
+        where st.id = #{stId}
+    </select>
+
 
 
 </mapper>

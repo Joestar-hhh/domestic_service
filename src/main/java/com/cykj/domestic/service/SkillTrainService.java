@@ -22,5 +22,11 @@ public interface SkillTrainService {
     //添加技能证书
     ResultData insertqualification(Qualification qualification);
 
+    /*获取培训风采图片路径*/
+    ResultData querySkillStyle(SkillTrain skillTrain);
+
+    /*添加上传的培训风采图片*/
+    ResultData insertSkillStyle(SkillTrain skillTrain);
+
 
 }

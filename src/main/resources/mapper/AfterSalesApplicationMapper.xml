@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cykj.domestic.mapper.AfterSalesApplicationMapper">
+    <!--查询列表-->
+    <select id="queryAfterSalesApplication" parameterType="com.cykj.domestic.entity.AfterSalesApplication"
+            resultType="com.cykj.domestic.entity.AfterSalesApplication">
+        select asa.*,u.name,oi.order_number,s.user_name from tb_after_sales_application asa
+        left join tb_user u
+        on asa.user_id = u.id
+        left join tb_order_info oi
+        on asa.order_info_id = oi.id
+        left join tb_staff s
+        on asa.staff_id = s.id
+        left join tb_company c
+        on asa.company_id = c.id
+        <where>
+            asa.company_id = #{id} and asa.check_state = '待审核'
+            <if test="orderNumber != null and orderNumber != ''">
+                and oi.order_number like #{orderNumber}
+            </if>
+        </where>
+        ORDER BY id limit #{start},#{pageSize}
+    </select>
+    <!--    查询总数-->
+    <select id="queryAfterSalesApplicationCount" parameterType="com.cykj.domestic.entity.AfterSalesApplication"
+            resultType="int">
+        SELECT count(asa.id) FROM tb_after_sales_application asa
+        left join tb_user u
+        on asa.user_id = u.id
+        left join tb_order_info oi
+        on asa.order_info_id = oi.id
+        left join tb_staff s
+        on asa.staff_id = s.id
+        left join tb_company c
+        on asa.company_id = c.id
+        <where>
+            asa.company_id = #{id} and asa.check_state = '待审核'
+            <if test="orderNumber != null and orderNumber != ''">
+                and oi.order_number like #{orderNumber}
+            </if>
+        </where>
+    </select>
+
+    <update id="passCheck" parameterType="com.cykj.domestic.entity.AfterSalesApplication">
+        update tb_after_sales_application set check_state = '审核通过' where id = #{id}
+    </update>
+
+    <update id="nopassCheck" parameterType="com.cykj.domestic.entity.AfterSalesApplication">
+        update tb_after_sales_application set check_state = '审核未通过' where id = #{id}
+    </update>
+
+</mapper>

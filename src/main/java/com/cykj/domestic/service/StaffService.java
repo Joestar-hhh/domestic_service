@@ -1,5 +1,6 @@
 package com.cykj.domestic.service;
 
+import com.cykj.domestic.entity.Company;
 import com.cykj.domestic.entity.Region;
 import com.cykj.domestic.entity.Staff;
 import com.cykj.domestic.entity.User;
@@ -30,12 +31,22 @@ public interface StaffService {
     List<User>userStatistics(String startDate,String endDate);
 
 
-    ResultData queryCompanyStaff(int companyId, int page, int limit);
+    ResultData queryCompanyStaff(String userName, int companyId, int page, int limit);
 
-    ResultData insertCompanyStaff(Staff staff, String CityLevel,String CountyLevel);
+    ResultData insertCompanyStaff(Staff staff, String CityLevel, String CountyLevel, Company company);
 
     //查询手机号是否存在
     ResultData queryStaffPhone(String phone);
     //查询身份证是否存在
     ResultData queryStaffIdcard(String idcard);
+    //查询最大员工账号
+    String queryStaffMaxAccount();
+
+    //修改员工信息
+    ResultData updateCompanyStaff(Staff staff, String CityLevel,String CountyLevel);
+
+    //修改员工工作状态
+    ResultData updateStaffJobState(String jobState,int staffId);
+    //删除员工
+    ResultData deleteStaff(int staffId);
 }

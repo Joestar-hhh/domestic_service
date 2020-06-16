@@ -113,4 +113,10 @@ public class OrderServiceImpl implements OrderService {
         return resultData;
     }
 
+    @Override
+    public List<OrderInfo> companyOrderStatistics(String startDate, String endDate) {
+        List<OrderInfo> list = orderMapper.companyOrderStatistics(startDate,endDate);
+        return list;
+    }
+
 }

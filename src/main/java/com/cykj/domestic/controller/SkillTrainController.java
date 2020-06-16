@@ -83,6 +83,22 @@ public class SkillTrainController {
         return JSON.toJSONString(resultData);
     }
 
+    /*获取培训风采图片路径*/
+    @RequestMapping(value = "/querySkillStyle")
+    public String querySkillStyle(HttpServletRequest request, HttpServletResponse response, SkillTrain skillTrain) {
+        System.out.println("qualification=" + JSON.toJSONString(skillTrain));
+        ResultData resultData = skillTrainService.querySkillStyle(skillTrain);
+        System.out.println(JSON.toJSONString(resultData));
+        return JSON.toJSONString(resultData);
+    }
+
+    /*添加上传的培训风采图片*/
+    @RequestMapping(value = "/insertSkillStyle")
+    public String insertSkillStyle(HttpServletRequest request, HttpServletResponse response, SkillTrain skillTrain) {
+        ResultData resultData = skillTrainService.insertSkillStyle(skillTrain);
+        return JSON.toJSONString(resultData);
+    }
+
     //上传
     @ResponseBody
     @RequestMapping(value = "/fileUpload")
@@ -98,8 +114,8 @@ public class SkillTrainController {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String dateStr = simpleDateFormat.format(date);
             String savePath = request.getSession().getServletContext().getRealPath("/upload/");
-            String projectPath = savePath + dateStr + File.separator + uuid + "." + prefix;
-            String fileupload="/upload/"+dateStr + File.separator + uuid + "." + prefix;
+            String projectPath = savePath + "SkillStyle" + File.separator + uuid + "." + prefix;
+            String fileupload = "/upload/" + "SkillStyle" + File.separator + uuid + "." + prefix;
             System.out.println("projectPath==" + projectPath);
             File files = new File(projectPath);
             //打印查看上传路径
@@ -118,5 +134,6 @@ public class SkillTrainController {
             return null;
         }
     }
+
 
 }

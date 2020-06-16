@@ -94,10 +94,10 @@ public class StaffController {
     * 公司端--员工信息
     */
     @RequestMapping("/queryCompanyStaffInfo")
-    public String queryCompanyStaffInfo(HttpServletRequest request,Staff staff, String page, String limit) {
+    public String queryCompanyStaffInfo(HttpServletRequest request,String userName, Staff staff, String page, String limit) {
         Company company = (Company) request.getSession().getAttribute("company");
-        System.out.println(" session中："+company);
-        ResultData resultData = staffService.queryCompanyStaff(company.getId(),
+        System.out.println("-----------------userName:"+userName);
+        ResultData resultData = staffService.queryCompanyStaff(userName,company.getId(),
                 Integer.parseInt(page), Integer.parseInt(limit));
         return JSON.toJSONString(resultData);
     }
@@ -108,15 +108,19 @@ public class StaffController {
     @RequestMapping("/insertCompanyStaff")
     public String insertCompanyStaff(HttpServletRequest request,Staff staff, String CityLevel,String CountyLevel) {
         Company company = (Company) request.getSession().getAttribute("company");
-        System.out.println(" session中："+company);
-        System.out.println(" staff："+staff);
-        System.out.println(" CityLevel："+CityLevel);
-//        ResultData resultData = staffService.queryCompanyStaff(company.getId(),
-//                Integer.parseInt(page), Integer.parseInt(limit));
-//        return JSON.toJSONString(resultData);
-        return null;
+        ResultData resultData = staffService.insertCompanyStaff(staff,CityLevel,CountyLevel,company);
+        return JSON.toJSONString(resultData);
     }
 
+
+    /*
+     * 公司端--修改员工信息
+     */
+    @RequestMapping("/updateCompanyStaff")
+    public String updateCompanyStaff(Staff staff, String CityLevel,String CountyLevel) {
+        ResultData resultData = staffService.updateCompanyStaff(staff,CityLevel,CountyLevel);
+        return JSON.toJSONString(resultData);
+    }
 
 
     /*
@@ -124,7 +128,6 @@ public class StaffController {
      */
     @RequestMapping("/queryStaffPhone")
     public String queryStaffPhone(String phone) {
-        System.out.println(" phone："+phone);
         ResultData resultData = staffService.queryStaffPhone(phone);
         return JSON.toJSONString(resultData);
     }
@@ -134,8 +137,26 @@ public class StaffController {
      */
     @RequestMapping("/queryStaffIdcard")
     public String queryStaffIdcard(String idcard) {
-        System.out.println(" idcard："+idcard);
         ResultData resultData = staffService.queryStaffIdcard(idcard);
+        return JSON.toJSONString(resultData);
+    }
+
+    /*
+     * 公司端--修改员工工作状态
+     */
+    @RequestMapping("/updateStaffJobState")
+    public String updateStaffJobState(String newState,String staffId) {
+        ResultData resultData = staffService.updateStaffJobState(newState,Integer.parseInt(staffId));
+        return JSON.toJSONString(resultData);
+    }
+
+
+    /*
+     * 公司端--删除员工
+     */
+    @RequestMapping("/deleteStaff")
+    public String deleteStaff(String staffId) {
+        ResultData resultData = staffService.deleteStaff(Integer.parseInt(staffId));
         return JSON.toJSONString(resultData);
     }
 }

@@ -16,4 +16,9 @@ public class TbService {
   private String stypeName;//热门服务所属服务类型
   private String serviceCategory;//服务列表所属服务类型
 
+
+  private String sName;
+  private int stId;
+  private String stName;
+
 }

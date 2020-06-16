@@ -19,7 +19,13 @@ public interface KnowledgeMapper {
 
     int addKnowledeg(Knowledge knowledge);
 
+//<!--    增加育婴知识-->
+    int addKnowledegStyle(Knowledge knowledge);
+
     int updateknowledeg(Knowledge knowledge);
+
+//    获取育婴知识路径-
+    List<Knowledge> queryKnowledegStyle(Knowledge knowledge);
 
 
 

@@ -3,7 +3,10 @@ package com.cykj.domestic.service;
 
 import com.cykj.domestic.entity.Company;
 import com.cykj.domestic.entity.ServiceType;
+import com.cykj.domestic.entity.TbService;
 import com.cykj.domestic.util.ResultData;
+
+import java.util.List;
 
 public interface ServiceTypeService {
     ResultData selectList(ServiceType serviceType, int page, int pageSize);
@@ -37,6 +40,14 @@ public interface ServiceTypeService {
 
     /*查询所有服务*/
     ResultData selectSerice();
+
+
+
+
+    //查询公司已有服务类别
+    List<ServiceType> queryComServiceType(int companyId);
+    //查询服务类别下的服务
+    List<TbService> queryServiceTypeService(int stID);
 
 
 }
