@@ -11,6 +11,7 @@ public class MyAddress {
     private String detailAddress;
     private String firstLevelRegion;
     private String secondaryZone;
+    private String regionName;
 
 
     private int userAddressId;

@@ -26,5 +26,8 @@ public class Company {
     private String joinDay;
     private int serviceTypeId;
     private  int userId;
+    private String firstLevelRegion;//
+    private String secondaryZone;
+    private String regionName;
 
 }

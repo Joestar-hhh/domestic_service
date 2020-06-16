@@ -12,7 +12,7 @@
     </insert>
 
     <update id="updateAddress" parameterType="com.cykj.domestic.entity.MyAddress">
-     update tb_user_address set name =#{name},region=#{firstLevelRegion}#{secondaryZone},detail_address=#{detailAddress},phone=#{phone} where id=#{id}
+     update tb_user_address set name =#{name},region=#{regionName},detail_address=#{detailAddress},phone=#{phone} where id=#{id}
         </update>
 
 

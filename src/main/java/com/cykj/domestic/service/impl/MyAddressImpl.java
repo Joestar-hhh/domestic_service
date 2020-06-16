@@ -43,6 +43,7 @@ public class MyAddressImpl implements MyAddressService {
 
     @Override
     public ResultData addAddress(MyAddress myAddress) {
+        myAddress.setRegionName(myAddress.getFirstLevelRegion()+myAddress.getSecondaryZone());
         int res = MyAddressMapper.addAddress(myAddress);
         ResultData resultData = new ResultData();
         if (res == 1) {
