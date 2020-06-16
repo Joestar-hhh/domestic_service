@@ -91,7 +91,7 @@
                         // alert(msg.msg)
                         // layer.msg(msg.msg)
                         if (msg.code == '0') {
-                            location.href = "<%=path%>/pages/back/back_adminhome.jsp"
+                            location.href = "<%=path%>/pages/company/company_companyhome.jsp"
                         } else {
                             layer.msg(msg.msg);
                         }
