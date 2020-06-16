@@ -9,5 +9,10 @@
                 SELECT * FROM tb_user_address WHERE id=#{userAddressId}
     </select>
 
+    <!--    用户登陆-->
+    <select id="userLogin" parameterType="com.cykj.domestic.entity.User"
+            resultType="com.cykj.domestic.entity.User">
+             SELECT * FROM tb_user WHERE account=#{account}
+    </select>
 
 </mapper>

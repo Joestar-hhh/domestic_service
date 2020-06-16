@@ -12,4 +12,7 @@ public interface UserMapper {
     //查询用户默认地址
     List<User> queryUserAddress(User user);
 
+    //用户登陆
+    User userLogin(User user);
+
 }
