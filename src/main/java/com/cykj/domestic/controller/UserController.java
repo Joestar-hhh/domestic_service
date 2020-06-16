@@ -36,4 +36,12 @@ public class UserController {
         ResultData resultData = userService.userLogin(user, request);
         return JSON.toJSONString(resultData);
     }
+
+    // 用户退出登录
+    @RequestMapping("/quit")
+    public String remove(HttpServletRequest request) {
+        request.getSession().invalidate();
+        System.out.println("用户退出登录了！");
+        return "1";
+    }
 }
