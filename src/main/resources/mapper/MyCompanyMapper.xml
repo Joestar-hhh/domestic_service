@@ -7,7 +7,7 @@
 
 
         <update id="updateServiceList" parameterType="com.cykj.domestic.entity.Company">
-         update tb_service set company_name=#{companyName},address=#{address},boss=#{boss},phone=#{phone} where id=#{id}
+         update tb_company set company_name=#{companyName},address=#{address},boss=#{boss},phone=#{phone} where id=#{id}
         </update>
 
 
@@ -20,23 +20,23 @@
         LEFT JOIN tb_service_type s on s.id=r.service_type_id WHERE p.id=#{userId}
     </select>
 
-<!--//查询我的公司地址ID-->
-<select id="selectAddressID">
-    select r.id from tb_region r where region=#{regionName}
-</select>
-<!--//修改区域id-->
-    <insert id="updateAddressID" parameterType="com.cykj.domestic.entity.Company">
-        insert into tb_company(region_id)values #{id}
-    </insert>
+    <!--//查询我的公司地址ID-->
+    <select id="selectAddressId" resultType="int">
+        select id from tb_region where region=#{regionName}
+    </select>
+    <!--//修改区域id-->
+    <update id="updateAddressID" parameterType="com.cykj.domestic.entity.Company">
+        update tb_company set region_id = #{regionId} where id=#{companyId}
+    </update>
 
-<!--    //添加公司服务类别-->
-    <insert id="addServiceContinuous" parameterType="com.cykj.domestic.entity.ServiceType">
-        INSERT INTO tb_service_relation(company_id,service_type_id)VALUES
-        <foreach collection="list" item="item" index="index" separator=",">
-            (#{companyId},#{item})
-        </foreach>
-    </insert>
-
-
-
+<!--    &lt;!&ndash;    //添加公司服务类别&ndash;&gt;-->
+<!--    <insert id="addServiceContinuous" parameterType="com.cykj.domestic.entity.ServiceType">-->
+<!--        INSERT INTO tb_service_relation(company_id,service_type_id)VALUES-->
+<!--        <foreach collection="list" item="item" index="index" separator=",">-->
+<!--            (#{companyId},#{item})-->
+<!--        </foreach>-->
+<!--    </insert>-->
+<!--    <delete id="delectCompanyRelation">-->
+<!--        delete from tb_service_relation WHERE company_id=#{companyId}-->
+<!--    </delete>-->
 </mapper>

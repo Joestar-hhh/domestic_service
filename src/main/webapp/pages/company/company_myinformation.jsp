@@ -24,7 +24,6 @@
     <link rel="stylesheet" href="<%=path%>/static/css/back_page.css">
 
 
-
     <style>
         .layui-form-label {
             float: left;
@@ -35,18 +34,22 @@
             line-height: 19px;
             text-align: right;
         }
+
         .layui-input, .layui-textarea {
             width: 41%;
         }
+
         .formbtn {
             margin: 17px 567px;
         }
+
         blockquote, body, button, dd, div, dl, dt, form, h1, h2, h3, h4, h5, h6, input, li, ol, p, pre, td, textarea, th, ul {
             margin-top: 39px;
             padding: 0;
-            -webkit-tap-highlight-color: rgba(0,0,0,0);
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         }
-        body{
+
+        body {
             background-color: #00feff;
         }
     </style>
@@ -68,12 +71,14 @@
         overflow-y: auto;
         background-color: #fff;
         border-radius: 2px;
-        box-shadow: 0 2px 4px rgba(0,0,0,.12);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, .12);
         box-sizing: border-box;
     }
+
     .layui-form-select .layui-edge {
         right: 31%;
     }
+
     .layui-form-select dl dd, .layui-form-select dl dt {
         padding: -4px 8px;
         line-height: 18px;
@@ -83,19 +88,21 @@
     }
 </style>
 
-<form class="layui-form" id="userinfoform" action="" >
-<div class="layui-form-item" id="accountdiv1">
-    <label class="layui-form-label">账号名：</label>
-    <div class="layui-input-block" id="account_name">
-        <input type="text" name="account" id="account" required lay-verify="required"  autocomplete="off" class="layui-input" readonly="readonly">
+<form class="layui-form" id="userinfoform" action="">
+    <div class="layui-form-item" id="accountdiv1">
+        <label class="layui-form-label">账号名：</label>
+        <div class="layui-input-block" id="account_name">
+            <input type="text" name="account" id="account" required lay-verify="required" autocomplete="off"
+                   class="layui-input" readonly="readonly">
+        </div>
     </div>
-</div>
-<div class="layui-form-item" id="accountdiv2">
-    <label class="layui-form-label">公司名称：</label>
-    <div class="layui-input-block" id="company_name">
-        <input type="text" name="companyName" id="companyName" required lay-verify="required"  autocomplete="off" class="layui-input">
+    <div class="layui-form-item" id="accountdiv2">
+        <label class="layui-form-label">公司名称：</label>
+        <div class="layui-input-block" id="company_name">
+            <input type="text" name="companyName" id="companyName" required lay-verify="required" autocomplete="off"
+                   class="layui-input">
+        </div>
     </div>
-</div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">市级：</label>
@@ -112,24 +119,27 @@
         </div>
     </div>
 
-<div class="layui-form-item" id="accountdiv3">
-    <label class="layui-form-label">公司地址：</label>
-    <div class="layui-input-block" id="company_address">
-        <input type="text" name="address" id="address" required lay-verify="required" autocomplete="off" class="layui-input">
+    <div class="layui-form-item" id="accountdiv3">
+        <label class="layui-form-label">公司地址：</label>
+        <div class="layui-input-block" id="company_address">
+            <input type="text" name="address" id="address" required lay-verify="required" autocomplete="off"
+                   class="layui-input">
+        </div>
     </div>
-</div>
-<div class="layui-form-item" id="accountdiv4">
-    <label class="layui-form-label">公司法人代表：</label>
-    <div class="layui-input-block" id="company_boss">
-        <input type="text" name="boss" id="boss" required lay-verify="required"  autocomplete="off" class="layui-input">
+    <div class="layui-form-item" id="accountdiv4">
+        <label class="layui-form-label">公司法人代表：</label>
+        <div class="layui-input-block" id="company_boss">
+            <input type="text" name="boss" id="boss" required lay-verify="required" autocomplete="off"
+                   class="layui-input">
+        </div>
     </div>
-</div>
-<div class="layui-form-item" id="accountdiv5">
-    <label class="layui-form-label">公司电话：</label>
-    <div class="layui-input-block" id="company_phone">
-        <input type="text" name="phone" id="phone" required lay-verify="required"  autocomplete="off" class="layui-input">
+    <div class="layui-form-item" id="accountdiv5">
+        <label class="layui-form-label">公司电话：</label>
+        <div class="layui-input-block" id="company_phone">
+            <input type="text" name="phone" id="phone" required lay-verify="required" autocomplete="off"
+                   class="layui-input">
+        </div>
     </div>
-</div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">公司类别:</label>
@@ -138,65 +148,22 @@
         </div>
     </div>
 
-<div class="layui-form-item">
-    <div class="layui-input-block">
-        <button class="layui-btn formbtn" id="insertconfirm" lay-submit lay-filter="insertconfirm">保存</button>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn formbtn" id="insertconfirm" lay-submit lay-filter="insertconfirm">保存</button>
+        </div>
     </div>
-</div>
 </form>
 
 <%--<script src="<%=path%>/back/js/layui.js" charset="utf-8"></script>--%>
 <script>
 
 
-    layui.use(['form', 'layer', 'laydate'], function(){
+    layui.use(['form', 'layer', 'laydate'], function () {
         var $ = layui.jquery;
         var form = layui.form;
 //页面一加载就发送ajax
-//         $(function(){
-            //获取公司服务类别
-        var checkList = [];
-        $.ajax({
-            url: '<%=path%>/serviceTypeContrller/queryServiceType',
-            type: 'POST',
-            dataType: 'JSON',
-            // async: false,
-            success: function (msg) {
-                $.each(msg.data, function (i, item) {
-                    $("#account_inputdiv").append('<input type="checkbox" name="account_inputdiv"  lay-skin="primary" title="' + item.typeName + '" value="' + item.id + '">')
-                });
-                $.ajax({
-                    url: '<%=path%>/myCompanyContrller/selectMyCompany',
-                    type: 'POST',
-                    dataType: 'JSON',
-                    async: false,
-                    success: function (msg) {
-
-                        $("#account").val(msg.data[0].account);
-                        $("#companyName").val(msg.data[0].companyName);
-                        $("#address").val(msg.data[0].region+msg.data[0].address);
-                        $("#boss").val(msg.data[0].boss);
-                        $("#phone").val(msg.data[0].phone);
-                        // alert(JSON.stringify(msg.data))
-                        checkList = msg.data;
-                        form.render();
-                    }
-                });
-
-            }
-        });
-        setTimeout(function(){
-            $.each(checkList,function (i,item) {
-                $("#account_inputdiv>input").each(function () {
-                    // alert("item.typeNme:"+item.typeName+"    this:"+$(this).attr('title'));
-                    if(item.typeName==$(this).attr('title')){
-                        $(this).next().attr('class','layui-unselect layui-form-checkbox layui-form-checked');
-                    }
-                });
-            });
-        },300);
-
-
+        $(function () {
             //查询公司市级
             $.ajax({
                 type: 'POST',
@@ -242,43 +209,124 @@
                 form.render();
             });
 
-
-        $("#insertconfirm").click(function () {
-            //修改公司表信息
+            //获取公司服务类别
+            var checkList = [];
             $.ajax({
-                url: '<%=path%>/myCompanyContrller/updateMycompany',
+                url: '<%=path%>/serviceTypeContrller/queryServiceType',
                 type: 'POST',
                 dataType: 'JSON',
-                async: false,
-                data:{
-                    companyName: $("#companyName").val(),
-                    address: $("#address").val(),
-                    boss: $("#boss").val(),
-                    phone: $("#phone").val(),
-                },
+                // async: false,
                 success: function (msg) {
+                    $.each(msg.data, function (i, item) {
+                        $("#account_inputdiv").append('<input type="checkbox" name="account_inputdiv"  lay-skin="primary" title="' + item.typeName + '" value="' + item.id + '" disabled="true">')
+                    });
+                    $.ajax({
+                        url: '<%=path%>/myCompanyContrller/selectMyCompany',
+                        type: 'POST',
+                        dataType: 'JSON',
+                        async: false,
+                        success: function (msg) {
+
+                            $("#account").val(msg.data[0].account);
+                            $("#companyName").val(msg.data[0].companyName);
+                            $("#address").val(msg.data[0].region + msg.data[0].address);
+                            $("#boss").val(msg.data[0].boss);
+                            $("#phone").val(msg.data[0].phone);
+                            // alert(JSON.stringify(msg.data))
+                            checkList = msg.data;
+                            form.render();
+                        }
+                    });
+
                 }
             });
+            setTimeout(function () {
+                $.each(checkList, function (i, item) {
+                    $("#account_inputdiv>input").each(function () {
+                        // alert("item.typeNme:"+item.typeName+"    this:"+$(this).attr('title'));
+                        if (item.typeName == $(this).attr('title')) {
+                            $(this).next().attr('class', 'layui-unselect layui-form-checkbox layui-form-checked');
+                        }
+                    });
+                });
+            }, 300);
 
-            //修改公司服务信息
-            $.ajax({
-                url: '<%=path%>/myCompanyContrller/addCompanycollection',
-                type: 'POST',
-                dataType: 'JSON',
-                data: {
-                    regionId: $("#regionList").val(),
-                    companyProfile: $("#companyProfile").val(),
-                    typridList: JSON.stringify(typridList),
-                    address:$("#address").val()
-                },
-                success: function (msg) {
-                    layer.msg(msg.msg);
-                }
-            })
+
+
+
+
+            form.on('submit(insertconfirm)', function (data) {
+                <%--$.ajax({--%>
+                <%--    url: '<%=path%>/myCompanyContrller/updateMycompany',--%>
+                <%--    type: 'POST',--%>
+                <%--    dataType: 'JSON',--%>
+                <%--    async: false,--%>
+                <%--    data: {--%>
+                <%--        companyName: $("#companyName").val(),--%>
+                <%--        address: $("#address").val(),--%>
+                <%--        boss: $("#boss").val(),--%>
+                <%--        phone: $("#phone").val(),--%>
+                <%--    },--%>
+                <%--    success: function (msg) {--%>
+                <%--    }--%>
+                <%--});--%>
+
+                var serviceTypeList = [];
+                $("#account_inputdiv>input").each(function () {
+                    // alert("item.typeNme:"+item.typeName+"    this:"+$(this).attr('title'));
+                    if ($(this).next().attr('class') == 'layui-unselect layui-form-checkbox layui-form-checked') {
+                        serviceTypeList.push($(this).val());
+                        // alert("id:"+$(this).val()+"    text:" + $(this).attr('title'))
+                    }
+                });
+                data.field.serviceTypeList = JSON.stringify(serviceTypeList);
+                data.field.CityLevel = $("#City_level").find("option:selected").text();
+                data.field.CountyLevel = $("#County_level").find("option:selected").text();
+
+                $.ajax({
+                    type: 'POST',
+                    url: '<%=path%>/myCompanyContrller/updateMycompany',
+                    dataType: 'JSON',
+                    data: data.field,
+                    success: function (msg) {
+                        layer.alert(msg.msg,function () {
+                            window.location.reload();//修改成功后刷新父界面
+                        })
+
+                    }
+                })
+                return false;
+            });
+
+
+            <%--    var typridList = new Array();--%>
+            <%--    $("#account_inputdiv>input[type='checkbox']").each(function (i) {--%>
+            <%--        if ($(this).next().attr("class") == "layui-unselect layui-form-checkbox layui-form-checked") {--%>
+            <%--            // alert("你选了有："+$(this).attr('title')+"    "+$(this).attr('value'));--%>
+            <%--            typridList.push($(this).attr('value'));--%>
+            <%--        }--%>
+            <%--    })--%>
+
+            <%--    if(typridList.length==0){--%>
+            <%--        layer.msg("请选择公司类别");--%>
+            <%--        return false;--%>
+            <%--    }--%>
+            <%--    //修改公司服务信息--%>
+            <%--    $.ajax({--%>
+            <%--        url: '<%=path%>/myCompanyContrller/addCompanycollection',--%>
+            <%--        type: 'POST',--%>
+            <%--        dataType: 'JSON',--%>
+            <%--        data: {--%>
+            <%--            typridList: JSON.stringify(typridList),--%>
+            <%--        },--%>
+            <%--        success: function (msg) {--%>
+            <%--            layer.msg(msg.msg);--%>
+            <%--        }--%>
+            <%--    })--%>
 
 
         })
-        });
+    });
 
 
 </script>

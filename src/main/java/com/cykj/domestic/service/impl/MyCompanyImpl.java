@@ -1,5 +1,6 @@
 package com.cykj.domestic.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.cykj.domestic.entity.Company;
 import com.cykj.domestic.entity.ServiceType;
 import com.cykj.domestic.entity.TbService;
@@ -45,23 +46,26 @@ public class MyCompanyImpl implements MyCompanyService {
 
     //修改我的公司信息数据
     @Override
-    public ResultData updateMycompany(Company company,int id) {
+    public ResultData updateMycompany(Company company) {
         //修改公司表
-        int res= myCompanyMapper.updateServiceList(id);
+        int res= myCompanyMapper.updateServiceList(company);
         //通过区域查出区域ID
         company.setRegionName(company.getFirstLevelRegion()+company.getSecondaryZone());
-        Company company1 = myCompanyMapper.selectAddressId(company);
+        System.out.println("区域：---------------------"+company.getRegionName());
+        int regionId = myCompanyMapper.selectAddressId(company.getRegionName());
+        System.out.println("查询得id--------------------"+regionId);
+        company.setRegionId(regionId);
         //通过区域ID修改区域
 
-        System.out.println("查询出要改为的公司区域id"+company1.getRegionId());
-        int res2= myCompanyMapper.updateAddressID(company1.getRegionId());
+        System.out.println("查询出要改为的公司区域id"+company.getRegionId());
+        int res2= myCompanyMapper.updateAddressID(company.getRegionId(),company.getId());
 
         //删除公司服务类型关系表
-        int res3=myCompanyMapper.delect(id);
-
-        //
+//        int res3=myCompanyMapper.delectCompanyRelation(company.getId());
+//        List<String> list = JSON.parseArray(serviceTypeList,String.class);
+//        int insertRes = myCompanyMapper.addServiceContinuous(company.getId());
         ResultData resultData = new ResultData();
-        if(res==1){
+        if(res2>=1){
             resultData.setCode(0);
             resultData.setMsg("保存成功");
         } else {
@@ -71,15 +75,6 @@ public class MyCompanyImpl implements MyCompanyService {
         return resultData;
     }
 
+    //添加公司类型
 
-
-
-
-//    //删除公司类型表关系表
-//    @Override
-//    public ResultData delect(int id) {
-//        int res= myCompanyMapper.delect(id);
-////        ResultData resultData = new ResultData();
-//        return null;
-//    }
 }

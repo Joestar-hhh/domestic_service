@@ -16,16 +16,19 @@ import java.util.List;
 public interface MyCompanyMapper {
 
     //修改公司信息数据
-    int updateServiceList(int id);
+    int updateServiceList(Company company);
     //删除服务列表数据
     List<Company> selectList(@Param("e") Company company,@Param("userId")int userId);
 //查询我的公司地址id
-    Company selectAddressId(@Param("e") Company company);
+    int selectAddressId(@Param("regionName") String regionName);
 
     //修改我的公司ID
-    int updateAddressID(int id);
+    int updateAddressID(@Param("regionId")int regionId,@Param("companyId")int companyId);
+//
+//    //删除公司关系表
+//    int delectCompanyRelation(int companyId);
 
-    //删除公司关系表
-    int delect(int id);
+    //
+//    int addServiceContinuous(int companyId);
 
 }

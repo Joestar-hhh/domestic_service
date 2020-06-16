@@ -8,12 +8,8 @@ import com.cykj.domestic.util.ResultData;
 public interface MyCompanyService {
 
     ResultData selectList(Company company,int userId);
-    ResultData updateMycompany(Company company,int id);
+    ResultData updateMycompany(Company company);
 
-//    ResultData selectAddressDI(Company company);
-//
-//    ResultData updateAddressID(int id);
-//    ResultData delect(int id);
 
 
 }
