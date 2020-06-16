@@ -39,18 +39,27 @@
          where id=#{id}
     </update>
 
-<!--    添加技能培训-->
-    <insert id="insertSkillTrain" parameterType="com.cykj.domestic.entity.SkillTrain" >
+    <!--    添加技能培训-->
+    <insert id="insertSkillTrain" parameterType="com.cykj.domestic.entity.SkillTrain">
         insert into tb_skill_train (train_project_name, time, qualification_id,picture_path)
         value (#{trainProjectName},#{time},#{qualificationId},#{picturePath})
     </insert>
 
     <!--    添加技能证书-->
-    <insert id="insertqualification" parameterType="com.cykj.domestic.entity.Qualification" >
+    <insert id="insertqualification" parameterType="com.cykj.domestic.entity.Qualification">
         insert into tb_qualification (qualification_name)
         value (#{qualificationName})
     </insert>
 
+    <!--    获取培训风采图片路径-->
+    <select id="querySkillStyle" parameterType="com.cykj.domestic.entity.SkillTrain"
+            resultType="com.cykj.domestic.entity.SkillTrain">
+        SELECT * from tb_skill_train t LEFT JOIN tb_train_style s ON t.id=s.train_id where s.train_id=#{id}
+    </select>
 
+<!--  添加上传的培训风采图片-->
+    <insert id="insertSkillStyle" parameterType="com.cykj.domestic.entity.SkillTrain">
+                  INSERT INTO tb_train_style (train_id,path)VALUES(#{id},#{path})
+    </insert>
 
 </mapper>

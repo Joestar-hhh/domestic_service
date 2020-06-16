@@ -3,11 +3,9 @@ package com.cykj.domestic.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.cykj.domestic.entity.Knowledge;
-import com.cykj.domestic.entity.Role;
 import com.cykj.domestic.service.KnowledgeService;
 import com.cykj.domestic.util.ResultData;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -48,12 +46,24 @@ public class KnowledgeController {
         ResultData resultData = knowledgeService.deleteKnowledeg(idList);
         return JSON.toJSONString(resultData);
     }
-
-
     /*上传育婴知识*/
     @RequestMapping("/updateknowledeg")
     public String updateknowledeg(HttpServletRequest request,HttpServletResponse response, Knowledge knowledge){
         ResultData resultData = knowledgeService.updateknowledeg(knowledge);
         return JSON.toJSONString(resultData);
     }
+    @RequestMapping("/queryKnowledegStyle")
+    public String queryKnowledegStyle(HttpServletRequest request,HttpServletResponse response, Knowledge knowledge){
+        ResultData resultData=knowledgeService.queryKnowledegStyle(knowledge);
+        return JSON.toJSONString(resultData);
+    }
+
+//     增加育婴知识-
+    @RequestMapping("/addKnowledegStyle")
+    public String addKnowledegStyle(HttpServletRequest request, HttpServletResponse response, Knowledge knowledge) {
+        ResultData resultData = knowledgeService.addKnowledegStyle(knowledge);
+        return JSON.toJSONString(resultData);
+    }
+
+
 }

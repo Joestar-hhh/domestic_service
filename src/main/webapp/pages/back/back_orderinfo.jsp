@@ -177,8 +177,9 @@
                                 });
                             },
                             success : function(msg) {
-                                alert(msg.msg);
-                                window.location.reload();//修改成功后刷新父界面
+                                layer.alert(msg.msg,function () {
+                                    window.location.reload();//修改成功后刷新
+                                });
                             }
                         });
                         layer.close(index);

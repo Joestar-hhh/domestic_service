@@ -23,13 +23,13 @@
 <form class="layui-form" action="javascript:void(0);">
     <div class="layui-form-item">
         <img class="logo" src="<%=path%>/static/pear_layui/admin/images/logo.png"/>
-        <div class="title">传一家政平台</div>
+        <div class="title">传一家政后台</div>
         <div class="desc">
             福 建 省 最 具 影 响 力 的 家 政 公 司 之 一
         </div>
     </div>
     <div class="layui-form-item">
-        <input type="text" placeholder="账 户 : admin" hover class="layui-input" id="account" value="10001"/>
+        <input type="text" placeholder="账 户 : admin" hover class="layui-input" id="account" value="admin"/>
     </div>
     <div class="layui-form-item">
         <input type="password" placeholder="密 码 : 888888" hover class="layui-input" id="pwd" value="123456"/>
@@ -43,11 +43,11 @@
                 style="border-radius:3px;border: 1px #e6e6e6 solid;height: 100%;width: 45%;display: inline-block!important;height: 42px"
         ></canvas>
     </div>
-    <div class="layui-form-item">
-        <a href="<%=path%>/pages/company/company_updatepwd.jsp">忘记密码</a>
-        &nbsp;&nbsp;&nbsp;
-        <a href="<%=path%>/pages/company/company_registered.jsp">快速注册</a>
-    </div>
+<%--    <div class="layui-form-item">--%>
+<%--        <a href="<%=path%>/pages/company/company_updatepwd.jsp">忘记密码</a>--%>
+<%--        &nbsp;&nbsp;&nbsp;--%>
+<%--        <a href="<%=path%>/pages/company/company_registered.jsp">快速注册</a>--%>
+<%--    </div>--%>
     <div class="layui-form-item">
         <button class="pear-btn pear-btn-primary login">
             登 入
@@ -80,7 +80,7 @@
                 return false;
             } else if (val.toLowerCase() == num.toLowerCase()) {
                 $.ajax({
-                    url: '<%=path%>/companyController/companyLogin',
+                    url: '<%=path%>/companyController/adminLogin',
                     type: 'POST',
                     dataType: 'JSON',
                     data: {
@@ -89,7 +89,7 @@
                     },
                     success: function (msg) {
                         // alert(msg.msg)
-                        layer.msg(msg.msg)
+                        // layer.msg(msg.msg)
                         if (msg.code == '0') {
                             location.href = "<%=path%>/pages/back/back_adminhome.jsp"
                         } else {

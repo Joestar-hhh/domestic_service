@@ -3,6 +3,7 @@ package com.cykj.domestic.controller;
 import com.alibaba.fastjson.JSON;
 import com.cykj.domestic.entity.Company;
 import com.cykj.domestic.entity.ServiceType;
+import com.cykj.domestic.entity.TbService;
 import com.cykj.domestic.service.ServiceTypeService;
 import com.cykj.domestic.util.ResultData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @RestController
 @RequestMapping("/serviceTypeContrller")
@@ -114,5 +116,23 @@ public class ServiceTypeContrller {
     public String selectSerice(HttpServletResponse response,HttpServletRequest request){
         ResultData resultData=serviceTypeService.selectSerice();
         return JSON.toJSONString(resultData);
+    }
+
+
+
+
+    /*查询公司服务类别*/
+    @RequestMapping("/queryComServiceType")
+    public String queryComServiceType(HttpServletRequest request){
+        Company company = (Company)request.getSession().getAttribute("company");
+        List<ServiceType> list=serviceTypeService.queryComServiceType(company.getId());
+        return JSON.toJSONString(list);
+    }
+
+    /*查询服务类别下的服务*/
+    @RequestMapping("/queryServiceTypeService")
+    public String queryServiceTypeService(String stId){
+        List<TbService> list=serviceTypeService.queryServiceTypeService(Integer.parseInt(stId));
+        return JSON.toJSONString(list);
     }
 }

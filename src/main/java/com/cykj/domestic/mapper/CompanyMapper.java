@@ -18,6 +18,9 @@ public interface CompanyMapper {
      // 家政公司端修改密码
     int phone_update_pwd(Company company);
 
+    //公司最大账号
+    String  MaxAccount();
+
     /*家政公司根据手机号码查询*/
     Company querycompanyphone(Company company);
 
@@ -47,7 +50,7 @@ public interface CompanyMapper {
 
 
 //   公司申请入职添加地区和口号
-    int insertregionId(@Param("id")String companyId,@Param("regionId")String regionId,@Param("companyProfile")String companyProfile);
+    int insertregionId(@Param("id")String companyId,@Param("regionId")String regionId,@Param("companyProfile")String companyProfile,@Param("address")String address);
 
 //    家政公司统计
     List<Company> serviceTypeStatistics();

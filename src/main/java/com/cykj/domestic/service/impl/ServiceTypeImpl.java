@@ -3,6 +3,7 @@ package com.cykj.domestic.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.cykj.domestic.entity.Company;
 import com.cykj.domestic.entity.ServiceType;
+import com.cykj.domestic.entity.TbService;
 import com.cykj.domestic.mapper.CompanyMapper;
 import com.cykj.domestic.mapper.ServiceTypeMapper;
 import com.cykj.domestic.service.ServiceTypeService;
@@ -97,7 +98,8 @@ public class ServiceTypeImpl implements ServiceTypeService {
     @Override
     public ResultData addServiceContinuous(String menuIdList, String companyId, Company company) {
         List<String> list = JSON.parseArray(menuIdList, String.class);
-        int i = companyMapper.insertregionId(companyId, String.valueOf(company.getRegionId()), company.getCompanyProfile());
+
+        int i = companyMapper.insertregionId(companyId, String.valueOf(company.getRegionId()), company.getCompanyProfile(),company.getAddress());
         int res = serviceTypeMapper.addServiceContinuous(list, companyId, company);
         ResultData resultData = new ResultData();
         if (res >= 1) {
@@ -188,6 +190,16 @@ public class ServiceTypeImpl implements ServiceTypeService {
         resultData.setMsg("");
         resultData.setData(list);
         return resultData;
+    }
+
+    @Override
+    public List<ServiceType> queryComServiceType(int companyId) {
+        return serviceTypeMapper.queryComServiceType(companyId);
+    }
+
+    @Override
+    public List<TbService> queryServiceTypeService(int stID) {
+        return serviceTypeMapper.queryServiceTypeService(stID);
     }
 
 }

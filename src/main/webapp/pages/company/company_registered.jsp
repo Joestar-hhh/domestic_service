@@ -36,10 +36,10 @@
         <img class="logo" src="<%=path%>/static/pear_layui/admin/images/logo.png"/>
         <div class="title">家政公司账号注册</div>
     </div>
-    <div class="layui-form-item">
-    <input type="text" placeholder="公 司 账 号" hover class="layui-input" id="account" name="account"
-           lay-verify="required"/>
-     </div>
+<%--    <div class="layui-form-item">--%>
+<%--    <input type="text" placeholder="公 司 账 号" hover class="layui-input" id="account" name="account"--%>
+<%--           lay-verify="required"/>--%>
+<%--     </div>--%>
     <input type="text" placeholder="公 司 名称" hover class="layui-input" id="companyName" name="companyName"
            lay-verify="required"/>
     </div>
@@ -70,14 +70,11 @@
         <input type="button" value="获取验证码" id="vcodebtn"
                style="border-radius:3px;border: 1px #e6e6e6 solid;height: 100%;width: 45%;display: inline-block!important;height: 42px"/>
     </div>
-    <div class="layui-form-item">
-        <input type="text" placeholder="公 司 地 址" hover class="layui-input" id="address" name="address"
-               lay-verify="required"/>
-    </div>
+
 
 <%--    ---------------------%>
     <div class="layui-form-item">
-        <a href="<%=path%>/pages/back/back_login.jsp">登入</a>
+        <a href="<%=path%>/pages/company/company_login.jsp">登入</a>
     </div>
 
     <div class="layui-input-item">
@@ -106,10 +103,10 @@
                 layer.msg("密码不一致");
                 return false;
             }
-            if ($("#pwd").val().length <= 5) {
-                alert("您的密码长度小于6！");
-                return false
-            }
+            // if ($("#pwd").val().length <= 5) {
+            //     alert("您的密码长度小于6！");
+            //     return false
+            // }
             // layer.msg(JSON.stringify(data.field));//此处显示输入内容
             $.ajax({
                 url: '<%=path%>/companyController/insertCompany',
@@ -118,8 +115,9 @@
                 data: data.field,
                 success: function (msg) {
                     if(msg.code=='0'){
-                        layer.msg(msg.msg);
-                        location.href="<%=path%>/pages/back/back_login.jsp"
+                        layer.alert(msg.msg,function () {
+                            location.href="<%=path%>/pages/company/company_login.jsp"
+                        })
                     }else{
                         layer.msg(msg.msg);
                     }

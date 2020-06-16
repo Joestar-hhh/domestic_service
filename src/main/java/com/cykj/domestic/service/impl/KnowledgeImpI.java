@@ -45,7 +45,6 @@ public class KnowledgeImpI implements KnowledgeService {
         return resultData;
     }
 
-
     //添加育儿知识
     @Override
     public ResultData addKnowledeg(Knowledge knowledge) {
@@ -64,6 +63,32 @@ public class KnowledgeImpI implements KnowledgeService {
     @Override
     public ResultData updateknowledeg(Knowledge knowledge) {
        int res= knowledgeMapper.updateknowledeg(knowledge);
+        ResultData resultData = new ResultData();
+        if(res==1){
+            resultData.setCode(0);
+            resultData.setMsg("上传成功");
+        } else {
+            resultData.setCode(1);
+            resultData.setMsg("上传失败");
+        }
+        return resultData;
+    }
+
+//    获取育婴知识路径-
+    @Override
+    public ResultData queryKnowledegStyle(Knowledge knowledge) {
+      List<Knowledge> list= knowledgeMapper.queryKnowledegStyle(knowledge);
+        ResultData resultData = new ResultData();
+        resultData.setCode(0);
+        resultData.setMsg("");
+        resultData.setData(list);
+        return resultData;
+    }
+
+//    增加育婴知识-
+    @Override
+    public ResultData addKnowledegStyle(Knowledge knowledge) {
+        int res= knowledgeMapper.addKnowledegStyle(knowledge);
         ResultData resultData = new ResultData();
         if(res==1){
             resultData.setCode(0);

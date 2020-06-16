@@ -60,11 +60,18 @@ public interface StaffMapper {
     /*
     * 公司端--员工信息
     */
-    List<Staff> queryCompanyStaff(@Param("cId") int companyId, @Param("start") int start, @Param("pageSize") int pageSize);
-    int queryCompanyStaffConut(@Param("cId") int companyId);
+    List<Staff> queryCompanyStaff(@Param("userName") String userName,@Param("cId") int companyId, @Param("start") int start, @Param("pageSize") int pageSize);
+    int queryCompanyStaffConut(@Param("userName") String userName,@Param("cId") int companyId);
 
     int insertCompanyStaff(Staff staff);
 
     Staff queryStaffPhone(@Param("phone") String phone);
     Staff queryStaffIdcard(@Param("idcard") String idcard);
+    //查询员工最大账号
+    String queryStaffMaxAccount();
+
+    int updateCompanyStaff(Staff staff);
+
+    int updateStaffJobState(@Param("jobState") String jobState,@Param("staffId") int staffId);
+    int deleteStaff(@Param("staffId") int staffId);
 }

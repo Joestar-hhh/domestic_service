@@ -33,4 +33,12 @@ public interface OrderService {
 
     //接单
     ResultData orders(OrderInfo orderInfo);
+
+//    家政公司订单统计
+    List<OrderInfo> companyOrderStatistics(String startDate, String endDate);
+
+
+
+
 }
+

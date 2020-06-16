@@ -81,18 +81,38 @@
 
 <!--    公司端-员工信息-->
     <select id="queryCompanyStaff" parameterType="com.cykj.domestic.entity.Staff" resultType="com.cykj.domestic.entity.Staff">
-        SELECT * FROM tb_staff where company_id = #{cId}
+        SELECT * FROM tb_staff
+        <where>
+            <if test="userName!=null and userName!=''">
+                and user_name like concat('%',#{userName},'%')
+            </if>
+            and company_id = #{cId}
+        </where>
         ORDER BY id limit #{start},#{pageSize}
     </select>
     <select id="queryCompanyStaffConut" parameterType="com.cykj.domestic.entity.Staff" resultType="int">
-        SELECT count(id) FROM tb_staff where company_id = #{cId}
+        SELECT count(id) FROM tb_staff
+        <where>
+            <if test="userName!=null and userName!=''">
+                and user_name like concat('%',#{userName},'%')
+            </if>
+            and company_id = #{cId}
+        </where>
     </select>
     <insert id="insertCompanyStaff" parameterType="com.cykj.domestic.entity.Staff">
-        insert into tb_staff(account,user_name,pwd,phone,sex,region_id,address,company_id,
-        workage,nativeplace,education,marriage,idcard,age,bireh_date)
-        values(#{account},#{userName},#{pwd},#{phone},#{sex},#{regionId},#{address},#{companyId},
-        #{workage},#{nativeplace},#{education},#{marriage},#{idcard},#{age},#{bireh_date})
+        insert into tb_staff(account,user_name,pwd,phone,sex,address,company_id,
+        workage,nativeplace,education,marriage,idcard,age,birth_date)
+        values(#{account},#{userName},#{pwd},#{phone},#{sex},#{address},#{companyId},
+        #{workage},#{nativeplace},#{education},#{marriage},#{idcard},#{age},#{birthDate})
     </insert>
+
+    <!--    修改员工信息-->
+    <update id="updateCompanyStaff" parameterType="com.cykj.domestic.entity.Staff">
+        update tb_staff set user_name=#{userName},sex=#{sex},address=#{address},
+        workage=#{workage},nativeplace=#{nativeplace},education=#{education},
+        marriage=#{marriage},age=#{age},birth_date=#{birthDate}
+        where id = #{id}
+    </update>
 
     <!--    查询手机号-->
     <select id="queryStaffPhone" resultType="com.cykj.domestic.entity.Staff">
@@ -102,4 +122,17 @@
     <select id="queryStaffIdcard" resultType="com.cykj.domestic.entity.Staff">
         SELECT * FROM tb_staff where idcard = #{idcard}
     </select>
+    <!--    查询员工id最大值-->
+    <select id="queryStaffMaxAccount" resultType="java.lang.String">
+        SELECT max(account) FROM tb_staff
+    </select>
+
+    <!--    修改员工工作状态-->
+    <update id="updateStaffJobState">
+        update tb_staff set job_state = #{jobState} where id = #{staffId}
+    </update>
+    <!--    删除员工-->
+    <delete id="deleteStaff">
+        delete from tb_staff where id = #{staffId}
+    </delete>
 </mapper>

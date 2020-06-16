@@ -36,6 +36,13 @@
             <select name="regionList" id="regionList" lay-filter="regionList" lay-verify="required"></select>
         </div>
     </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">详细地址：</label>
+        <div class="layui-input-block">
+            <input type="text" lay-verify="required" name="address" class="layui-input" id="address">        </div>
+    </div>
+
     <div class="layui-form-item">
         <label class="layui-form-label">公司描述：</label>
         <div class="layui-input-block">
@@ -113,7 +120,6 @@
                 }
             })
 
-
             if(typridList.length==0){
                 layer.msg("请选择公司类别");
                 return false;
@@ -126,7 +132,8 @@
                 data: {
                     regionId: $("#regionList").val(),
                     companyProfile: $("#companyProfile").val(),
-                    typridList: JSON.stringify(typridList)
+                    typridList: JSON.stringify(typridList),
+                    address:$("#address").val()
                 },
                 success: function (msg) {
                     layer.msg(msg.msg);

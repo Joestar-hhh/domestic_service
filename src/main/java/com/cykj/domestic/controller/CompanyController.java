@@ -24,11 +24,17 @@ public class CompanyController {
     //家政公司端登入
     @RequestMapping("/companyLogin")
     public String companyLogin(HttpServletResponse response, HttpServletRequest request, Company company) {
-
         ResultData resultData = companySrevice.companyLogin(company, request);
-//        System.out.println(JSON.toJSONString(resultData));
         return JSON.toJSONString(resultData);
     }
+
+    //后台管理员登入
+    @RequestMapping("/adminLogin")
+    public String adminLogin(HttpServletResponse response, HttpServletRequest request, Company company) {
+        ResultData resultData = companySrevice.adminLogin(company, request);
+        return JSON.toJSONString(resultData);
+    }
+
 
     //家政公司端修改密码
     @RequestMapping("/phone_update_pwd")

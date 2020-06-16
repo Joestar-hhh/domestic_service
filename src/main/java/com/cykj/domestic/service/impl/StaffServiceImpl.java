@@ -1,5 +1,6 @@
 package com.cykj.domestic.service.impl;
 
+import com.cykj.domestic.entity.Company;
 import com.cykj.domestic.entity.Region;
 import com.cykj.domestic.entity.Staff;
 import com.cykj.domestic.entity.User;
@@ -7,6 +8,7 @@ import com.cykj.domestic.mapper.CompanyMapper;
 import com.cykj.domestic.mapper.StaffMapper;
 import com.cykj.domestic.service.StaffService;
 import com.cykj.domestic.util.AgeUtil;
+import com.cykj.domestic.util.CompanyUtil;
 import com.cykj.domestic.util.MD5Util;
 import com.cykj.domestic.util.ResultData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -116,9 +118,9 @@ public class StaffServiceImpl implements StaffService {
     }
 
     @Override
-    public ResultData queryCompanyStaff(int companyId, int page, int limit) {
-        List<Staff> list = staffMapper.queryCompanyStaff(companyId, (page - 1) * limit, limit);
-        int count = staffMapper.queryCompanyStaffConut(companyId);
+    public ResultData queryCompanyStaff(String userName, int companyId, int page, int limit) {
+        List<Staff> list = staffMapper.queryCompanyStaff(userName, companyId, (page - 1) * limit, limit);
+        int count = staffMapper.queryCompanyStaffConut(userName, companyId);
 
         ResultData resultData = new ResultData();
         resultData.setCode(0);
@@ -129,16 +131,29 @@ public class StaffServiceImpl implements StaffService {
     }
 
     @Override
-    public ResultData insertCompanyStaff(Staff staff, String CityLevel, String CountyLevel) {
+    public ResultData insertCompanyStaff(Staff staff, String CityLevel, String CountyLevel, Company company) {
         String regionName = CityLevel+CountyLevel;
         System.out.println("地区："+regionName);
-        Region region = companyMapper.selectRegionPresence(regionName); //查询地区
-        staff.setRegionId(region.getId());
+        staff.setAddress(regionName+staff.getAddress());
         int age = AgeUtil.getAgeFromBirthTime(staff.getBirthDate());//计算年龄
         System.out.println("年龄："+age);
         staff.setAge(age);
         staff.setPwd(MD5Util.MakeMd5("123456"));
-        return null;
+        staff.setCompanyId(String.valueOf(company.getId()));
+        String maxAcc = staffMapper.queryStaffMaxAccount();
+
+        staff.setAccount(CompanyUtil.getAccount(maxAcc,company.getAccount()));
+        int res = staffMapper.insertCompanyStaff(staff);
+        ResultData resultData = new ResultData();
+        if(res==1){
+            resultData.setCode(0);
+            resultData.setMsg("注册成功,请牢记账号和密码!" +
+                    "\n\t员工账号："+staff.getAccount()+"\n\t初始密码："+123456);
+        }else {
+            resultData.setCode(1);
+            resultData.setMsg("注册失败");
+        }
+        return resultData;
     }
 
     @Override
@@ -163,6 +178,59 @@ public class StaffServiceImpl implements StaffService {
             resultData.setMsg("该身份证号已存在");
         }else{
             resultData.setCode(1);
+        }
+        return resultData;
+    }
+
+    @Override
+    public String queryStaffMaxAccount() {
+        return staffMapper.queryStaffMaxAccount();
+    }
+
+    @Override
+    public ResultData updateCompanyStaff(Staff staff, String CityLevel,String CountyLevel) {
+        String regionName = CityLevel+CountyLevel;
+        System.out.println("地区："+regionName);
+        staff.setAddress(regionName+staff.getAddress());
+        int age = AgeUtil.getAgeFromBirthTime(staff.getBirthDate());//计算年龄
+        System.out.println("年龄："+age);
+        staff.setAge(age);
+        int res = staffMapper.updateCompanyStaff(staff);
+        ResultData resultData = new ResultData();
+        if(res>=1){
+            resultData.setCode(0);
+            resultData.setMsg("员工信息修改成功");
+        }else{
+            resultData.setCode(1);
+            resultData.setMsg("员工信息修改成功");
+        }
+        return resultData;
+    }
+
+    @Override
+    public ResultData updateStaffJobState(String jobState, int staffId) {
+        int res = staffMapper.updateStaffJobState(jobState,staffId);
+        ResultData resultData = new ResultData();
+        if(res>=1){
+            resultData.setCode(0);
+            resultData.setMsg("修改成功");
+        }else{
+            resultData.setCode(1);
+            resultData.setMsg("修改失败");
+        }
+        return resultData;
+    }
+
+    @Override
+    public ResultData deleteStaff(int staffId) {
+        int res = staffMapper.deleteStaff(staffId);
+        ResultData resultData = new ResultData();
+        if(res>=1){
+            resultData.setCode(0);
+            resultData.setMsg("删除成功");
+        }else{
+            resultData.setCode(1);
+            resultData.setMsg("删除失败");
         }
         return resultData;
     }

@@ -10,6 +10,7 @@ public class Knowledge {
   private String title;
   private String type;
   private String time;
+  private String knowledgePath;
   private String path;
 
 

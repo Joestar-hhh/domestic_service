@@ -26,22 +26,45 @@ public class CompanyImpl implements CompanySrevice {
         HttpSession session = request.getSession();
         Company company1 = companyMapper.companyLogin(company);
         if (company1 != null) {
-            if (!MD5Util.MakeMd5(company.getPwd()).equals(company1.getPwd())) {
-                resultData.setCode(1);
-                resultData.setMsg("密码错误");
-            } else { // if (company1.getRoleId() == 3)
-                session.setAttribute("company", company1);
-                resultData.setCode(0);
+            if(company1.getRoleId()==2){
+                if (!MD5Util.MakeMd5(company.getPwd()).equals(company1.getPwd())) {
+                    resultData.setCode(1);
+                    resultData.setMsg("密码错误");
+                } else {
+                    session.setAttribute("company", company1);
+                    resultData.setCode(0);
+                }
+            }else{
+                resultData.setCode(2);
+                resultData.setMsg("账号不存在");
             }
+        } else {
+            resultData.setCode(2);
+            resultData.setMsg("账号不存在");
+        }
+        return resultData;
+    }
 
-//            if (!company.getPwd().equals(company1.getPwd())) {
-//                resultData.setCode(1);
-//                resultData.setMsg("密码错误");
-//            } else { // if (company1.getRoleId() == 3)
-//                session.setAttribute("company", company1);
-//                resultData.setCode(0);
-//            }
 
+    //    家政公司端登入
+    @Override
+    public ResultData adminLogin(Company company, HttpServletRequest request) {
+        ResultData resultData = new ResultData();
+        HttpSession session = request.getSession();
+        Company company1 = companyMapper.companyLogin(company);
+        if (company1 != null) {
+            if(company1.getRoleId()==3){
+                if (!MD5Util.MakeMd5(company.getPwd()).equals(company1.getPwd())) {
+                    resultData.setCode(1);
+                    resultData.setMsg("密码错误");
+                } else { // if (company1.getRoleId() == 3)
+                    session.setAttribute("company", company1);
+                    resultData.setCode(0);
+                }
+            }else{
+                resultData.setCode(2);
+                resultData.setMsg("账号不存在");
+            }
         } else {
             resultData.setCode(2);
             resultData.setMsg("账号不存在");
@@ -81,21 +104,39 @@ public class CompanyImpl implements CompanySrevice {
 //        判断账号和手机号是否纯在
         Company companyphone = companyMapper.querycompanyphone(company);
         if (companyphone == null) {
-            Company companyLogin = companyMapper.companyLogin(company);
-            if (companyLogin == null) {
-                company.setPwd(MD5Util.MakeMd5(company.getPwd()));
-                int res = companyMapper.insertCompany(company);
-                if (res == 1) {
-                    resultData.setCode(0);
-                    resultData.setMsg("注册成功");
-                } else {
-                    resultData.setCode(1);
-                    resultData.setMsg("注册失败");
-                }
+
+            //创建账号
+            String account = companyMapper.MaxAccount();
+            int i = Integer.parseInt(account) + 1;
+            if (account.isEmpty() || account == null) {
+                company.setAccount("10001");
             } else {
-                resultData.setCode(2);
-                resultData.setMsg("公司账号已存在");
+                company.setAccount(String.valueOf(i));
             }
+            company.setPwd(MD5Util.MakeMd5(company.getPwd()));
+            int res = companyMapper.insertCompany(company);
+            if (res == 1) {
+                resultData.setCode(0);
+                resultData.setMsg("注册成功,请牢记您的账号密码：账号 " + i);
+            } else {
+                resultData.setCode(1);
+                resultData.setMsg("注册失败");
+            }
+//            Company companyLogin = companyMapper.companyLogin(company);
+//            if (companyLogin == null) {
+//                company.setPwd(MD5Util.MakeMd5(company.getPwd()));
+//                int res = companyMapper.insertCompany(company);
+//                if (res == 1) {
+//                    resultData.setCode(0);
+//                    resultData.setMsg("注册成功");
+//                } else {
+//                    resultData.setCode(1);
+//                    resultData.setMsg("注册失败");
+//                }
+//            } else {
+//                resultData.setCode(2);
+//                resultData.setMsg("公司账号已存在");
+//            }
         } else {
             resultData.setCode(3);
             resultData.setMsg("手机号已被注册");

@@ -33,7 +33,7 @@
 
 <!--    公司接单-->
     <update id="updateUserDemend" parameterType="com.cykj.domestic.entity.OrderInfo">
-            UPDATE tb_order_info SET company_id=#{companyId} ,company_order_state_id=#{companyOrderStateId} WHERE id = #{id}
+            UPDATE tb_order_info SET company_id=#{companyId} ,company_order_state_id=#{companyOrderStateId},#{userOrderStateId} WHERE id = #{id}
     </update>
 
 

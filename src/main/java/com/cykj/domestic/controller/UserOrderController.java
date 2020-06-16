@@ -56,7 +56,8 @@ public class UserOrderController {
     //接单
     @RequestMapping("/updateUserDemend")
     public String updateUserDemend(HttpServletRequest request, HttpServletResponse response, OrderInfo orderInfo, HttpSession session) {
-        orderInfo.setCompanyOrderStateId(1);
+        orderInfo.setCompanyOrderStateId(2);
+        orderInfo.setUserOrderStateId(6);
         orderInfo.setCompanyId(7);
         System.out.println(JSON.toJSONString(orderInfo));
        ResultData resultData= userOrderService.updateUserDemend(orderInfo);
