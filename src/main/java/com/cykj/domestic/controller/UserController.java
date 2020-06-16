@@ -41,4 +41,18 @@ public class UserController {
         System.out.println("用户退出登录了！");
         return "1";
     }
+
+    /*用户注册*/
+    @RequestMapping("/insertUser")
+    public String insertCompany(HttpServletRequest request, HttpServletResponse response, User user) {
+        ResultData resultData = userService.insertUser(user);
+        return JSON.toJSONString(resultData);
+    }
+
+    //用户忘记密码修改密码
+    @RequestMapping("/phone_update_pwd")
+    public String phone_update_pwd(HttpServletRequest request, HttpServletResponse response, User user) {
+        ResultData resultData = userService.phone_update_pwd(user);
+        return JSON.toJSONString(resultData);
+    }
 }

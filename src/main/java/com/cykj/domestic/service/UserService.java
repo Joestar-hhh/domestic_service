@@ -12,4 +12,10 @@ public interface UserService {
 
     //用户登陆
     ResultData userLogin(User user, HttpServletRequest request);
+
+    //用户注册
+    ResultData insertUser(User user);
+
+    //用户忘记加密码端修改密码
+    ResultData phone_update_pwd(User user);
 }

@@ -15,4 +15,26 @@
              SELECT * FROM tb_user WHERE account=#{account}
     </select>
 
+    <!--    查询最大账号-->
+    <select id="MaxAccount" resultType="java.lang.String">
+        SELECT MAX(account) from tb_user
+    </select>
+
+    <!--    家政公司根据手机号码查询-->
+    <select id="queryUserPhone" parameterType="com.cykj.domestic.entity.User"
+            resultType="com.cykj.domestic.entity.User">
+              select * from tb_user where phone=#{phone}
+    </select>
+
+    <!--    用户注册-->
+    <insert id="insertUser" parameterType="com.cykj.domestic.entity.User">
+        INSERT INTO tb_user(account,pwd,name,sex,phone,status)
+        VALUES(#{account},#{pwd},#{name},#{sex},#{phone},'启用')
+    </insert>
+
+
+    <!--    忘记密码更改密码-->
+    <update id="phone_update_pwd" parameterType="com.cykj.domestic.entity.User">
+               UPDATE tb_user SET pwd=#{pwd} WHERE phone=#{phone}
+    </update>
 </mapper>

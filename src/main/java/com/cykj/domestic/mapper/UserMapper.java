@@ -15,4 +15,17 @@ public interface UserMapper {
     //用户登陆
     User userLogin(User user);
 
+    //公司最大账号
+    String  MaxAccount();
+
+    /*家政公司根据手机号码查询*/
+    User queryUserPhone(User user);
+
+    //    用户注册
+    int insertUser(User user);
+
+    //用户忘记修改密码
+    int phone_update_pwd(User user
+    );
+
 }

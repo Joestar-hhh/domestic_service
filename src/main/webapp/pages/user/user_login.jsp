@@ -29,7 +29,7 @@
         </div>
     </div>
     <div class="layui-form-item">
-        <input type="text" placeholder="账 户 : user" hover class="layui-input" id="account" value="user1"/>
+        <input type="text" placeholder="账 户 : 110" hover class="layui-input" id="account" value="110"/>
     </div>
     <div class="layui-form-item">
         <input type="password" placeholder="密 码 : 123456" hover class="layui-input" id="pwd" value="123456"/>
@@ -44,9 +44,9 @@
         ></canvas>
     </div>
     <div class="layui-form-item">
-        <a href="<%=path%>/pages/company/company_updatepwd.jsp">忘记密码</a>
+        <a href="<%=path%>/pages/user/user_updatepwd.jsp">忘记密码</a>
         &nbsp;&nbsp;&nbsp;
-        <a href="<%=path%>/pages/company/company_registered.jsp">快速注册</a>
+        <a href="<%=path%>/pages/user/user_registered.jsp">快速注册</a>
     </div>
     <div class="layui-form-item">
         <button class="pear-btn pear-btn-primary login">

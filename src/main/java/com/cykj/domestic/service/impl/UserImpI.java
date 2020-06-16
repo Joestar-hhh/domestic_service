@@ -1,5 +1,6 @@
 package com.cykj.domestic.service.impl;
 
+import com.cykj.domestic.entity.Company;
 import com.cykj.domestic.entity.User;
 import com.cykj.domestic.mapper.UserMapper;
 import com.cykj.domestic.service.UserService;
@@ -48,6 +49,59 @@ public class UserImpI implements UserService {
         } else {
             resultData.setCode(2);
             resultData.setMsg("账号不存在，请先注册");
+        }
+        return resultData;
+    }
+
+    @Override
+    public ResultData insertUser(User user) {
+        ResultData resultData = new ResultData();
+//        判断账号和手机号是否纯在
+        User userphone = userMapper.queryUserPhone(user);
+        if (userphone == null) {
+
+            //创建账号
+            String account = userMapper.MaxAccount();
+            int i = Integer.parseInt(account) + 1;
+            if (account.isEmpty() || account == null) {
+                user.setAccount("10001");
+            } else {
+                user.setAccount(String.valueOf(i));
+            }
+            user.setPwd(MD5Util.MakeMd5(user.getPwd()));
+            int res = userMapper.insertUser(user);
+            if (res == 1) {
+                resultData.setCode(0);
+                resultData.setMsg("注册成功,请牢记您的账号密码：账号 " + i);
+            } else {
+                resultData.setCode(1);
+                resultData.setMsg("注册失败");
+            }
+        } else {
+            resultData.setCode(3);
+            resultData.setMsg("手机号已被注册");
+        }
+        return resultData;
+
+    }
+
+    @Override
+    public ResultData phone_update_pwd(User user) {
+        ResultData resultData = new ResultData();
+        User userPhone = userMapper.queryUserPhone(user);
+        if (userPhone == null) {
+            resultData.setCode(3);
+            resultData.setMsg("手机号码不存在，请重新输入");
+        } else {
+            user.setPwd(MD5Util.MakeMd5(user.getPwd()));
+            int res = userMapper.phone_update_pwd(user);
+            if (res == 1) {
+                resultData.setCode(0);
+                resultData.setMsg("修改成功");
+            } else {
+                resultData.setCode(1);
+                resultData.setMsg("修改失败");
+            }
         }
         return resultData;
     }
