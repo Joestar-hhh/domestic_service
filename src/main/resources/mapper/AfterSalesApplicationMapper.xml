@@ -44,11 +44,63 @@
     </select>
 
     <update id="passCheck" parameterType="com.cykj.domestic.entity.AfterSalesApplication">
-        update tb_after_sales_application set check_state = '审核通过' where id = #{id}
+        update tb_after_sales_application set check_state = '等待安排售后处理' where id = #{id}
     </update>
 
     <update id="nopassCheck" parameterType="com.cykj.domestic.entity.AfterSalesApplication">
         update tb_after_sales_application set check_state = '审核未通过' where id = #{id}
     </update>
 
+
+    <!--查询安排售后的列表-->
+    <select id="queryArrangeAfterSales" parameterType="com.cykj.domestic.entity.AfterSalesApplication"
+            resultType="com.cykj.domestic.entity.AfterSalesApplication">
+        select asa.*,u.name,oi.order_number,s.user_name from tb_after_sales_application asa
+        left join tb_user u
+        on asa.user_id = u.id
+        left join tb_order_info oi
+        on asa.order_info_id = oi.id
+        left join tb_staff s
+        on asa.staff_id = s.id
+        left join tb_company c
+        on asa.company_id = c.id
+        <where>
+            asa.company_id = #{id} and asa.check_state = '等待安排售后处理'
+            <if test="orderNumber != null and orderNumber != ''">
+                and oi.order_number like #{orderNumber}
+            </if>
+        </where>
+        ORDER BY id limit #{start},#{pageSize}
+    </select>
+
+
+    <!--    查询总数-->
+    <select id="queryArrangeAfterSalesCount" parameterType="com.cykj.domestic.entity.AfterSalesApplication"
+            resultType="int">
+        SELECT count(asa.id) FROM tb_after_sales_application asa
+        left join tb_user u
+        on asa.user_id = u.id
+        left join tb_order_info oi
+        on asa.order_info_id = oi.id
+        left join tb_staff s
+        on asa.staff_id = s.id
+        left join tb_company c
+        on asa.company_id = c.id
+        <where>
+            asa.company_id = #{id} and asa.check_state = '等待安排售后处理'
+            <if test="orderNumber != null and orderNumber != ''">
+                and oi.order_number like #{orderNumber}
+            </if>
+        </where>
+    </select>
+
+<!--    查询安排员工下拉框列表-->
+    <select id="queryStaffName" parameterType="java.lang.Integer" resultType="com.cykj.domestic.entity.Staff">
+        select * from tb_staff where company_id = #{id}
+    </select>
+
+<!--    安排员工-->
+    <update id="arrangeStaff">
+        update tb_after_sales_application set staff_id = #{staffId},check_state = '已安排售后处理' where id = #{id}
+    </update>
 </mapper>

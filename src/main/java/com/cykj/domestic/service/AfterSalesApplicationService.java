@@ -11,4 +11,10 @@ public interface AfterSalesApplicationService {
 
     ResultData nopassCheck(int id);
 
+    ResultData queryArrangeAfterSales(AfterSalesApplication afterSalesApplication, int page, int limit ,int id,String orderNumber);
+
+    ResultData queryStaffName(int id);
+
+    ResultData arrangeStaff(String staffId,int id);
+
 }

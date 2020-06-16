@@ -2,6 +2,7 @@ package com.cykj.domestic.controller;
 
 
 import com.alibaba.fastjson.JSON;
+import com.cykj.domestic.entity.Company;
 import com.cykj.domestic.entity.User;
 import com.cykj.domestic.service.UserService;
 import com.cykj.domestic.util.ResultData;
@@ -26,6 +27,13 @@ public class UserController {
         User user=new User();
         user.setUserAddressId(1);
         ResultData resultData=userService.queryUserAddress(user);
+        return JSON.toJSONString(resultData);
+    }
+
+    //用户
+    @RequestMapping("/userLogin")
+    public String userLogin(HttpServletResponse response, HttpServletRequest request, User user) {
+        ResultData resultData = userService.userLogin(user, request);
         return JSON.toJSONString(resultData);
     }
 }

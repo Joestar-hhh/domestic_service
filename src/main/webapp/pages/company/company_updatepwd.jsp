@@ -54,14 +54,14 @@
                class="layui-input" autocomplete="off" id="pwd2">
     </div>
     <div class="layui-form-item">
-        <a href="<%=path%>/pages/back/back_login.jsp">登入</a>
+        <a href="<%=path%>/pages/company/company_login.jsp">登入</a>
     </div>
     <div class="layui-input-item">
         <button type="submit" class="layui-btn pear-btn-primary login" lay-submit="" lay-filter="formDemo">立即提交</button>
     </div>
 
 </form>
-<script src="<%=path%>/static/pear_layui/component/layui/layui.js"></script>
+       <script src="<%=path%>/static/pear_layui/component/layui/layui.js"></script>
 <script>
 
     //监听提交
@@ -94,7 +94,13 @@
                 dataType: 'JSON',
                 data: data.field,
                 success: function (msg) {
-                    layer.msg(msg.msg);
+                    if(msg.code=='0'){
+                        layer.alert(msg.msg,function () {
+                            location.href="<%=path%>/pages/company/company_login.jsp"
+                        })
+                    }else{
+                        layer.msg(msg.msg);
+                    }
                 }
             })
             return false;

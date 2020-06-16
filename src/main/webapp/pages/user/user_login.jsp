@@ -23,16 +23,16 @@
 <form class="layui-form" action="javascript:void(0);">
     <div class="layui-form-item">
         <img class="logo" src="<%=path%>/static/pear_layui/admin/images/logo.png"/>
-        <div class="title">传一家政后台</div>
+        <div class="title">传一家政用户平台</div>
         <div class="desc">
             福 建 省 最 具 影 响 力 的 家 政 公 司 之 一
         </div>
     </div>
     <div class="layui-form-item">
-        <input type="text" placeholder="账 户 : admin" hover class="layui-input" id="account" value="admin"/>
+        <input type="text" placeholder="账 户 : user" hover class="layui-input" id="account" value="user1"/>
     </div>
     <div class="layui-form-item">
-        <input type="password" placeholder="密 码 : 888888" hover class="layui-input" id="pwd" value="123456"/>
+        <input type="password" placeholder="密 码 : 123456" hover class="layui-input" id="pwd" value="123456"/>
     </div>
     <div class="layui-form-item">
         <%--        <input placeholder="验证码" hover class="layui-input layui-input-inline" style="width: 50%;display: inline-block!important;"/>--%>
@@ -43,14 +43,14 @@
                 style="border-radius:3px;border: 1px #e6e6e6 solid;height: 100%;width: 45%;display: inline-block!important;height: 42px"
         ></canvas>
     </div>
-<%--    <div class="layui-form-item">--%>
-<%--        <a href="<%=path%>/pages/company/company_updatepwd.jsp">忘记密码</a>--%>
-<%--        &nbsp;&nbsp;&nbsp;--%>
-<%--        <a href="<%=path%>/pages/company/company_registered.jsp">快速注册</a>--%>
-<%--    </div>--%>
+    <div class="layui-form-item">
+        <a href="<%=path%>/pages/company/company_updatepwd.jsp">忘记密码</a>
+        &nbsp;&nbsp;&nbsp;
+        <a href="<%=path%>/pages/company/company_registered.jsp">快速注册</a>
+    </div>
     <div class="layui-form-item">
         <button class="pear-btn pear-btn-primary login">
-            登 入
+            登 录
         </button>
     </div>
 </form>
@@ -80,7 +80,7 @@
                 return false;
             } else if (val.toLowerCase() == num.toLowerCase()) {
                 $.ajax({
-                    url: '<%=path%>/companyController/adminLogin',
+                    url: '<%=path%>/userController/userLogin',
                     type: 'POST',
                     dataType: 'JSON',
                     data: {
@@ -88,10 +88,9 @@
                         pwd: pwd
                     },
                     success: function (msg) {
-                        // alert(msg.msg)
-                        // layer.msg(msg.msg)
                         if (msg.code == '0') {
-                            location.href = "<%=path%>/pages/back/back_adminhome.jsp"
+                            layer.msg(msg.msg)
+                            <%--location.href = "<%=path%>/pages/back/back_adminhome.jsp"--%>
                         } else {
                             layer.msg(msg.msg);
                         }

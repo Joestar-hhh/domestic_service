@@ -38,4 +38,29 @@ public class AfterSalesApplicationController {
         ResultData resultData = afterSalesApplicationService.nopassCheck(id);
         return JSON.toJSONString(resultData);
     }
+
+    //安排售后的列表
+    @RequestMapping("/queryArrangeAfterSales")
+    public String queryArrangeAfterSales(HttpServletRequest request,
+                                         AfterSalesApplication afterSalesApplication, String page, String limit, String orderNumber) {
+        Company company = (Company) request.getSession().getAttribute("company");
+        ResultData resultData = afterSalesApplicationService.queryArrangeAfterSales(afterSalesApplication, Integer.parseInt(page), Integer.parseInt(limit), company.getId(), orderNumber);
+        return JSON.toJSONString(resultData);
+    }
+
+    //售后人员姓名下拉框列表
+    @RequestMapping("/queryStaffName")
+    public String queryStaffName(HttpServletRequest request) {
+        Company company = (Company) request.getSession().getAttribute("company");
+        ResultData resultData = afterSalesApplicationService.queryStaffName(company.getId());
+
+        return JSON.toJSONString(resultData);
+    }
+
+    //安排售后
+    @RequestMapping("/arrangeStaff")
+    public String arrangeStaff(String staffId, int id) {
+        ResultData resultData = afterSalesApplicationService.arrangeStaff(staffId, id);
+        return JSON.toJSONString(resultData);
+    }
 }
