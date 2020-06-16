@@ -21,4 +21,7 @@ public class TbService {
   private int stId;
   private String stName;
 
+  private int serviceId;
+  private int staffId;
+
 }

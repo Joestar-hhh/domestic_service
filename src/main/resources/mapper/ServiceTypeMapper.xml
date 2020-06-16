@@ -117,6 +117,24 @@
         where st.id = #{stId}
     </select>
 
+    <!--    公司端人员配置中人员已有服务查询-->
+    <select id="queryStaffService" resultType="com.cykj.domestic.entity.TbService">
+        SELECT sr.service_type_id, sr.staff_id,sr.service_id,s.type_name FROM tb_service_relation sr
+        left join tb_service s on s.id = sr.service_id
+        where sr.staff_id = #{staffId} and sr.service_type_id = #{stId}
+    </select>
 
+    <!--    公司端人员配置中添加人员服务-->
+    <insert id="insertStaffService">
+        insert into tb_service_relation(staff_id,service_type_id,service_id) VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{staffId},#{stId},#{item})
+        </foreach>
+    </insert>
 
+    <!--    公司端人员配置中删除人员服务-->
+    <delete id="deleteStaffService">
+        delete from tb_service_relation
+        where staff_id = #{staffId} and service_type_id = #{stId}
+    </delete>
 </mapper>

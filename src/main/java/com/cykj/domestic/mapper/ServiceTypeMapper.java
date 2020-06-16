@@ -61,4 +61,11 @@ public interface ServiceTypeMapper {
 
     List<TbService> queryServiceTypeService(int stId);
 
+    List<TbService> queryStaffService(@Param("staffId") int staffId, @Param("stId") int stId, List<String> list);
+
+
+    int insertStaffService(@Param("staffId") int staffId, @Param("stId") int stId, List<String> list);
+
+    int deleteStaffService(@Param("staffId") int staffId, @Param("stId") int stId);
+
 }

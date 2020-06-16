@@ -202,4 +202,26 @@ public class ServiceTypeImpl implements ServiceTypeService {
         return serviceTypeMapper.queryServiceTypeService(stID);
     }
 
+    @Override
+    public List<TbService> queryStaffService(int staffId, int stId, String serviceIdList) {
+        List<String> list = JSON.parseArray(serviceIdList,String.class);
+        return serviceTypeMapper.queryStaffService(staffId,stId,list);
+    }
+
+    @Override
+    public ResultData insertStaffService(int staffId, int stId, String list) {
+        List<String> idList = JSON.parseArray(list,String.class);
+        serviceTypeMapper.deleteStaffService(staffId,stId);
+        int res = serviceTypeMapper.insertStaffService(staffId,stId,idList);
+        ResultData resultData = new ResultData();
+        if(res>=1){
+            resultData.setCode(0);
+            resultData.setMsg("修改员工服务成功！");
+        }else {
+            resultData.setCode(1);
+            resultData.setMsg("修改员工服务失败！");
+        }
+        return resultData;
+    }
+
 }

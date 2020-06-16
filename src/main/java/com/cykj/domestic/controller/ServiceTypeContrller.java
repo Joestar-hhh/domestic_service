@@ -135,4 +135,19 @@ public class ServiceTypeContrller {
         List<TbService> list=serviceTypeService.queryServiceTypeService(Integer.parseInt(stId));
         return JSON.toJSONString(list);
     }
+
+    /*查询员工已有服务*/
+    @RequestMapping("/queryStaffService")
+    public String queryStaffService(String staffId, String stId,String serviceIdList){
+        List<TbService> list=serviceTypeService.queryStaffService(Integer.parseInt(staffId),Integer.parseInt(stId),serviceIdList);
+        return JSON.toJSONString(list);
+    }
+
+
+    /*修改员工服务*/
+    @RequestMapping("/insertStaffService")
+    public String insertStaffService(String staffId, String stId,String serviceIdList){
+        ResultData resultData = serviceTypeService.insertStaffService(Integer.parseInt(staffId),Integer.parseInt(stId),serviceIdList);
+        return JSON.toJSONString(resultData);
+    }
 }

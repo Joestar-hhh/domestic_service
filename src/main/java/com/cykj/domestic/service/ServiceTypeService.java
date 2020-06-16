@@ -48,6 +48,11 @@ public interface ServiceTypeService {
     List<ServiceType> queryComServiceType(int companyId);
     //查询服务类别下的服务
     List<TbService> queryServiceTypeService(int stID);
+    //员工已有服务
+    List<TbService> queryStaffService(int staffId,int stId, String serviceIdList);
+
+    //修改员工服务
+    ResultData insertStaffService(int staffId,int stId, String list);
 
 
 }

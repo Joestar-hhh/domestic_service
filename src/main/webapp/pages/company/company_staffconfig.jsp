@@ -24,25 +24,10 @@
     <link rel="stylesheet" href="<%=path%>/static/css/back_page.css">
     <style>
         .layui-form-item {
-            margin-bottom: 0;
+            margin-top: 40px;
         }
-        .querybtn {
-            margin: 10px 5px 10px 20px;
-        }
-        #querydiv .layui-btn-container{
-            display: inline-block;
-        }
-        #staffInfo .layui-input, .layui-textarea {
-            margin-bottom: 15px;
-        }
-        #staffInfo .layui-form-radio {
-            margin: 6px 10px 15px 0;
-        }
-        #staffInfo .layui-form-select dl {
+        .layui-form-select dl {
             min-width: 75%;
-        }
-        #staffInfo{
-            padding-left: 30px;
         }
     </style>
 </head>
@@ -70,17 +55,14 @@
     <div class="layui-form-item">
         <label class="layui-form-label">服务：</label>
         <div class="layui-input-block" id="serviceCheck">
-            <%--            <input type="checkbox" name="like[write]" title="写作">--%>
-            <%--            <input type="checkbox" name="like[read]" title="阅读" checked>--%>
-            <%--            <input type="checkbox" name="like[dai]" title="发呆">--%>
         </div>
     </div>
 
 
     <div class="layui-form-item">
         <div class="layui-input-block btnhide">
-            <button class="layui-btn formbtn" id="insertconfirm" lay-submit lay-filter="insertconfirm">确定</button>
-            <button type="reset" class="layui-btn layui-btn-primary formbtn">重置</button>
+            <button class="layui-btn formbtn" id="insertconfirm" lay-submit lay-filter="insertconfirm">保存</button>
+<%--            <button type="reset" class="layui-btn layui-btn-primary formbtn">重置</button>--%>
         </div>
     </div>
 </form>
@@ -96,13 +78,13 @@
         var layedit = layui.layedit;
         var $ = layui.jquery;
 
+
         //查询公司服务类型
         $.ajax({
             url: '<%=path%>/serviceTypeContrller/queryComServiceType',
             type: 'POST',
             dataType: 'JSON',
             success: function (msg) {
-                alert(JSON.stringify(msg))
                 $("#serviceType").html("<option value=''></option>");
                 $.each(msg, function (i, item) {
                     $("#serviceType").append("<option value='" + item.id + "'>" + item.typeName + "</option>")
@@ -111,9 +93,10 @@
             }
         });
 
+        var serviceList=[];
         form.on('select(serviceType)', function (data) {
             form.render('select');
-            alert("选中的值:"+JSON.stringify(data));//得到被选中的值
+            // alert("选中的值:"+JSON.stringify(data));//得到被选中的值
             //获取次一级地区
             $.ajax({
                 url: '<%=path%>/serviceTypeContrller/queryServiceTypeService',
@@ -121,15 +104,38 @@
                 dataType: 'JSON',
                 data: {stId: data.value},
                 success: function (msg) {
-                    alert(JSON.stringify(msg))
                     $("#serviceCheck").html("");
-                    $.each(msg.data, function (j, item) {
-                        $("#serviceCheck").append("<input type='checkbox' name='"+item.sName+"' value='"+item.id+"' title='"+item.sName+"'>")
+                    $.each(msg, function (j, item) {
+                        $("#serviceCheck").append("<input type='checkbox' name='"+item.id+"' value='"+item.sName+"' title='"+item.sName+"'>")
                     });
                     form.render();
                 }
             })
-            form.render();
+            stId = data.value;
+            //查询员工已有服务
+            $.ajax({
+                url: '<%=path%>/serviceTypeContrller/queryStaffService',
+                type: 'POST',
+                dataType: 'JSON',
+                data: {
+                    stId: stId,
+                    staffId: staffId
+                },
+                success: function (msg) {
+                    serviceList = msg
+                }
+            })
+            setTimeout(function() {
+                $.each(serviceList, function (i, item) {
+                    $("#serviceCheck>input").each(function () {
+                        // alert("item.typeNme:"+item.typeName+"    this:"+$(this).attr('title'));
+                        if (item.typeName == $(this).attr('title')) {
+                            $(this).next().attr('class', 'layui-unselect layui-form-checkbox layui-form-checked');
+                        }
+                    });
+                });
+            },300);
+
         });
 
         table.render({
@@ -159,19 +165,21 @@
             }
 
         });
-
+        var staffId;
+        var stId;
         //监听行工具事件
         table.on('tool(test)', function(obj){
+
             var tabdata = obj.data;
             //console.log(obj)s
             if(obj.event === 'configservice'){
-                var staffId = tabdata.id;
+                staffId = tabdata.id;
 
 
                 var layerinsert = layer.open({
                     type: 1
-                    ,title: '添加员工'
-                    ,area: ['540px','540px']
+                    ,title: '配置员工服务'
+                    ,area: ['540px','380px']
                     ,shade: [0.8, '#314949'] //遮罩
                     ,resize: false //不可拉伸
                     ,content: $('#config') //内容
@@ -187,25 +195,40 @@
                     }
                     //如果设定了yes回调，需进行手工关闭
                 });
-                form.render();
+                // form.render();
                 form.on('submit(insertconfirm)', function(data){
-
-                    $.ajax({
-                        type: 'POST',
-                        url: '<%=path%>/staffController/',
-                        dataType: 'JSON',
-                        data: data.field,
-                        success: function (msg) {
-                            // alert(msg.msg);
-                            $('#config')[0].reset(); //重置表单
-                            form.render();
-                            layer.close(layerinsert);
-
-                            layer.alert(msg.msg,function () {
-                                window.location.reload();//修改成功后刷新父界面
-                            });
+                    var serviceIdList = [];
+                    $("#serviceCheck>input").each(function () {
+                        if ($(this).next().attr('class')=='layui-unselect layui-form-checkbox layui-form-checked'){
+                            alert($(this).attr('name'));
+                            serviceIdList.push($(this).attr('name'));
                         }
                     })
+                    layer.confirm('确定要保存此配置吗', function(index){
+                        alert(JSON.stringify(data.field))
+                        $.ajax({
+                            type: 'POST',
+                            url: '<%=path%>/serviceTypeContrller/insertStaffService',
+                            dataType: 'JSON',
+                            data: {
+                                staffId: staffId,
+                                stId: stId,
+                                serviceIdList: JSON.stringify(serviceIdList)
+                            },
+                            success: function (msg) {
+                                // alert(msg.msg);
+                                $('#config')[0].reset(); //重置表单
+                                form.render();
+                                layer.close(layerinsert);
+
+                                layer.alert(msg.msg,function () {
+                                    window.location.reload();//修改成功后刷新父界面
+                                });
+                            }
+                        })
+                        layer.close(index);
+                    });
+
                     return false;
                 });
             }
