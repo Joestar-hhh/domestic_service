@@ -213,6 +213,21 @@ public class ServiceTypeImpl implements ServiceTypeService {
         return resultData;
     }
 
+    /*公司可以删除为审核的服务类别*/
+    @Override
+    public ResultData deleteCompanyRelation(String id) {
+        int res=serviceTypeMapper.deleteCompanyRelation(id);
+        ResultData resultData = new ResultData();
+        if (res == 1) {
+            resultData.setCode(0);
+            resultData.setMsg("删除成功");
+        } else {
+            resultData.setCode(1);
+            resultData.setMsg("删除失败");
+        }
+        return resultData;
+    }
+
     @Override
     public List<ServiceType> queryComServiceType(int companyId) {
         return serviceTypeMapper.queryComServiceType(companyId);

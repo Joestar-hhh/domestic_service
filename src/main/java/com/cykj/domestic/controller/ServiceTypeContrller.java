@@ -160,4 +160,12 @@ public class ServiceTypeContrller {
         ResultData resultData = serviceTypeService.insertStaffService(Integer.parseInt(staffId),Integer.parseInt(stId),serviceIdList);
         return JSON.toJSONString(resultData);
     }
+    /*公司可以删除为审核的服务类别*/
+    @RequestMapping("/deleteCompanyRelation")
+    public String deleteCompanyRelation(HttpServletResponse response,HttpServletRequest request,String id){
+        ResultData resultData=serviceTypeService.deleteCompanyRelation(id);
+        return JSON.toJSONString(resultData);
+    }
+
+
 }

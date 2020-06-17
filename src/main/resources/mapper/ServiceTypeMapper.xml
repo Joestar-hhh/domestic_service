@@ -143,10 +143,10 @@
     </select>
 
 
-    <delete id="">
-        DELETE from tb_service_relation WHERE company_id=1 AND service_type_id=4 AND state='未审核'
+<!--    公司可以删除为审核的服务类别-->
+    <delete id="deleteCompanyRelation" parameterType="java.lang.String">
+        DELETE from tb_service_relation WHERE id=#{id} AND state='未审核'
     </delete>
-
 
     <!--    公司端人员配置中添加人员服务-->
     <insert id="insertStaffService">
