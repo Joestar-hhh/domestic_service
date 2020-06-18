@@ -229,8 +229,6 @@
             }
            //修改服务类型
            else if(obj.event === 'edit'){
-
-
                 $.ajax({
                     type: 'POST',
                     url: "<%=path%>/serviceListContrller/selectService",

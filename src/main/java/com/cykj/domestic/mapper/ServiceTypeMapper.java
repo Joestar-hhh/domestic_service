@@ -59,6 +59,9 @@ public interface ServiceTypeMapper {
 //    查询所有未审核和Null的服务
     List<ServiceType>queryServiceNull(Company company);
 
+//    公司可以删除为审核的服务类别
+    int deleteCompanyRelation(String id);
+
 
     List<ServiceType> queryComServiceType(int companyId);
 

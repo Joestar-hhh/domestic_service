@@ -105,4 +105,18 @@ public class UserImpI implements UserService {
         }
         return resultData;
     }
+
+    @Override
+    public ResultData updateUserInfo(User user) {
+        ResultData resultData = new ResultData();
+        int res = userMapper.updateUserInfo(user);
+        if (res == 1) {
+            resultData.setCode(0);
+            resultData.setMsg("修改成功");
+        } else {
+            resultData.setCode(1);
+            resultData.setMsg("修改失败");
+        }
+        return resultData;
+    }
 }

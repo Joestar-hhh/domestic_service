@@ -2,6 +2,7 @@ package com.cykj.domestic.controller;
 
 
 import com.alibaba.fastjson.JSON;
+import com.cykj.domestic.entity.Company;
 import com.cykj.domestic.entity.OrderInfo;
 import com.cykj.domestic.entity.User;
 import com.cykj.domestic.service.UserOrderService;
@@ -27,7 +28,7 @@ public class UserOrderController {
     @RequestMapping("/insertUserOrder")
     public String insertUserOrder(HttpServletResponse response, HttpServletRequest request, HttpSession session, OrderInfo orderInfo) {
         User user = (User) request.getSession().getAttribute("user");
-        ResultData resultData = userOrderService.insertUserOrder(orderInfo,user);
+        ResultData resultData = userOrderService.insertUserOrder(orderInfo, user);
         return JSON.toJSONString(resultData);
 
     }
@@ -42,12 +43,13 @@ public class UserOrderController {
     //--------------------------------------session  userid
     //接单
     @RequestMapping("/updateUserDemend")
-    public String updateUserDemend(HttpServletRequest request, HttpServletResponse response, OrderInfo orderInfo, HttpSession session) {
+    public String updateUserDemend(HttpServletRequest request, HttpServletResponse response, OrderInfo orderInfo) {
+        Company company = (Company) request.getSession().getAttribute("company");
         orderInfo.setCompanyOrderStateId(2);
         orderInfo.setUserOrderStateId(6);
-        orderInfo.setCompanyId(7);
+        orderInfo.setCompanyId(company.getId());
         System.out.println(JSON.toJSONString(orderInfo));
-       ResultData resultData= userOrderService.updateUserDemend(orderInfo);
+        ResultData resultData = userOrderService.updateUserDemend(orderInfo);
         return JSON.toJSONString(resultData);
     }
 

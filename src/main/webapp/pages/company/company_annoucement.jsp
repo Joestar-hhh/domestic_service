@@ -51,12 +51,11 @@
 
         table.render({
             elem: '#test'
-            ,url:'/annoucementController/queryAnnoucement'
+            ,url:'<%=path%>/annoucementController/queryAnnoucement'
             // ,toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
             ,defaultToolbar: []//自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
             ,title: '家政公司端公告管理表'
             ,cols: [[
-                // {type: 'checkbox',fixed: 'left'}
                 {field:'time', title: '发布时间'}
                 ,{field:'title', title: '公告标题'}
                 ,{field:'content', title: '公告内容'}
@@ -77,10 +76,6 @@
                 case 'deletetype':
 
                     break;
-                //自定义头工具栏右侧图标 - 提示
-                // case 'LAYTABLE_TIPS':
-                //     layer.alert('这是工具栏右侧自定义的一个图标按钮');
-                //     break;
             };
         });
 
@@ -88,7 +83,6 @@
         //监听行工具事件
         table.on('tool(test)', function(obj){
             var tabdata = obj.data;
-            //console.log(obj)s
             if(obj.event === 'del'){
                 layer.confirm('真的删除行么', function(index){
                     obj.del();

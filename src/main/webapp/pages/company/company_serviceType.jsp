@@ -38,6 +38,11 @@
     </div>
 </script>
 
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="deleteServiceType">
+        <i class="layui-icon layui-icon-auz"></i> 删除</a>
+</script>
+
 <%--//添加dialog--%>
 <form class="layui-form" id="userinfoform" action="" style="display: none">
     <div class="layui-form-item">
@@ -61,18 +66,17 @@
         var $ = layui.jquery;
         table.render({
             elem: '#test'
-            , url: '/serviceTypeContrller/queryCompanyServiceType'
+            , url: '<%=path%>/serviceTypeContrller/queryCompanyServiceType'
             , toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
             , defaultToolbar: []//自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
             , title: '公司端服务类别表'
             , cols: [[
-                // ,{field: 'id', title: 'id', align: 'center'}
+                ,{field: 'id', title: 'id', align: 'center',hide:true}
                 ,{field: 'typeName', title: '服务类别名', align: 'center'}
                 , {field: 'description', title: '服务描述', align: 'center'}
                 , {field: 'updateTime', title: '服务申请时间', align: 'center'}
                 , {field: 'state', title: '状态', align: 'center'}
-
-                // ,{field:'downloadDiscount', title: '下载文档积分比例'}
+                , {fixed: 'right', title: '操作', width: 250, toolbar: '#barDemo'}
             ]]
             , page: {
                 limit: 5,//指定每页显示的条数
@@ -150,6 +154,38 @@
                 });
             }
         });
+
+        table.on('tool(test)', function (obj) {
+            var tabdata = obj.data;
+            if (obj.event === 'deleteServiceType') {
+                if(tabdata.state=='审核通过'){
+                    layer.msg("审核通过不能删除");
+                }else{
+                    layer.confirm('真的删除服务吗?', function (index) {
+                       $.ajax({
+                           url:'<%=path%>/serviceTypeContrller/deleteCompanyRelation',
+                           type:'POST',
+                           dataType:'JSON',
+                           data:{
+                               id:tabdata.id,
+                           },
+                           success:function (msg) {
+                               if(msg.code==0){
+                                   layer.msg(msg.msg);
+                                   obj.del();
+                               }else{
+                                   layer.msg(msg.msg);
+                               }
+
+                               // window.location.reload();
+                           }
+                       });
+                    })
+                }
+            }
+        })
+
+
     });
 </script>
 </body>

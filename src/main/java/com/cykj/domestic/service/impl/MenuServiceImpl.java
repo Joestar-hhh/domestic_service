@@ -23,14 +23,14 @@ public class MenuServiceImpl implements MenuService {
     private MenuMapper menuMapper;
 
     @Override
-    public List<Menu> queryMenuList(String roleId) {
+    public List<Menu> queryMenuList(String roleId,String projectPath) {
         List<Menu> tablist = menuMapper.queryMenuList(roleId);
         List<Menu> mList = new ArrayList<>();
         for(Menu menu : tablist){
             menu.setId(menu.getId());
             menu.setTitle(menu.getMenuName());
             menu.setType("0");
-            menu.setHref(menu.getMenuPath());
+            menu.setHref(projectPath+menu.getMenuPath());
             if(menu.getParentId()!=0){
                 menu.setType("1");
                 menu.setOpenType("_iframe");

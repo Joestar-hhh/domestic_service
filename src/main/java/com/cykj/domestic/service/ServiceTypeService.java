@@ -47,6 +47,9 @@ public interface ServiceTypeService {
 //    查询所有未审核和Null的服务
     ResultData queryServiceNull(Company company);
 
+    /*公司可以删除为审核的服务类别*/
+    ResultData deleteCompanyRelation(String id);
+
 
     //查询公司已有服务类别
     List<ServiceType> queryComServiceType(int companyId);

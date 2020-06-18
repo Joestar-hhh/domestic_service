@@ -22,10 +22,11 @@ public class MenuController {
 
     @RequestMapping("/queryMenu")
     public Object queryMenu(HttpServletRequest request){
+        String projectPath = request.getContextPath();
         Company company = (Company) request.getSession().getAttribute("company");
         List<Menu> menuDataList = null;
         if(company!=null){
-            menuDataList = menuService.queryMenuList(String.valueOf(company.getRoleId()));
+            menuDataList = menuService.queryMenuList(String.valueOf(company.getRoleId()),projectPath);
         }
         return menuDataList;
     }
