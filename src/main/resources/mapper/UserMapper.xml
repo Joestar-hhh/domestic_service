@@ -37,4 +37,9 @@
     <update id="phone_update_pwd" parameterType="com.cykj.domestic.entity.User">
                UPDATE tb_user SET pwd=#{pwd} WHERE phone=#{phone}
     </update>
+
+<!--    修改用户个人信息-->
+    <update id="updateUserInfo" parameterType="com.cykj.domestic.entity.User">
+        update tb_user set name = #{name},pwd = #{pwd},phone = #{phone},sex = #{sex},age = #{age} where id = #{id}
+    </update>
 </mapper>

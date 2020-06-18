@@ -28,4 +28,6 @@ public interface UserMapper {
     int phone_update_pwd(User user
     );
 
+    // 修改用户信息
+    int updateUserInfo(User user);
 }
