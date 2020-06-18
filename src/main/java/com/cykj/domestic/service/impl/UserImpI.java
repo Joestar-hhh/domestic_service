@@ -119,4 +119,18 @@ public class UserImpI implements UserService {
         }
         return resultData;
     }
+
+    @Override
+    public ResultData uploadAvatar(User user) {
+        ResultData resultData = new ResultData();
+        int res = userMapper.uploadAvatar(user);
+        if (res == 1) {
+            resultData.setCode(0);
+            resultData.setMsg("上传头像成功");
+        } else {
+            resultData.setCode(1);
+            resultData.setMsg("上传头像失败");
+        }
+        return resultData;
+    }
 }

@@ -30,4 +30,7 @@ public interface UserMapper {
 
     // 修改用户信息
     int updateUserInfo(User user);
+
+    //用户上传头像
+    int uploadAvatar(User user);
 }
