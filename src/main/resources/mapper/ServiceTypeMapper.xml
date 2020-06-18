@@ -127,10 +127,9 @@
     <!--查询所有未审核和Null的服务-->
     <select id="queryServiceNull" parameterType="com.cykj.domestic.entity.Company" resultType="com.cykj.domestic.entity.ServiceType">
         SELECT * from (SELECT a.id,a.type_name,b.state FROM tb_service_type a
-            LEFT OUTER JOIN (SELECT state,service_type_id from tb_service_relation where company_id=1) b ON a.id=b.service_type_id) c
+            LEFT OUTER JOIN (SELECT state,service_type_id from tb_service_relation where company_id=#{id}) b ON a.id=b.service_type_id) c
             where  c.state = '未审核' or c.state is null;
     </select>
-
 
     <!--查询前三的热门服务-->
     <select id="ServiceTypeTopthree" parameterType="com.cykj.domestic.entity.ServiceType"
