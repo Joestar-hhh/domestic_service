@@ -31,7 +31,7 @@ public class Staff {
     private int regionId;
     private String position;
     private int counselorId;
-
+    private String region;
     private int age;
     private String birthDate;//出生日期
     private String jobState;//工作状态
