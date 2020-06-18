@@ -65,7 +65,7 @@
                 , {field: 'description', title: '要求描述'}
                 , {field: 'phone', title: '电话'}
                 , {field: 'frequency', title: '服务频次'}
-                , {field: 'detailAddress', title: '用户地址'}
+                , {field: 'money', title: '佣金'}
                 , {fixed: 'right', title: '操作', width: 250, toolbar: '#barDemo'}
                 // ,{field:'downloadDiscount', title: '下载文档积分比例'}
             ]]
