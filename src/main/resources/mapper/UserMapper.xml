@@ -5,7 +5,8 @@
 <mapper namespace="com.cykj.domestic.mapper.UserMapper">
 
     <!--    查询用户默认地址-->
-    <select id="queryUserAddress" parameterType="com.cykj.domestic.entity.User" resultType="com.cykj.domestic.entity.User">
+    <select id="queryUserAddress" parameterType="com.cykj.domestic.entity.User"
+            resultType="com.cykj.domestic.entity.User">
                 SELECT * FROM tb_user_address WHERE id=#{userAddressId}
     </select>
 
@@ -38,8 +39,13 @@
                UPDATE tb_user SET pwd=#{pwd} WHERE phone=#{phone}
     </update>
 
-<!--    修改用户个人信息-->
+    <!--    修改用户个人信息-->
     <update id="updateUserInfo" parameterType="com.cykj.domestic.entity.User">
         update tb_user set name = #{name},pwd = #{pwd},phone = #{phone},sex = #{sex},age = #{age} where id = #{id}
+    </update>
+
+    <!--    上传头像-->
+    <update id="uploadAvatar" parameterType="com.cykj.domestic.entity.User">
+        update tb_user set avatar = #{avatar} where id = #{id}
     </update>
 </mapper>

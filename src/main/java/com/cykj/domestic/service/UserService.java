@@ -21,4 +21,7 @@ public interface UserService {
 
     //用户修改个人信息
     ResultData updateUserInfo(User user);
+
+    //用户上传头像
+    ResultData uploadAvatar(User user);
 }
