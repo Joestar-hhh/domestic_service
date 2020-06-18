@@ -11,6 +11,8 @@
     <groupId>com.cykj</groupId>
     <artifactId>domestic</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <!-- 这里打成war包 若打jar，需将war改为jar -->
+    <packaging>war</packaging>
     <name>domestic</name>
     <description>Demo project for Spring Boot</description>
 
