@@ -292,7 +292,6 @@
                         layer.alert(msg.msg,function () {
                             window.location.reload();//修改成功后刷新父界面
                         })
-
                     }
                 })
                 return false;

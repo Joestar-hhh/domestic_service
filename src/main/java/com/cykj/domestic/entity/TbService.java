@@ -15,6 +15,8 @@ public class TbService {
   private int unitPrice;//单价
   private String stypeName;//热门服务所属服务类型
   private String serviceCategory;//服务列表所属服务类型
+  private String serviceTypeName;//服务类别名
+  private int companyId;//公司id
 
 
   private String sName;

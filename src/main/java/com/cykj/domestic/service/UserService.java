@@ -18,4 +18,7 @@ public interface UserService {
 
     //用户忘记加密码端修改密码
     ResultData phone_update_pwd(User user);
+
+    //用户修改个人信息
+    ResultData updateUserInfo(User user);
 }

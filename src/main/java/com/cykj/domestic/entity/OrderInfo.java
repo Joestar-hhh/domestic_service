@@ -25,6 +25,7 @@ public class OrderInfo {
   private String title;//标题
   private String description;//要求描述
   private String phone;//电话
+  private String money;
 
   private String userName;
   private String staffName;

@@ -21,9 +21,9 @@ public class UserController {
 
     //查询用户默认地址
     @RequestMapping("/queryUserAddress")
-    public String queryUserAddress(HttpServletResponse response, HttpServletRequest request){
+    public String queryUserAddress(HttpServletResponse response, HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute("user");
-        ResultData resultData=userService.queryUserAddress(user);
+        ResultData resultData = userService.queryUserAddress(user);
         return JSON.toJSONString(resultData);
     }
 
@@ -64,6 +64,12 @@ public class UserController {
     @RequestMapping("/phone_update_pwd")
     public String phone_update_pwd(HttpServletRequest request, HttpServletResponse response, User user) {
         ResultData resultData = userService.phone_update_pwd(user);
+        return JSON.toJSONString(resultData);
+    }
+
+    @RequestMapping("/updateUserInfo")
+    public String updateUserInfo(User user) {
+        ResultData resultData = userService.updateUserInfo(user);
         return JSON.toJSONString(resultData);
     }
 }

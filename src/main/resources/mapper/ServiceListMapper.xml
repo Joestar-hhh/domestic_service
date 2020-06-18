@@ -40,5 +40,17 @@
        select a.* ,b.type_name serviceCategory from tb_service a INNER JOIN  tb_service_type b on b.id=a.service_type_id where a.id = #{id}
     </select>
 
+<!--    查询所有服务和服务类别-->
+    <select id="queryServiceTypeName" resultType="com.cykj.domestic.entity.TbService">
+      SELECT s.id id,s.type_name type_name,t.type_name service_type_name,s.update_time update_time FROM tb_service_relation  r
+          LEFT JOIN tb_service_type t ON r.service_type_id=t.id
+          LEFT JOIN  tb_service s ON s.service_type_id = t.id  WHERE r.company_id=#{companyId} AND r.state='审核通过' ORDER BY service_type_name DESC limit #{start},#{pageSize}
+    </select>
+
+    <select id="queryServiceTypeNameCount" resultType="int">
+        SELECT count(*) FROM tb_service_relation  r
+          LEFT JOIN tb_service_type t ON r.service_type_id=t.id
+          LEFT JOIN  tb_service s ON s.service_type_id = t.id  WHERE r.company_id=#{companyId} AND r.state='审核通过'
+    </select>
 
 </mapper>

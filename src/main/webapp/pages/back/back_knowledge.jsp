@@ -251,7 +251,7 @@
                     },
                     success: function (msg) {
                         $.each(msg.data,function (i,item) {
-                            $("#img-follow").append("<a href="+item.path+" target=_blank >详情</a>");
+                            $("#img-follow").append("<a href="+<%=path%>item.path+" target=_blank >详情</a>");
                         })
                         layui.use('form', function () {
                             var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
@@ -259,9 +259,6 @@
                         });
                     }
                 })
-
-
-
             } else if (obj.event === 'File_Upload') {
                 var path = tabdata.path;
                 var id = tabdata.id

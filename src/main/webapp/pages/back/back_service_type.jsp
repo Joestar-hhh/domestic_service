@@ -60,7 +60,6 @@
 </script>
 
 <script type="text/html" id="barDemo">
-
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="viewDetails">
         <i class="layui-icon layui-icon-list"></i>查看详情</a>
     <a class="layui-btn layui-btn-xs" lay-event="edit">

@@ -127,6 +127,7 @@ public class ServiceTypeContrller {
     @RequestMapping("/queryServiceNull")
     public String queryServiceNull(HttpServletRequest request, HttpServletResponse response) {
         Company company = (Company) request.getSession().getAttribute("company");
+        System.out.println(JSON.toJSONString(company));
         ResultData resultData = serviceTypeService.queryServiceNull(company);
         return JSON.toJSONString(resultData);
     }

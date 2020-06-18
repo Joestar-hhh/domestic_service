@@ -1,7 +1,6 @@
 package com.cykj.domestic.mapper;
 
 
-import com.cykj.domestic.entity.Qualification;
 import com.cykj.domestic.entity.ServiceType;
 import com.cykj.domestic.entity.TbService;
 import org.apache.ibatis.annotations.Mapper;
@@ -27,6 +26,10 @@ public interface ServiceListMapper {
     List<ServiceType> selectService();
     //服务列表查看详情
     List<TbService> serviceListView(int id);
+    //查询所有服务和服务类别
+    List<TbService>queryServiceTypeName(@Param("companyId")int companyId,@Param("start") int start, @Param("pageSize") int pageSize);
+    int queryServiceTypeNameCount(@Param("companyId")int companyId);
+
 
 
 }

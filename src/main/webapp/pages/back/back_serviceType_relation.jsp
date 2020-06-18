@@ -57,7 +57,7 @@
         var $ = layui.jquery;
         table.render({
             elem: '#test'
-            , url: '/serviceTypeContrller/querySericeTypeRelation'
+            , url: '<%=path%>/serviceTypeContrller/querySericeTypeRelation'
             , toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
             , defaultToolbar: []//自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
             , title: '审批公司服务类别表'

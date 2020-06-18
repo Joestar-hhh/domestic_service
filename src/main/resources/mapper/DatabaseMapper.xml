@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cykj.domestic.mapper.DataBaseMapper">
+
+    <insert id="addServiceList" parameterType="com.cykj.domestic.entity.Database">
+      INSERT into tb_material_relation(material_id,company_id,license_address,data_type)VALUES(#{e.materialId},#{userid},#{e.licenseAddress},0);
+    </insert>
+
+    <select id="selectList" resultType="com.cykj.domestic.entity.Database" parameterType="com.cykj.domestic.entity.Database">
+        select m.id,c.boss,c.account,c.company_name,m.material_name,count(m.id) num from tb_company c
+        left join tb_material_relation mr on mr.company_id = c.id
+        left join tb_material m on m.id = mr.material_id
+        where c.id =#{userid} and mr.data_type=0
+        group by m.id
+        limit #{start},#{pageSize}
+    </select>
+
+    <select id="selectListCount" resultType="int" parameterType="com.cykj.domestic.entity.Database">
+       select count(A.id) from (select m.id,c.boss,c.account,c.company_name,m.material_name,count(m.id) num from tb_company c
+        left join tb_material_relation mr on mr.company_id = c.id
+        left join tb_material m on m.id = mr.material_id
+        where c.id =#{userid} and mr.data_type=0
+        group by m.id)A
+    </select>
+
+
+    <select id="serviceListView" resultType="com.cykj.domestic.entity.Database">
+     SELECT license_address FROM tb_material_relation mr
+     LEFT JOIN tb_company c on c.id=mr.company_id and material_id=#{e.materialId} WHERE c.id=#{userid}
+    </select>
+
+
+
+<!--    //人员资料-->
+    <select id="selectStaffList" resultType="com.cykj.domestic.entity.Database" parameterType="com.cykj.domestic.entity.Database">
+        select m.id,c.boss,c.account,c.company_name,m.material_name,count(m.id) num from tb_company c
+        left join tb_material_relation mr on mr.company_id = c.id
+        left join tb_material m on m.id = mr.material_id
+        where c.id =#{userid} and mr.data_type=1
+        group by m.id
+        limit #{start},#{pageSize}
+    </select>
+
+    <select id="selectStaffListCount" resultType="int" parameterType="com.cykj.domestic.entity.Database">
+       select count(A.id) from (select m.id,c.boss,c.account,c.company_name,m.material_name,count(m.id) num from tb_company c
+        left join tb_material_relation mr on mr.company_id = c.id
+        left join tb_material m on m.id = mr.material_id
+        where c.id =#{userid} and mr.data_type=1
+        group by m.id)A
+    </select>
+
+<!--//员工资料添加-->
+    <insert id="addStaffList" parameterType="com.cykj.domestic.entity.Database">
+      INSERT into tb_material_relation(material_id,company_id,license_address,data_type)VALUES(#{e.materialId},#{userid},#{e.licenseAddress},1);
+    </insert>
+
+    <select id="StaffListView" resultType="com.cykj.domestic.entity.Database">
+        SELECT license_address FROM tb_material_relation mr
+        LEFT JOIN tb_company c on c.id=mr.company_id and material_id=#{e.materialId} WHERE c.id=#{userid}
+    </select>
+</mapper>

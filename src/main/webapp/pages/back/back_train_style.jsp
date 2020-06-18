@@ -145,8 +145,8 @@
                 , {fixed: 'right', title: '操作', width: 250, toolbar: '#barDemo'}
             ]]
             , page: {
-                limit: 2,//指定每页显示的条数
-                limits: [2,5,  10, 15, 20],
+                limit: 10,//指定每页显示的条数
+                limits: [10, 15, 20],
             } //每页条数的选择项
 
         });
@@ -175,7 +175,7 @@
                     },
                     success: function (msg) {
                         $.each(msg.data, function (i, item) {
-                            $("#img-follow").append("<img src=" + item.path + "  alt='上海鲜花港 - 郁金香'/>")
+                            $("#img-follow").append("<img src="+<%=path%>item.path + "  alt='上海鲜花港 - 郁金香'/>")
                         });
                         layui.use('form', function () {
                             var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
@@ -224,12 +224,10 @@
                         }
                         //如果设定了yes回调，需进行手工关闭
                     });
-
                     // 上传
                     layui.use('upload', function () {
                         var $ = layui.jquery
                             , upload = layui.upload;
-
                         //普通图片上传
                         var uploadInst = upload.render({
                             elem: '#test1'
@@ -248,7 +246,8 @@
                                     return layer.msg('上传失败');
                                 }
                                 //上传成功
-                                // $("#demoText").html(res.msg);
+                                // alert(id)
+                                // alert(res.msg)
                                 $.ajax({
                                     type: 'POST',
                                     url: '<%=path%>/skillTrainController/insertSkillStyle',
@@ -258,7 +257,8 @@
                                         path: res.msg
                                     },
                                     success: function (msg) {
-                                        alert(msg.msg)
+                                        alert(msg.msg);
+                                        window.location.reload();
                                     }
                                 })
                             }
