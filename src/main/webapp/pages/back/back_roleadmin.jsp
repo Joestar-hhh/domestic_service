@@ -79,7 +79,7 @@
         var $ = layui.jquery;
         table.render({
             elem: '#test'
-            ,url:'/roleController/queryRole'
+            ,url:'<%=path%>/roleController/queryRole'
             ,toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
             ,defaultToolbar: []//自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
             ,title: '用户数据表'

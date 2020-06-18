@@ -1,12 +1,9 @@
 package com.cykj.domestic.service.impl;
 
-import com.cykj.domestic.entity.Qualification;
 import com.cykj.domestic.entity.ServiceType;
 import com.cykj.domestic.entity.TbService;
 import com.cykj.domestic.mapper.ServiceListMapper;
-import com.cykj.domestic.mapper.ServiceTypeMapper;
 import com.cykj.domestic.service.ServiceListService;
-import com.cykj.domestic.service.ServiceTypeService;
 import com.cykj.domestic.util.ResultData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,9 +43,9 @@ public class ServiceListImpl implements ServiceListService {
     //添加服务列表数据
     @Override
     public ResultData addServicelist(TbService tbService) {
-        int res= serviceListMapper.addServiceList(tbService);
+        int res = serviceListMapper.addServiceList(tbService);
         ResultData resultData = new ResultData();
-        if(res==1){
+        if (res == 1) {
             resultData.setCode(0);
             resultData.setMsg("添加成功");
         } else {
@@ -62,9 +59,9 @@ public class ServiceListImpl implements ServiceListService {
     //修改服务列表数据
     @Override
     public ResultData updateServiceList(TbService tbService) {
-        int res= serviceListMapper.updateServiceList(tbService);
+        int res = serviceListMapper.updateServiceList(tbService);
         ResultData resultData = new ResultData();
-        if(res==1){
+        if (res == 1) {
             resultData.setCode(0);
             resultData.setMsg("修改成功");
         } else {
@@ -75,14 +72,12 @@ public class ServiceListImpl implements ServiceListService {
     }
 
 
-
-
     //删除服务列表数据
     @Override
     public ResultData deleteServiceList(int id) {
-        int res= serviceListMapper.deleteServiceList(id);
+        int res = serviceListMapper.deleteServiceList(id);
         ResultData resultData = new ResultData();
-        if(res==1){
+        if (res == 1) {
             resultData.setCode(0);
             resultData.setMsg("删除成功");
         } else {
@@ -109,9 +104,23 @@ public class ServiceListImpl implements ServiceListService {
     @Override
     public ResultData serviceListView(int id) {
         List<TbService> list = serviceListMapper.serviceListView(id);
-        System.out.println("list_______"+list);
+        System.out.println("list_______" + list);
         ResultData resultData = new ResultData();
         resultData.setData(list);
         return resultData;
     }
+
+    //查询所有服务和服务类别
+    @Override
+    public ResultData queryServiceTypeName(int companyId,int page, int pageSize) {
+        List<TbService> list = serviceListMapper.queryServiceTypeName(companyId,(page - 1) * pageSize, pageSize);
+        int count=serviceListMapper.queryServiceTypeNameCount(companyId);
+        ResultData resultData=new ResultData();
+        resultData.setCode(0);
+        resultData.setCount(count);
+        resultData.setData(list);
+        return resultData;
+    }
+
+
 }
