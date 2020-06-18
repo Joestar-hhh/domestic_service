@@ -134,7 +134,7 @@
         // 下拉框列表
         $.ajax({
             type: 'POST',
-            url: '/staffController/regionList',
+            url: '<%=path%>/staffController/regionList',
             dataType: 'JSON',
             success: function (msg) {
                 $("#regionlist").html("<option value=''></option>");
