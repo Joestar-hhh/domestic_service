@@ -73,7 +73,7 @@
         var $ = layui.jquery;
         table.render({
             elem: '#test'
-            ,url:'/annoucementController/queryAnnoucement'
+            ,url:'<%=path%>/annoucementController/queryAnnoucement'
             ,toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
             ,defaultToolbar: []//自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
             ,title: '平台管理端公告管理'
