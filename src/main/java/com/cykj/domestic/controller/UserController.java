@@ -34,6 +34,17 @@ public class UserController {
         return JSON.toJSONString(resultData);
     }
 
+    //微信登录测试
+    @RequestMapping("/weChatLogin")
+    public String weChatLogin(HttpServletRequest request, String username,String pwd) {
+        System.out.println("微信----账号："+username+"    密码："+pwd);
+        User user = new User();
+        user.setAccount(username);
+        user.setPwd(pwd);
+        ResultData resultData = userService.userLogin(user, request);
+        return JSON.toJSONString(resultData);
+    }
+
     // 用户退出登录
     @RequestMapping("/quit")
     public String remove(HttpServletRequest request) {
