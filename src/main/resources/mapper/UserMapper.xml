@@ -48,4 +48,23 @@
     <update id="uploadAvatar" parameterType="com.cykj.domestic.entity.User">
         update tb_user set avatar = #{avatar} where id = #{id}
     </update>
+
+
+
+
+    <!--    通过openid查询用户-->
+    <select id="queryOpenIdUser" resultType="com.cykj.domestic.entity.User">
+        select * from tb_user where open_id = #{openId}
+    </select>
+
+    <!--    wx-添加用户-->
+    <insert id="insertUserInfo" parameterType="com.cykj.domestic.entity.User">
+        INSERT INTO tb_user(open_id,name,sex,avatar,new_login_time)
+        VALUES(#{openId},#{name},#{sex},#{avatar},#{newLoginTime})
+    </insert>
+
+    <!--    更新登录时间-->
+    <update id="uploadLoginTime" useGeneratedKeys="true" keyProperty="id" parameterType="com.cykj.domestic.entity.User">
+        update tb_user set new_login_time = #{newLoginTime} where open_id = #{openId}
+    </update>
 </mapper>

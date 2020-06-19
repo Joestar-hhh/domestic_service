@@ -25,4 +25,9 @@ public class User {
   private List<String> rowList;//柱状图行 list
   private List<String> colList;//柱状图行 list
 
+
+  private String openId;
+  private String newLoginTime;//登录时间
+  private String avatar;//头像
+
 }

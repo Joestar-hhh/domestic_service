@@ -1,17 +1,22 @@
 package com.cykj.domestic.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.cykj.domestic.entity.Company;
 import com.cykj.domestic.entity.User;
 import com.cykj.domestic.mapper.UserMapper;
 import com.cykj.domestic.service.UserService;
+import com.cykj.domestic.util.HttpClientUtil;
 import com.cykj.domestic.util.MD5Util;
 import com.cykj.domestic.util.ResultData;
+import com.cykj.domestic.util.UserConstantInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 public class UserImpI implements UserService {
@@ -131,6 +136,55 @@ public class UserImpI implements UserService {
             resultData.setCode(1);
             resultData.setMsg("上传头像失败");
         }
+        return resultData;
+    }
+
+    @Override
+    public ResultData weChatLogin(String code, String userHead, String userName, String userGender) {
+        // 配置请求参数
+        Map<String, String> param = new HashMap<>();
+        param.put("appid", UserConstantInterface.WX_LOGIN_APPID);
+        param.put("secret", UserConstantInterface.WX_LOGIN_SECRET);
+        param.put("js_code", code);
+        param.put("grant_type", UserConstantInterface.WX_LOGIN_GRANT_TYPE);
+        // 发送请求
+        String wxResult = HttpClientUtil.doGet(UserConstantInterface.WX_LOGIN_URL, param);
+        JSONObject jsonObject = JSONObject.parseObject(wxResult);
+        // 获取参数返回的
+        String session_key = jsonObject.get("session_key").toString();
+        String open_id = jsonObject.get("openid").toString();
+
+        System.out.println("-----------openId:"+open_id);
+
+        ResultData resultData = new ResultData();
+        User user = userMapper.queryOpenIdUser(open_id);
+        if(user!=null){
+            user.setNewLoginTime(new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss").format(new Date()));
+            user.setOpenId(open_id);
+            userMapper.uploadLoginTime(user);
+            List<User> list = new ArrayList<>();
+            list.add(user);
+            resultData.setData(list);
+        } else {
+            User addUser = new User();
+            addUser.setOpenId(open_id);
+            addUser.setName(userName);
+            addUser.setSex(userGender);
+            addUser.setAvatar(userHead);
+            int addRes = userMapper.insertUserInfo(addUser);
+            if(addRes>=1){
+                resultData.setCode(0);
+                resultData.setMsg("添加用户成功");
+                List<User> list = new ArrayList<>();
+                list.add(addUser);
+                resultData.setData(list);
+            } else {
+                resultData.setCode(1);
+                resultData.setMsg("添加用户失败");
+            }
+        }
+        resultData.setMsg(wxResult);
+        System.out.println("-------------微信登录："+wxResult);
         return resultData;
     }
 }

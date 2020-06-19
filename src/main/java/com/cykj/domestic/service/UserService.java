@@ -24,4 +24,7 @@ public interface UserService {
 
     //用户上传头像
     ResultData uploadAvatar(User user);
+
+
+    ResultData weChatLogin(String code,String userHead,String userName,String userGender);
 }

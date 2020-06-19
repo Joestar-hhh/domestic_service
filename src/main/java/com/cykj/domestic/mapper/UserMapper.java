@@ -33,4 +33,10 @@ public interface UserMapper {
 
     //用户上传头像
     int uploadAvatar(User user);
+
+
+    User queryOpenIdUser(String openId);
+
+    int insertUserInfo(User user);
+    int uploadLoginTime(User user);
 }
