@@ -48,4 +48,6 @@ public interface OrderMapper {
 //    家政公司订单统计
     List<OrderInfo> companyOrderStatistics(@Param("startDate") String startDate, @Param("endDate") String endDate);
 
+//    小程序订单统计
+    List<OrderInfo> WeChatOrderList(@Param("userId") int userId);
 }

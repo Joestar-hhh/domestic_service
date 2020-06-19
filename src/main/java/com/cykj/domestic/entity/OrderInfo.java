@@ -25,11 +25,12 @@ public class OrderInfo {
   private String title;//标题
   private String description;//要求描述
   private String phone;//电话
-  private String money;
+  private String money;//订单金额
 
   private String userName;
   private String staffName;
-  private String typeName;
+  private String typeName;//服务分支
+  private String mainName;//服务主支
   private String comName;
   private String stateComName;
   private String orderStateName;

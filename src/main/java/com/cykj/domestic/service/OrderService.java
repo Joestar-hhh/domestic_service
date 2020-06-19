@@ -37,6 +37,8 @@ public interface OrderService {
 //    家政公司订单统计
     List<OrderInfo> companyOrderStatistics(String startDate, String endDate);
 
+//    小程序订单
+    ResultData weChatOrderList(int userId);
 
 
 

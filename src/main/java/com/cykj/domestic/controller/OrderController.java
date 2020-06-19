@@ -111,7 +111,12 @@ public class OrderController {
         return JSON.toJSONString(list);
 
     }
-
-
+//    小程序订单查询
+    @RequestMapping("/weChatOrderList")
+    public String weChatOrderList(HttpServletRequest request){
+        String  userId=request.getParameter("userId");
+        ResultData resultData=orderService.weChatOrderList(Integer.valueOf(userId));
+        return JSON.toJSONString(resultData);
+    }
 
 }
