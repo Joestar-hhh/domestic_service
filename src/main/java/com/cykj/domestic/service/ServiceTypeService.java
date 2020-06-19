@@ -61,5 +61,6 @@ public interface ServiceTypeService {
     //修改员工服务
     ResultData insertStaffService(int staffId,int stId, String list);
 
-
+    //wx--查询所有服务类别
+    ResultData queryServiceTypeWx();
 }

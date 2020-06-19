@@ -169,4 +169,12 @@ public class ServiceTypeContrller {
     }
 
 
+
+    /*wx--查询所有服务类别*/
+    @RequestMapping("/queryServiceTypeWx")
+    public String queryServiceTypeWx(HttpServletRequest request, HttpServletResponse response) {
+        ResultData resultData = serviceTypeService.queryServiceTypeWx();
+        return JSON.toJSONString(resultData);
+    }
+
 }

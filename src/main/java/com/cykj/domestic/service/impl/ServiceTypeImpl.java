@@ -260,4 +260,20 @@ public class ServiceTypeImpl implements ServiceTypeService {
         return resultData;
     }
 
+
+    /*wx--查询所有服务类别*/
+    @Override
+    public ResultData queryServiceTypeWx() {
+        List<ServiceType> list = serviceTypeMapper.queryServiceType();
+        for(ServiceType serviceType : list){
+            serviceType.setUrl("/pages/index/type");
+            serviceType.setIcon("/imgs/c.png");
+        }
+        ResultData resultData = new ResultData();
+        resultData.setCode(0);
+        resultData.setMsg("");
+        resultData.setData(list);
+        return resultData;
+    }
+
 }
