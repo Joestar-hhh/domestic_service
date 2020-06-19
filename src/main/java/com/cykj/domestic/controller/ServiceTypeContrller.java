@@ -79,9 +79,9 @@ public class ServiceTypeContrller {
     }
 
     /*查询前三的热门服务*/
-    @RequestMapping("/serviceTypeTopthree")
+    @RequestMapping("/WXServiceTypeTopthree")
     public String ServiceTypeTopthree(HttpServletResponse response, HttpServletRequest request) {
-        ResultData resultData = serviceTypeService.ServiceTypeTopthree();
+        ResultData resultData = serviceTypeService.WXServiceTypeTopthree();
         return JSON.toJSONString(resultData);
     }
 
@@ -176,5 +176,8 @@ public class ServiceTypeContrller {
         ResultData resultData = serviceTypeService.queryServiceTypeWx();
         return JSON.toJSONString(resultData);
     }
+
+
+
 
 }

@@ -12,6 +12,7 @@ public class ServiceType {
     private String state;//公司端申请服务类别状态
     private String companyName;//公司名称
     private String countNum;//热门服务接单数
+    private String serviceTypeName;
 
     private String url;
     private String icon;

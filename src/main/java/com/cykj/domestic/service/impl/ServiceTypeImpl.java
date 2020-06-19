@@ -193,9 +193,13 @@ public class ServiceTypeImpl implements ServiceTypeService {
 
     /*查询前三的热门服务*/
     @Override
-    public ResultData ServiceTypeTopthree() {
-        List<ServiceType> list = serviceTypeMapper.ServiceTypeTopthree();
+    public ResultData WXServiceTypeTopthree() {
+        List<ServiceType> list = serviceTypeMapper.WXServiceTypeTopthree();
         ResultData resultData = new ResultData();
+        for(ServiceType serviceType : list){
+            serviceType.setUrl("/pages/index/type");
+            serviceType.setIcon("/imgs/c.png");
+        }
         resultData.setCode(0);
         resultData.setMsg("");
         resultData.setData(list);

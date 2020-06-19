@@ -54,7 +54,7 @@ public interface ServiceTypeMapper {
     List<ServiceType>selectSerice();
 
     /*查询前三的热门服务*/
-    List<ServiceType> ServiceTypeTopthree();
+    List<ServiceType> WXServiceTypeTopthree();
 
 //    查询所有未审核和Null的服务
     List<ServiceType>queryServiceNull(Company company);

@@ -42,7 +42,7 @@ public interface ServiceTypeService {
     ResultData selectSerice();
 
     /*查询前三的热门服务*/
-    ResultData ServiceTypeTopthree();
+    ResultData WXServiceTypeTopthree();
 
 //    查询所有未审核和Null的服务
     ResultData queryServiceNull(Company company);
