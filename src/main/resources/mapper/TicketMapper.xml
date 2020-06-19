@@ -23,4 +23,9 @@
        select count(id) from tb_ticket
     </select>
 
+
+<!--    //小程序-->
+    <select id="selectListWx" resultType="com.cykj.domestic.entity.Ticket" parameterType="com.cykj.domestic.entity.Ticket">
+        select * from tb_ticket
+    </select>
 </mapper>

@@ -53,4 +53,12 @@ public class TicketContrller {
         return JSON.toJSONString(resultData);
     }
 
+
+
+    @RequestMapping("/selectServiceListWx")
+    public String selectServiceListWx(HttpServletRequest request, HttpServletResponse response, Ticket ticket) {
+        ResultData resultData = ticketService.selectListWx(ticket);
+        return JSON.toJSONString(resultData);
+    }
+
 }

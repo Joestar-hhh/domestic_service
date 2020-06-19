@@ -86,4 +86,23 @@ public class TicketImpl implements TicketService {
         }
         return resultData;
     }
+
+    //小程序
+    @Override
+    public ResultData selectListWx(Ticket ticket) {
+        List<Ticket> list = ticketMapper.selectListWx(ticket);
+        int count = ticketMapper.selectListCount(ticket);
+        ResultData resultData = new ResultData();
+        if (list.size() > 0) {
+            resultData.setCode(0);
+            resultData.setMsg("");
+            resultData.setCount(count);
+            resultData.setData(list);
+            System.out.println(ticket);
+        } else {
+            resultData.setCode(1);
+            resultData.setMsg("查询失败");
+        }
+        return resultData;
+    }
 }

@@ -24,4 +24,6 @@ public interface TicketMapper {
     List<Ticket> selectList(@Param("e") Ticket ticket, @Param("start") int start, @Param("pageSize") int pageSize);
     int selectListCount(@Param("e") Ticket ticket);
 
+    //小程序
+    List<Ticket>selectListWx(@Param("e") Ticket ticket);
 }

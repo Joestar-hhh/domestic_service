@@ -14,5 +14,5 @@ public interface TicketService {
 
     ResultData deleteServiceList(int id);
 
-
+    ResultData selectListWx(Ticket ticket);
 }
