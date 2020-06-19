@@ -45,7 +45,7 @@
 
 
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="passCheck">过审</a>
+    <a class="layui-btn layui-btn-xs" lay-event="passCheck">过审</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="nopassCheck">不过审</a>
 </script>
 
