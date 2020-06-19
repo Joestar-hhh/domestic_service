@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cykj.domestic.mapper.TicketMapper">
+
+    <insert id="addServiceList" parameterType="com.cykj.domestic.entity.Ticket">
+      INSERT into tb_ticket(ticket_name,start_time,end_time,preferential_num,details,num)
+      VALUES(#{ticketName},#{startTime},#{endTime},#{preferentialNum},#{details},#{num});
+    </insert>
+
+
+    <delete id="deleteServiceList">
+         delete from tb_ticket where id=#{id}
+    </delete>
+
+    <select id="selectList" resultType="com.cykj.domestic.entity.Ticket" parameterType="com.cykj.domestic.entity.Ticket">
+        select * from tb_ticket
+        limit #{start},#{pageSize}
+    </select>
+    <select id="selectListCount" resultType="int" parameterType="com.cykj.domestic.entity.Ticket">
+       select count(id) from tb_ticket
+    </select>
+
+</mapper>
