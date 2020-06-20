@@ -9,5 +9,6 @@ public class UserClock {
   private String clockTime;
   private int integral;
   private int continuousSign;
+  private int userId;
 
 }

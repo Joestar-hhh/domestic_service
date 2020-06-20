@@ -6,12 +6,12 @@
 
     <!--    查询用户积分-->
     <select id="queryIntegral" parameterType="com.cykj.domestic.entity.UserClock" resultType="int">
-        SELECT integral FROM tb_user_clock where id = #{id}
+        SELECT integral FROM tb_user_clock where user_id = #{id}
     </select>
 
     <!--    查询用户连续签到天数-->
     <select id="queryContinuousSign" parameterType="com.cykj.domestic.entity.UserClock" resultType="int">
-        SELECT continuous_sign FROM tb_user_clock where id = #{id}
+        SELECT continuous_sign FROM tb_user_clock where user_id = #{id}
     </select>
 
 </mapper>
