@@ -28,4 +28,21 @@ public class UserClockServiceImpl implements UserClockService {
         resultData.setCount(continuousSign);
         return resultData;
     }
+
+    @Override
+    public ResultData queryUser(UserClock userClock,int id) {
+        UserClock user = userClockMapper.queryUser(id);
+        ResultData resultData = new ResultData();
+        int res = 0;
+        if (user != null) {
+            res = userClockMapper.updateSign(userClock);
+            resultData.setCount(res);
+            System.out.println("修改结果为:" + res);
+        } else {
+            res = userClockMapper.insertSign(userClock);
+            resultData.setCount(res);
+            System.out.println("增加结果为：" + res);
+        }
+        return resultData;
+    }
 }

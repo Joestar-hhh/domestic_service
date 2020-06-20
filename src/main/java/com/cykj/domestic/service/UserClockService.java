@@ -10,4 +10,7 @@ public interface UserClockService {
 
     //查询连续签到天数
     ResultData queryContinuousSign(UserClock userClock);
+
+    // 根据用户id查询签到数据
+    ResultData queryUser(UserClock userClock,int id);
 }

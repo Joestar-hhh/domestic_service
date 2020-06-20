@@ -14,4 +14,20 @@
         SELECT continuous_sign FROM tb_user_clock where user_id = #{userId}
     </select>
 
+    <!--    增加签到数据-->
+    <insert id="insertSign" parameterType="com.cykj.domestic.entity.UserClock">
+        insert into tb_user_clock (integral,continuous_sign,user_id)
+         values (#{integral},#{continuousSign},#{userId})
+    </insert>
+
+    <!--    修改签到数据-->
+    <update id="updateSign" parameterType="com.cykj.domestic.entity.UserClock">
+        update tb_user_clock set clock_time = #{clockTime},integral = #{integral},continuous_sign = #{continuousSign}
+        where user_id = #{userId}
+    </update>
+
+    <select id="queryUser" parameterType="com.cykj.domestic.entity.UserClock"
+            resultType="com.cykj.domestic.entity.UserClock">
+        select * from tb_user_clock where user_id = #{userId}
+    </select>
 </mapper>

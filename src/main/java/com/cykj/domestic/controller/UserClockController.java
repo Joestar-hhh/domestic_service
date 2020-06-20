@@ -29,4 +29,11 @@ public class UserClockController {
         ResultData resultData = userClockService.queryContinuousSign(userClock);
         return JSON.toJSONString(resultData);
     }
+
+    //新增数据
+    @RequestMapping("/insertSign")
+    public String insertSign(UserClock userClock) {
+        ResultData resultData = userClockService.queryUser(userClock,userClock.getUserId());
+        return JSON.toJSONString(resultData);
+    }
 }
