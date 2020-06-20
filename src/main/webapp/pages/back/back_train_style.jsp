@@ -156,9 +156,8 @@
 
             if (obj.event === 'updatestyle') {
                 var tabdata = obj.data;
-                // var id = tabdata.id
+
                 var i = tabdata.qualification.qualificationName
-                // tabdata.trainProjectName;
                 $("#id").html(tabdata.id);
                 $("#qualificationId").html(i);
                 $("#time").html(tabdata.time);

@@ -35,6 +35,7 @@ public class KnowledgeController {
     @ResponseBody
     @RequestMapping("/addKnowledeg")
     public String addKnowledeg(HttpServletRequest request, HttpServletResponse response, Knowledge knowledge) {
+        System.out.println(JSON.toJSONString(knowledge));
         ResultData resultData = knowledgeService.addKnowledeg(knowledge);
         return JSON.toJSONString(resultData);
     }
@@ -64,6 +65,11 @@ public class KnowledgeController {
         ResultData resultData = knowledgeService.addKnowledegStyle(knowledge);
         return JSON.toJSONString(resultData);
     }
-
+    //     微信查询所有育婴知识-
+    @RequestMapping("/wxqueryknowledge")
+    public String wxqueryknowledge(HttpServletRequest request, HttpServletResponse response) {
+        ResultData resultData = knowledgeService.wxqueryknowledge();
+        return JSON.toJSONString(resultData);
+    }
 
 }

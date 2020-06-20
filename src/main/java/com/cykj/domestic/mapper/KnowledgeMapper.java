@@ -27,6 +27,9 @@ public interface KnowledgeMapper {
 //    获取育婴知识路径-
     List<Knowledge> queryKnowledegStyle(Knowledge knowledge);
 
+    //微信查询育婴知识
+    List<Knowledge> wxqueryknowledge();
+
 
 
 }

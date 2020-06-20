@@ -21,6 +21,10 @@ public interface KnowledgeService {
     ResultData addKnowledegStyle(Knowledge knowledge);
 
 
+    //微信查询育婴知识
+    ResultData wxqueryknowledge();
+
+
 
 
 
