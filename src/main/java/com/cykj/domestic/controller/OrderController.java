@@ -115,7 +115,8 @@ public class OrderController {
     @RequestMapping("/weChatOrderList")
     public String weChatOrderList(HttpServletRequest request){
         String  userId=request.getParameter("userId");
-        ResultData resultData=orderService.weChatOrderList(Integer.valueOf(userId));
+        String orderStateName=request.getParameter("orderStateName");
+        ResultData resultData=orderService.weChatOrderList(Integer.valueOf(userId),orderStateName);
         return JSON.toJSONString(resultData);
     }
 

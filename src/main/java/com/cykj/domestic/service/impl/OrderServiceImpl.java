@@ -120,8 +120,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public ResultData weChatOrderList(int userId) {
-        List<OrderInfo>list=orderMapper.WeChatOrderList(userId);
+    public ResultData weChatOrderList(int userId,String orderStateName) {
+        List<OrderInfo>list=orderMapper.WeChatOrderList(userId,orderStateName);
         ResultData resultData = new ResultData();
         resultData.setData(list);
         return resultData;

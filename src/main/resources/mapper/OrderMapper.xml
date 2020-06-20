@@ -124,7 +124,10 @@
         left join tb_order_state os on oi.user_order_state_id=os.id
         left join tb_service se on se.id=oi.service_id
         left join tb_service_type st on st.id=se.service_type_id
-        where oi.user_id=#{userId}
+        <where>
+            oi.user_id=#{userId}
+            <if test="orderStateName!=null and orderStateName!=''"> and os.order_state_name=#{orderStateName}</if>
+        </where>
     </select>
 
 

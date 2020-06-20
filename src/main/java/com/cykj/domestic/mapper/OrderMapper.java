@@ -49,5 +49,5 @@ public interface OrderMapper {
     List<OrderInfo> companyOrderStatistics(@Param("startDate") String startDate, @Param("endDate") String endDate);
 
 //    小程序订单统计
-    List<OrderInfo> WeChatOrderList(@Param("userId") int userId);
+    List<OrderInfo> WeChatOrderList(@Param("userId") int userId,@Param("orderStateName") String orderStateName);
 }
