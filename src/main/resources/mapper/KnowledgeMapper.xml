@@ -29,21 +29,32 @@
 
     <!--    增加育婴知识-->
     <insert id="addKnowledeg" parameterType="com.cykj.domestic.entity.Knowledge">
-        insert into tb_knowledge(title, type) value (#{title},#{type})
+        insert into tb_knowledge(title,type) value (#{title},#{type})
     </insert>
+
     <insert id="addKnowledegStyle" parameterType="com.cykj.domestic.entity.Knowledge">
-       INSERT INTO tb_train_style(knowledge_id,path)VALUES(#{id},#{path})
+       INSERT INTO tb_knowledge(knowledge_path)VALUES(#{knowledgePath})
     </insert>
 
 <!--    修改育婴知识路径-->
     <update id="updateknowledeg" parameterType="com.cykj.domestic.entity.Knowledge">
-                update tb_knowledge set path=#{path} where id=#{id}
+                update tb_knowledge set knowledge_path=#{knowledgePath} where id=#{id}
     </update>
 
-<!--    获取育婴知识路径-->
+<!--&lt;!&ndash;    获取育婴知识路径&ndash;&gt;-->
+<!--    <select id="queryKnowledegStyle" parameterType="com.cykj.domestic.entity.Knowledge" resultType="com.cykj.domestic.entity.Knowledge">-->
+<!--     SELECT * from tb_train_style s-->
+<!--        LEFT JOIN tb_knowledge k ON k.id=s.knowledge_id where k.id=#{id}-->
+<!--    </select>-->
+
+    <!--    获取育婴知识路径-->
     <select id="queryKnowledegStyle" parameterType="com.cykj.domestic.entity.Knowledge" resultType="com.cykj.domestic.entity.Knowledge">
-     SELECT * from tb_train_style s
-        LEFT JOIN tb_knowledge k ON k.id=s.knowledge_id where k.id=#{id}
+     SELECT * from tb_knowledge  where id=#{id}
+    </select>
+
+
+    <select id="wxqueryknowledge" resultType="com.cykj.domestic.entity.Knowledge">
+        select * from tb_knowledge;
     </select>
     
 

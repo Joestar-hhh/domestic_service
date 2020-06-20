@@ -37,15 +37,22 @@
                    autocomplete="off" class="layui-input">
         </div>
     </div>
-<%--    <div class="layui-form-item">--%>
-<%--        <label class="layui-form-label">文件类型：</label>--%>
-<%--        <label class="layui-form-label" >视频</label>--%>
-<%--        <input type="hidden" name="type" id="type" value="视频">--%>
-<%--    </div>--%>
-<%--    <div class="layui-form-item">--%>
-<%--             <button type="button" class="layui-btn" id="test5"><i class="layui-icon"></i>上传视频</button>--%>
-<%--            <input type="hidden" id="id" value="">--%>
-<%--    </div>--%>
+    <div class="layui-form-item">
+        <label class="layui-form-label">育婴知识描述：</label>
+        <div class="layui-input-block">
+            <input type="text" name="type" id="type" required lay-verify="required" placeholder="育婴知识描述"
+                   autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <%--    <div class="layui-form-item">--%>
+    <%--        <label class="layui-form-label">文件类型：</label>--%>
+    <%--        <label class="layui-form-label" >视频</label>--%>
+    <%--        <input type="hidden" name="type" id="type" value="视频">--%>
+    <%--    </div>--%>
+    <%--    <div class="layui-form-item">--%>
+    <%--             <button type="button" class="layui-btn" id="test5"><i class="layui-icon"></i>上传视频</button>--%>
+    <%--            <input type="hidden" id="id" value="">--%>
+    <%--    </div>--%>
     <div class="layui-form-item">
         <div class="layui-input-block">
             <button class="layui-btn formbtn" id="insertconfirm" lay-submit lay-filter="insertconfirm">确定</button>
@@ -104,17 +111,18 @@
             , title: '育婴知识表'
             , cols: [[
                 {type: 'checkbox', fixed: 'left'}
-                , {field: 'id', title: '序号'}
+                , {field: 'id', title: '序号', hide: true}
                 , {field: 'title', title: '标题'}
                 // , {field: 'type', title: '知识类别'}
                 , {field: 'time', title: '时间'}
+                , {field: 'knowledgePath', title: '路径'}
                 // , hide: true
                 , {fixed: 'right', title: '操作', width: 250, toolbar: '#barDemo'}
                 // ,{field:'downloadDiscount', title: '下载文档积分比例'}
             ]]
             , page: {
-                limit: 5,//指定每页显示的条数
-                limits: [5, 10, 15, 20,
+                limit: 10,//指定每页显示的条数
+                limits: [10, 15, 20,
                     25, 30, 35, 40, 45, 50],
             } //每页条数的选择项
 
@@ -215,33 +223,28 @@
         //监听行工具事件
         table.on('tool(test)', function (obj) {
             var tabdata = obj.data;
-            //console.log(obj)s
             //查看详情
             if (obj.event === 'see_details') {
+
                 var path = tabdata.path;
+
                 var layerupload = layer.open({
                     type: 1,
                     title: '查看详情',
                     area: ['200px', '150px'],
                     shade: [0.8, '#314949'],
                     resize: false,
-                    content: $("#style_div")
-                    // content: '<a href=' + path + ' target="_blank" ><input type="button" value="点击预览" class="layui-btn layui-btn-lg layui-btn-radius layui-btn-normal"></a>'//内容
-                    // ,
-                    // content: '<video width="100%" height="100%"  controls="controls" autobuffer="autobuffer"  autoplay="autoplay" loop="loop"><source src=' + path + ' type="video/mp4"></source></video>'
-                    // <img src="/i/eg_tulip.jpg"  alt="上海鲜花港 - 郁金香" />婴儿湿疹
-                    ,
-                    btn: 0
-                    ,
+                    content: $("#style_div"),
+                    btn: 0,
                     cancel: function (index, layero) {
                         if (confirm('确定要关闭么')) { //只有当点击confirm框的确定时，该层才会关闭
-                            // layer.close(index);
                             layer.closeAll();
                         }
                         return false;
                     }
                     //如果设定了yes回调，需进行手工关闭
                 });
+                $("#img-follow").html("");
                 $.ajax({
                     type: 'POST',
                     url: '<%=path%>/knowledgeController/queryKnowledegStyle',
@@ -250,8 +253,8 @@
                         id: tabdata.id
                     },
                     success: function (msg) {
-                        $.each(msg.data,function (i,item) {
-                            $("#img-follow").append("<a href="+<%=path%>item.path+" target=_blank >详情</a>");
+                        $.each(msg.data, function (i, item) {
+                            $("#img-follow").append("<a href=" + <%=path%>item.knowledgePath + " target=_blank >"+item.type+"</a>");
                         })
                         layui.use('form', function () {
                             var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
@@ -260,7 +263,7 @@
                     }
                 })
             } else if (obj.event === 'File_Upload') {
-                var path = tabdata.path;
+                var path = tabdata.knowledgePath;
                 var id = tabdata.id
                 $("#id").val(id);
                 if (path === undefined) {
@@ -296,15 +299,15 @@
                         var uploadInst = upload.render({
                             elem: '#test3'
                             , url: '<%=path%>/skillTrainController/fileUpload' //改成您自己的上传接口
-                            ,accept: 'file' //普通文件
+                            , accept: 'file' //普通文件
                             // , size: 1889356 //限制文件大小，单位 KB
                             , done: function (res) {
                                 $.ajax({
                                     type: 'POST',
-                                    url: '<%=path%>/knowledgeController/addKnowledegStyle',
+                                    url: '<%=path%>/knowledgeController/updateknowledeg',
                                     dataType: 'JSON',
                                     data: {
-                                        path: res.msg,
+                                        knowledgePath: res.msg,
                                         id: id
                                     },
                                     success: function (msg) {

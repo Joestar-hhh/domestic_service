@@ -18,9 +18,9 @@ public class KnowledgeImpI implements KnowledgeService {
 
     //查询所有育儿知识
     @Override
-    public ResultData queryKnowledeg(String title,int page, int limit) {
-        List<Knowledge> list=knowledgeMapper.queryKnowledeg(title,(page - 1) * limit,limit);
-        int count=knowledgeMapper.KnowledegCount(title);
+    public ResultData queryKnowledeg(String title, int page, int limit) {
+        List<Knowledge> list = knowledgeMapper.queryKnowledeg(title, (page - 1) * limit, limit);
+        int count = knowledgeMapper.KnowledegCount(title);
         ResultData resultData = new ResultData();
         resultData.setCode(0);
         resultData.setMsg("");
@@ -32,10 +32,10 @@ public class KnowledgeImpI implements KnowledgeService {
     //批量删除育婴知识
     @Override
     public ResultData deleteKnowledeg(String idList) {
-        List<String> list = JSON.parseArray(idList,String.class);
-        int res =knowledgeMapper.deleteKnowledeg(list);
+        List<String> list = JSON.parseArray(idList, String.class);
+        int res = knowledgeMapper.deleteKnowledeg(list);
         ResultData resultData = new ResultData();
-        if(res>=1){
+        if (res >= 1) {
             resultData.setCode(0);
             resultData.setMsg("删除成功");
         } else {
@@ -48,9 +48,9 @@ public class KnowledgeImpI implements KnowledgeService {
     //添加育儿知识
     @Override
     public ResultData addKnowledeg(Knowledge knowledge) {
-       int res= knowledgeMapper.addKnowledeg(knowledge);
+        int res = knowledgeMapper.addKnowledeg(knowledge);
         ResultData resultData = new ResultData();
-        if(res==1){
+        if (res == 1) {
             resultData.setCode(0);
             resultData.setMsg("添加成功");
         } else {
@@ -62,9 +62,9 @@ public class KnowledgeImpI implements KnowledgeService {
 
     @Override
     public ResultData updateknowledeg(Knowledge knowledge) {
-       int res= knowledgeMapper.updateknowledeg(knowledge);
+        int res = knowledgeMapper.updateknowledeg(knowledge);
         ResultData resultData = new ResultData();
-        if(res==1){
+        if (res == 1) {
             resultData.setCode(0);
             resultData.setMsg("上传成功");
         } else {
@@ -74,10 +74,10 @@ public class KnowledgeImpI implements KnowledgeService {
         return resultData;
     }
 
-//    获取育婴知识路径-
+    //    获取育婴知识路径-
     @Override
     public ResultData queryKnowledegStyle(Knowledge knowledge) {
-      List<Knowledge> list= knowledgeMapper.queryKnowledegStyle(knowledge);
+        List<Knowledge> list = knowledgeMapper.queryKnowledegStyle(knowledge);
         ResultData resultData = new ResultData();
         resultData.setCode(0);
         resultData.setMsg("");
@@ -85,12 +85,12 @@ public class KnowledgeImpI implements KnowledgeService {
         return resultData;
     }
 
-//    增加育婴知识-
+    //    增加育婴知识-
     @Override
     public ResultData addKnowledegStyle(Knowledge knowledge) {
-        int res= knowledgeMapper.addKnowledegStyle(knowledge);
+        int res = knowledgeMapper.addKnowledegStyle(knowledge);
         ResultData resultData = new ResultData();
-        if(res==1){
+        if (res == 1) {
             resultData.setCode(0);
             resultData.setMsg("上传成功");
         } else {
@@ -99,4 +99,16 @@ public class KnowledgeImpI implements KnowledgeService {
         }
         return resultData;
     }
+
+    //微信查询育婴知识
+    @Override
+    public ResultData wxqueryknowledge() {
+        List<Knowledge> list = knowledgeMapper.wxqueryknowledge();
+        ResultData resultData = new ResultData();
+        resultData.setCode(0);
+        resultData.setMsg("");
+        resultData.setData(list);
+        return resultData;
+    }
+
 }

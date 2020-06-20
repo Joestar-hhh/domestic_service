@@ -113,9 +113,9 @@ public class SkillTrainController {
             String uuid = UUID.randomUUID() + "";
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String dateStr = simpleDateFormat.format(date);
-            String savePath = request.getSession().getServletContext().getRealPath("/upload/");
-            String projectPath = savePath + "SkillStyle" + File.separator + uuid + "." + prefix;
-            String fileupload = "/upload/" + "SkillStyle" + File.separator + uuid + "." + prefix;
+            String savePath = request.getSession().getServletContext().getRealPath("/upload/SkillStyle/");
+            String projectPath = savePath +File.separator + uuid + "." + prefix;
+            String fileupload = "/upload/SkillStyle" + File.separator + uuid + "." + prefix;
             System.out.println("projectPath==" + projectPath);
             File files = new File(projectPath);
             //打印查看上传路径
