@@ -59,8 +59,8 @@
 
     <!--    wx-添加用户-->
     <insert id="insertUserInfo" parameterType="com.cykj.domestic.entity.User">
-        INSERT INTO tb_user(open_id,name,sex,avatar,new_login_time)
-        VALUES(#{openId},#{name},#{sex},#{avatar},#{newLoginTime})
+        INSERT INTO tb_user(open_id,name,sex,avatar,new_login_time,create_time)
+        VALUES(#{openId},#{name},#{sex},#{avatar},#{newLoginTime},#{createTime})
     </insert>
 
     <!--    更新登录时间-->

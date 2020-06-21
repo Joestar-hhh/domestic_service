@@ -171,6 +171,7 @@ public class UserImpI implements UserService {
             addUser.setName(userName);
             addUser.setSex(userGender);
             addUser.setAvatar(userHead);
+            addUser.setCreateTime(new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss").format(new Date()));
             int addRes = userMapper.insertUserInfo(addUser);
             if(addRes>=1){
                 resultData.setCode(0);

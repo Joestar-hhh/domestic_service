@@ -269,10 +269,6 @@ public class ServiceTypeImpl implements ServiceTypeService {
     @Override
     public ResultData queryServiceTypeWx() {
         List<ServiceType> list = serviceTypeMapper.queryServiceType();
-        for(ServiceType serviceType : list){
-            serviceType.setUrl("/pages/index/type");
-            serviceType.setIcon("/imgs/c.png");
-        }
         ResultData resultData = new ResultData();
         resultData.setCode(0);
         resultData.setMsg("");
