@@ -16,8 +16,8 @@
 
     <!--    增加签到数据-->
     <insert id="insertSign" parameterType="com.cykj.domestic.entity.UserClock">
-        insert into tb_user_clock (integral,continuous_sign,user_id)
-         values (#{integral},#{continuousSign},#{userId})
+        insert into tb_user_clock (clock_time,integral,continuous_sign,user_id)
+         values (#{clockTime},#{integral},#{continuousSign},#{userId})
     </insert>
 
     <!--    修改签到数据-->
@@ -26,8 +26,15 @@
         where user_id = #{userId}
     </update>
 
+    <!--根据用户id决定是新增还是修改-->
     <select id="queryUser" parameterType="com.cykj.domestic.entity.UserClock"
             resultType="com.cykj.domestic.entity.UserClock">
         select * from tb_user_clock where user_id = #{userId}
+    </select>
+
+    <!--查询签到日期-->
+    <select id="queryDate" parameterType="java.lang.Integer"
+            resultType="com.cykj.domestic.entity.UserClock">
+        select clock_time from tb_user_clock where user_id = #{userId}
     </select>
 </mapper>

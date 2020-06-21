@@ -30,7 +30,7 @@ public class UserClockServiceImpl implements UserClockService {
     }
 
     @Override
-    public ResultData queryUser(UserClock userClock,int id) {
+    public ResultData queryUser(UserClock userClock, int id) {
         UserClock user = userClockMapper.queryUser(id);
         ResultData resultData = new ResultData();
         int res = 0;
@@ -43,6 +43,14 @@ public class UserClockServiceImpl implements UserClockService {
             resultData.setCount(res);
             System.out.println("增加结果为：" + res);
         }
+        return resultData;
+    }
+
+    @Override
+    public ResultData queryDate(int userId) {
+        UserClock userClock = userClockMapper.queryDate(userId);
+        ResultData resultData = new ResultData();
+        resultData.setMsg(userClock.getClockTime());
         return resultData;
     }
 }

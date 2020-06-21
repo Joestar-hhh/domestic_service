@@ -36,4 +36,11 @@ public class UserClockController {
         ResultData resultData = userClockService.queryUser(userClock,userClock.getUserId());
         return JSON.toJSONString(resultData);
     }
+
+    // 查询签到日期
+    @RequestMapping("/queryDate")
+    public String queryDate(int userId) {
+        ResultData resultData = userClockService.queryDate(userId);
+        return JSON.toJSONString(resultData);
+    }
 }

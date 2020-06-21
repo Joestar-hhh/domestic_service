@@ -13,4 +13,7 @@ public interface UserClockService {
 
     // 根据用户id查询签到数据
     ResultData queryUser(UserClock userClock,int id);
+
+    // 查询用户签到日期
+    ResultData queryDate(int userId);
 }

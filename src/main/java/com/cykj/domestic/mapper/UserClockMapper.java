@@ -23,4 +23,7 @@ public interface UserClockMapper {
 
     // 查询用户
     UserClock queryUser(int id);
+
+    // 查询签到日期
+    UserClock queryDate(int userId);
 }
