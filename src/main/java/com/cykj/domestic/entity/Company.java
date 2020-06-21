@@ -30,4 +30,6 @@ public class Company {
     private String secondaryZone;
     private String regionName;
 
+    private String head;//公司头像url
+
 }
