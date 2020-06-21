@@ -31,6 +31,17 @@
     </div>
 
     <div class="layui-form-item">
+        <div class="layui-upload">
+            <div class="layui-upload-list">
+                <label class="layui-form-label"><img class="layui-upload-img" id="demo1" style="width: 90px;height: 70px"></label>
+                <div class="layui-input-block">
+                    <button type="button" class="layui-btn" id="test1" style="width: 150px;height: 40px">上传公司头像</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
         <label class="layui-form-label">区域：</label>
         <div class="layui-input-block">
             <select name="regionList" id="regionList" lay-filter="regionList" lay-verify="required"></select>
@@ -40,7 +51,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">详细地址：</label>
         <div class="layui-input-block">
-            <input type="text" lay-verify="required" name="address" class="layui-input" id="address">        </div>
+            <input type="text" lay-verify="required" name="address" class="layui-input" id="address"></div>
     </div>
 
     <div class="layui-form-item">
@@ -51,13 +62,17 @@
     </div>
 
     <div class="layui-form-item" id="typeName">
-        <%--        <input type="checkbox" name="like1[write]" lay-skin="primary" title="写作" checked="" >--%>
-        <%--        <input type="checkbox" name="typeName" lay-skin="primary" title="擦玻璃" checked="">--%>
-        <%--        <input type="checkbox" name="typeName" lay-skin="primary" title="写作" checked="">--%>
+
     </div>
 
     <div class="layui-input-item">
         <button type="submit" class="layui-btn pear-btn-primary login" lay-submit="" lay-filter="formDemo">立即提交</button>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <input type="hidden" id="demoText" name="head" value="" lay-verify="required" lay-reqtext="请上传公司头像">
+        </div>
     </div>
 
 </form>
@@ -108,19 +123,52 @@
             }
         })
 
+        layui.use('upload', function () {
+            var $ = layui.jquery
+                , upload = layui.upload;
+            //普通图片上传
+            var uploadInst = upload.render({
+                elem: '#test1'
+                , url: '<%=path%>/skillTrainController/fileUpload' //改成您自己的上传接口
+                , size: 1024 //限制文件大小，单位 KB
+                , before: function (obj) {
+                    //预读本地文件示例，不支持ie8
+                    obj.preview(function (index, file, result) {
+                        $('#demo1').attr('src', result); //图片链接（base64）
+
+                    });
+
+                }
+                , done: function (res) {
+                    //如果上传失败
+                    if (res.code > 0) {
+                        return layer.msg('上传失败');
+                    }
+                    //上传成功
+                    $("#demoText").val(res.msg);
+                }
+                , error: function () {
+                    //演示失败状态，并实现重传
+                    var demoText = $('#demoText');
+                    demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                    demoText.find('.demo-reload').on('click', function () {
+                        uploadInst.upload();
+                    });
+                }
+            });
+        })
+
 
         from.on('submit(formDemo)', function (data) {
             // alert($("#regionList").val() + "=地区id>>>");
-
+            alert($("#demoText").val())
             var typridList = new Array();
             $("#typeName>input[type='checkbox']").each(function (i) {
                 if ($(this).next().attr("class") == "layui-unselect layui-form-checkbox layui-form-checked") {
-                    // alert("你选了有："+$(this).attr('title')+"    "+$(this).attr('value'));
                     typridList.push($(this).attr('value'));
                 }
             })
-
-            if(typridList.length==0){
+            if (typridList.length == 0) {
                 layer.msg("请选择公司类别");
                 return false;
             }
@@ -133,7 +181,8 @@
                     regionId: $("#regionList").val(),
                     companyProfile: $("#companyProfile").val(),
                     typridList: JSON.stringify(typridList),
-                    address:$("#address").val()
+                    address: $("#address").val(),
+                    head:$("#demoText").val()
                 },
                 success: function (msg) {
                     layer.msg(msg.msg);
