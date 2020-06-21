@@ -276,4 +276,12 @@ public class ServiceTypeImpl implements ServiceTypeService {
         return resultData;
     }
 
+    @Override
+    public ResultData queryWXService(int serviceTypeId) {
+        List<TbService> list = serviceTypeMapper.queryWXService(serviceTypeId);
+        ResultData resultData = new ResultData();
+        resultData.setData(list);
+        return resultData;
+    }
+
 }

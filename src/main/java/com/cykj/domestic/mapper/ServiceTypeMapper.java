@@ -7,12 +7,14 @@ import com.cykj.domestic.entity.TbService;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Repository
 @Mapper
 public interface ServiceTypeMapper {
+
     int addServiceType(ServiceType serviceType);
 
     int updateServiceType(ServiceType serviceType);
@@ -74,6 +76,8 @@ public interface ServiceTypeMapper {
 
     int deleteStaffService(@Param("staffId") int staffId, @Param("stId") int stId);
 
+    //微信端查询所有服务类别
+    List<TbService> queryWXService(int serviceTypeId);
 
 
 

@@ -63,4 +63,7 @@ public interface ServiceTypeService {
 
     //wx--查询所有服务类别
     ResultData queryServiceTypeWx();
+
+    //微信端查询所有服务类别
+    ResultData queryWXService(int serviceTypeId);
 }
