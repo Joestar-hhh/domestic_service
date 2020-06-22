@@ -44,15 +44,6 @@
                    autocomplete="off" class="layui-input">
         </div>
     </div>
-    <%--    <div class="layui-form-item">--%>
-    <%--        <label class="layui-form-label">文件类型：</label>--%>
-    <%--        <label class="layui-form-label" >视频</label>--%>
-    <%--        <input type="hidden" name="type" id="type" value="视频">--%>
-    <%--    </div>--%>
-    <%--    <div class="layui-form-item">--%>
-    <%--             <button type="button" class="layui-btn" id="test5"><i class="layui-icon"></i>上传视频</button>--%>
-    <%--            <input type="hidden" id="id" value="">--%>
-    <%--    </div>--%>
     <div class="layui-form-item">
         <div class="layui-input-block">
             <button class="layui-btn formbtn" id="insertconfirm" lay-submit lay-filter="insertconfirm">确定</button>
@@ -61,7 +52,7 @@
     </div>
 </form>
 
-<div id="style_div" style="display:none;">
+<div id="style_div" >
     <div class="layui-input-block" id="img-follow">
     </div>
 </div>
@@ -69,7 +60,7 @@
 <%--上传弹出框--%>
 <form class="layui-form" id="upload_video" action="" style="display: none">
     <div class="layui-form-item" style="text-align: center">
-        <button type="button" class="layui-btn" id="test3"><i class="layui-icon"></i>上传文件</button>
+        <button type="button" class="layui-btn" id="test3"><i class="layui-icon"></i>上传视频</button>
     </div>
 </form>
 
@@ -118,7 +109,6 @@
                 , {field: 'knowledgePath', title: '路径'}
                 // , hide: true
                 , {fixed: 'right', title: '操作', width: 250, toolbar: '#barDemo'}
-                // ,{field:'downloadDiscount', title: '下载文档积分比例'}
             ]]
             , page: {
                 limit: 10,//指定每页显示的条数
@@ -266,7 +256,8 @@
                 var path = tabdata.knowledgePath;
                 var id = tabdata.id
                 $("#id").val(id);
-                if (path === undefined) {
+                // alert(path)
+                if (path =='') {
                     var layerupdate = layer.open({
                         type: 1
                         ,
@@ -299,7 +290,7 @@
                         var uploadInst = upload.render({
                             elem: '#test3'
                             , url: '<%=path%>/skillTrainController/fileUpload' //改成您自己的上传接口
-                            , accept: 'file' //普通文件
+                            ,accept: 'video' //视频
                             // , size: 1889356 //限制文件大小，单位 KB
                             , done: function (res) {
                                 $.ajax({

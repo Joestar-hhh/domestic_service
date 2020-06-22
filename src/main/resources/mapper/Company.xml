@@ -86,9 +86,9 @@
         group by r.id
     </select>
 
-    <!--    公司申请入职添加地区和口号-->
+    <!--    公司申请添加地区和口号-->
     <update id="insertregionId" parameterType="java.lang.String">
-        update tb_company set region_id=#{regionId},company_profile=#{companyProfile},address=#{address} where id=#{id}
+        update tb_company set region_id=#{regionId},company_profile=#{companyProfile},address=#{address} ,head=#{head} where id=#{id}
     </update>
 
     <!--    按日期统计-->

@@ -177,7 +177,12 @@ public class ServiceTypeContrller {
         return JSON.toJSONString(resultData);
     }
 
-
+    //微信端查询所有服务类别
+    @RequestMapping("/queryWXService")
+    public String queryWXService(int serviceTypeId) {
+        ResultData resultData = serviceTypeService.queryWXService(serviceTypeId);
+        return JSON.toJSONString(resultData);
+    }
 
 
 }
