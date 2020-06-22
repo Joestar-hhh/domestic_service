@@ -98,6 +98,4 @@
         and date_format(#{endDate},'%Y%m%d') group by join_day;
     </select>
 
-
-
 </mapper>

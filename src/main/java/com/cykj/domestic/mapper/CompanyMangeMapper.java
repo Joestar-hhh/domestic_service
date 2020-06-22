@@ -26,5 +26,9 @@ public interface CompanyMangeMapper {
      */
     int checkJoin(Company company);
 
+    // 根据服务查询公司
+    List<Company> queryCompanyByService(@Param("e")Company company,@Param("start") int start, @Param("pageSize") int pageSize,@Param("typeName")String typeName);
+
+    int countCompanyByService(@Param("e")Company company,@Param("typeName")String typeName);
 
 }

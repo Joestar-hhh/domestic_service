@@ -20,4 +20,13 @@ public interface CompanyManageService {
      * @return
      */
     ResultData checkJoin(Company company);
+
+    /**
+     * WX根据服务查询公司列表
+     * @param company
+     * @param page
+     * @param limit
+     * @return
+     */
+    ResultData queryCompanyByService(Company company,int page, int limit,String typeName);
 }
