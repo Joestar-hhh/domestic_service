@@ -2,6 +2,9 @@ package com.cykj.domestic.entity;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 @Data
 public class TbService {
 
@@ -25,5 +28,17 @@ public class TbService {
 
   private int serviceId;
   private int staffId;
+
+  private BigDecimal levelNum; //好评率
+
+  private String price;//单价
+  private String unit;//单位
+  private String deposit;//定金
+
+  public TbService(){
+    if(this.levelNum==null){
+      this.levelNum = new BigDecimal(0);
+    }
+  }
 
 }

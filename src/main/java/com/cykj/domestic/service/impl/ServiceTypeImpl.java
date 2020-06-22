@@ -11,6 +11,7 @@ import com.cykj.domestic.util.ResultData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -282,6 +283,17 @@ public class ServiceTypeImpl implements ServiceTypeService {
         ResultData resultData = new ResultData();
         resultData.setData(list);
         return resultData;
+    }
+
+    @Override
+    public List<ServiceType> queryCompanyService(int companyId) {
+        List<ServiceType> stList = serviceTypeMapper.queryCompanyService(companyId);
+        return stList;
+    }
+
+    @Override
+    public List<TbService> queryCompanyHotService(int companyId) {
+        return serviceTypeMapper.queryCompanyHotService(companyId);
     }
 
 }

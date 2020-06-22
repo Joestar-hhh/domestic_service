@@ -1,7 +1,10 @@
 package com.cykj.domestic.service;
 
 import com.cykj.domestic.entity.Company;
+import com.cykj.domestic.entity.TbService;
 import com.cykj.domestic.util.ResultData;
+
+import java.util.List;
 
 public interface CompanyManageService {
     /**
@@ -29,4 +32,7 @@ public interface CompanyManageService {
      * @return
      */
     ResultData queryCompanyByService(Company company,int page, int limit,String typeName);
+
+
+    Company queryCompanyOrderNum(int companyId);
 }

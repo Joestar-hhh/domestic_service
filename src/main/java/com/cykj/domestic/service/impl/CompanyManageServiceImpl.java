@@ -1,6 +1,7 @@
 package com.cykj.domestic.service.impl;
 
 import com.cykj.domestic.entity.Company;
+import com.cykj.domestic.entity.TbService;
 import com.cykj.domestic.mapper.CompanyMangeMapper;
 import com.cykj.domestic.service.CompanyManageService;
 import com.cykj.domestic.util.ResultData;
@@ -20,11 +21,18 @@ public class CompanyManageServiceImpl implements CompanyManageService {
     public ResultData queryCompany(Company company,int page, int limit,String address) {
         List<Company> list=companyMangeMapper.queryCompany(company,(page-1)*limit,limit,address);
         int count=companyMangeMapper.CompanyCount(company,address);
+        List<Company> companyList = new ArrayList<>();
+        for(Company c : list){
+            if(c.getHead()!=null && !c.getHead().isEmpty()) {
+                c.setHead(c.getHead().replaceAll("\\\\","/"));
+            }
+            companyList.add(c);
+        }
         ResultData resultData = new ResultData();
         resultData.setCode(0);
         resultData.setMsg("");
         resultData.setCount(count);
-        resultData.setData(list);
+        resultData.setData(companyList);
         return resultData;
     }
 
@@ -52,5 +60,15 @@ public class CompanyManageServiceImpl implements CompanyManageService {
         resultData.setCount(count);
         resultData.setData(list);
         return resultData;
+    }
+
+    @Override
+    public Company queryCompanyOrderNum(int companyId) {
+        Company company = companyMangeMapper.queryCompanyOrderNum(companyId);
+        System.out.println("company-------------->>>>:"+company.toString());
+        if(company.getHead()!=null && !company.getHead().isEmpty()) {
+            company.setHead(company.getHead().replaceAll("\\\\", "/"));
+        }
+        return company;
     }
 }

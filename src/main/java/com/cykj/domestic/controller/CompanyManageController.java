@@ -45,4 +45,11 @@ public class CompanyManageController {
         System.out.println("查询结果："+JSON.toJSONString(resultData));
         return JSON.toJSONString(resultData);
     }
+
+    @RequestMapping(value = "/queryCompanyOrderNum")
+    public String queryCompanyOrderNum(HttpServletRequest request, HttpServletResponse response,String companyId){
+        Company company= companyManageService.queryCompanyOrderNum(Integer.parseInt(companyId));
+        return JSON.toJSONString(company);
+    }
+
 }

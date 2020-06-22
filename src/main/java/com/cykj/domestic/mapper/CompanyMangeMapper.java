@@ -2,6 +2,8 @@ package com.cykj.domestic.mapper;
 
 
 import com.cykj.domestic.entity.Company;
+import com.cykj.domestic.entity.ServiceType;
+import com.cykj.domestic.entity.TbService;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -30,5 +32,8 @@ public interface CompanyMangeMapper {
     List<Company> queryCompanyByService(@Param("e")Company company,@Param("start") int start, @Param("pageSize") int pageSize,@Param("typeName")String typeName);
 
     int countCompanyByService(@Param("e")Company company,@Param("typeName")String typeName);
+
+    //查询公司已服务单数
+    Company queryCompanyOrderNum(int companyId);
 
 }

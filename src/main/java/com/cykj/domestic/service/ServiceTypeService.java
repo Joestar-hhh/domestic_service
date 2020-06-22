@@ -66,4 +66,9 @@ public interface ServiceTypeService {
 
     //微信端查询所有服务类别
     ResultData queryWXService(int serviceTypeId);
+
+    //查询公司服务类别
+    List<ServiceType> queryCompanyService(int companyId);
+
+    List<TbService> queryCompanyHotService(int companyId);
 }

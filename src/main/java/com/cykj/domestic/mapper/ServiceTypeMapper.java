@@ -80,5 +80,9 @@ public interface ServiceTypeMapper {
     List<TbService> queryWXService(int serviceTypeId);
 
 
+    //查询公司服务类型
+    List<ServiceType> queryCompanyService(int companyId);
+    //查询公司前3热门服务
+    List<TbService> queryCompanyHotService(int companyId);
 
 }

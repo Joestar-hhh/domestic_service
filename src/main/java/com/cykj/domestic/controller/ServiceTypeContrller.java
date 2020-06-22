@@ -185,4 +185,21 @@ public class ServiceTypeContrller {
     }
 
 
+
+    //wx查询公司服务类别和服务
+    @RequestMapping("/queryCompanyService")
+    public String queryCompanyService(int companyId) {
+        List<ServiceType> stList = serviceTypeService.queryCompanyService(companyId);
+        return JSON.toJSONString(stList);
+    }
+
+    //wx查询公司前3热门服务
+    @RequestMapping("/queryCompanyHotService")
+    public String queryCompanyHotService(int companyId) {
+        List<TbService> list = serviceTypeService.queryCompanyHotService(companyId);
+        return JSON.toJSONString(list);
+    }
+
+
+
 }

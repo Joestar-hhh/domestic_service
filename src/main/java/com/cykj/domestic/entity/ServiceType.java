@@ -2,6 +2,8 @@ package com.cykj.domestic.entity;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class ServiceType {
     private int id;//列别表id
@@ -15,5 +17,7 @@ public class ServiceType {
     private String serviceTypeName;
     private String url;
     private String icon;
+
+    private List<TbService> serviceList;//服务
 
 }

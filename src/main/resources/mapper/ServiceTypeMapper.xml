@@ -171,4 +171,64 @@
         on s.service_type_id = st.id
         where s.service_type_id = #{serviceTypeId}
     </select>
+
+    <!--   查询公司服务类型-->
+    <select id="queryCompanyService" resultMap="serviceTypeMap" parameterType="int">
+        select st.id,st.type_name,s.description, s.id s_id,s.type_name s_name,o.order_num,
+        se.level_num,pr.price,pr.unit,pr.deposit from tb_service s
+        left join tb_service_type st on st.id = s.service_type_id
+        left join tb_service_relation sr on sr.service_type_id = st.id
+        left join tb_company c on c.id = sr.company_id
+        left join (select o.service_id,count(o.service_id) order_num from tb_order_info o
+                                left join tb_service s on s.id = o.service_id
+								where o.company_id = #{companyId}
+                                GROUP BY o.service_id) o on o.service_id = s.id
+        left join (select s.id s_id,round(avg(se.evaluation_level)/5*100,1) level_num from tb_service_evaluation se
+                            left join tb_service s on s.id = se.service_id
+                            where se.company_id = #{companyId}
+                            GROUP BY se.service_id) se on se.s_id = s.id
+        left join (select pr.* from tb_service s
+                         left join tb_price_relation pr on pr.service_id = s.id
+                         where pr.company_id = #{companyId}) pr on pr.service_id = s.id
+        where c.id = #{companyId} ORDER BY s.id
+    </select>
+    <resultMap id="serviceTypeMap" type="com.cykj.domestic.entity.ServiceType">
+        <id column="id" property="id"/>
+        <result column="type_name" property="typeName"/>
+        <collection property="serviceList" ofType="com.cykj.domestic.entity.TbService">
+            <id property="id" column="s_id"/>
+            <result property="serviceTypeId" column="id"/>
+            <result property="orderNum" column="order_num"/>
+            <result property="levelNum" column="level_num"/>
+            <result property="description" column="description"/>
+            <result property="typeName" column="s_name"/>
+            <result property="price" column="price"/>
+            <result property="unit" column="unit"/>
+            <result property="deposit" column="deposit"/>
+        </collection>
+    </resultMap>
+
+
+    <!--   查询公司前3热门服务-->
+    <select id="queryCompanyHotService" resultType="com.cykj.domestic.entity.TbService" parameterType="int">
+       select st.id,st.type_name,s.description, s.id s_id,s.type_name s_name,o.order_num,
+        se.level_num,pr.price,pr.unit,pr.deposit from tb_service s
+        left join tb_service_type st on st.id = s.service_type_id
+        left join tb_service_relation sr on sr.service_type_id = st.id
+        left join tb_company c on c.id = sr.company_id
+        left join (select o.service_id,count(o.service_id) order_num from tb_order_info o
+                                left join tb_service s on s.id = o.service_id
+								where o.company_id = #{companyId}
+                                GROUP BY o.service_id) o on o.service_id = s.id
+        left join (select s.id s_id,round(avg(se.evaluation_level)/5*100,1) level_num from tb_service_evaluation se
+                            left join tb_service s on s.id = se.service_id
+                            where se.company_id = #{companyId}
+                            GROUP BY se.service_id) se on se.s_id = s.id
+        left join (select pr.* from tb_service s
+                             left join tb_price_relation pr on pr.service_id = s.id
+                             where pr.company_id = #{companyId}) pr on pr.service_id = s.id
+        where c.id = #{companyId}  ORDER BY o.order_num desc limit 0,3
+    </select>
+
+
 </mapper>
