@@ -22,6 +22,9 @@ public interface UserOrderMapper {
     //公司接单
     int updateUserDemend(OrderInfo orderInfo);
 
+    //微信小程序用户查询自己发布的需求
+    List<OrderInfo> WXUserQueryOrder(@Param("id") int id);
+
 
 
 }

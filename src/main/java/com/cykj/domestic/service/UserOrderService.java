@@ -15,5 +15,8 @@ public interface UserOrderService {
     //公司接单
     ResultData updateUserDemend(OrderInfo orderInfo);
 
+   //微信小程序用户查询自己发布的需求
+    ResultData WXUserQueryOrder(int id);
+
 
 }

@@ -74,4 +74,14 @@ public class UserOrderImpI implements UserOrderService {
         return resultData;
     }
 
+    //微信小程序用户查询自己发布的需求
+    @Override
+    public ResultData WXUserQueryOrder(int id) {
+        List<OrderInfo> list = userOrderMapper.WXUserQueryOrder(id);
+        ResultData resultData= new ResultData();
+        resultData.setData(list);
+        return resultData;
+    }
+
+
 }

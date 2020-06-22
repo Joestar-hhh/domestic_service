@@ -23,7 +23,7 @@ public class Company {
     private String typeName;   //公司服务类别
     private int roleId;//角色id
     private int countNum;//统计数量
-    private String head;//头像
+    private String head;//公司头像
 
     private String joinDay;
     private int serviceTypeId;
