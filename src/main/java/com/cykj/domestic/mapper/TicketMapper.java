@@ -23,7 +23,13 @@ public interface TicketMapper {
     //查询所有服务列表显示
     List<Ticket> selectList(@Param("e") Ticket ticket, @Param("start") int start, @Param("pageSize") int pageSize);
     int selectListCount(@Param("e") Ticket ticket);
+    //小程序首页显示优惠券
+    List<Ticket>selectListWx(@Param("e") Ticket ticket, @Param("userid")int userid);
+    //我的优惠券
 
-    //小程序
-    List<Ticket>selectListWx(@Param("e") Ticket ticket);
+//通关状态查询我的优惠券
+    List<Ticket>selectListWx3(@Param("e") Ticket ticket,@Param("userid")int userid);
+
+    int  updateTicket(@Param("e") Ticket ticket,@Param("userid") int userid);
+
 }

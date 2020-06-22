@@ -23,9 +23,23 @@
        select count(id) from tb_ticket
     </select>
 
-
-<!--    //小程序-->
+<!--    //小程序首页优惠券-->
     <select id="selectListWx" resultType="com.cykj.domestic.entity.Ticket" parameterType="com.cykj.domestic.entity.Ticket">
-        select * from tb_ticket
+       SELECT t.id,t.ticket_name,t.preferential_num,t.start_time,t.end_time,t.details,tr.state from tb_ticket t
+       LEFT JOIN tb_ticket_relation tr on tr.ticket_id=t.id
     </select>
+<!--//通过状态-->
+    <select id="selectListWx3" resultType="com.cykj.domestic.entity.Ticket" parameterType="com.cykj.domestic.entity.Ticket">
+       SELECT t.ticket_name,t.preferential_num,t.start_time,t.end_time,t.details,tr.state from tb_ticket t
+       LEFT JOIN tb_ticket_relation tr on tr.ticket_id=t.id
+        <where>
+             and tr.user_id=#{userid}
+           <if test="e.state!=null and e.state!=''">and tr.state=#{e.state}</if>
+       </where>
+    </select>
+<!--    //领取优惠券-->
+    <update id="updateTicket" parameterType="com.cykj.domestic.entity.Ticket">
+        update tb_ticket_relation set user_id=#{userid},state=1 where ticket_id=#{e.ticketId}
+    </update>
+
 </mapper>
