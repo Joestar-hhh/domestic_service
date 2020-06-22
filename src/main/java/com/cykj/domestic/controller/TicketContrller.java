@@ -54,11 +54,35 @@ public class TicketContrller {
     }
 
 
-
+//小程序首页显示优惠券
     @RequestMapping("/selectServiceListWx")
-    public String selectServiceListWx(HttpServletRequest request, HttpServletResponse response, Ticket ticket) {
-        ResultData resultData = ticketService.selectListWx(ticket);
+    public String selectServiceListWx(HttpServletRequest request, HttpServletResponse response, Ticket ticket,int userid) {
+        ResultData resultData = ticketService.selectListWx(ticket,userid);
         return JSON.toJSONString(resultData);
     }
 
+
+//我的优惠券
+    @RequestMapping("/selectServiceListWx2")
+    public String selectServiceListWx2(HttpServletRequest request, HttpServletResponse response, Ticket ticket,int userid) {
+        ResultData resultData = ticketService.selectListWx3(ticket,userid);
+        return JSON.toJSONString(resultData);
+    }
+
+
+    //通过状态查询我的优惠券
+    //我的优惠券
+    @RequestMapping("/selectServiceListWx3")
+    public String selectServiceListWx3(HttpServletRequest request, HttpServletResponse response, Ticket ticket,int userid) {
+        ResultData resultData = ticketService.selectListWx3(ticket,userid);
+        return JSON.toJSONString(resultData);
+    }
+
+
+    //领取优惠券
+    @RequestMapping("/updateTicket")
+    public String updateTicket(HttpServletRequest request, HttpServletResponse response, Ticket ticket,int userid) {
+        ResultData resultData=ticketService.updateTicket(ticket,userid);
+        return JSON.toJSONString(resultData);
+    }
 }

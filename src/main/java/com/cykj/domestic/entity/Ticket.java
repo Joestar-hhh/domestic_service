@@ -11,4 +11,6 @@ public class Ticket {
     private String num;
     private String startTime;
     private String endTime;
+    private String state;
+    private int ticketId;
 }

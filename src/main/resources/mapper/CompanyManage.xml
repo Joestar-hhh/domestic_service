@@ -29,4 +29,33 @@
         update tb_company set state = '审核通过' where id = #{id}
     </update>
 
+    <!--WX 根据服务类型查询公司-->
+    <select id="queryCompanyByService" parameterType="com.cykj.domestic.entity.Company" resultType="com.cykj.domestic.entity.Company">
+        SELECT C.*,GROUP_CONCAT(T.type_name separator'、') type_name FROM tb_company C
+        LEFT JOIN tb_service_relation R ON C.id=R.company_id
+        LEFT JOIN tb_service_type T ON  R.service_type_id=T.id
+        LEFT JOIN tb_service S ON R.service_id = S.id
+        <where>
+            <if test="typeName != null and typeName != ''">
+                S.type_name = #{typeName}
+            </if>
+            and C.role_id = 2
+        </where>
+        group by C.id LIMIT #{start},#{pageSize}
+    </select>
+
+    <select id="countCompanyByService" resultType="int" parameterType="com.cykj.domestic.entity.Company">
+        select count(C.id) from tb_company C
+        LEFT JOIN tb_service_relation R
+        ON C.id=R.company_id
+        LEFT JOIN tb_service_type T
+        ON R.service_type_id=T.id
+        LEFT JOIN tb_service S
+        ON R.service_id = S.id
+        <where>
+            <if test="typeName != null and typeName != ''">
+                S.type_name = #{typeName}
+            </if>
+        </where>
+    </select>
 </mapper>

@@ -41,4 +41,16 @@ public class CompanyManageServiceImpl implements CompanyManageService {
         }
         return resultData;
     }
+
+    @Override
+    public ResultData queryCompanyByService(Company company, int page, int limit, String typeName) {
+        List<Company> list=companyMangeMapper.queryCompanyByService(company,(page-1)*limit,limit,typeName);
+        int count=companyMangeMapper.countCompanyByService(company,typeName);
+        ResultData resultData = new ResultData();
+        resultData.setCode(0);
+        resultData.setMsg("");
+        resultData.setCount(count);
+        resultData.setData(list);
+        return resultData;
+    }
 }

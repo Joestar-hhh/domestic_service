@@ -61,4 +61,14 @@ public class UserOrderController {
         return JSON.toJSONString(resultData);
     }
 
+    //微信小程序删除需求
+    @RequestMapping("/WXdeleteOrderrequirement")
+    public String WXdeleteOrderrequirement(HttpServletRequest request,HttpServletResponse response,OrderInfo orderInfo){
+        System.out.println("ss="+JSON.toJSONString(orderInfo));
+        ResultData resultData=userOrderService.WXdeleteOrderrequirement(orderInfo);
+        return JSON.toJSONString(resultData);
+//        ResultData resultData=new ResultData();
+//        resultData.setCode(0);
+//        return JSON.toJSONString(resultData);
+    }
 }

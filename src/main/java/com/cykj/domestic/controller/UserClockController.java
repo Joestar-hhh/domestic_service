@@ -18,22 +18,22 @@ public class UserClockController {
 
     // 查询用户积分
     @RequestMapping("/queryIntegral")
-    public String queryIntegral(UserClock userClock) {
-        ResultData resultData = userClockService.queryIntegral(userClock);
+    public String queryIntegral(int userId) {
+        ResultData resultData = userClockService.queryIntegral(userId);
         return JSON.toJSONString(resultData);
     }
 
     // 查询用户连续签到天数
     @RequestMapping("/queryContinuousSign")
-    public String queryContinuousSign(UserClock userClock) {
-        ResultData resultData = userClockService.queryContinuousSign(userClock);
+    public String queryContinuousSign(int userId) {
+        ResultData resultData = userClockService.queryContinuousSign(userId);
         return JSON.toJSONString(resultData);
     }
 
     //新增数据
     @RequestMapping("/insertSign")
-    public String insertSign(UserClock userClock) {
-        ResultData resultData = userClockService.queryUser(userClock,userClock.getUserId());
+    public String insertSign(UserClock userClock,int userId) {
+        ResultData resultData = userClockService.queryUser(userClock,userId);
         return JSON.toJSONString(resultData);
     }
 
@@ -41,6 +41,13 @@ public class UserClockController {
     @RequestMapping("/queryDate")
     public String queryDate(int userId) {
         ResultData resultData = userClockService.queryDate(userId);
+        return JSON.toJSONString(resultData);
+    }
+
+    // 点击签到后修改数据库数据
+    @RequestMapping("/updateSign")
+    public String updateSign(UserClock userClock) {
+        ResultData resultData = userClockService.updateSign(userClock);
         return JSON.toJSONString(resultData);
     }
 }

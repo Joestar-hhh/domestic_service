@@ -87,21 +87,55 @@ public class TicketImpl implements TicketService {
         return resultData;
     }
 
-    //小程序
+    //小程序首页显示优惠券
     @Override
-    public ResultData selectListWx(Ticket ticket) {
-        List<Ticket> list = ticketMapper.selectListWx(ticket);
-        int count = ticketMapper.selectListCount(ticket);
+    public ResultData selectListWx(Ticket ticket,int userid) {
+        List<Ticket> list = ticketMapper.selectListWx(ticket,userid);
+//        int count = ticketMapper.selectListCount(ticket);
         ResultData resultData = new ResultData();
         if (list.size() > 0) {
             resultData.setCode(0);
             resultData.setMsg("");
-            resultData.setCount(count);
+//            resultData.setCount(count);
             resultData.setData(list);
             System.out.println(ticket);
         } else {
             resultData.setCode(1);
             resultData.setMsg("查询失败");
+        }
+        return resultData;
+    }
+    //通过状态查询我的优惠券
+    @Override
+    public ResultData selectListWx3(Ticket ticket,int userid) {
+        List<Ticket> list = ticketMapper.selectListWx3(ticket,userid);
+//        int count = ticketMapper.selectListCount(ticket);
+        ResultData resultData = new ResultData();
+        if (list.size() > 0) {
+            resultData.setCode(0);
+            resultData.setMsg("");
+//            resultData.setCount(count);
+            resultData.setData(list);
+            System.out.println(ticket);
+        } else {
+            resultData.setCode(1);
+            resultData.setMsg("查询失败");
+        }
+        return resultData;
+    }
+
+
+    //领取优惠券
+    @Override
+    public ResultData updateTicket(Ticket ticket,int userid) {
+        int res = ticketMapper.updateTicket(ticket,userid);
+        ResultData resultData = new ResultData();
+        if (res == 1) {
+            resultData.setCode(0);
+            resultData.setMsg("领取成功");
+        } else {
+            resultData.setCode(1);
+            resultData.setMsg("领取失败");
         }
         return resultData;
     }

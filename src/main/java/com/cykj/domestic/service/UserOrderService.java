@@ -18,5 +18,8 @@ public interface UserOrderService {
    //微信小程序用户查询自己发布的需求
     ResultData WXUserQueryOrder(int id);
 
+   //微信小程序删除用户发布的需求/
+    ResultData WXdeleteOrderrequirement(OrderInfo orderInfo);
+
 
 }

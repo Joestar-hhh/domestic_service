@@ -5,19 +5,19 @@
 <mapper namespace="com.cykj.domestic.mapper.UserClockMapper">
 
     <!--    查询用户积分-->
-    <select id="queryIntegral" parameterType="com.cykj.domestic.entity.UserClock" resultType="int">
+    <select id="queryIntegral" parameterType="java.lang.Integer" resultType="int">
         SELECT integral FROM tb_user_clock where user_id = #{userId}
     </select>
 
     <!--    查询用户连续签到天数-->
-    <select id="queryContinuousSign" parameterType="com.cykj.domestic.entity.UserClock" resultType="int">
+    <select id="queryContinuousSign" parameterType="java.lang.Integer" resultType="int">
         SELECT continuous_sign FROM tb_user_clock where user_id = #{userId}
     </select>
 
     <!--    增加签到数据-->
-    <insert id="insertSign" parameterType="com.cykj.domestic.entity.UserClock">
+    <insert id="insertSign">
         insert into tb_user_clock (clock_time,integral,continuous_sign,user_id)
-         values (#{clockTime},#{integral},#{continuousSign},#{userId})
+         values (#{e.clockTime},#{e.integral},#{e.continuousSign},#{userId})
     </insert>
 
     <!--    修改签到数据-->

@@ -37,4 +37,12 @@ public class CompanyManageController {
        ResultData resultData= companyManageService.checkJoin(company);
        return JSON.toJSONString(resultData);
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/queryCompanyByService")
+    public String queryCompanyByService(Company company, int page, int limit, String typeName) {
+        ResultData resultData = companyManageService.queryCompanyByService(company,page,limit,typeName);
+        System.out.println("查询结果："+JSON.toJSONString(resultData));
+        return JSON.toJSONString(resultData);
+    }
 }
