@@ -115,7 +115,7 @@ public class SkillTrainController {
             String dateStr = simpleDateFormat.format(date);
             String savePath = request.getSession().getServletContext().getRealPath("/upload/SkillStyle/");
             String projectPath = savePath +File.separator + uuid + "." + prefix;
-            String fileupload = "/upload/SkillStyle" + File.separator + uuid + "." + prefix;
+            String fileupload = File.separator +"upload" + File.separator + "SkillStyle"+ File.separator  +  uuid + "." + prefix;
             System.out.println("projectPath==" + projectPath);
             File files = new File(projectPath);
             //打印查看上传路径

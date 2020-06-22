@@ -52,9 +52,9 @@
           where o.company_id=0 and o.company_order_state_id=0 AND o.user_id=#{id}
     </select>
 
-<!--    微信-->
-    <delete id="WXdeleteOrder" parameterType="com.cykj.domestic.entity.OrderInfo">
-
+<!--    微信删除发布的需求-->
+    <delete id="WXdeleteOrderrequirement" parameterType="com.cykj.domestic.entity.OrderInfo">
+             delete from tb_order_info where id=#{id}
     </delete>
 
 </mapper>

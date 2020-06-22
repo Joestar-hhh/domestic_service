@@ -83,5 +83,21 @@ public class UserOrderImpI implements UserOrderService {
         return resultData;
     }
 
+    //    微信小程序删除用户发布的需求/
+    @Override
+    public ResultData WXdeleteOrderrequirement(OrderInfo orderInfo) {
+        int res=userOrderMapper.WXdeleteOrderrequirement(orderInfo);
+        ResultData resultData = new ResultData();
+        if (res == 1) {
+            resultData.setCode(0);
+            resultData.setMsg("删除成功");
+        }
+        else {
+            resultData.setCode(1);
+            resultData.setMsg("删除失败");
+        }
+        return resultData;
+    }
+
 
 }

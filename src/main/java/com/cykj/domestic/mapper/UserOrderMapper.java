@@ -25,6 +25,9 @@ public interface UserOrderMapper {
     //微信小程序用户查询自己发布的需求
     List<OrderInfo> WXUserQueryOrder(@Param("id") int id);
 
+    //微信小程序删除用户发布的需求
+    int WXdeleteOrderrequirement(OrderInfo orderInfo);
+
 
 
 }
