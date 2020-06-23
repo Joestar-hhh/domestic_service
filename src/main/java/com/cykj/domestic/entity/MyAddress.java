@@ -12,8 +12,6 @@ public class MyAddress {
     private String firstLevelRegion;
     private String secondaryZone;
     private String regionName;
-
-
     private int userAddressId;
     private  int userid;
 
