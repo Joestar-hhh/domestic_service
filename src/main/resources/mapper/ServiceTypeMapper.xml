@@ -181,7 +181,7 @@
         left join tb_company c on c.id = sr.company_id
         left join (select o.service_id,count(o.service_id) order_num from tb_order_info o
                                 left join tb_service s on s.id = o.service_id
-								where o.company_id = #{companyId}
+								where o.company_id = #{companyId} and o.company_order_state_id = 4
                                 GROUP BY o.service_id) o on o.service_id = s.id
         left join (select s.id s_id,round(avg(se.evaluation_level)/5*100,1) level_num from tb_service_evaluation se
                             left join tb_service s on s.id = se.service_id
@@ -218,7 +218,7 @@
         left join tb_company c on c.id = sr.company_id
         left join (select o.service_id,count(o.service_id) order_num from tb_order_info o
                                 left join tb_service s on s.id = o.service_id
-								where o.company_id = #{companyId}
+								where o.company_id = #{companyId} and o.company_order_state_id = 4
                                 GROUP BY o.service_id) o on o.service_id = s.id
         left join (select s.id s_id,round(avg(se.evaluation_level)/5*100,1) level_num from tb_service_evaluation se
                             left join tb_service s on s.id = se.service_id
