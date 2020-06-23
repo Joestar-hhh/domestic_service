@@ -40,9 +40,8 @@ public class CompanyManageController {
 
     @ResponseBody
     @RequestMapping(value = "/queryCompanyByService")
-    public String queryCompanyByService(Company company, int page, int limit, String typeName) {
-        ResultData resultData = companyManageService.queryCompanyByService(company,page,limit,typeName);
-        System.out.println("查询结果："+JSON.toJSONString(resultData));
+    public String queryCompanyByService(Company company, int page, int limit, int serviceId) {
+        ResultData resultData = companyManageService.queryCompanyByService(company,page,limit,serviceId);
         return JSON.toJSONString(resultData);
     }
 }

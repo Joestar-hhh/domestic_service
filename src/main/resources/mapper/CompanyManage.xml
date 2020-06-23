@@ -36,8 +36,8 @@
         LEFT JOIN tb_service_type T ON  R.service_type_id=T.id
         LEFT JOIN tb_service S ON R.service_id = S.id
         <where>
-            <if test="typeName != null and typeName != ''">
-                S.type_name = #{typeName}
+            <if test="serviceId != null and serviceId != ''">
+                R.service_id = #{serviceId}
             </if>
             and C.role_id = 2
         </where>
@@ -53,8 +53,8 @@
         LEFT JOIN tb_service S
         ON R.service_id = S.id
         <where>
-            <if test="typeName != null and typeName != ''">
-                S.type_name = #{typeName}
+            <if test="serviceId != null and serviceId != ''">
+                R.service_id = #{serviceId}
             </if>
         </where>
     </select>
