@@ -16,5 +16,6 @@ public class AfterSalesApplication {
   private String name;
   private String userName;
   private String orderNumber;
+  private String companyId;
 
 }

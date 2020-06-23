@@ -34,7 +34,7 @@ public class OrderInfo {
   private String comName;
   private String stateComName;
   private String orderStateName;
-
+  private String checkState;
 
   private String detailAddress;//用户详细地址
   private int detailAddressId;//用户地址id

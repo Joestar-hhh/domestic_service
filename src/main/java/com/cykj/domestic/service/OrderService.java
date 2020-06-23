@@ -38,7 +38,7 @@ public interface OrderService {
     List<OrderInfo> companyOrderStatistics(String startDate, String endDate);
 
 //    小程序订单
-    ResultData weChatOrderList(int userId,String orderStateName);
+    ResultData weChatOrderList(int userId,String orderStateName,String id);
 
 
 

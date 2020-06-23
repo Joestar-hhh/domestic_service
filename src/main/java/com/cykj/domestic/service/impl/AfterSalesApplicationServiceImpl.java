@@ -92,4 +92,20 @@ public class AfterSalesApplicationServiceImpl implements AfterSalesApplicationSe
         }
         return resultData;
     }
+
+    @Override
+    public ResultData insertSaleApply(AfterSalesApplication afterSalesApplication) {
+       int res= afterSalesApplicationMapper.insertSaleApply(afterSalesApplication);
+        ResultData resultData=new ResultData();
+        if(res==1){
+            System.out.println("申请成功");
+            resultData.setCode(0);
+            resultData.setMsg("申请成功");
+        } else {
+            System.out.println("申请成功");
+            resultData.setCode(1);
+            resultData.setMsg("申请失败");
+        }
+        return resultData;
+    }
 }
