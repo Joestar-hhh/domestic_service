@@ -56,7 +56,6 @@ public class ServiceListContrller {
         return JSON.toJSONString(resultData);
     }
 
-
     //查询详情
     @RequestMapping("/serviceListView")
     public String serviceListView(HttpServletRequest request, HttpServletResponse response,int id) {

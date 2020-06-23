@@ -36,4 +36,10 @@
        UPDATE tb_user u SET user_address_id=#{id} WHERE u.id=#{userid}
         </update>
 
+
+<!--    根据用户地址id查询地址-->
+    <select id="selectUseraddress" parameterType="com.cykj.domestic.entity.MyAddress" resultType="com.cykj.domestic.entity.MyAddress">
+              SELECT * FROM tb_user_address WHERE id=#{id}
+    </select>
+
 </mapper>

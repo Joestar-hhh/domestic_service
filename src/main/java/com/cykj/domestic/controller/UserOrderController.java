@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 @RequestMapping("/userOrderController")
 @RestController
@@ -26,11 +25,11 @@ public class UserOrderController {
     //--------------------------------------session  userid
     //用户发布需求
     @RequestMapping("/insertUserOrder")
-    public String insertUserOrder(HttpServletResponse response, HttpServletRequest request, HttpSession session, OrderInfo orderInfo) {
-        User user = (User) request.getSession().getAttribute("user");
-        ResultData resultData = userOrderService.insertUserOrder(orderInfo, user);
+    public String insertUserOrder(HttpServletResponse response, HttpServletRequest request,OrderInfo orderInfo) {
+        ResultData resultData = userOrderService.insertUserOrder(orderInfo);
         return JSON.toJSONString(resultData);
-
+//        System.out.println("微信发送的需求消息"+JSON.toJSONString(orderInfo));
+//        return null;
     }
 
     //查看所有未接单的订单-
@@ -67,8 +66,5 @@ public class UserOrderController {
         System.out.println("ss="+JSON.toJSONString(orderInfo));
         ResultData resultData=userOrderService.WXdeleteOrderrequirement(orderInfo);
         return JSON.toJSONString(resultData);
-//        ResultData resultData=new ResultData();
-//        resultData.setCode(0);
-//        return JSON.toJSONString(resultData);
     }
 }
