@@ -21,7 +21,7 @@
     </delete>
 
     <select id="selectList" resultType="com.cykj.domestic.entity.MyAddress" parameterType="com.cykj.domestic.entity.MyAddress">
-        SELECT a.*,u.user_address_id FROM tb_user_address a LEFT OUTER JOIN tb_user u ON a.id=u.user_address_id
+        SELECT a.*,u.user_address_id FROM tb_user_address a LEFT OUTER JOIN tb_user u ON a.id=u.id
 	    where a.user_id = #{userid}
 	    order by a.id
     </select>
