@@ -103,4 +103,9 @@
     <update id="arrangeStaff">
         update tb_after_sales_application set staff_id = #{staffId},check_state = '已安排售后处理' where id = #{id}
     </update>
+
+    <!--    用户售后申请-->
+    <insert id="insertSaleApply" >
+        insert into tb_after_sales_application(user_id,order_info_id,reason,staff_id,company_id,check_state) values (#{userId}, #{orderInfoId},#{reason},#{staffId},#{companyId},'待审核')
+    </insert>
 </mapper>

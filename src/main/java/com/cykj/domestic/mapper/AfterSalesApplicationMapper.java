@@ -27,4 +27,8 @@ public interface AfterSalesApplicationMapper {
     List<Staff> queryStaffName(int id);
 
     int arrangeStaff(String staffId,int id);
+
+//    申请售后
+    int insertSaleApply(AfterSalesApplication afterSalesApplication);
 }
+

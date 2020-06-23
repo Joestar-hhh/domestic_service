@@ -63,4 +63,11 @@ public class AfterSalesApplicationController {
         ResultData resultData = afterSalesApplicationService.arrangeStaff(staffId, id);
         return JSON.toJSONString(resultData);
     }
+
+//    用户申请售后
+    @RequestMapping("/applySale")
+    public  String insertSaleApple(AfterSalesApplication afterSalesApplication){
+        ResultData resultData = afterSalesApplicationService.insertSaleApply(afterSalesApplication);
+        return JSON.toJSONString(resultData);
+    }
 }
