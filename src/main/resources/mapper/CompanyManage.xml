@@ -31,30 +31,41 @@
 
     <!--WX 根据服务类型查询公司-->
     <select id="queryCompanyByService" parameterType="com.cykj.domestic.entity.Company" resultType="com.cykj.domestic.entity.Company">
-        SELECT C.*,GROUP_CONCAT(T.type_name separator'、') type_name FROM tb_company C
-        LEFT JOIN tb_service_relation R ON C.id=R.company_id
-        LEFT JOIN tb_service_type T ON  R.service_type_id=T.id
-        LEFT JOIN tb_service S ON R.service_id = S.id
+        select c.*,t.type_name,onum.count_num from tb_company c
+        left join tb_service_relation sr on sr.company_id = c.id
+        left join tb_service_type st on st.id = sr.service_type_id
+        left join tb_service s on s.service_type_id = st.id
+        left join (select C.id cid,GROUP_CONCAT(T.type_name separator'、') type_name from tb_company C
+        left join tb_service_relation R on C.id=R.company_id
+        left join tb_service_type T on  R.service_type_id=T.id
+        group by C.id) t on t.cid = c.id
+        left join (select c.id,count(c.id) count_num from tb_order_info o
+        left join tb_company c on c.id = o.company_id
+        where company_order_state_id = 4 group by c.id) onum on onum.id = c.id
         <where>
             <if test="serviceId != null and serviceId != ''">
-                R.service_id = #{serviceId}
+                s.id = #{serviceId}
             </if>
-            and C.role_id = 2
         </where>
-        group by C.id LIMIT #{start},#{pageSize}
+        ORDER BY count_num desc
+        LIMIT #{start},#{pageSize}
     </select>
 
     <select id="countCompanyByService" resultType="int" parameterType="com.cykj.domestic.entity.Company">
-        select count(C.id) from tb_company C
-        LEFT JOIN tb_service_relation R
-        ON C.id=R.company_id
-        LEFT JOIN tb_service_type T
-        ON R.service_type_id=T.id
-        LEFT JOIN tb_service S
-        ON R.service_id = S.id
+        select count(c.id) from tb_company c
+        left join tb_service_relation sr on sr.company_id = c.id
+        left join tb_service_type st on st.id = sr.service_type_id
+        left join tb_service s on s.service_type_id = st.id
+        left join (select C.id cid,GROUP_CONCAT(T.type_name separator'、') type_name from tb_company C
+        left join tb_service_relation R on C.id=R.company_id
+        left join tb_service_type T on  R.service_type_id=T.id
+        group by C.id) t on t.cid = c.id
+        left join (select c.id,count(c.id) count_num from tb_order_info o
+        left join tb_company c on c.id = o.company_id
+        where company_order_state_id = 4 group by c.id) onum on onum.id = c.id
         <where>
             <if test="serviceId != null and serviceId != ''">
-                R.service_id = #{serviceId}
+                s.id = #{serviceId}
             </if>
         </where>
     </select>
