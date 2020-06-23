@@ -17,4 +17,6 @@ public interface AfterSalesApplicationService {
 
     ResultData arrangeStaff(String staffId,int id);
 
+    ResultData insertSaleApply(AfterSalesApplication afterSalesApplication);
+
 }

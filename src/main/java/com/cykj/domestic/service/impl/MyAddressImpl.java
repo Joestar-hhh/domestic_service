@@ -1,12 +1,7 @@
 package com.cykj.domestic.service.impl;
 
 import com.cykj.domestic.entity.MyAddress;
-import com.cykj.domestic.entity.ServiceType;
-import com.cykj.domestic.entity.TbService;
-import com.cykj.domestic.mapper.MyAddressMapper;
-import com.cykj.domestic.mapper.ServiceListMapper;
 import com.cykj.domestic.service.MyAddressService;
-import com.cykj.domestic.service.ServiceListService;
 import com.cykj.domestic.util.ResultData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,9 +18,8 @@ public class MyAddressImpl implements MyAddressService {
 
     //查询我的地址所有数据
     @Override
-    public ResultData selectList(MyAddress myAddress, int page, int pageSize, int userAddressId) {
-        int start = (page - 1) * pageSize;//计算出起始查询位置
-        List<MyAddress> list = MyAddressMapper.selectList(myAddress, start, pageSize, userAddressId);
+    public ResultData selectList(MyAddress myAddress, int userid) {
+        List<MyAddress> list = MyAddressMapper.selectList(myAddress,userid);
         int count = MyAddressMapper.selectListCount(myAddress);
         ResultData resultData = new ResultData();
         if (list.size() > 0) {
@@ -100,6 +94,17 @@ public class MyAddressImpl implements MyAddressService {
             resultData.setCode(1);
             resultData.setMsg("修改默认地址失败");
         }
+        return resultData;
+    }
+
+    @Override
+    public ResultData selectUseraddress(MyAddress myAddress) {
+        ResultData resultData = new ResultData();
+        List<MyAddress>list =MyAddressMapper.selectUseraddress(myAddress);
+        resultData.setCode(0);
+        resultData.setMsg("");
+        resultData.setData(list);
+        System.out.println(myAddress);
         return resultData;
     }
 

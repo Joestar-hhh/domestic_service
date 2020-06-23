@@ -166,7 +166,7 @@
 
     <!--    微信端查询所有服务类别-->
     <select id="queryWXService" resultType="com.cykj.domestic.entity.TbService">
-        select s.type_name from tb_service s
+        select s.* from tb_service s
         left join tb_service_type st
         on s.service_type_id = st.id
         where s.service_type_id = #{serviceTypeId}

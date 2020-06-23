@@ -24,7 +24,7 @@ public class Company {
     private int roleId;//角色id
     private int countNum;//统计数量
     private String head;//公司头像
-
+    private int serviceId;// 二级服务类别id
     private String joinDay;
     private int serviceTypeId;
     private  int userId;
