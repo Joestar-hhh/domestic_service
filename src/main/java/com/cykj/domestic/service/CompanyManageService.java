@@ -31,7 +31,7 @@ public interface CompanyManageService {
      * @param limit
      * @return
      */
-    ResultData queryCompanyByService(Company company,int page, int limit,String typeName);
+    ResultData queryCompanyByService(Company company,int page, int limit,int serviceId);
 
 
     Company queryCompanyOrderNum(int companyId);
