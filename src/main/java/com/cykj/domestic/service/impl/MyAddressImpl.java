@@ -23,9 +23,8 @@ public class MyAddressImpl implements MyAddressService {
 
     //查询我的地址所有数据
     @Override
-    public ResultData selectList(MyAddress myAddress, int page, int pageSize, int userAddressId) {
-        int start = (page - 1) * pageSize;//计算出起始查询位置
-        List<MyAddress> list = MyAddressMapper.selectList(myAddress, start, pageSize, userAddressId);
+    public ResultData selectList(MyAddress myAddress, int userid) {
+        List<MyAddress> list = MyAddressMapper.selectList(myAddress,userid);
         int count = MyAddressMapper.selectListCount(myAddress);
         ResultData resultData = new ResultData();
         if (list.size() > 0) {

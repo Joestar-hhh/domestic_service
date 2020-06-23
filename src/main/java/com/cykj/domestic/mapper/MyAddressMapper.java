@@ -32,7 +32,7 @@ public interface MyAddressMapper {
 //    List<MyAddress> selectDefaultAddress(@Param("e") MyAddress myAddress);
 
     //查询所有服务列表显示
-    List<MyAddress> selectList(@Param("e") MyAddress myAddress, @Param("start") int start, @Param("pageSize") int pageSize,@Param("userAddressId") int userAddressId);
+    List<MyAddress> selectList(@Param("e") MyAddress myAddress,@Param("userid") int userid);
     int selectListCount(@Param("e") MyAddress myAddress);
 
 
