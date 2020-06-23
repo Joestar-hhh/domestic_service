@@ -22,7 +22,7 @@ public interface MyAddressMapper {
     int updateAddress(MyAddress myAddress);
 
     //修改默认地址
-    int  updateDefultAddress(@Param("userid") int userid,@Param("id")int id);
+    int updateDefultAddress(@Param("userid") int userid, @Param("id") int id);
 
 
     //删除地址数据
@@ -34,6 +34,9 @@ public interface MyAddressMapper {
     //查询所有服务列表显示
     List<MyAddress> selectList(@Param("e") MyAddress myAddress,@Param("userid") int userid);
     int selectListCount(@Param("e") MyAddress myAddress);
+
+    //根据用户地址id查询地址
+    List<MyAddress> selectUseraddress(MyAddress myAddress);
 
 
 }

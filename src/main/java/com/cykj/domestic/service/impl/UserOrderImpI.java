@@ -1,7 +1,6 @@
 package com.cykj.domestic.service.impl;
 
 import com.cykj.domestic.entity.OrderInfo;
-import com.cykj.domestic.entity.User;
 import com.cykj.domestic.mapper.UserOrderMapper;
 import com.cykj.domestic.service.UserOrderService;
 import com.cykj.domestic.util.ResultData;
@@ -21,9 +20,7 @@ public class UserOrderImpI implements UserOrderService {
 
     //添加用户发布需求和下订单
     @Override
-    public ResultData insertUserOrder(OrderInfo orderInfo,User user) {
-
-        System.out.println("用户发布需求和下订单  用户id"+user.getId());
+    public ResultData insertUserOrder(OrderInfo orderInfo) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
         String newDate = sdf.format(new Date());
         String result = "";
@@ -33,8 +30,8 @@ public class UserOrderImpI implements UserOrderService {
         }
         System.out.println("订单号=" + "CY" + newDate + result);
         orderInfo.setOrderNumber("CY" + newDate + result);
+        orderInfo.setCompanyOrderStateId(1);
         orderInfo.setUserOrderStateId(5);
-        orderInfo.setUserId(user.getId());
         int res = userOrderMapper.insertUserOrder(orderInfo);
         ResultData resultData = new ResultData();
         if (res > 0) {

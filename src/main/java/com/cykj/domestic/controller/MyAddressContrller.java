@@ -2,7 +2,6 @@ package com.cykj.domestic.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.cykj.domestic.entity.MyAddress;
-import com.cykj.domestic.entity.TbService;
 import com.cykj.domestic.service.MyAddressService;
 import com.cykj.domestic.util.ResultData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,5 +57,16 @@ public class MyAddressContrller {
         ResultData resultData=myAddressService.updateDefultAddress(6,id);
         return JSON.toJSONString(resultData);
     }
+
+//    根据用户地址id查询地址
+    @RequestMapping("/selectUseraddress")
+    public String selectUseraddress(HttpServletRequest request, HttpServletResponse response,MyAddress myAddress) {
+//        System.out.println(id);
+        ResultData resultData=myAddressService.selectUseraddress(myAddress);
+        return JSON.toJSONString(resultData);
+//        return null;
+    }
+
+
 
 }

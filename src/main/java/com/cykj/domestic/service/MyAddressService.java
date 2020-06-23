@@ -11,4 +11,7 @@ public interface MyAddressService {
     ResultData deleteAddress(int id);
     ResultData updateDefultAddress(int userid,int id);
 
+//    根据用户地址id查询地址
+    ResultData selectUseraddress(MyAddress myAddress);
+
 }
