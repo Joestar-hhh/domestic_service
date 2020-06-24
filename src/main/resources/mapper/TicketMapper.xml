@@ -37,6 +37,7 @@
            <if test="e.state!=null and e.state!=''">and tr.state=#{e.state}</if>
        </where>
     </select>
+    
 <!--    //领取优惠券-->
     <insert id="updateTicket" parameterType="com.cykj.domestic.entity.Ticket">
         insert into tb_ticket_relation (user_id,state,ticket_id)values(#{userid},1,#{e.ticketId});
