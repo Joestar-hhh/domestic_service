@@ -51,7 +51,7 @@ public class CompanyManageServiceImpl implements CompanyManageService {
     }
 
     @Override
-    public ResultData queryCompanyByService(Company company, int page, int limit, int serviceId) {
+    public ResultData queryCompanyByService(Company company, int page, int limit, String serviceId) {
         List<Company> list=companyMangeMapper.queryCompanyByService(company,(page-1)*limit,limit,serviceId);
         int count=companyMangeMapper.countCompanyByService(company,serviceId);
         ResultData resultData = new ResultData();

@@ -31,7 +31,7 @@
 
     <!--WX 根据服务类型查询公司-->
     <select id="queryCompanyByService" parameterType="com.cykj.domestic.entity.Company" resultType="com.cykj.domestic.entity.Company">
-        select c.*,t.type_name,onum.count_num from tb_company c
+        select distinct c.*,t.type_name,onum.count_num from tb_company c
         left join tb_service_relation sr on sr.company_id = c.id
         left join tb_service_type st on st.id = sr.service_type_id
         left join tb_service s on s.service_type_id = st.id
@@ -43,7 +43,7 @@
         left join tb_company c on c.id = o.company_id
         where company_order_state_id = 4 group by c.id) onum on onum.id = c.id
         <where>
-            <if test="serviceId != null and serviceId != ''">
+            <if test="serviceId != null and serviceId != '0' and serviceId != '' and serviceId != 0">
                 s.id = #{serviceId}
             </if>
         </where>
@@ -52,7 +52,7 @@
     </select>
 
     <select id="countCompanyByService" resultType="int" parameterType="com.cykj.domestic.entity.Company">
-        select count(c.id) from tb_company c
+        select count(distinct c.id) from tb_company c
         left join tb_service_relation sr on sr.company_id = c.id
         left join tb_service_type st on st.id = sr.service_type_id
         left join tb_service s on s.service_type_id = st.id
@@ -64,7 +64,7 @@
         left join tb_company c on c.id = o.company_id
         where company_order_state_id = 4 group by c.id) onum on onum.id = c.id
         <where>
-            <if test="serviceId != null and serviceId != ''">
+            <if test="serviceId != null and serviceId != '0' and serviceId != '' and serviceId != 0">
                 s.id = #{serviceId}
             </if>
         </where>

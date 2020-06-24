@@ -41,7 +41,7 @@ public class CompanyManageController {
     @ResponseBody
     @RequestMapping(value = "/queryCompanyByService")
     public String queryCompanyByService(Company company, int page, int limit, String serviceId) {
-        ResultData resultData = companyManageService.queryCompanyByService(company,page,limit,Integer.parseInt(serviceId));
+        ResultData resultData = companyManageService.queryCompanyByService(company,page,limit,serviceId);
         return JSON.toJSONString(resultData);
     }
 
