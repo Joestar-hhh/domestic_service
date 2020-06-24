@@ -44,8 +44,9 @@
         where company_order_state_id = 4 group by c.id) onum on onum.id = c.id
         <where>
             <if test="serviceId != null and serviceId != '0' and serviceId != '' and serviceId != 0">
-                s.id = #{serviceId}
+                and s.id = #{serviceId}
             </if>
+            and c.company_name is not null and c.state = '审核通过'
         </where>
         ORDER BY count_num desc
         LIMIT #{start},#{pageSize}
@@ -65,8 +66,9 @@
         where company_order_state_id = 4 group by c.id) onum on onum.id = c.id
         <where>
             <if test="serviceId != null and serviceId != '0' and serviceId != '' and serviceId != 0">
-                s.id = #{serviceId}
+                and s.id = #{serviceId}
             </if>
+            and c.company_name is not null and c.state = '审核通过'
         </where>
     </select>
 <!--   查询公司已服务单数-->
