@@ -38,8 +38,8 @@
        </where>
     </select>
 <!--    //领取优惠券-->
-    <update id="updateTicket" parameterType="com.cykj.domestic.entity.Ticket">
-        update tb_ticket_relation set user_id=#{userid},state=1 where ticket_id=#{e.ticketId}
-    </update>
+    <insert id="updateTicket" parameterType="com.cykj.domestic.entity.Ticket">
+        insert into tb_ticket_relation (user_id,state,ticket_id)values(#{userid},1,#{e.ticketId});
+    </insert>
 
 </mapper>

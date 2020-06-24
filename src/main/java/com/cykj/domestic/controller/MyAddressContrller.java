@@ -53,8 +53,8 @@ public class MyAddressContrller {
 
     //修改默认地址
     @RequestMapping("/updateDefultAddress")
-    public String updateDefultAddress(HttpServletRequest request, HttpServletResponse response,int id) {
-        ResultData resultData=myAddressService.updateDefultAddress(6,id);
+    public String updateDefultAddress(HttpServletRequest request, HttpServletResponse response,int userid,int userAddressId) {
+        ResultData resultData=myAddressService.updateDefultAddress(userid,userAddressId);
         return JSON.toJSONString(resultData);
     }
 
