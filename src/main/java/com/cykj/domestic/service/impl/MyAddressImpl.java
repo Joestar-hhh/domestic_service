@@ -84,8 +84,8 @@ public class MyAddressImpl implements MyAddressService {
 
     //修改默认地址
     @Override
-    public ResultData updateDefultAddress(int userid,int id) {
-        int res = MyAddressMapper.updateDefultAddress(userid,id);
+    public ResultData updateDefultAddress(int userid,int userAddressId) {
+        int res = MyAddressMapper.updateDefultAddress(userid,userAddressId);
         ResultData resultData = new ResultData();
         if (res == 1) {
             resultData.setCode(0);

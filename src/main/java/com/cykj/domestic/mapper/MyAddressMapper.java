@@ -22,7 +22,7 @@ public interface MyAddressMapper {
     int updateAddress(MyAddress myAddress);
 
     //修改默认地址
-    int updateDefultAddress(@Param("userid") int userid, @Param("id") int id);
+    int updateDefultAddress(@Param("userid") int userid, @Param("userAddressId") int userAddressId);
 
 
     //删除地址数据

@@ -9,7 +9,7 @@ public interface MyAddressService {
     ResultData addAddress(MyAddress myAddress);
     ResultData updateAddress(MyAddress myAddress);
     ResultData deleteAddress(int id);
-    ResultData updateDefultAddress(int userid,int id);
+    ResultData updateDefultAddress(int userid,int userAddressId);
 
 //    根据用户地址id查询地址
     ResultData selectUseraddress(MyAddress myAddress);
