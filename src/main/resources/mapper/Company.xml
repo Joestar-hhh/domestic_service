@@ -11,7 +11,7 @@
              SELECT * FROM tb_company WHERE account=#{account}
     </select>
 
-<!--    查询最大账号-->
+    <!--    查询最大账号-->
     <select id="MaxAccount" resultType="java.lang.String">
         SELECT MAX(account) from tb_company where role_id=2
     </select>
@@ -98,4 +98,49 @@
         and date_format(#{endDate},'%Y%m%d') group by join_day;
     </select>
 
+    <!--    微信模糊搜索公司或者服务-->
+    <select id="wxSearchCompany" resultType="com.cykj.domestic.entity.Company">
+        SELECT distinct t.type_name,c.*,onum.count_num from tb_company c
+        left join tb_service_relation sr on sr.company_id = c.id
+        left join tb_service_type st on st.id = sr.service_type_id
+        left join tb_service s on s.service_type_id = st.id
+        left join (select c.id cid,GROUP_CONCAT(st.type_name separator'、') type_name from tb_company c
+        left join tb_service_relation sr on c.id = sr.company_id
+        left join tb_service_type st on sr.service_type_id = st.id
+        group by c.id) t on t.cid = c.id
+        left join (select c.id,count(c.id) count_num from tb_order_info o
+        left join tb_company c on c.id = o.company_id
+        where o.company_order_state_id = 4 group by c.id) onum on onum.id = c.id
+        <where>
+            and c.company_name is not null and c.state='审核通过'
+            <if test="search!=null and search!=''">
+                and st.type_name like concat('%',#{search},'%')
+                or s.type_name LIKE concat('%',#{search},'%')
+                or c.company_name LIKE CONCAT('%',#{search},'%')
+            </if>
+        </where>
+        LIMIT #{start},#{pageSize}
+    </select>
+
+    <select id="wxSearchCompanyCount" resultType="int">
+    SELECT  count(distinct c.id) from tb_company c
+	left join tb_service_relation sr on sr.company_id = c.id
+	left join tb_service_type st on st.id = sr.service_type_id
+	left join tb_service s on s.service_type_id = st.id
+	left join (select c.id cid,GROUP_CONCAT(st.type_name separator'、') type_name from tb_company c
+        left join tb_service_relation sr on c.id = sr.company_id
+        left join tb_service_type st on sr.service_type_id = st.id
+		group by c.id) t on t.cid = c.id
+	left join (select c.id,count(c.id) count_num from tb_order_info o
+		left join tb_company c on c.id = o.company_id
+		where o.company_order_state_id = 4   group by c.id) onum on onum.id = c.id
+        <where>
+            and c.company_name is not null and c.state='审核通过'
+            <if test="search!=null and search!=''">
+                and st.type_name like concat('%',#{search},'%')
+                or s.type_name LIKE concat('%',#{search},'%')
+                or c.company_name LIKE CONCAT('%',#{search},'%')
+            </if>
+        </where>
+    </select>
 </mapper>
