@@ -16,5 +16,7 @@ public class ServiceEvaluation {
     private String name;
     private String content;
     private String contentTime;
+    private String orderId;
+    private String serviceId;
 
 }
