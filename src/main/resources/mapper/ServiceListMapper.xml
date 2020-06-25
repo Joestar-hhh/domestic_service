@@ -9,11 +9,11 @@
       INSERT into tb_service(type_name,description,service_type_id)VALUES(#{typeName},#{description},#{serviceCategory});
     </insert>
 
-<!--    <update id="updateServiceList" parameterType="com.cykj.domestic.entity.TbService">-->
-<!--     update tb_service_type set type_name=#{type_name},description=#{description},update_name=#{update_name} where id=#{id}-->
-<!--    </update>-->
+    <!--    <update id="updateServiceList" parameterType="com.cykj.domestic.entity.TbService">-->
+    <!--     update tb_service_type set type_name=#{type_name},description=#{description},update_name=#{update_name} where id=#{id}-->
+    <!--    </update>-->
 
-        <update id="updateServiceList" parameterType="com.cykj.domestic.entity.TbService">
+    <update id="updateServiceList" parameterType="com.cykj.domestic.entity.TbService">
          update tb_service set type_name=#{typeName},description=#{description},service_type_id=#{serviceCategory} where id=#{id}
         </update>
 
@@ -22,7 +22,8 @@
          delete from tb_service where id=#{id}
     </delete>
 
-    <select id="selectList" resultType="com.cykj.domestic.entity.TbService" parameterType="com.cykj.domestic.entity.TbService">
+    <select id="selectList" resultType="com.cykj.domestic.entity.TbService"
+            parameterType="com.cykj.domestic.entity.TbService">
          select a.* ,b.type_name serviceCategory from tb_service a LEFT JOIN  tb_service_type b on b.id=a.service_type_id
         limit #{start},#{pageSize}
     </select>
@@ -40,7 +41,7 @@
        select a.* ,b.type_name serviceCategory from tb_service a INNER JOIN  tb_service_type b on b.id=a.service_type_id where a.id = #{id}
     </select>
 
-<!--    查询所有服务和服务类别-->
+    <!--    查询所有服务和服务类别-->
     <select id="queryServiceTypeName" resultType="com.cykj.domestic.entity.TbService">
       SELECT s.id id,s.type_name type_name,t.type_name service_type_name,s.update_time update_time FROM tb_service_relation  r
           LEFT JOIN tb_service_type t ON r.service_type_id=t.id
@@ -53,4 +54,7 @@
           LEFT JOIN  tb_service s ON s.service_type_id = t.id  WHERE r.company_id=#{companyId} AND r.state='审核通过'
     </select>
 
+    <update id="updateServicePrice" parameterType="com.cykj.domestic.entity.TbService">
+        update tb_service set unit_price = #{unitPrice} where id = #{id}
+    </update>
 </mapper>

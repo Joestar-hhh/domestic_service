@@ -20,4 +20,6 @@ public interface ServiceListService {
     //查询所有服务和服务类别
     ResultData queryServiceTypeName(int companyid,int page, int pageSize);
 
+    ResultData updateServicePrice(int unitPrice,int id);
+
 }

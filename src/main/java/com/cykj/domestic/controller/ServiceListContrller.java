@@ -19,38 +19,38 @@ public class ServiceListContrller {
     @Autowired
     private ServiceListService serviceListService;
 
-//查询所有服务列表数据
+    //查询所有服务列表数据
     @RequestMapping("/selectServiceList")
     public String selectServiceList(HttpServletRequest request, HttpServletResponse response, TbService tbService, String page, String limit) {
         ResultData resultData = serviceListService.selectList(tbService, Integer.parseInt(page), Integer.parseInt(limit));
         return JSON.toJSONString(resultData);
     }
 
-//添加服务列表数据
+    //添加服务列表数据
     @RequestMapping("/addServiceList")
     public String addServiceList(HttpServletRequest request, HttpServletResponse response, TbService tbService) {
-        ResultData resultData=serviceListService.addServicelist(tbService);
-    return JSON.toJSONString(resultData);
+        ResultData resultData = serviceListService.addServicelist(tbService);
+        return JSON.toJSONString(resultData);
     }
 
 
     //修改服务列表数据
     @RequestMapping("/updateServiceList")
     public String updateServiceType(HttpServletRequest request, HttpServletResponse response, TbService tbService) {
-        ResultData resultData=serviceListService.updateServiceList(tbService);
+        ResultData resultData = serviceListService.updateServiceList(tbService);
         return JSON.toJSONString(resultData);
     }
 
 
     //删除服务列表数据
     @RequestMapping("/deleteServiceList")
-    public String deleteServiceType(HttpServletRequest request, HttpServletResponse response,int id) {
-        ResultData resultData=serviceListService.deleteServiceList(id);
+    public String deleteServiceType(HttpServletRequest request, HttpServletResponse response, int id) {
+        ResultData resultData = serviceListService.deleteServiceList(id);
         return JSON.toJSONString(resultData);
     }
 
     //查询所有服务类型
-   @RequestMapping("/selectService")
+    @RequestMapping("/selectService")
     public String selectService(HttpServletRequest request, HttpServletResponse response) {
         ResultData resultData = serviceListService.selectService();
         return JSON.toJSONString(resultData);
@@ -58,20 +58,26 @@ public class ServiceListContrller {
 
     //查询详情
     @RequestMapping("/serviceListView")
-    public String serviceListView(HttpServletRequest request, HttpServletResponse response,int id) {
+    public String serviceListView(HttpServletRequest request, HttpServletResponse response, int id) {
         ResultData resultData = serviceListService.serviceListView(id);
         return JSON.toJSONString(resultData);
     }
 
     //查询所有服务和服务类别
     @RequestMapping("/queryServiceTypeName")
-    public String queryServiceTypeName(HttpServletRequest request, HttpServletResponse response,String page, String limit){
-       Company company= (Company) request.getSession().getAttribute("company");
-        ResultData resultData = serviceListService.queryServiceTypeName(company.getId(),Integer.parseInt(page), Integer.parseInt(limit));
+    public String queryServiceTypeName(HttpServletRequest request, HttpServletResponse response, String page, String limit) {
+        Company company = (Company) request.getSession().getAttribute("company");
+        ResultData resultData = serviceListService.queryServiceTypeName(company.getId(), Integer.parseInt(page), Integer.parseInt(limit));
         return JSON.toJSONString(resultData);
     }
 
-
-
+    // 修改价格
+    @RequestMapping("/updateServicePrice")
+    public String updateServicePrice(HttpServletRequest request) {
+        int unitPrice = Integer.parseInt(request.getParameter("unitPrice"));
+        int id = Integer.parseInt(request.getParameter("id"));
+        ResultData resultData = serviceListService.updateServicePrice(unitPrice,id);
+        return JSON.toJSONString(resultData);
+    }
 
 }

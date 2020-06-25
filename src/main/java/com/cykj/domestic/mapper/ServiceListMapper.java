@@ -30,6 +30,6 @@ public interface ServiceListMapper {
     List<TbService>queryServiceTypeName(@Param("companyId")int companyId,@Param("start") int start, @Param("pageSize") int pageSize);
     int queryServiceTypeNameCount(@Param("companyId")int companyId);
 
-
+    int updateServicePrice(@Param("unitPrice")int unitPrice,@Param("id")int id);
 
 }

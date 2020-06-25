@@ -112,13 +112,27 @@ public class ServiceListImpl implements ServiceListService {
 
     //查询所有服务和服务类别
     @Override
-    public ResultData queryServiceTypeName(int companyId,int page, int pageSize) {
-        List<TbService> list = serviceListMapper.queryServiceTypeName(companyId,(page - 1) * pageSize, pageSize);
-        int count=serviceListMapper.queryServiceTypeNameCount(companyId);
-        ResultData resultData=new ResultData();
+    public ResultData queryServiceTypeName(int companyId, int page, int pageSize) {
+        List<TbService> list = serviceListMapper.queryServiceTypeName(companyId, (page - 1) * pageSize, pageSize);
+        int count = serviceListMapper.queryServiceTypeNameCount(companyId);
+        ResultData resultData = new ResultData();
         resultData.setCode(0);
         resultData.setCount(count);
         resultData.setData(list);
+        return resultData;
+    }
+
+    @Override
+    public ResultData updateServicePrice(int unitPrice,int id) {
+        int res = serviceListMapper.updateServicePrice(unitPrice,id);
+        ResultData resultData = new ResultData();
+        if (res == 1) {
+            resultData.setCode(0);
+            resultData.setMsg("修改成功");
+        } else {
+            resultData.setCode(1);
+            resultData.setMsg("修改失败");
+        }
         return resultData;
     }
 

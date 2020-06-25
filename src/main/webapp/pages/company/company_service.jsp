@@ -27,33 +27,16 @@
 
 <table class="layui-hide" id="test" lay-filter="test"></table>
 
-<%--<script type="text/html" id="toolbarDemo">--%>
-<%--    &lt;%&ndash;    skill_train&ndash;%&gt;--%>
-<%--    <div class="layui-form-item" id="querydiv">--%>
-<%--        <div class="layui-btn-container">--%>
-<%--            <button class="layui-btn layui-btn-sm" lay-event="inserttypeName">--%>
-<%--                <i class="layui-icon layui-icon-add-circle-fine"></i>申请服务类别--%>
-<%--            </button>--%>
-<%--        </div>--%>
-<%--    </div>--%>
-<%--</script>--%>
+<form class="layui-form" id="servicePrice" action="" style="display: none">
 
-
-<%--<script type="text/html" id="barDemo">--%>
-<%--    <a class="layui-btn  layui-btn-xs" lay-event="updaterole">--%>
-<%--        <i class="layui-icon layui-icon-edit"></i>修改</a>--%>
-<%--        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>--%>
-<%--</script>--%>
-
-
-<%--//添加dialog--%>
-<form class="layui-form" id="userinfoform" action="" style="display: none">
     <div class="layui-form-item">
-        <label class="layui-form-label">服务类别</label>
+        <label class="layui-form-label">价格：</label>
         <div class="layui-input-block">
-            <select name="typeName" id="typeName" lay-filter="City_level" lay-verify="required"></select>
+            <input type="text" name="unitPrice" id="unitPrice" required lay-verify="required|number" placeholder="请输入价格"
+                   autocomplete="off" class="layui-input">
         </div>
     </div>
+
     <div class="layui-form-item">
         <div class="layui-input-block">
             <button class="layui-btn formbtn" id="insertconfirm" lay-submit lay-filter="insertconfirm">确定</button>
@@ -62,6 +45,9 @@
     </div>
 </form>
 
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="price">设定价格</a>
+</script>
 
 <script>
     layui.use('table', function () {
@@ -78,85 +64,64 @@
                 , {field: 'typeName', title: '服务名'}
                 , {field: 'serviceTypeName', title: '服务类别名'}
                 , {field: 'updateTime', title: '时间'}
-                // , {fixed: 'right', title: '操作', width: 250, toolbar: '#barDemo'}
-                // ,{field:'downloadDiscount', title: '下载文档积分比例'}
+                , {fixed: 'right', title: '操作', width: 250, toolbar: '#barDemo'}
             ]]
             , page: {
                 limit: 5,//指定每页显示的条数
                 limits: [5, 10, 15, 20,
                     25, 30, 35, 40, 45, 50],
             } //每页条数的选择项
-
         });
 
-        <%--//查询下拉框区域数据--%>
-        <%--$.ajax({--%>
-        <%--    url: '<%=path%>/serviceTypeContrller/queryServiceNull',--%>
-        <%--    type: 'POST',--%>
-        <%--    dataType: 'JSON',--%>
-        <%--    success: function (msg) {--%>
-        <%--        $("#typeName").html("<option value=''></option>");--%>
-        <%--        $.each(msg.data, function (i, item) {--%>
-        <%--            $("#typeName").append("<option value='" + item.id + "'>" + item.typeName + "</option>")--%>
-        <%--        });--%>
-        <%--        layui.use('form', function () {--%>
-        <%--            var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功--%>
-        <%--            form.render();--%>
-        <%--        });--%>
-        <%--    }--%>
-        <%--});--%>
+        //监听行工具事件
+        table.on('tool(test)', function (obj) {
+            var tabdata = obj.data;
+            if (obj.event === 'price') {
+                layer.confirm('确认要设定价格吗?', function (index) {
+                    var layerinsert = layer.open({
+                        type: 1
+                        , title: '设定价格'
+                        , area: ['500px', '250px']
+                        , shade: [0.8, '#314949'] //遮罩
+                        , resize: false //不可拉伸
+                        , content: $('#servicePrice') //内容
+                        , btn: 0
+                        , cancel: function (index) {
+                            if (confirm('确定要关闭么')) { //只有当点击confirm框的确定时，该层才会关闭
+                                $('#unitPrice').val("");
+                                layer.close(index);
+                            }
+                            return false;
+                        }
+                        //如果设定了yes回调，需进行手工关闭
+                    });
+                    layui.use('form', function () {
+                        var form = layui.form;
+                        var id = tabdata.id;
+                        form.render();
+                        form.on('submit(insertconfirm)', function (data) {
+                            data.field.id = id;
+                            alert(id)
+                            alert(JSON.stringify(data.field));
 
-        <%--//头工具栏事件--%>
-        <%--table.on('toolbar(test)', function (obj) {--%>
-        <%--    var checkStatus = table.checkStatus(obj.config.id);--%>
-        <%--    switch (obj.event) {--%>
-        <%--        case 'inserttypeName':--%>
-        <%--            var layerinsert = layer.open({--%>
-        <%--                type: 1--%>
-        <%--                , title: '添加服务类别'--%>
-        <%--                , area: ['500px', '400px']--%>
-        <%--                , shade: [0.8, '#314949'] //遮罩--%>
-        <%--                , resize: false //不可拉伸--%>
-        <%--                , content: $('#userinfoform') //内容--%>
-        <%--                , btn: 0--%>
-        <%--                , cancel: function (index, layero) {--%>
-        <%--                    if (confirm('确定要关闭么')) { //只有当点击confirm框的确定时，该层才会关闭--%>
-        <%--                        // $('#userinfoform').css("display","none")--%>
-        <%--                        layer.close(index);--%>
-        <%--                    }--%>
-        <%--                    return false;--%>
-        <%--                }--%>
-        <%--                //如果设定了yes回调，需进行手工关闭--%>
-        <%--            });--%>
-        <%--            //dialog submit提交添加--%>
-        <%--            layui.use('form', function () {--%>
-        <%--                var form = layui.form;--%>
-        <%--                form.render();--%>
-        <%--                form.on('submit(insertconfirm)', function (data) {--%>
-        <%--                    // layer.msg($("#typeName").val())--%>
-        <%--                    $.ajax({--%>
-        <%--                        type: 'POST',--%>
-        <%--                        url: '<%=path%>/',--%>
-        <%--                        dataType: 'JSON',--%>
-        <%--                        data: {--%>
-        <%--                            id: $("#typeName").val()--%>
-        <%--                        },--%>
-        <%--                        success: function (msg) {--%>
-        <%--                            layer.close(layerinsert);--%>
-        <%--                            layer.alert(msg.msg, {icon: 6}, function () {--%>
-        <%--                                window.location.reload();//修改成功后刷新父界面--%>
-        <%--                            });--%>
-        <%--                        }--%>
-        <%--                    })--%>
-        <%--                    return false;--%>
-        <%--                });--%>
-        <%--            });--%>
-        <%--            break;--%>
-        <%--        case 'insertrole':--%>
-
-        <%--            break;--%>
-        <%--    };--%>
-        <%--});--%>
+                            $.ajax({
+                                type: 'POST',
+                                url: "<%=path%>/serviceListContrller/updateServicePrice",
+                                dataType: 'JSON',
+                                data: data.field,
+                                success: function (msg) {
+                                    layer.close(layerinsert);
+                                    layer.alert(msg.msg, {icon: 6}, function () {
+                                        window.location.reload();//成功后刷新父界面
+                                    });//成功提示
+                                }
+                            })
+                            return false;
+                        });
+                    });
+                });
+            }
+        });
     });
 
 </script>
