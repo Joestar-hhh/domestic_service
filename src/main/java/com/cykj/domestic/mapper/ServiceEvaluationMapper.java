@@ -1,6 +1,7 @@
 package com.cykj.domestic.mapper;
 
 import com.cykj.domestic.entity.ServiceEvaluation;
+import com.cykj.domestic.entity.StaffEvaluation;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -18,4 +19,9 @@ public interface ServiceEvaluationMapper {
     int queryServiceEvaluationCount(@Param("e") ServiceEvaluation serviceEvaluation,@Param("id")int id);
 
     int updateContent(String content,String contentTime,int id);
+
+//    用户添加评价（家政公司）
+     int insertComEvaluation(ServiceEvaluation serviceEvaluation);
+    //    用户添加评价（服务人员）
+    int insertStaffEvaluation(StaffEvaluation staffEvaluation);
 }

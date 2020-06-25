@@ -41,4 +41,13 @@
         update tb_service_evaluation set content = #{content},content_time = #{contentTime} where id = #{id}
     </update>
 
+<!--    用户添加评价（家政公司）-->
+    <insert id="insertComEvaluation" >
+        insert into tb_service_evaluation(user_id,order_id,service_id,company_id,evaluation_content,evaluation_level) values (#{userId},#{orderId},#{serviceId},#{companyId},#{evaluationContent},#{evaluationLevel})
+    </insert>
+    <!--    用户添加评价（服务人员）-->
+    <insert id="insertStaffEvaluation" >
+        insert into tb_staff_evaluation(order_id,evaluation_content,evaluation_level) values (#{orderId},#{evaluationContent},#{staffLevel})
+    </insert>
+
 </mapper>
