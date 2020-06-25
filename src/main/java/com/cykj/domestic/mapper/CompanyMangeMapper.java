@@ -31,7 +31,14 @@ public interface CompanyMangeMapper {
     // 根据服务查询公司
     List<Company> queryCompanyByService(@Param("e")Company company,@Param("start") int start, @Param("pageSize") int pageSize,@Param("serviceId")String serviceId);
 
+    // 查询总数
     int countCompanyByService(@Param("e")Company company,@Param("serviceId")String serviceId);
+
+    // 根据服务查询公司
+    List<Company> queryCompanyByServiceType(@Param("e")Company company,@Param("start") int start, @Param("pageSize") int pageSize,@Param("serviceId")String serviceId);
+
+    // 查询总数
+    int countCompanyByServiceType(@Param("e")Company company,@Param("serviceId")String serviceId);
 
     //查询公司已服务单数
     Company queryCompanyOrderNum(int companyId);

@@ -71,6 +71,26 @@ public class CompanyManageServiceImpl implements CompanyManageService {
     }
 
     @Override
+    public ResultData queryCompanyByServiceType(Company company, int page, int limit, String serviceId) {
+        List<Company> list=companyMangeMapper.queryCompanyByServiceType(company,(page-1)*limit,limit,serviceId);
+        List<Company> companyList = new ArrayList<>();
+        for(Company c : list){
+            if(c.getHead()!=null && !c.getHead().isEmpty()) {
+                c.setHead(c.getHead().replaceAll("\\\\","/"));
+            }
+            companyList.add(c);
+        }
+
+        int count=companyMangeMapper.countCompanyByServiceType(company,serviceId);
+        ResultData resultData = new ResultData();
+        resultData.setCode(0);
+        resultData.setMsg("");
+        resultData.setCount(count);
+        resultData.setData(companyList);
+        return resultData;
+    }
+
+    @Override
     public Company queryCompanyOrderNum(int companyId) {
         Company company = companyMangeMapper.queryCompanyOrderNum(companyId);
         System.out.println("company-------------->>>>:"+company.toString());
