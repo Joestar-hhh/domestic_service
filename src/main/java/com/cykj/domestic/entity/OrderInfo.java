@@ -35,10 +35,11 @@ public class OrderInfo {
   private String stateComName;
   private String orderStateName;
   private String checkState;
+  private String evaluationLevel;
+  private  String head;//家政公司头像
 
   private String detailAddress;//用户详细地址
   private int detailAddressId;//用户地址id
-
 
   private String oneDay;//统计日期
   private int countNum;//统计数量

@@ -9,8 +9,10 @@ import com.cykj.domestic.mapper.OrderMapper;
 import com.cykj.domestic.service.OrderService;
 import com.cykj.domestic.util.ResultData;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -123,7 +125,14 @@ public class OrderServiceImpl implements OrderService {
     public ResultData weChatOrderList(int userId,String orderStateName,String id) {
         List<OrderInfo>list=orderMapper.WeChatOrderList(userId,orderStateName,id);
         ResultData resultData = new ResultData();
-        resultData.setData(list);
+        List<OrderInfo> orderList = new ArrayList<>();
+        for(OrderInfo c : list){
+            if(c.getHead()!=null && !c.getHead().isEmpty()) {
+                c.setHead(c.getHead().replaceAll("\\\\","/"));
+            }
+            orderList.add(c);
+        }
+        resultData.setData(orderList);
         return resultData;
     }
 
