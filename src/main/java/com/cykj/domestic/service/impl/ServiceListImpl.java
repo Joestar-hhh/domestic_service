@@ -1,5 +1,6 @@
 package com.cykj.domestic.service.impl;
 
+import com.cykj.domestic.entity.PriceRelation;
 import com.cykj.domestic.entity.ServiceType;
 import com.cykj.domestic.entity.TbService;
 import com.cykj.domestic.mapper.ServiceListMapper;
@@ -123,8 +124,8 @@ public class ServiceListImpl implements ServiceListService {
     }
 
     @Override
-    public ResultData updateServicePrice(int unitPrice,int id) {
-        int res = serviceListMapper.updateServicePrice(unitPrice,id);
+    public ResultData updateServicePrice(PriceRelation priceRelation) {
+        int res = serviceListMapper.updateServicePrice(priceRelation);
         ResultData resultData = new ResultData();
         if (res == 1) {
             resultData.setCode(0);

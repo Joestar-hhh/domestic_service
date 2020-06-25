@@ -54,7 +54,7 @@
           LEFT JOIN  tb_service s ON s.service_type_id = t.id  WHERE r.company_id=#{companyId} AND r.state='审核通过'
     </select>
 
-    <update id="updateServicePrice" parameterType="com.cykj.domestic.entity.TbService">
-        update tb_service set unit_price = #{unitPrice} where id = #{id}
+    <update id="updateServicePrice" parameterType="com.cykj.domestic.entity.PriceRelation">
+        insert into tb_price_relation (service_id,company_id,price,unit) values (#{serviceId},#{companyId},#{price},#{unit});
     </update>
 </mapper>

@@ -2,6 +2,7 @@ package com.cykj.domestic.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.cykj.domestic.entity.Company;
+import com.cykj.domestic.entity.PriceRelation;
 import com.cykj.domestic.entity.TbService;
 import com.cykj.domestic.service.ServiceListService;
 import com.cykj.domestic.util.ResultData;
@@ -73,10 +74,10 @@ public class ServiceListContrller {
 
     // 修改价格
     @RequestMapping("/updateServicePrice")
-    public String updateServicePrice(HttpServletRequest request) {
-        int unitPrice = Integer.parseInt(request.getParameter("unitPrice"));
-        int id = Integer.parseInt(request.getParameter("id"));
-        ResultData resultData = serviceListService.updateServicePrice(unitPrice,id);
+    public String updateServicePrice(HttpServletRequest request, PriceRelation priceRelation) {
+        Company company = (Company) request.getSession().getAttribute("company");
+        priceRelation.setCompanyId(company.getId());
+        ResultData resultData = serviceListService.updateServicePrice(priceRelation);
         return JSON.toJSONString(resultData);
     }
 
