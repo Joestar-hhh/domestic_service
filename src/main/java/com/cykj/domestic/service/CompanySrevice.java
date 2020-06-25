@@ -38,6 +38,12 @@ public interface CompanySrevice {
     //    根据地区查看平台详情
     ResultData queryRegionCompany(String regionId);
 
+//    家政公司统计
     List<Company> serviceTypeStatistics(String statisticsType, String startDate, String endDate);
+
+//    微信模糊搜索公司或者服务
+    ResultData wxSearchCompany(String search , int page, int limit);
+
+
 
 }

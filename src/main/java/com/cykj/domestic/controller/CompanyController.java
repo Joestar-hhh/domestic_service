@@ -115,4 +115,12 @@ public class CompanyController {
         System.out.println("退出登录了！");
         return "1";
     }
+
+//    微信模糊搜索公司或者服务
+    @RequestMapping(value = "/wxSearchCompany")
+    public String wxSearchCompany(HttpServletResponse response, HttpServletRequest request, String search ,String page, String limit) {
+        ResultData resultData = companySrevice.wxSearchCompany(search,Integer.parseInt(page), Integer.parseInt(limit));
+        return JSON.toJSONString(resultData);
+    }
+
 }
