@@ -16,12 +16,12 @@ public interface CompanyMangeMapper {
     /**
      * 平台端家政公司管理入驻审核列表
      */
-    List<Company> queryCompany(@Param("e")Company company,@Param("start") int start, @Param("pageSize") int pageSize,@Param("address")String address);
+    List<Company> queryCompany(@Param("e")Company company,@Param("start") int start, @Param("pageSize") int pageSize,@Param("region")String region);
 
     /**
     入驻审核列表统计
      */
-    int CompanyCount(@Param("e")Company company,@Param("address")String address);
+    int CompanyCount(@Param("e")Company company,@Param("region")String region);
 
     /**
      * 入驻审核
@@ -31,7 +31,14 @@ public interface CompanyMangeMapper {
     // 根据服务查询公司
     List<Company> queryCompanyByService(@Param("e")Company company,@Param("start") int start, @Param("pageSize") int pageSize,@Param("serviceId")String serviceId);
 
+    // 查询总数
     int countCompanyByService(@Param("e")Company company,@Param("serviceId")String serviceId);
+
+    // 根据服务查询公司
+    List<Company> queryCompanyByServiceType(@Param("e")Company company,@Param("start") int start, @Param("pageSize") int pageSize,@Param("serviceId")String serviceId);
+
+    // 查询总数
+    int countCompanyByServiceType(@Param("e")Company company,@Param("serviceId")String serviceId);
 
     //查询公司已服务单数
     Company queryCompanyOrderNum(int companyId);

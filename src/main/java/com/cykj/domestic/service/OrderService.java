@@ -40,7 +40,8 @@ public interface OrderService {
 //    小程序订单
     ResultData weChatOrderList(int userId,String orderStateName,String id);
 
-
+//  完成订单
+    ResultData finishOrder(OrderInfo orderInfo);
 
 }
 

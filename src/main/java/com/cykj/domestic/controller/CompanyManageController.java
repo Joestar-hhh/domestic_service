@@ -24,8 +24,8 @@ public class CompanyManageController {
      */
     @ResponseBody
     @RequestMapping(value = "/queryCompany")
-    public String queryCompany(HttpServletResponse response, HttpServletRequest request, Company company, String page, String limit,String address) {
-        ResultData resultData = companyManageService.queryCompany(company,Integer.parseInt(page), Integer.parseInt(limit),address);
+    public String queryCompany(HttpServletResponse response, HttpServletRequest request, Company company, String page, String limit,String region) {
+        ResultData resultData = companyManageService.queryCompany(company,Integer.parseInt(page), Integer.parseInt(limit),region);
         return JSON.toJSONString(resultData);
     }
 
@@ -45,6 +45,12 @@ public class CompanyManageController {
         return JSON.toJSONString(resultData);
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/queryCompanyByServiceType")
+    public String queryCompanyByServiceType(Company company, int page, int limit, String serviceId) {
+        ResultData resultData = companyManageService.queryCompanyByServiceType(company,page,limit,serviceId);
+        return JSON.toJSONString(resultData);
+    }
 
     @RequestMapping(value = "/queryCompanyOrderNum")
     public String queryCompanyOrderNum(HttpServletRequest request, HttpServletResponse response,String companyId){

@@ -18,9 +18,9 @@ public class CompanyManageServiceImpl implements CompanyManageService {
     private CompanyMangeMapper companyMangeMapper;
 
     @Override
-    public ResultData queryCompany(Company company,int page, int limit,String address) {
-        List<Company> list=companyMangeMapper.queryCompany(company,(page-1)*limit,limit,address);
-        int count=companyMangeMapper.CompanyCount(company,address);
+    public ResultData queryCompany(Company company,int page, int limit,String region) {
+        List<Company> list=companyMangeMapper.queryCompany(company,(page-1)*limit,limit,region);
+        int count=companyMangeMapper.CompanyCount(company,region);
         List<Company> companyList = new ArrayList<>();
         for(Company c : list){
             if(c.getHead()!=null && !c.getHead().isEmpty()) {
@@ -53,12 +53,40 @@ public class CompanyManageServiceImpl implements CompanyManageService {
     @Override
     public ResultData queryCompanyByService(Company company, int page, int limit, String serviceId) {
         List<Company> list=companyMangeMapper.queryCompanyByService(company,(page-1)*limit,limit,serviceId);
+        List<Company> companyList = new ArrayList<>();
+        for(Company c : list){
+            if(c.getHead()!=null && !c.getHead().isEmpty()) {
+                c.setHead(c.getHead().replaceAll("\\\\","/"));
+            }
+            companyList.add(c);
+        }
+
         int count=companyMangeMapper.countCompanyByService(company,serviceId);
         ResultData resultData = new ResultData();
         resultData.setCode(0);
         resultData.setMsg("");
         resultData.setCount(count);
-        resultData.setData(list);
+        resultData.setData(companyList);
+        return resultData;
+    }
+
+    @Override
+    public ResultData queryCompanyByServiceType(Company company, int page, int limit, String serviceId) {
+        List<Company> list=companyMangeMapper.queryCompanyByServiceType(company,(page-1)*limit,limit,serviceId);
+        List<Company> companyList = new ArrayList<>();
+        for(Company c : list){
+            if(c.getHead()!=null && !c.getHead().isEmpty()) {
+                c.setHead(c.getHead().replaceAll("\\\\","/"));
+            }
+            companyList.add(c);
+        }
+
+        int count=companyMangeMapper.countCompanyByServiceType(company,serviceId);
+        ResultData resultData = new ResultData();
+        resultData.setCode(0);
+        resultData.setMsg("");
+        resultData.setCount(count);
+        resultData.setData(companyList);
         return resultData;
     }
 

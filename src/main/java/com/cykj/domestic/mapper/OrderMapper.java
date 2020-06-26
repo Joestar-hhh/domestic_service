@@ -50,4 +50,7 @@ public interface OrderMapper {
 
 //    小程序订单统计
     List<OrderInfo> WeChatOrderList(@Param("userId") int userId,@Param("orderStateName") String orderStateName,@Param("id")String id);
+
+    // 完成订单
+    int finishOrder(OrderInfo orderInfo);
 }

@@ -7,17 +7,17 @@
     <!--    添加用户发布需求和下订单-->
     <insert id="insertUserOrder" parameterType="com.cykj.domestic.entity.OrderInfo">
           INSERT INTO tb_order_info
-         (order_number,user_id,service_id,frequency,company_id,company_order_state_id,user_order_state_id,title,description,phone,detail_address_id,start_time,end_time,money)
+         (order_number,user_id,service_id,frequency,company_id,company_order_state_id,user_order_state_id,title,description,detail_address_id,start_time,end_time,money)
         VALUES
-        (#{orderNumber},#{userId},#{serviceId},#{frequency},#{companyId},#{companyOrderStateId},#{userOrderStateId},#{title},#{description},#{phone},#{detailAddressId},#{startTime},#{endTime},#{money})
+        (#{orderNumber},#{userId},#{serviceId},#{frequency},#{companyId},#{companyOrderStateId},#{userOrderStateId},#{title},#{description},#{detailAddressId},#{startTime},#{endTime},#{money})
     </insert>
 
     <!--   需 求大厅-->
     <select id="queryUserDemend" parameterType="com.cykj.domestic.entity.OrderInfo"
             resultType="com.cykj.domestic.entity.OrderInfo">
-        SELECT * FROM tb_order_info A LEFT JOIN tb_user_address B ON A.user_id=B.user_id
+        SELECT A.*,B.phone userphone,B.region region FROM tb_order_info A LEFT JOIN tb_user_address B ON A.detail_address_id=B.id
         <where>
-            A.company_id=0 and A.company_order_state_id=1
+           A.company_id=0 and A.company_order_state_id=1 AND A.user_order_state_id=5
             <if test="e.orderNumber!=null and e.orderNumber!=''">and A.order_number LIKE
                 CONCAT('%',#{e.orderNumber},'%')
             </if>
@@ -28,9 +28,9 @@
 
 
     <select id="queryUserDemendCount" parameterType="com.cykj.domestic.entity.OrderInfo" resultType="int">
-        SELECT COUNT(*) FROM tb_order_info A LEFT JOIN tb_user_address B ON A.user_id=B.user_id
+        SELECT COUNT(*) FROM tb_order_info A LEFT JOIN tb_user_address B ON A.detail_address_id=B.id
         <where>
-            A.company_id=0 and A.company_order_state_id=0 and A.detail_address_id=B.id
+            A.company_id=0 and A.company_order_state_id=1 AND A.user_order_state_id=5
             <if test="e.orderNumber!=null and e.orderNumber!=''">and A.order_number LIKE
                 CONCAT('%',#{e.orderNumber},'%')
             </if>
@@ -47,13 +47,12 @@
     <!--    微信小程序用户查询自己发布的需求-->
     <select id="WXUserQueryOrder" resultType="com.cykj.domestic.entity.OrderInfo">
           SELECT o.id id,o.order_number order_number,o.pulish_time pulish_time,o.frequency frequency,o.start_time start_time,o.end_time end_time,o.title title,
-              o.description description,o.phone phone,o.detail_address_id detail_address_id ,o.money money,s.type_name type_name,a.detail_address detail_address
+              o.description description,o.phone phone,o.detail_address_id detail_address_id ,o.money money,s.type_name type_name,a.detail_address detail_address,a.region region,a.phone phone
           FROM tb_order_info o
           LEFT JOIN tb_service s ON o.service_id=s.id
           LEFT JOIN tb_user_address a ON o.detail_address_id=a.id
           where o.company_id=0 and o.company_order_state_id=1 AND o.user_id=#{id}
     </select>
-
 <!--    微信删除发布的需求-->
     <delete id="WXdeleteOrderrequirement" parameterType="com.cykj.domestic.entity.OrderInfo">
              delete from tb_order_info where id=#{id}

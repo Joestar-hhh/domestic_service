@@ -134,14 +134,14 @@
     <!--查询前三的热门服务-->
     <select id="WXServiceTypeTopthree" parameterType="com.cykj.domestic.entity.ServiceType"
             resultType="com.cykj.domestic.entity.ServiceType">
-        SELECT c.company_name company_name,t.type_name type_name,s.type_name service_type_name,COUNT(i.id) count_num FROM tb_order_info i
+        SELECT  c.id id,c.company_name company_name,t.type_name type_name,s.type_name service_type_name,COUNT(i.id) count_num,t.image FROM tb_order_info i
           LEFT JOIN  tb_company c ON c.id=i.company_id
           LEFT JOIN tb_service s ON i.service_id=s.id
           LEFT JOIN tb_service_type t ON t.id=s.service_type_id
-          WHERE i.user_order_state_id=8 GROUP BY c.company_name,t.type_name,s.type_name ORDER BY count_num DESC LIMIT 0,6
-
+          WHERE i.user_order_state_id=8 AND c.state='审核通过'
+          GROUP BY c.id ,c.company_name,t.type_name,s.type_name,t.image
+          ORDER BY count_num DESC LIMIT 0,6
     </select>
-
 
 <!--    公司可以删除为审核的服务类别-->
     <delete id="deleteCompanyRelation" parameterType="java.lang.String">
@@ -176,6 +176,8 @@
     <select id="queryCompanyService" resultMap="serviceTypeMap" parameterType="int">
         select c.id company_id,c.company_name,st.id,st.type_name,s.description, s.id s_id,s.type_name s_name,o.order_num,
         se.level_num,pr.price,pr.unit,pr.deposit from tb_service s
+        select st.id,st.type_name,s.description, s.id s_id,s.type_name s_name,o.order_num,
+        se.level_num,pr.price,pr.unit,pr.deposit,s.icon from tb_service s
         left join tb_service_type st on st.id = s.service_type_id
         left join tb_service_relation sr on sr.service_type_id = st.id
         left join tb_company c on c.id = sr.company_id
@@ -207,6 +209,7 @@
             <result property="deposit" column="deposit"/>
             <result property="companyId" column="company_id"/>
             <result property="companyName" column="company_name"/>
+            <result property="icon" column="icon"/>
         </collection>
     </resultMap>
 
@@ -215,6 +218,8 @@
     <select id="queryCompanyHotService" resultType="com.cykj.domestic.entity.TbService" parameterType="int">
        select c.id company_id,c.company_name,st.id,st.type_name,s.description, s.id s_id,s.type_name s_name,o.order_num,
         se.level_num,pr.price,pr.unit,pr.deposit from tb_service s
+       select st.id,st.type_name,s.description, s.id s_id,s.type_name s_name,o.order_num,
+        se.level_num,pr.price,pr.unit,pr.deposit,s.icon from tb_service s
         left join tb_service_type st on st.id = s.service_type_id
         left join tb_service_relation sr on sr.service_type_id = st.id
         left join tb_company c on c.id = sr.company_id

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -26,7 +27,7 @@ public class CompanyImpl implements CompanySrevice {
         HttpSession session = request.getSession();
         Company company1 = companyMapper.companyLogin(company);
         if (company1 != null) {
-            if(company1.getRoleId()==2){
+            if (company1.getRoleId() == 2) {
                 if (!MD5Util.MakeMd5(company.getPwd()).equals(company1.getPwd())) {
                     resultData.setCode(1);
                     resultData.setMsg("密码错误");
@@ -34,7 +35,7 @@ public class CompanyImpl implements CompanySrevice {
                     session.setAttribute("company", company1);
                     resultData.setCode(0);
                 }
-            }else{
+            } else {
                 resultData.setCode(2);
                 resultData.setMsg("账号不存在");
             }
@@ -53,7 +54,7 @@ public class CompanyImpl implements CompanySrevice {
         HttpSession session = request.getSession();
         Company company1 = companyMapper.companyLogin(company);
         if (company1 != null) {
-            if(company1.getRoleId()==3){
+            if (company1.getRoleId() == 3) {
                 if (!MD5Util.MakeMd5(company.getPwd()).equals(company1.getPwd())) {
                     resultData.setCode(1);
                     resultData.setMsg("密码错误");
@@ -61,7 +62,7 @@ public class CompanyImpl implements CompanySrevice {
                     session.setAttribute("company", company1);
                     resultData.setCode(0);
                 }
-            }else{
+            } else {
                 resultData.setCode(2);
                 resultData.setMsg("账号不存在");
             }
@@ -215,5 +216,25 @@ public class CompanyImpl implements CompanySrevice {
             companyList = companyMapper.dateStatistics(startDate, endDate);
         }
         return companyList;
+    }
+
+//    微信模糊搜索公司或者服务
+    @Override
+    public ResultData wxSearchCompany(String search, int page, int limit) {
+        List<Company> list = companyMapper.wxSearchCompany(search, (page - 1) * limit, limit);
+        int count = companyMapper.wxSearchCompanyCount(search);
+        List<Company> companyList = new ArrayList<>();
+        for(Company c : list){
+            if(c.getHead()!=null && !c.getHead().isEmpty()) {
+                c.setHead(c.getHead().replaceAll("\\\\","/"));
+            }
+            companyList.add(c);
+        }
+        ResultData resultData = new ResultData();
+        resultData.setCode(0);
+        resultData.setMsg("");
+        resultData.setCount(count);
+        resultData.setData(companyList);
+        return resultData;
     }
 }

@@ -58,6 +58,11 @@ public interface CompanyMapper {
     List<Company> dateStatistics(@Param("startDate") String startDate, @Param("endDate") String endDate);
 
 
+//    微信模糊搜索公司或者服务
+    List<Company>wxSearchCompany(@Param("search") String search,@Param("start") int start, @Param("pageSize") int pageSize);
+    int wxSearchCompanyCount(@Param("search") String search);
+
+
 
 
 }

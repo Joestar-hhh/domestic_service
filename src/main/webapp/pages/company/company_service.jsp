@@ -27,41 +27,34 @@
 
 <table class="layui-hide" id="test" lay-filter="test"></table>
 
-<%--<script type="text/html" id="toolbarDemo">--%>
-<%--    &lt;%&ndash;    skill_train&ndash;%&gt;--%>
-<%--    <div class="layui-form-item" id="querydiv">--%>
-<%--        <div class="layui-btn-container">--%>
-<%--            <button class="layui-btn layui-btn-sm" lay-event="inserttypeName">--%>
-<%--                <i class="layui-icon layui-icon-add-circle-fine"></i>申请服务类别--%>
-<%--            </button>--%>
+<%--<form class="layui-form" id="servicePrice" action="" style="display: none">--%>
+
+<%--    <div class="layui-form-item">--%>
+<%--        <label class="layui-form-label">价格：</label>--%>
+<%--        <div class="layui-input-block">--%>
+<%--            <input type="text" name="price" id="price" required lay-verify="required|number" placeholder="请输入价格"--%>
+<%--                   autocomplete="off" class="layui-input">--%>
 <%--        </div>--%>
 <%--    </div>--%>
-<%--</script>--%>
 
+<%--    <div class="layui-form-item">--%>
+<%--        <label class="layui-form-label">服务类别</label>--%>
+<%--        <div class="layui-input-block">--%>
+<%--            <select name="typeName" id="typeName" lay-filter="City_level" lay-verify="required"></select>--%>
+<%--        </div>--%>
+<%--    </div>--%>
+
+<%--    <div class="layui-form-item">--%>
+<%--        <div class="layui-input-block">--%>
+<%--            <button class="layui-btn formbtn" id="insertconfirm" lay-submit lay-filter="insertconfirm">确定</button>--%>
+<%--            <button type="reset" class="layui-btn layui-btn-primary formbtn">重置</button>--%>
+<%--        </div>--%>
+<%--    </div>--%>
+<%--</form>--%>
 
 <%--<script type="text/html" id="barDemo">--%>
-<%--    <a class="layui-btn  layui-btn-xs" lay-event="updaterole">--%>
-<%--        <i class="layui-icon layui-icon-edit"></i>修改</a>--%>
-<%--        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>--%>
+<%--    <a class="layui-btn layui-btn-xs" lay-event="price">设定价格</a>--%>
 <%--</script>--%>
-
-
-<%--//添加dialog--%>
-<form class="layui-form" id="userinfoform" action="" style="display: none">
-    <div class="layui-form-item">
-        <label class="layui-form-label">服务类别</label>
-        <div class="layui-input-block">
-            <select name="typeName" id="typeName" lay-filter="City_level" lay-verify="required"></select>
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <div class="layui-input-block">
-            <button class="layui-btn formbtn" id="insertconfirm" lay-submit lay-filter="insertconfirm">确定</button>
-            <button type="reset" class="layui-btn layui-btn-primary formbtn">重置</button>
-        </div>
-    </div>
-</form>
-
 
 <script>
     layui.use('table', function () {
@@ -79,11 +72,10 @@
                 , {field: 'serviceTypeName', title: '服务类别名'}
                 , {field: 'updateTime', title: '时间'}
                 // , {fixed: 'right', title: '操作', width: 250, toolbar: '#barDemo'}
-                // ,{field:'downloadDiscount', title: '下载文档积分比例'}
             ]]
             , page: {
-                limit: 5,//指定每页显示的条数
-                limits: [5, 10, 15, 20,
+                limit: 10,//指定每页显示的条数
+                limits: [10, 15, 20,
                     25, 30, 35, 40, 45, 50],
             } //每页条数的选择项
 

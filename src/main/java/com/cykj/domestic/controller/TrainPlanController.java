@@ -1,9 +1,8 @@
 package com.cykj.domestic.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.cykj.domestic.entity.Staff;
+import com.cykj.domestic.entity.Company;
 import com.cykj.domestic.entity.TrainPlan;
-import com.cykj.domestic.entity.User;
 import com.cykj.domestic.service.TrainPlanService;
 import com.cykj.domestic.util.ResultData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,4 +66,20 @@ public class TrainPlanController {
         return JSON.toJSONString(map);
     }
 
+    //查询所有未参加培训计划的员工
+    @RequestMapping("/queryStaffTrain")
+    public String queryStaffTrain(HttpServletResponse response,HttpServletRequest request,TrainPlan trainPlan){
+        Company company = (Company) request.getSession().getAttribute("company");
+        trainPlan.setCompanyId(company.getId());
+        ResultData resultData= trainPlanService.queryStaffTrain(trainPlan);
+        return JSON.toJSONString(resultData);
+    }
+
+    //公司为员工报名培训计划
+    @RequestMapping("/insertStaffTrain")
+    public String insertStaffTrain(HttpServletRequest request,HttpServletResponse response,TrainPlan trainPlan){
+       ResultData resultData= trainPlanService.insertStaffTrain(trainPlan);
+        return JSON.toJSONString(resultData);
+//
+    }
 }
