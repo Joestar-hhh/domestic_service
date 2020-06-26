@@ -87,7 +87,7 @@
 
     {{#  if(d.stateComName == '服务中'){ }}
     <a class="layui-btn layui-btn-xs" lay-event="finish">
-        <i class="layui-icon layui-icon-auz"></i> 完成订单</a>
+        <i class="layui-icon layui-icon-auz"></i>完成订单</a>
     {{#  } }}
 
 </script>
@@ -260,6 +260,22 @@
                     form.on('submit(insertconfirm)', function (data) {
                         layer.close(layerupdate);
                         return false;
+                    });
+                });
+            } else if (obj.event === 'finish'){
+                layer.confirm('确定完成这笔订单吗?', function (index) {
+                    alert(">>>>>>>"+JSON.stringify(tabdata));
+                    $.ajax({
+                        type: 'POST',
+                        url: "<%=path%>/orderController/finishOrder",
+                        dataType: 'JSON',
+                        data: tabdata,
+                        success: function (msg) {
+                            layer.close(index);
+                            layer.alert(msg.msg, {icon: 6}, function () {
+                                window.location.reload();//启用成功后刷新界面
+                            });//启用成功提示
+                        }
                     });
                 });
             }
