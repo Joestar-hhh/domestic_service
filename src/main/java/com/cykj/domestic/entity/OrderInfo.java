@@ -40,6 +40,8 @@ public class OrderInfo {
 
   private String detailAddress;//用户详细地址
   private int detailAddressId;//用户地址id
+  private String region;//用户区域
+  private  String userphone;//y用户手机号码
 
   private String oneDay;//统计日期
   private int countNum;//统计数量

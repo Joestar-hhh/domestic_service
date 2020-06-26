@@ -15,7 +15,7 @@
     <!--   需 求大厅-->
     <select id="queryUserDemend" parameterType="com.cykj.domestic.entity.OrderInfo"
             resultType="com.cykj.domestic.entity.OrderInfo">
-        SELECT * FROM tb_order_info A LEFT JOIN tb_user_address B ON A.detail_address_id=B.id
+        SELECT A.*,B.phone userphone,B.region region FROM tb_order_info A LEFT JOIN tb_user_address B ON A.detail_address_id=B.id
         <where>
            A.company_id=0 and A.company_order_state_id=1 AND A.user_order_state_id=5
             <if test="e.orderNumber!=null and e.orderNumber!=''">and A.order_number LIKE
@@ -47,7 +47,7 @@
     <!--    微信小程序用户查询自己发布的需求-->
     <select id="WXUserQueryOrder" resultType="com.cykj.domestic.entity.OrderInfo">
           SELECT o.id id,o.order_number order_number,o.pulish_time pulish_time,o.frequency frequency,o.start_time start_time,o.end_time end_time,o.title title,
-              o.description description,o.phone phone,o.detail_address_id detail_address_id ,o.money money,s.type_name type_name,a.detail_address detail_address
+              o.description description,o.phone phone,o.detail_address_id detail_address_id ,o.money money,s.type_name type_name,a.detail_address detail_address,a.region region,a.phone phone
           FROM tb_order_info o
           LEFT JOIN tb_service s ON o.service_id=s.id
           LEFT JOIN tb_user_address a ON o.detail_address_id=a.id
