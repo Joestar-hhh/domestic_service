@@ -134,4 +134,9 @@
         </where>
     </select>
 
+<!--    完成订单-->
+    <update id="finishOrder" parameterType="com.cykj.domestic.entity.OrderInfo">
+        update tb_order_info set company_order_state_id = '4',user_order_state_id = '8' where order_number = #{orderNumber}
+    </update>
+
 </mapper>

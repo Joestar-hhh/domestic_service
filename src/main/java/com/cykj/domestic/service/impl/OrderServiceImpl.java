@@ -55,23 +55,25 @@ public class OrderServiceImpl implements OrderService {
         resultData.setData(list);
         return resultData;
     }
-//    订单统计
+
+    //    订单统计
     @Override
     public List<OrderInfo> orderStatistics(String startDate, String endDate, String companyName) {
         List<OrderInfo> list = orderMapper.orderStatistics(startDate, endDate, companyName);
         return list;
     }
 
-//    发布需求统计
+    //    发布需求统计
     @Override
     public List<OrderInfo> requireStatistics(String startDate, String endDate) {
-        List<OrderInfo> list = orderMapper.requireStatistics(startDate,endDate);
+        List<OrderInfo> list = orderMapper.requireStatistics(startDate, endDate);
         return list;
     }
-//售后追踪
+
+    //售后追踪
     @Override
-    public ResultData afterSaleList(OrderInfo orderInfo, int page, int limit,String orderNumber) {
-        List<OrderInfo> list = orderMapper.afterSaleList(orderInfo, (page - 1) * limit, limit,orderNumber);
+    public ResultData afterSaleList(OrderInfo orderInfo, int page, int limit, String orderNumber) {
+        List<OrderInfo> list = orderMapper.afterSaleList(orderInfo, (page - 1) * limit, limit, orderNumber);
         int count = orderMapper.afterSaleCount(orderInfo);
         ResultData resultData = new ResultData();
         resultData.setCode(0);
@@ -80,7 +82,8 @@ public class OrderServiceImpl implements OrderService {
         resultData.setData(list);
         return resultData;
     }
-//获取下拉框订单状态
+
+    //获取下拉框订单状态
     @Override
     public ResultData orderStatelist(OrderState orderState) {
         List<OrderState> list = orderMapper.orderStatelist(orderState);
@@ -88,11 +91,12 @@ public class OrderServiceImpl implements OrderService {
         resultData.setData(list);
         return resultData;
     }
-//家政公司订单管理
+
+    //家政公司订单管理
     @Override
-    public ResultData companyOrderList(OrderInfo orderInfo, int page, int limit, String stateComName,String id) {
-        List<OrderInfo> list = orderMapper.companyOrderList(orderInfo, (page - 1) * limit, limit,stateComName,id);
-        int count = orderMapper.companyOrderCount(orderInfo,stateComName,id);
+    public ResultData companyOrderList(OrderInfo orderInfo, int page, int limit, String stateComName, String id) {
+        List<OrderInfo> list = orderMapper.companyOrderList(orderInfo, (page - 1) * limit, limit, stateComName, id);
+        int count = orderMapper.companyOrderCount(orderInfo, stateComName, id);
         ResultData resultData = new ResultData();
         resultData.setCode(0);
         resultData.setMsg("");
@@ -103,12 +107,12 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public ResultData orders(OrderInfo orderInfo) {
-        int result=orderMapper.orders(orderInfo);
-        ResultData resultData=new ResultData();
-        if (result==1){
+        int result = orderMapper.orders(orderInfo);
+        ResultData resultData = new ResultData();
+        if (result == 1) {
             resultData.setCode(0);
             resultData.setMsg("接单成功！");
-        }else {
+        } else {
             resultData.setCode(1);
             resultData.setMsg("接单失败！");
         }
@@ -117,22 +121,36 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderInfo> companyOrderStatistics(String startDate, String endDate) {
-        List<OrderInfo> list = orderMapper.companyOrderStatistics(startDate,endDate);
+        List<OrderInfo> list = orderMapper.companyOrderStatistics(startDate, endDate);
         return list;
     }
 
     @Override
-    public ResultData weChatOrderList(int userId,String orderStateName,String id) {
-        List<OrderInfo>list=orderMapper.WeChatOrderList(userId,orderStateName,id);
+    public ResultData weChatOrderList(int userId, String orderStateName, String id) {
+        List<OrderInfo> list = orderMapper.WeChatOrderList(userId, orderStateName, id);
         ResultData resultData = new ResultData();
         List<OrderInfo> orderList = new ArrayList<>();
-        for(OrderInfo c : list){
-            if(c.getHead()!=null && !c.getHead().isEmpty()) {
-                c.setHead(c.getHead().replaceAll("\\\\","/"));
+        for (OrderInfo c : list) {
+            if (c.getHead() != null && !c.getHead().isEmpty()) {
+                c.setHead(c.getHead().replaceAll("\\\\", "/"));
             }
             orderList.add(c);
         }
         resultData.setData(orderList);
+        return resultData;
+    }
+
+    @Override
+    public ResultData finishOrder(OrderInfo orderInfo) {
+        int res = orderMapper.finishOrder(orderInfo);
+        ResultData resultData = new ResultData();
+        if (res == 1) {
+            resultData.setCode(0);
+            resultData.setMsg("订单已完成！");
+        } else {
+            resultData.setCode(1);
+            resultData.setMsg("操作失败！");
+        }
         return resultData;
     }
 
