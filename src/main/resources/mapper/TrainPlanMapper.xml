@@ -7,7 +7,7 @@
     <select id="queryTrainPlanList" parameterType="com.cykj.domestic.entity.TrainPlan"
             resultType="com.cykj.domestic.entity.TrainPlan">
         SELECT * FROM tb_train_plan
-        ORDER BY id limit #{start},#{pageSize}
+        ORDER BY id DESC limit #{start},#{pageSize}
     </select>
 
     <select id="queryTrainPlanCount" parameterType="com.cykj.domestic.entity.TrainPlan" resultType="int">
@@ -39,5 +39,25 @@
 			where c.start_time between date_format(#{startDate},'%Y%m%d')
        and date_format(#{endDate},'%Y%m%d') group by one_day order by one_day asc;
     </select>
+
+
+    <!--    查询所有未参加培训计划的员工-->
+    <select id="queryStaffTrain" parameterType="com.cykj.domestic.entity.TrainPlan" resultType="com.cykj.domestic.entity.Staff">
+       select s.id id, s.user_name user_name from tb_staff s
+				left join (select s.* from tb_staff s
+									left join tb_train_staff_relation tsr on tsr.staff_id = s.id
+									left join tb_train_plan tp on tp.id = tsr.train_plan_id
+									where tsr.train_plan_id = #{id}) t on s.id = t.id where s.company_id =#{companyId} and t.id is null
+    </select>
+
+<!--     查询所有参加培训计划报名多少员工-->
+    <select id="queryStaffTrainCount" parameterType="com.cykj.domestic.entity.TrainPlan" resultType="int">
+        select COUNT(train_plan_id) from tb_train_staff_relation where train_plan_id =#{id}
+    </select>
+<!--  公司为员工报名培训计划-->
+    <insert id="insertStaffTrain" parameterType="com.cykj.domestic.entity.TrainPlan">
+         INSERT INTO tb_train_staff_relation(train_plan_id,staff_id)VALUES(#{id},#{staffId})
+    </insert>
+
 
 </mapper>

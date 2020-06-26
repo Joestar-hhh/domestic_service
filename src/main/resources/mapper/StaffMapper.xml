@@ -135,4 +135,12 @@
     <delete id="deleteStaff">
         delete from tb_staff where id = #{staffId}
     </delete>
+
+
+
+
+
+
+
+
 </mapper>
