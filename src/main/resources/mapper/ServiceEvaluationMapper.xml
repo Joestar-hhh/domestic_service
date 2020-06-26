@@ -50,4 +50,14 @@
         insert into tb_staff_evaluation(order_id,evaluation_content,evaluation_level) values (#{orderId},#{evaluationContent},#{staffLevel})
     </insert>
 
+<!--    查看公司所有评价-->
+    <select id="queryCompanyEvaluation" resultType="com.cykj.domestic.entity.ServiceEvaluation">
+    select se.*,u.name user_name ,u.avatar,s.type_name from tb_service_evaluation se
+        left join tb_user u on u.id=se.user_id
+        left join tb_service s on s.id=se.service_id
+    where company_id=#{companyId}
+
+    </select>
+
+
 </mapper>

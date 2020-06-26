@@ -59,17 +59,15 @@ public class ServiceEvaluationImpl implements ServiceEvaluationService {
         return resultData;
     }
 
-//    @Override
-//    public ResultData insertStaffEvaluation(StaffEvaluation staffEvaluation) {
-//        int res=serviceEvaluationMapper.insertStaffEvaluation(staffEvaluation);
-//        ResultData resultData=new ResultData();
-//        if(res==1){
-//            resultData.setCode(0);
-//            resultData.setMsg("添加服务人员评价成功");
-//        } else {
-//            resultData.setCode(1);
-//            resultData.setMsg("添加服务人员评价失败");
-//        }
-//        return resultData;
-//    }
+    @Override
+    public ResultData queryCompanyEvaluation(String companyId) {
+        List<ServiceEvaluation> list=serviceEvaluationMapper.queryCompanyEvaluation(companyId);
+        ResultData resultData = new ResultData();
+        resultData.setCode(0);
+        resultData.setMsg("");
+        resultData.setData(list);
+        return resultData;
+    }
+
+
 }
