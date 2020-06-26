@@ -24,4 +24,7 @@ public interface ServiceEvaluationMapper {
      int insertComEvaluation(ServiceEvaluation serviceEvaluation);
     //    用户添加评价（服务人员）
     int insertStaffEvaluation(StaffEvaluation staffEvaluation);
+
+//    查看公司所有评价
+    List<ServiceEvaluation>queryCompanyEvaluation(@Param("companyId")String companyId);
 }

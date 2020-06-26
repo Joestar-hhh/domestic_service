@@ -10,9 +10,9 @@ public interface ServiceEvaluationService {
 
     ResultData updateContent(String content,String contentTime,int id);
 
-//    用户添加评价（家政公司）
+//    用户添加评价
     ResultData insertEvaluation(ServiceEvaluation serviceEvaluation,StaffEvaluation staffEvaluation);
-//    用户添加评价（服务人员）
-//    ResultData insertStaffEvaluation(StaffEvaluation staffEvaluation);
+//    查看公司所有评价
+    ResultData queryCompanyEvaluation(String companyId);
 
 }

@@ -41,4 +41,11 @@ public class ServiceEvaluationController {
            ResultData resultData= serviceEvaluationService.insertEvaluation(serviceEvaluation,staffEvaluation);
            return  JSON.toJSONString(resultData);
     }
+
+    @RequestMapping("/queryCompanyEvaluation")
+    public String queryCompanyEvaluation(HttpServletRequest request){
+        String companyId=request.getParameter("companyId");
+        ResultData resultData=serviceEvaluationService.queryCompanyEvaluation(companyId);
+        return JSON.toJSONString(resultData);
+    }
 }

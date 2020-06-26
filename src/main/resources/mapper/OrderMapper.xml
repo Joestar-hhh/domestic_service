@@ -100,8 +100,9 @@
 
     <select id="companyOrderCount"  parameterType="com.cykj.domestic.entity.OrderInfo" resultType="int">
         select count(oi.id) from tb_order_info oi left join tb_order_state os
-        on oi.company_order_state_id=os.id where  oi.company_id =#{id}
+        on oi.company_order_state_id=os.id
         <where>
+            oi.company_id =#{id}
             <if test="stateComName!=null and stateComName!=''"> and os.order_state_name=#{stateComName}</if>
         </where>
     </select>

@@ -19,4 +19,8 @@ public class ServiceEvaluation {
     private String orderId;
     private String serviceId;
 
+    private String avatar;
+    private String userName;
+    private String typeName;
+
 }
