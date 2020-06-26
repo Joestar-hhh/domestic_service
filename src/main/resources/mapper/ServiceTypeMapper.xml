@@ -177,7 +177,7 @@
     <!--   查询公司服务类型-->
     <select id="queryCompanyService" resultMap="serviceTypeMap" parameterType="int">
         select st.id,st.type_name,s.description, s.id s_id,s.type_name s_name,o.order_num,
-        se.level_num,pr.price,pr.unit,pr.deposit from tb_service s
+        se.level_num,pr.price,pr.unit,pr.deposit,s.icon from tb_service s
         left join tb_service_type st on st.id = s.service_type_id
         left join tb_service_relation sr on sr.service_type_id = st.id
         left join tb_company c on c.id = sr.company_id
@@ -207,6 +207,7 @@
             <result property="price" column="price"/>
             <result property="unit" column="unit"/>
             <result property="deposit" column="deposit"/>
+            <result property="icon" column="icon"/>
         </collection>
     </resultMap>
 
@@ -214,7 +215,7 @@
     <!--   查询公司前3热门服务-->
     <select id="queryCompanyHotService" resultType="com.cykj.domestic.entity.TbService" parameterType="int">
        select st.id,st.type_name,s.description, s.id s_id,s.type_name s_name,o.order_num,
-        se.level_num,pr.price,pr.unit,pr.deposit from tb_service s
+        se.level_num,pr.price,pr.unit,pr.deposit,s.icon from tb_service s
         left join tb_service_type st on st.id = s.service_type_id
         left join tb_service_relation sr on sr.service_type_id = st.id
         left join tb_company c on c.id = sr.company_id
