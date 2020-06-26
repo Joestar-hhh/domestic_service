@@ -63,17 +63,12 @@
                 , {field: 'pulishTime', title: '订单时间'}
                 , {field: 'title', title: '标题'}
                 , {field: 'description', title: '要求描述'}
-                , {field: 'phone', title: '电话'}
-                , {field: 'frequency', title: '服务频次'}
                 , {field: 'money', title: '佣金'}
                 , {fixed: 'right', title: '操作', width: 250, toolbar: '#barDemo'}
-                // ,{field:'downloadDiscount', title: '下载文档积分比例'}
             ]]
-            , page: {
-                limit: 5,//指定每页显示的条数
-                limits: [5, 10, 15, 20,
-                    25, 30, 35, 40, 45, 50],
-            } //每页条数的选择项
+            ,page: {limit: 5,//指定每页显示的条数
+                limits: [10, 15, 20,
+                    25, 30, 35, 40, 45, 50],} //每页条数的选择项
         });
 
 
@@ -101,9 +96,7 @@
                     $('#orderNumber').val(orderNumber);
                     $('#title').val(title);
                     break;
-
-            }
-            ;
+            };
         });
 
         //监听行工具事件

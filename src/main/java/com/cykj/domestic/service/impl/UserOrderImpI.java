@@ -1,5 +1,6 @@
 package com.cykj.domestic.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.cykj.domestic.entity.OrderInfo;
 import com.cykj.domestic.mapper.UserOrderMapper;
 import com.cykj.domestic.service.UserOrderService;
@@ -59,6 +60,9 @@ public class UserOrderImpI implements UserOrderService {
     //    公司接单
     @Override
     public ResultData updateUserDemend(OrderInfo orderInfo) {
+        orderInfo.setCompanyOrderStateId(2);
+        orderInfo.setUserOrderStateId(6);
+        System.out.println(JSON.toJSONString(orderInfo));
         int res = userOrderMapper.updateUserDemend(orderInfo);
         ResultData resultData = new ResultData();
         if (res == 1) {

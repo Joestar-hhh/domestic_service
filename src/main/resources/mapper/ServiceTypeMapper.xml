@@ -141,7 +141,6 @@
           WHERE i.user_order_state_id=8 AND c.state='审核通过'
           GROUP BY c.id ,c.company_name,t.type_name,s.type_name,t.image
           ORDER BY count_num DESC LIMIT 0,6
-
     </select>
 
 
