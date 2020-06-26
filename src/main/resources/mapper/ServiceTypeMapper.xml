@@ -134,12 +134,12 @@
     <!--查询前三的热门服务-->
     <select id="WXServiceTypeTopthree" parameterType="com.cykj.domestic.entity.ServiceType"
             resultType="com.cykj.domestic.entity.ServiceType">
-        SELECT  c.id id,c.company_name company_name,t.type_name type_name,s.type_name service_type_name,COUNT(i.id) count_num FROM tb_order_info i
+        SELECT  c.id id,c.company_name company_name,t.type_name type_name,s.type_name service_type_name,COUNT(i.id) count_num,t.image FROM tb_order_info i
           LEFT JOIN  tb_company c ON c.id=i.company_id
           LEFT JOIN tb_service s ON i.service_id=s.id
           LEFT JOIN tb_service_type t ON t.id=s.service_type_id
           WHERE i.user_order_state_id=8 AND c.state='审核通过'
-          GROUP BY c.id ,c.company_name,t.type_name,s.type_name
+          GROUP BY c.id ,c.company_name,t.type_name,s.type_name,t.image
           ORDER BY count_num DESC LIMIT 0,6
 
     </select>
