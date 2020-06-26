@@ -264,7 +264,7 @@
                 });
             } else if (obj.event === 'finish'){
                 layer.confirm('确定完成这笔订单吗?', function (index) {
-                    alert(">>>>>>>"+JSON.stringify(tabdata));
+
                     $.ajax({
                         type: 'POST',
                         url: "<%=path%>/orderController/finishOrder",
