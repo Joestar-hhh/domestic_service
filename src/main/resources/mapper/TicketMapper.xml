@@ -30,7 +30,7 @@
     </select>
 <!--//通过状态-->
     <select id="selectListWx3" resultType="com.cykj.domestic.entity.Ticket" parameterType="com.cykj.domestic.entity.Ticket">
-       SELECT t.id,t.ticket_name,t.preferential_num,t.start_time,t.end_time,t.details,tr.state from tb_ticket t
+       SELECT t.id,t.ticket_name,t.preferential_num,t.start_time,t.end_time,t.details,tr.state,t.conditions_num from tb_ticket t
        LEFT JOIN tb_ticket_relation tr on tr.ticket_id=t.id
         <where>
              and tr.user_id=#{userid}

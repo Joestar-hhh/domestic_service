@@ -59,4 +59,21 @@
              delete from tb_order_info where id=#{id}
     </delete>
 
+
+    <!--    微信-用户下订单-->
+    <insert id="insertUserOrderInfo" keyProperty="id" useGeneratedKeys="true" parameterType="com.cykj.domestic.entity.OrderInfo">
+          INSERT INTO tb_order_info
+         (order_number,user_id,pulish_time,service_id,company_id,company_order_state_id,
+         user_order_state_id,description,phone,detail_address_id,start_time,end_time,money)
+        VALUES
+        (#{orderNumber},#{userId},#{pulishTime},#{serviceId},#{companyId},#{companyOrderStateId},
+        #{userOrderStateId},#{description},#{phone},#{detailAddressId},#{startTime},#{endTime},#{money})
+    </insert>
+
+
+<!--    微信-支付成功 修改支付状态-->
+    <update id="updateOrderState">
+        update tb_order_info set company_order_state_id = #{companyOrderState},user_order_state_id = #{userOrderState}
+        where order_number = #{orderNum}
+    </update>
 </mapper>

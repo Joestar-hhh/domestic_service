@@ -3,6 +3,7 @@ package com.cykj.domestic.service.impl;
 import com.cykj.domestic.entity.OrderInfo;
 import com.cykj.domestic.mapper.UserOrderMapper;
 import com.cykj.domestic.service.UserOrderService;
+import com.cykj.domestic.util.AgeUtil;
 import com.cykj.domestic.util.ResultData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -94,6 +95,25 @@ public class UserOrderImpI implements UserOrderService {
             resultData.setMsg("删除失败");
         }
         return resultData;
+    }
+
+    @Override
+    public OrderInfo insertUserOrderInfo(OrderInfo orderInfo) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String newDate = sdf.format(new Date());
+        orderInfo.setPulishTime(newDate);
+        orderInfo.setCompanyOrderStateId(1);
+        orderInfo.setOrderNumber(AgeUtil.getOrderNum());
+        int res = userOrderMapper.insertUserOrderInfo(orderInfo);
+        return orderInfo;
+    }
+
+    @Override
+    public int updateOrderState(String orderNum) {
+        String updateOrderState = "2";
+        String userOrderState = "7";
+        int res = userOrderMapper.updateOrderState(updateOrderState,userOrderState,orderNum);
+        return res;
     }
 
 

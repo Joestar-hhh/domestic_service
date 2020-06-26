@@ -34,6 +34,7 @@ public class TbService {
   private String price;//单价
   private String unit;//单位
   private String deposit;//定金
+  private String companyName;
 
   public TbService(){
     if(this.levelNum==null){

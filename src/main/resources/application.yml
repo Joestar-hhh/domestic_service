@@ -1,5 +1,10 @@
 server:
   port: 8080
+  max-http-header-size: 10240000
+  tomcat:
+    max-http-header-size: 10240000
+    max-http-post-size: 10240000
+
 
 spring:
   datasource:

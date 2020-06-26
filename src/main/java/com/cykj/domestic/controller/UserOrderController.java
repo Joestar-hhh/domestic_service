@@ -67,4 +67,24 @@ public class UserOrderController {
         ResultData resultData=userOrderService.WXdeleteOrderrequirement(orderInfo);
         return JSON.toJSONString(resultData);
     }
+
+
+    //微信小程序用户下单
+    @RequestMapping("/insertUserOrderInfo")
+    public String insertUserOrderInfo(HttpServletRequest request,HttpServletResponse response,String orderObj){
+        OrderInfo orderInfo = JSON.parseObject(orderObj,OrderInfo.class);
+        orderInfo = userOrderService.insertUserOrderInfo(orderInfo);
+        return JSON.toJSONString(orderInfo);
+    }
+
+
+    //微信--支付成功
+    @RequestMapping("/updateOrderState")
+    public String updateOrderState(HttpServletRequest request,HttpServletResponse response,String orderNum){
+//        OrderInfo orderInfo = JSON.parseObject(orderObj,OrderInfo.class);
+        int res = userOrderService.updateOrderState(orderNum);
+        return String.valueOf(res);
+    }
+
+
 }
