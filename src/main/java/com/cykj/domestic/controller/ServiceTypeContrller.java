@@ -111,7 +111,7 @@ public class ServiceTypeContrller {
     @RequestMapping("/addServiceContinuous")
     public String addServiceContinuous(HttpServletResponse response, HttpServletRequest request, ServiceType serviceType, Company company1, String typridList, HttpSession session) {
         Company company = (Company) session.getAttribute("company");
-        ResultData resultData = serviceTypeService.addServiceContinuous(typridList, String.valueOf(company.getId()), company1);
+        ResultData resultData = serviceTypeService.addServiceContinuous(typridList, company, company1);
         return JSON.toJSONString(resultData);
     }
 

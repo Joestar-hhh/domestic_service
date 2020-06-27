@@ -37,9 +37,7 @@
 
     <div class="layui-form-item">
         <div class="layui-upload" id="uploadHead">
-
                 <label class="layui-form-label"><img class="layui-upload-img" id="demo1" style="width: 90px;height: 90px"></label>
-
                     <button type="button" class="layui-btn" id="test1" style="width: 150px;height: 40px">上传公司头像</button>
                 </div>
             </div>
@@ -93,7 +91,6 @@
         var element = layui.element;
         var $ = layui.jquery;
         from.render();
-
         //获取地区
         $.ajax({
             url: '<%=path%>/companyController/queryregionList',

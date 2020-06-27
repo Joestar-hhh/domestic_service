@@ -29,8 +29,8 @@
 
     <!--家政公司注册-->
     <insert id="insertCompany" parameterType="com.cykj.domestic.entity.Company">
-        INSERT INTO tb_company(account,pwd,company_name,boss,phone,state,role_id)
-        VALUES(#{account},#{pwd},#{companyName},#{boss},#{phone},'未审核','2')
+        INSERT INTO tb_company(account,pwd,company_name,boss,phone,role_id)
+        VALUES(#{account},#{pwd},#{companyName},#{boss},#{phone},'2')
     </insert>
 
     <!--    平台端区域列表-->
@@ -88,7 +88,7 @@
 
     <!--    公司申请添加地区和口号-->
     <update id="insertregionId" parameterType="java.lang.String">
-        update tb_company set region_id=#{regionId},company_profile=#{companyProfile},address=#{address} ,head=#{head} where id=#{id}
+        update tb_company set region_id=#{regionId},company_profile=#{companyProfile},address=#{address} ,head=#{head}, state="未审核" where id=#{id}
     </update>
 
     <!--    按日期统计-->
@@ -123,17 +123,17 @@
     </select>
 
     <select id="wxSearchCompanyCount" resultType="int">
-    SELECT  count(distinct c.id) from tb_company c
-	left join tb_service_relation sr on sr.company_id = c.id
-	left join tb_service_type st on st.id = sr.service_type_id
-	left join tb_service s on s.service_type_id = st.id
-	left join (select c.id cid,GROUP_CONCAT(st.type_name separator'、') type_name from tb_company c
+        SELECT count(distinct c.id) from tb_company c
+        left join tb_service_relation sr on sr.company_id = c.id
+        left join tb_service_type st on st.id = sr.service_type_id
+        left join tb_service s on s.service_type_id = st.id
+        left join (select c.id cid,GROUP_CONCAT(st.type_name separator'、') type_name from tb_company c
         left join tb_service_relation sr on c.id = sr.company_id
         left join tb_service_type st on sr.service_type_id = st.id
-		group by c.id) t on t.cid = c.id
-	left join (select c.id,count(c.id) count_num from tb_order_info o
-		left join tb_company c on c.id = o.company_id
-		where o.company_order_state_id = 4   group by c.id) onum on onum.id = c.id
+        group by c.id) t on t.cid = c.id
+        left join (select c.id,count(c.id) count_num from tb_order_info o
+        left join tb_company c on c.id = o.company_id
+        where o.company_order_state_id = 4 group by c.id) onum on onum.id = c.id
         <where>
             and c.company_name is not null and c.state='审核通过'
             <if test="search!=null and search!=''">
