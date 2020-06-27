@@ -137,7 +137,7 @@
                     title: '',
                     width: 300,
                     field: 'picturePath',
-                    templet: '<div><img style="height:200px;width:200px;" src="{{d.picturePath}}"></div>'
+                    templet: '<div><img style="height:200px;width:200px;" src=<%=path%>"{{d.picturePath}}"></div>'
                 }
                 // , {title: '认证证书', field: 'qualification', emplet: '<div>{{d.qualification.qualificationName}}</div>'}
                 , {field: 'trainProjectName', title: '培训项目名'}

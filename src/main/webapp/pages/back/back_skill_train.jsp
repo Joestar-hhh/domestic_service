@@ -79,7 +79,6 @@
             , defaultToolbar: []//自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
             , title: '技能培训表'
             , cols: [[
-
                 {field: 'id', title: '序号', align: 'center'}
                 , {field: 'trainProjectName', title: '培训项目名'}
                 , {field: 'time', title: '培训时长'}
@@ -87,8 +86,8 @@
                 , {fixed: 'right', title: '操作', width: '350', toolbar: '#barDemo'}
             ]]
             , page: {
-                limit: 5,//指定每页显示的条数
-                limits: [5, 10, 15, 20,
+                limit: 10,//指定每页显示的条数
+                limits: [ 10, 15, 20,
                     25, 30, 35, 40, 45, 50],
             } //每页条数的选择项
 
@@ -113,6 +112,7 @@
                                 // $('#userinfoform').css("display","none");
                                 $('#trainProjectName').val("");
                                 $("#time").val("");
+                                $("#picturePath").val("");
                                 layer.close(index);
                             }
                             return false;
@@ -160,7 +160,7 @@
                     var layerinsert = layer.open({
                         type: 1
                         , title: '添加技能培训项目'
-                        , area: ['500px', '400px']
+                        , area: ['600px', '500px']
                         , shade: [0.8, '#314949'] //遮罩
                         , resize: false //不可拉伸
                         , content: $('#update_div') //内容
@@ -169,12 +169,63 @@
                             if (confirm('确定要关闭么')) { //只有当点击confirm框的确定时，该层才会关闭
                                 // $('#userinfoform').css("display","none");
                                 $('#trainProjectName').val("");
-                                $("#time").val("");
+                                $("#demoText").val("");
                                 layer.close(index);
                             }
                             return false;
                         }
                         //如果设定了yes回调，需进行手工关闭
+                    });
+                    layui.use('upload', function () {
+                        var $ = layui.jquery
+                            , upload = layui.upload;
+                        upload.render({
+                            elem: '#test1'
+                            , url: '<%=path%>/skillTrainController/fileUpload' //改成您自己的上传接口
+                            , size: 1024 //限制文件大小，单位 KB
+                            , before: function (obj) {
+                                //预读本地文件示例，不支持ie8
+                                obj.preview(function (index, file, result) {
+                                    $('#demo1').attr('src', result); //图片链接（base64）
+                                });
+                            }
+                            , done: function (res) {
+                                //如果上传失败
+                                if (res.code > 0) {
+                                    return layer.msg('上传失败');
+                                };
+                                //上传成功
+                                $("#picturePath").val(res.msg);
+                                //添加技能培训项目数据
+                                layui.use('form', function () {
+                                    var form = layui.form;
+                                    form.render();
+                                    $("#Item_Number").hide();
+                                    form.on('submit(updataskillTrain)', function (data) {
+                                        $.ajax({
+                                            type: 'POST',
+                                            url: '<%=path%>/skillTrainController/insertSkillTrain',
+                                            dataType: 'JSON',
+                                            data: data.field,
+                                            success: function (msg) {
+                                                layer.alert(msg.msg,function () {
+                                                    window.location.reload();//修改成功后刷新父界面
+                                                });
+                                            }
+                                        })
+                                        return false;
+                                    });
+                                });
+                            }
+                            , error: function () {
+                                //演示失败状态，并实现重传
+                                var demoText = $('#demoText');
+                                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                                demoText.find('.demo-reload').on('click', function () {
+                                    uploadInst.upload();
+                                });
+                            }
+                        });
                     });
                     break;
             }
@@ -237,7 +288,7 @@
                 var updatediv = layer.open({
                     type: 1,
                     title: '修改技能培训项目',
-                    area: ['540px', '400px'],
+                    area: ['600px', '500px'],
                     // shade: [0.8, '#314949'],//遮罩
                     resize: false,//不可拉伸
                     shadeClose: false, //点击遮罩关闭
@@ -268,69 +319,22 @@
                                 layer.close(updatediv);
                                 $('#trainProjectName').val("");
                                 $("#time").val("");
-                                window.parent.location.reload();//修改成功后刷新父界面
+                                window.location.reload();//修改成功后刷新父界面
                             }
                         })
                         return false;
                     });
                 });
-            } else if (obj.event === 'file') {
-
             }
         });
 
-        //添加技能培训项目数据
-        layui.use('form', function () {
-            var form = layui.form;
-            form.render();
-            $("#Item_Number").hide();
-            form.on('submit(updataskillTrain)', function (data) {
-                $.ajax({
-                    type: 'POST',
-                    url: '<%=path%>/skillTrainController/insertSkillTrain',
-                    dataType: 'JSON',
-                    data: data.field,
-                    success: function (msg) {
-                        layer.alert(msg.msg);
-                        $('#trainProjectName').val("");
-                        $("#time").val("");
-                        layer.close(layerupdate);
-                        window.location.reload();//修改成功后刷新父界面
-                    }
-                })
-                return false;
-            });
-        });
+
 
     });
 </script>
 
 <script>
-    layui.use('upload', function () {
 
-        var $ = layui.jquery
-            , upload = layui.upload;
-
-        //选完文件后不自动上传
-        upload.render({
-            elem: '#test8'
-            , url: '<%=path%>/skillTrainController/fileUpload' //改成您自己的上传接口
-            , auto: false
-            , accept: 'file'
-            , size: 102400 //限制文件大小，单位 KB
-            //,multiple: true
-            , bindAction: '#test9'
-            , done: function (res) {
-                if (res.code == 0) {
-                    $("#picturePath").val(res.msg);
-                    // alert(res.msg)
-                } else {
-                    layer.msg(res.msg)
-                }
-                console.log(res)
-            }
-        });
-    });
 </script>
 
 <%--技能培训界面--%>
@@ -345,6 +349,13 @@
             </div>
         </div>
         <div class="layui-form-item">
+            <label class="layui-form-label">认证证书：</label>
+            <div class="layui-input-block">
+                <select name="qualificationId" id="qualificationId" lay-verify="required">
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
             <label class="layui-form-label">培训时长：</label>
             <div class="layui-input-block">
                 <select name="time" id="time" lay-verify="required">
@@ -355,28 +366,25 @@
                 </select>
             </div>
         </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">认证证书：</label>
-            <div class="layui-input-block">
-                <select name="qualificationId" id="qualificationId" lay-verify="required">
-                </select>
-            </div>
-        </div>
 
-        <div class="layui-form-item">
-            <label class="layui-form-label">图片路径：</label>
-            <div class="layui-input-block">
-                <input type="text" name="picturePath" id="picturePath" required lay-verify="required"
-                       placeholder="图片路径"
-                       autocomplete="off" class="layui-input" disabled="disabled">
-            </div>
+
+<%--        style="display:none"--%>
+
+        <div class="layui-form-item" >
+            <label class="layui-form-label">图片展示：</label>
+            <label class="layui-form-label"><img class="layui-upload-img" id="demo1" style="width: 90px;height: 90px"></label>
         </div>
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <button type="button" class="layui-btn " id="test8" lay-type="file" lay-event="file">选择图片</button>
-                <button type="button" class="layui-btn formbtn" id="test9" lay-submit="add_submits"
+                <button type="button" class="layui-btn" id="test1" style="width: 150px;height: 40px">上传图片</button>
+                <button type="button" class="layui-btn formbtn" lay-submit="add_submits"
                         lay-filter="updataskillTrain">确定
                 </button>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <input type="hidden" id="picturePath" name="picturePath" value="" lay-verify="required" lay-reqtext="请上传图片">
             </div>
         </div>
     </form>

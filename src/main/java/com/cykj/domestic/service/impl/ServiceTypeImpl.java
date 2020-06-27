@@ -11,7 +11,6 @@ import com.cykj.domestic.util.ResultData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -105,10 +104,10 @@ public class ServiceTypeImpl implements ServiceTypeService {
         ResultData resultData = new ResultData();
         if (res >= 1) {
             resultData.setCode(0);
-            resultData.setMsg("添加成功");
+            resultData.setMsg("正在申请");
         } else {
             resultData.setCode(1);
-            resultData.setMsg("添加失败");
+            resultData.setMsg("申请失败，重新申请");
         }
         return resultData;
     }

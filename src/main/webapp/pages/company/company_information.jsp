@@ -37,9 +37,9 @@
 
     <div class="layui-form-item">
         <div class="layui-upload" id="uploadHead">
-<%--            <div class="layui-upload-list">--%>
+
                 <label class="layui-form-label"><img class="layui-upload-img" id="demo1" style="width: 90px;height: 90px"></label>
-<%--                <div class="layui-input-block">--%>
+
                     <button type="button" class="layui-btn" id="test1" style="width: 150px;height: 40px">上传公司头像</button>
                 </div>
             </div>
@@ -191,7 +191,6 @@
                     layer.msg(msg.msg);
                 }
             })
-            // alert(typridList==》选择类别id);
         })
     });
 </script>
