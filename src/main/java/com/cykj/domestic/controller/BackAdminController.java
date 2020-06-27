@@ -27,8 +27,11 @@ public class BackAdminController {
         return JSON.toJSONString(resultData);
     }
 
-
-
-
-
+    // 管理端退出登录
+    @RequestMapping("/quit")
+    public String remove(HttpServletRequest request) {
+        request.getSession().invalidate();
+        System.out.println("退出登录了！");
+        return "1";
+    }
 }

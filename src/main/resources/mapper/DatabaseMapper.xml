@@ -10,20 +10,24 @@
     </insert>
 
     <select id="selectList" resultType="com.cykj.domestic.entity.Database" parameterType="com.cykj.domestic.entity.Database">
-        select m.id,c.boss,c.account,c.company_name,m.material_name,count(m.id) num from tb_company c
+        SELECT DISTINCT m.id,m.material_name,b.num FROM tb_material m
+		left join tb_material_relation mr on m.id = mr.material_id
+		left join (select m.id, m.material_name,count(m.id) num from tb_company c
         left join tb_material_relation mr on mr.company_id = c.id
         left join tb_material m on m.id = mr.material_id
-        where c.id =#{userid} and mr.data_type=0
-        group by m.id
+        where c.id =#{userid} and mr.data_type=0 group by m.id) b on b.id = m.id
+		where mr.data_type=0
         limit #{start},#{pageSize}
     </select>
 
     <select id="selectListCount" resultType="int" parameterType="com.cykj.domestic.entity.Database">
-       select count(A.id) from (select m.id,c.boss,c.account,c.company_name,m.material_name,count(m.id) num from tb_company c
+       select count(A.id) from (SELECT DISTINCT m.id,m.material_name,b.num FROM tb_material m
+		left join tb_material_relation mr on m.id = mr.material_id
+		left join (select m.id, m.material_name,count(m.id) num from tb_company c
         left join tb_material_relation mr on mr.company_id = c.id
         left join tb_material m on m.id = mr.material_id
-        where c.id =#{userid} and mr.data_type=0
-        group by m.id)A
+        where c.id = 1 and mr.data_type=0 group by m.id) b on b.id = m.id
+		where mr.data_type=0)A
     </select>
 
 
@@ -36,20 +40,23 @@
 
 <!--    //人员资料-->
     <select id="selectStaffList" resultType="com.cykj.domestic.entity.Database" parameterType="com.cykj.domestic.entity.Database">
-        select m.id,c.boss,c.account,c.company_name,m.material_name,count(m.id) num from tb_company c
+       SELECT DISTINCT m.id,m.material_name,b.num FROM tb_material m
+		left join tb_material_relation mr on m.id = mr.material_id
+		left join (select m.id, m.material_name,count(m.id) num from tb_company c
         left join tb_material_relation mr on mr.company_id = c.id
         left join tb_material m on m.id = mr.material_id
-        where c.id =#{userid} and mr.data_type=1
-        group by m.id
+        where c.id =#{userid} and mr.data_type=1 group by m.id) b on b.id = m.id
+				where mr.data_type=1
         limit #{start},#{pageSize}
     </select>
-
     <select id="selectStaffListCount" resultType="int" parameterType="com.cykj.domestic.entity.Database">
-       select count(A.id) from (select m.id,c.boss,c.account,c.company_name,m.material_name,count(m.id) num from tb_company c
+       select count(A.id) from (SELECT DISTINCT m.id,m.material_name,b.num FROM tb_material m
+		left join tb_material_relation mr on m.id = mr.material_id
+		left join (select m.id, m.material_name,count(m.id) num from tb_company c
         left join tb_material_relation mr on mr.company_id = c.id
         left join tb_material m on m.id = mr.material_id
-        where c.id =#{userid} and mr.data_type=1
-        group by m.id)A
+        where c.id =#{userid} and mr.data_type=1 group by m.id) b on b.id = m.id
+		where mr.data_type=1)A
     </select>
 
 <!--//员工资料添加-->

@@ -50,7 +50,7 @@
         }
 
         body {
-            background-color: #00feff;
+            background-color: rgb(241, 248, 255);
         }
     </style>
 </head>

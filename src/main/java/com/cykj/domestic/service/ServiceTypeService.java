@@ -21,7 +21,7 @@ public interface ServiceTypeService {
 
 
     //  公司申请入驻添加服务服务类别
-    ResultData addServiceContinuous(String menuIdList, String companyId, Company company);
+    ResultData addServiceContinuous(String menuIdList, Company company, Company company1);
 
     /*公司端服务类别查询*/
     ResultData queryCompanyServiceType(String id, int page, int pageSize);

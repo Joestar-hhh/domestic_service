@@ -16,6 +16,8 @@ public interface TrainPlanMapper {
     //查询列表
     List<TrainPlan> queryTrainPlanList(@Param("e") TrainPlan trainPlan, @Param("start") int start, @Param("pageSize") int pageSize);
 
+
+
     //查询总数
     int queryTrainPlanCount(@Param("e") TrainPlan trainPlan);
 

@@ -60,73 +60,78 @@
 <script>
     var startDate;
     var end_Date;
-
+    var click=false;
     layui.use('table',function () {
         var $ = layui.jquery;
 
         $(function () {
             $("#query").click(function () {
-                $.ajax({
-                    type : "post",
-                    url : "<%=path%>/orderController/requireStatistics",
-                    dataType: 'JSON',
-                    data : {startDate:startDate,
+                if (click==true){
+                    $.ajax({
+                        type : "post",
+                        url : "<%=path%>/orderController/requireStatistics",
+                        dataType: 'JSON',
+                        data : {startDate:startDate,
                             endDate:end_Date
-                    },
-                    error : function(request) {
-                        layer.alert('操作失败', {
-                            icon: 2,
-                            title:"提示"
-                        });
-                    },
-                    success : function(msg) {
-                        var rowList = [];
-                        var colList = [];
-                        $.each(msg,function (i,item) {
-                            rowList.push(item.oneDay);
-                            colList.push(item.countNum);
+                        },
+                        error : function(request) {
+                            layer.alert('操作失败', {
+                                icon: 2,
+                                title:"提示"
+                            });
+                        },
+                        success : function(msg) {
+                            var rowList = [];
+                            var colList = [];
+                            $.each(msg,function (i,item) {
+                                rowList.push(item.oneDay);
+                                colList.push(item.countNum);
 
-                        })
-                        var title;
-                        title="发布需求统计";
-                        option = {
-                            title: {
-                                text: title
-                            },
-                            color: [ '#e5323e'],
-                            tooltip: {
-                                trigger: 'axis',
-                                axisPointer: {
-                                    type: 'shadow'
-                                }
-                            },
-                            legend: {
-                                data:['发布需求次数']
-                            },
-
-                            xAxis: {
-                                data: rowList,
-                                axisLabel: {
-                                    interval: 0,
-                                    rotate:40,
+                            })
+                            var title;
+                            title="发布需求统计";
+                            option = {
+                                title: {
+                                    text: title
                                 },
-                            },
-                            yAxis: {},
-                            series: [
-                                {
-                                name: '发布需求次数',
-                                type: 'bar',
-                                data: colList,
-                            },
+                                color: [ '#e5323e'],
+                                tooltip: {
+                                    trigger: 'axis',
+                                    axisPointer: {
+                                        type: 'shadow'
+                                    }
+                                },
+                                legend: {
+                                    data:['发布需求次数']
+                                },
 
-                            ]
-                        };
-                        //获取要赋值的DOM控件
-                        var myChart = echarts.init(document.getElementById('chartmain'));
-                        //赋值
-                        myChart.setOption(option);
-                    }
-                });
+                                xAxis: {
+                                    data: rowList,
+                                    axisLabel: {
+                                        interval: 0,
+                                        rotate:40,
+                                    },
+                                },
+                                yAxis: {},
+                                series: [
+                                    {
+                                        name: '发布需求次数',
+                                        type: 'bar',
+                                        data: colList,
+                                    },
+
+                                ]
+                            };
+                            //获取要赋值的DOM控件
+                            var myChart = echarts.init(document.getElementById('chartmain'));
+                            //赋值
+                            myChart.setOption(option);
+                        }
+                    });
+                }else{
+                    layer.msg("请先选择时间!");
+                }
+
             });
 
             //日期范围
@@ -140,6 +145,7 @@
                     , done: function (value, date, endDate) {
                         startDate = value.trim().split('~')[0];
                         end_Date = value.trim().split('~')[1];
+                         click=true;
                         // 获取下拉框的值
                         $(".layui-anim-upbit>dd").each(function () {
                             if ($(this).attr('class') == "layui-this") {

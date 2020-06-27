@@ -38,8 +38,18 @@
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs" lay-event="update">
         <i class="layui-icon layui-icon-edit"></i> 查看详情</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">
-        <i class="layui-icon layui-icon-delete"></i>报名</a>
+    <a class="layui-btn  layui-btn-xs" lay-event="delete">
+        <i class="layui-icon layui-icon-read"></i>报名</a>
+</script>
+
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-form-item" id="querydiv">
+        <input type="text" name="typeName" id="typeName" lay-verify="title" autocomplete="off"
+               placeholder="请输入标题" class="layui-input">
+        <button class="layui-btn layui-btn-radius " id="querybtn" lay-event="querybtn" data-type="reload">
+            <i class="layui-icon layui-icon-search"></i> 查询
+        </button>
+    </div>
 </script>
 
 
@@ -141,9 +151,7 @@
                 var tabdata = obj.data;
                 var peopleNum = parseInt(tabdata.peopleNum);
                 var id = tabdata.id;
-
-
-                //删除计划
+                //报名计划
                 if (obj.event === 'delete') {
                     //当前时间
                     var d2 = new Date();
@@ -226,7 +234,7 @@
 
 
                 }
-                //修改计划
+                //查看详情
                 else if (obj.event === 'update') {
                     $('#title').val(tabdata.title);
                     $("#content").val(tabdata.content);
@@ -236,7 +244,7 @@
                     var planid = tabdata.id
                     var layerupdate = layer.open({
                         type: 1
-                        , title: '修改计划'
+                        , title: '查看详情'
                         , area: ['500px', '400px']
                         , shade: [0.8, '#314949'] //遮罩
                         , resize: false //不可拉伸
@@ -276,8 +284,30 @@
                         });
                     });
                 }
+            });
 
+            //头工具栏事件
+            table.on('toolbar(test)', function (obj) {
+                var checkStatus = table.checkStatus(obj.config.id);
+                switch (obj.event) {
+                    /*模糊查询*/
+                    case 'querybtn':
+                        //查询
+                        var title = $('#typeName').val();
+                        //执行重载
+                        table.reload('test', {
+                            url: '<%=path%>/trainPlanController/queryTrainPlanList'
 
+                            , page: {
+                                curr: 1 //重新从第 1 页开始
+                            }
+                            , where: {
+                                title: title
+                            }
+                        });
+                        $('#typeName').val(title);
+                        break;
+                };
             });
 
 

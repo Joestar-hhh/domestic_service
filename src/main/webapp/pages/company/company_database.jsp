@@ -135,6 +135,13 @@
                 ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:250}
             ]]
             ,page: true
+            ,done: function (res, curr, count) {
+                $("[data-field='num']").children().each(function () {
+                    if ($(this).text() == '') {
+                        $(this).text("0")
+                    }
+                });
+            }
         });
         //头工具栏事件
         table.on('toolbar(test)', function(obj){
@@ -269,7 +276,7 @@
                                 success: function (msg) {
                                     alert(msg.msg);
                                     layer.close(layerinsert);
-                                    window.parent.location.reload();//修改成功后刷新父界面
+                                    window.location.reload();//修改成功后刷新父界面
                                 }
                             });
 
@@ -310,6 +317,8 @@
                 ,{field:'id', title:'ID',sort: true}
                 ,{field:'materialName', title:'资料名'}
                 ,{field:'num', title:'份数', sort: true}
+
+
                 // ,{field:'city', title:'城市', width:100}
                 // ,{field:'sign', title:'签名'}
                 // ,{field:'experience', title:'积分', width:80, sort: true}
@@ -319,6 +328,13 @@
                 ,{fixed: 'right', title:'操作', toolbar: '#barDemo2', width:250}
             ]]
             ,page: true
+            ,done: function (res, curr, count) {
+                $("[data-field='num']").children().each(function () {
+                    if ($(this).text() == '') {
+                        $(this).text("0")
+                    }
+                });
+            }
         });
         //头工具栏事件
         table.on('toolbar(test2)', function(obj){
@@ -453,7 +469,7 @@
                                 success: function (msg) {
                                     alert(msg.msg);
                                     layer.close(layerinsert);
-                                    window.parent.location.reload();//修改成功后刷新父界面
+                                    window.location.reload();//修改成功后刷新父界面
                                 }
                             });
 

@@ -75,105 +75,113 @@
 <script>
     var startDate;
     var endDate;
-    //时间选择器
-    layui.use('laydate', function() {
-
-        var laydate = layui.laydate;
-
-        laydate.render({
-            elem: '#test1'
-            ,type:'datetime'
-            ,done: function(value, date, endDate){
-                startTime=value;
-                // alert("开始时间"+startTime); //得到日期生成的值，如：2017-08-18
-            }
-        });
-        laydate.render({
-            elem: '#test2'
-            ,type:'datetime'
-            ,done: function(value, date, endDate){
-                endTime=value;
-                // alert("停止时间"+stopTime); //得到日期生成的值，如：2017-08-18
-            }
-        });
-
-    });
+    var click;
 
     layui.use('table',function () {
         var $ = layui.jquery;
-
+        click = false;
         $(function () {
-            $("#query").click(function () {
-                $.ajax({
-                    type : "post",
-                    url : "<%=path%>/trainPlanController/planStatistics",
-                    dataType: 'JSON',
-                    data : {startDate:startTime,
-                            endDate:endTime
-                    },
-                    error : function(request) {
-                        layer.alert('操作失败', {
-                            icon: 2,
-                            title:"提示"
-                        });
-                    },
-                    success : function(msg) {
-                        var rowList = [];
-                        var colList = [];
-                        var peoList = [];
-                        $.each(msg['colList'],function (i,item) {
-                            colList.push(item.countNum);
+            //时间选择器
+            layui.use('laydate', function() {
 
-                        })
-                        $.each(msg['peoList'],function (i,item) {
-                            rowList.push(item.oneDay);
+                var laydate = layui.laydate;
 
-                            peoList.push(item.peoNum);
-                        })
-                        var title;
-                        title="培训统计";
-                        option = {
-                            title: {
-                                text: title
-                            },
-                            color: [ '#4cabce', '#e5323e'],
-                            tooltip: {
-                                trigger: 'axis',
-                                axisPointer: {
-                                    type: 'shadow'
-                                }
-                            },
-                            legend: {
-                                data:['培训次数','培训人数']
-                            },
-
-                            xAxis: {
-                                data: rowList,
-                                axisLabel: {
-                                    interval: 0,
-                                    rotate:40,
-                                },
-                            },
-                            yAxis: {},
-                            series: [
-                                {
-                                name: '培训次数',
-                                type: 'bar',
-                                data: colList,
-                            },
-                                {
-                                    name: '培训人数',
-                                    type: 'bar',
-                                    data: peoList,
-                                }
-                            ]
-                        };
-                        //获取要赋值的DOM控件
-                        var myChart = echarts.init(document.getElementById('chartmain'));
-                        //赋值
-                        myChart.setOption(option);
+                laydate.render({
+                    elem: '#test1'
+                    ,type:'datetime'
+                    ,done: function(value, date, endDate){
+                        startTime=value;
+                        click = true;
+                        // alert("开始时间"+startTime); //得到日期生成的值，如：2017-08-18
                     }
                 });
+                laydate.render({
+                    elem: '#test2'
+                    ,type:'datetime'
+                    ,done: function(value, date, endDate){
+                        endTime=value;
+                        click = true;
+                        // alert("停止时间"+stopTime); //得到日期生成的值，如：2017-08-18
+                    }
+                });
+
+            });
+
+            $("#query").click(function () {
+                if ( click == true){
+                    $.ajax({
+                        type : "post",
+                        url : "<%=path%>/trainPlanController/planStatistics",
+                        dataType: 'JSON',
+                        data : {startDate:startTime,
+                            endDate:endTime
+                        },
+                        error : function(request) {
+                            layer.alert('操作失败', {
+                                icon: 2,
+                                title:"提示"
+                            });
+                        },
+                        success : function(msg) {
+                            var rowList = [];
+                            var colList = [];
+                            var peoList = [];
+                            $.each(msg['colList'],function (i,item) {
+                                colList.push(item.countNum);
+
+                            })
+                            $.each(msg['peoList'],function (i,item) {
+                                rowList.push(item.oneDay);
+
+                                peoList.push(item.peoNum);
+                            })
+                            var title;
+                            title="培训统计";
+                            option = {
+                                title: {
+                                    text: title
+                                },
+                                color: [ '#4cabce', '#e5323e'],
+                                tooltip: {
+                                    trigger: 'axis',
+                                    axisPointer: {
+                                        type: 'shadow'
+                                    }
+                                },
+                                legend: {
+                                    data:['培训次数','培训人数']
+                                },
+
+                                xAxis: {
+                                    data: rowList,
+                                    axisLabel: {
+                                        interval: 0,
+                                        rotate:40,
+                                    },
+                                },
+                                yAxis: {},
+                                series: [
+                                    {
+                                        name: '培训次数',
+                                        type: 'bar',
+                                        data: colList,
+                                    },
+                                    {
+                                        name: '培训人数',
+                                        type: 'bar',
+                                        data: peoList,
+                                    }
+                                ]
+                            };
+                            //获取要赋值的DOM控件
+                            var myChart = echarts.init(document.getElementById('chartmain'));
+                            //赋值
+                            myChart.setOption(option);
+                        }
+                    });
+                }else {
+                    layer.msg("请先选择时间!");
+                }
             });
         })
 

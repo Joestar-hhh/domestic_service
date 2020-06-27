@@ -40,7 +40,7 @@
 
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="viewDetails">
         <i class="layui-icon layui-icon-list"></i>派单</a>
-   
+
 </script>
 
 <%--员工下拉框--%>
@@ -56,8 +56,6 @@
         </div>
     </div>
 </form>
-
-
 <script>
 
     layui.use('table', function () {
@@ -136,8 +134,8 @@
                 var form = layui.form;
                 form.render();
                 form.on('submit(insertConfirm)', function(data){
-                    alert("qqqq23232:-----"+oid)
-                    alert($("#regionlist").val());
+                    // alert("qqqq23232:-----"+oid)
+                    // alert($("#regionlist").val());
                     $.ajax({
                         url:"<%=path%>/distributeLeafletsController/updatePaiDan",
                         type: "POST",
@@ -150,7 +148,7 @@
                         success: function (msg) {
                             if (msg.code == "0") {
                                 alert(msg.msg);
-                                window.parent.location.reload();//修改成功后刷新父界面
+                                window.location.reload();//修改成功后刷新父界面
                             }
                         }
                     });

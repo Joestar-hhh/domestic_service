@@ -19,16 +19,10 @@
     <link rel="stylesheet" href="<%=path%>/static/pear_layui/component/layui/css/layui.css"/>
     <link rel="stylesheet" href="<%=path%>/static/pear_layui/admin/css/pearButton.css"/>
     <link rel="stylesheet" href="<%=path%>/static/pear_layui/assets/login.css"/>
-<%--    <style>--%>
-<%--        .layui-form-item {--%>
-<%--            margin-top: 5px;--%>
-<%--        }--%>
-<%--    </style>--%>
+
 </head>
 
 <body background="<%=path%>/static/pear_layui/admin/images/background.svg">
-
-
 
 
 <form class="layui-form" action="javascript:void(0);">
@@ -36,10 +30,6 @@
         <img class="logo" src="<%=path%>/static/pear_layui/admin/images/logo.png"/>
         <div class="title">家政公司账号注册</div>
     </div>
-<%--    <div class="layui-form-item">--%>
-<%--    <input type="text" placeholder="公 司 账 号" hover class="layui-input" id="account" name="account"--%>
-<%--           lay-verify="required"/>--%>
-<%--     </div>--%>
     <input type="text" placeholder="公 司 名称" hover class="layui-input" id="companyName" name="companyName"
            lay-verify="required"/>
     </div>
@@ -64,7 +54,8 @@
                lay-verify="required|phone"/>
     </div>
     <div class="layui-form-item">
-        <input type="text" value="" placeholder="请 输 入 验 证 码" class="layui-input layui-input-inline" lay-verify="required"
+        <input type="text" value="" placeholder="请 输 入 验 证 码" class="layui-input layui-input-inline"
+               lay-verify="required"
                lay-reqtext="验证码是必填项，岂能为空？"
                style="width: 50%;display: inline-block!important;" id="checkcode"/>
         <input type="button" value="获取验证码" id="vcodebtn"
@@ -72,7 +63,7 @@
     </div>
 
 
-<%--    ---------------------%>
+    <%--    ---------------------%>
     <div class="layui-form-item">
         <a href="<%=path%>/pages/company/company_login.jsp">登入</a>
     </div>
@@ -92,36 +83,36 @@
         var element = layui.element;
         var $ = layui.jquery;
         from.render();
-
         from.on('submit(formDemo)', function (data) {
+            if ($("#companyName").val().length > 15) {
+                layer.msg("您的公司名称不能大于15位！");
+                return false
+            }
             if ($("#checkcode").val() != randomNum) {
-                // alert($("#checkcode").val())
                 layer.msg("验证码错误");
                 return false;
+            }
+            if ($("#pwd").val().length < 6) {
+                layer.msg("密码不能少于6位！");
+                return false
             }
             if ($("#pwd").val() != $("#pwd2").val()) {
                 layer.msg("密码不一致");
                 return false;
             }
-            // if ($("#pwd").val().length <= 5) {
-            //     alert("您的密码长度小于6！");
-            //     return false
-            // }
-            // layer.msg(JSON.stringify(data.field));//此处显示输入内容
             $.ajax({
                 url: '<%=path%>/companyController/insertCompany',
                 type: 'POST',
                 dataType: 'JSON',
                 data: data.field,
                 success: function (msg) {
-                    if(msg.code=='0'){
-                        layer.alert(msg.msg,function () {
-                            location.href="<%=path%>/pages/company/company_login.jsp"
+                    if (msg.code == '0') {
+                        layer.alert(msg.msg, function () {
+                            location.href = "<%=path%>/pages/company/company_login.jsp"
                         })
-                    }else{
+                    } else {
                         layer.msg(msg.msg);
                     }
-
                 }
             })
             return false;

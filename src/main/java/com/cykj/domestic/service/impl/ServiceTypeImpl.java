@@ -11,7 +11,6 @@ import com.cykj.domestic.util.ResultData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -94,22 +93,29 @@ public class ServiceTypeImpl implements ServiceTypeService {
         resultData.setData(list);
         return resultData;
     }
-
     //  公司申请入驻 添加服务服务类别
     @Override
-    public ResultData addServiceContinuous(String menuIdList, String companyId, Company company) {
-        List<String> list = JSON.parseArray(menuIdList, String.class);
-
-        int i = companyMapper.insertregionId(companyId, String.valueOf(company.getRegionId()), company.getCompanyProfile(), company.getAddress(),company.getHead());
-        int res = serviceTypeMapper.addServiceContinuous(list, companyId, company);
+    public ResultData addServiceContinuous(String menuIdList, Company company, Company company1) {
         ResultData resultData = new ResultData();
-        if (res >= 1) {
+
+       Company company2= companyMapper.companyLogin(company);
+        System.out.println("公司状态=="+company2.getState()+"==公司id="+company2.getId());
+        if(company2.getState().isEmpty()){
+            List<String> list = JSON.parseArray(menuIdList, String.class);
+            int i = companyMapper.insertregionId(String.valueOf(company.getId()), String.valueOf(company1.getRegionId()), company1.getCompanyProfile(), company1.getAddress(),company1.getHead());
+            int res = serviceTypeMapper.addServiceContinuous(list, String.valueOf(company.getId()), company1);
+            if (res >= 1) {
+                resultData.setCode(0);
+                resultData.setMsg("正在申请");
+            } else {
+                resultData.setCode(1);
+                resultData.setMsg("申请失败，重新申请");
+            }
+        }else{
             resultData.setCode(0);
-            resultData.setMsg("添加成功");
-        } else {
-            resultData.setCode(1);
-            resultData.setMsg("添加失败");
+            resultData.setMsg("请勿重复申请");
         }
+
         return resultData;
     }
 

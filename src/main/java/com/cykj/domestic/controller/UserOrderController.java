@@ -55,8 +55,8 @@ public class UserOrderController {
     //微信小程序用户查询自己发布的需求
     @RequestMapping("/WXUserQueryOrder")
     public String WXUserQueryOrder(HttpServletRequest request,HttpServletResponse response,User user){
-//        user.setId(12);
-        ResultData resultData=userOrderService.WXUserQueryOrder(12);
+
+        ResultData resultData=userOrderService.WXUserQueryOrder(user.getId());
         return JSON.toJSONString(resultData);
     }
 

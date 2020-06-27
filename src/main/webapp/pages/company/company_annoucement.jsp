@@ -59,8 +59,6 @@
                 {field:'time', title: '发布时间'}
                 ,{field:'title', title: '公告标题'}
                 ,{field:'content', title: '公告内容'}
-                // ,{fixed: 'right',title:'操作', width: 250, toolbar: '#barDemo'}
-                ,{field:'downloadDiscount', title: '下载文档积分比例'}
             ]]
             ,page: {limit: 5,//指定每页显示的条数
             limits: [5, 10, 15, 20,

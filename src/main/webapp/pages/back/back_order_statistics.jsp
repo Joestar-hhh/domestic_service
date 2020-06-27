@@ -79,7 +79,7 @@
             <div class="layui-inline">
                 <label class="layui-form-label">日期范围</label>
                 <div class="layui-input-inline">
-                    <input type="text" class="layui-input" id="test6" placeholder=" - ">
+                    <input type="text" class="layui-input" id="test6" placeholder=" - " lay-verify="required">
                 </div>
             </div>
         </div>
@@ -92,11 +92,11 @@
     layui.use('table', function () {
         var $ = layui.jquery;
         var companyName;
+        var click = false;
 
         $(function () {
             var startDate;
             var end_Date;
-            // var companyName;
 
             $.ajax({
                 type: 'POST',
@@ -113,6 +113,7 @@
                     });
                 }
             });
+
             //日期范围
             layui.use('laydate', function () {
                 var laydate = layui.laydate;
@@ -124,6 +125,7 @@
                     , done: function (value, date, endDate) {
                         startDate = value.trim().split('~')[0];
                         end_Date = value.trim().split('~')[1];
+                        click = true;
                     }
                 });
             });
@@ -136,7 +138,14 @@
                         companyName = $(this).html();
                     }
                 });
-                statisitics(1, startDate, end_Date, companyName);
+                if (click == true){
+                    statisitics(1, startDate, end_Date, companyName);
+                } else {
+                    layer.alert('请先选择日期!', {icon: 5}, function (index) {
+                        layer.close(index);
+                    });
+                }
+
             });
         });
 

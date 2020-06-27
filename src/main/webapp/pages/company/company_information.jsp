@@ -19,6 +19,11 @@
     <link rel="stylesheet" href="<%=path%>/static/pear_layui/admin/css/pearButton.css"/>
     <link rel="stylesheet" href="<%=path%>/static/pear_layui/assets/login.css"/>
 
+    <style>
+        #uploadHead .layui-btn{
+            margin: 30px 0 0 15px;
+        }
+    </style>
 </head>
 
 <body>
@@ -31,10 +36,8 @@
     </div>
 
     <div class="layui-form-item">
-        <div class="layui-upload">
-            <div class="layui-upload-list">
-                <label class="layui-form-label"><img class="layui-upload-img" id="demo1" style="width: 90px;height: 70px"></label>
-                <div class="layui-input-block">
+        <div class="layui-upload" id="uploadHead">
+                <label class="layui-form-label"><img class="layui-upload-img" id="demo1" style="width: 90px;height: 90px"></label>
                     <button type="button" class="layui-btn" id="test1" style="width: 150px;height: 40px">上传公司头像</button>
                 </div>
             </div>
@@ -88,7 +91,6 @@
         var element = layui.element;
         var $ = layui.jquery;
         from.render();
-
         //获取地区
         $.ajax({
             url: '<%=path%>/companyController/queryregionList',
@@ -186,7 +188,6 @@
                     layer.msg(msg.msg);
                 }
             })
-            // alert(typridList==》选择类别id);
         })
     });
 </script>

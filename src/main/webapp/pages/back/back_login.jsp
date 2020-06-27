@@ -29,10 +29,10 @@
         </div>
     </div>
     <div class="layui-form-item">
-        <input type="text" placeholder="账 户 : admin" hover class="layui-input" id="account" value="admin"/>
+        <input type="text" placeholder="账 户 : " hover class="layui-input" id="account" value=""/>
     </div>
     <div class="layui-form-item">
-        <input type="password" placeholder="密 码 : 888888" hover class="layui-input" id="pwd" value="123456"/>
+        <input type="password" placeholder="密 码 : " hover class="layui-input" id="pwd" value=""/>
     </div>
     <div class="layui-form-item">
         <%--        <input placeholder="验证码" hover class="layui-input layui-input-inline" style="width: 50%;display: inline-block!important;"/>--%>
@@ -64,7 +64,6 @@
             var account = $("#account").val();
             var pwd = $("#pwd").val();
             var num = show_num.join("");
-            $("#checkcode").val(num);
             var val = $("#checkcode").val();
 
             if (account == '') {
