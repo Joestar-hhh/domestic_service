@@ -32,7 +32,7 @@
     </select>
 
     <update id="updatePaiDan" parameterType="com.cykj.domestic.entity.DistributeLeaflets">
-        UPDATE tb_order_info set staff_id=#{userId},company_id=3,user_order_state_id=7 WHERE id=#{id}
+        UPDATE tb_order_info set staff_id=#{userId},company_order_state_id=3,user_order_state_id=7 WHERE id=#{id}
     </update>
 
 </mapper>
