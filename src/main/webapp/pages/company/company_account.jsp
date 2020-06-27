@@ -34,15 +34,14 @@ from{
     <div class="layui-form-item">
         <label class="layui-form-label">账户类型：</label>
 
-                <input type="text" id="account" readonly="readonly">
+                <input type="text" id="account" value="公司账户" readonly="readonly" disabled>
     </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">账户余额：</label>
-                <input type="text" id="money" readonly="readonly">
-    </div>
+<%--    <div class="layui-form-item">--%>
+<%--        <label class="layui-form-label">账户余额：</label>--%>
+<%--                <input type="text" id="money" readonly="readonly">--%>
+<%--    </div>--%>
 </form>
 <br>
-资金明细-------------------------------------------------------------------------------------------------------------
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container" style="display: inline-block">
         <button class="layui-btn layui-btn-sm" lay-event="query">查询</button>
@@ -70,7 +69,7 @@ $(function () {
         url: "<%=path%>/companyAccountContrller/selectbalance",
         dataType: 'JSON',
         success: function (msg) {
-            alert(JSON.toString(msg));
+            // alert(JSON.toString(msg));
             $("#money").val(msg.data[0].balance);
         }
     });
@@ -84,7 +83,7 @@ $(function () {
                 ,title: '公司资料表'
                 ,cols: [[
                     {type: 'checkbox', fixed: 'left'}
-                    ,{field:'id', title:'ID',sort: true}
+                    // ,{field:'id', title:'ID',sort: true}
                     ,{field:'time', title:'发生时间'}
                     ,{field:'origin', title:'资金来源', sort: true}
                     ,{field:'amountMoney', title:'余额', sort: true}

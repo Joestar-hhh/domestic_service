@@ -56,8 +56,6 @@
         </div>
     </div>
 </form>
-
-
 <script>
 
     layui.use('table', function () {

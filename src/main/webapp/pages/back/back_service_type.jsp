@@ -187,7 +187,7 @@
                                         layer.close(layerinsert);
                                         $('#typeName').val("");
                                         $("#description").val("");
-                                        window.parent.location.reload();//修改成功后刷新父界面
+                                        window.location.reload();//修改成功后刷新父界面
                                     } else {
                                        alert(msg.msg);
                                     }
@@ -257,7 +257,7 @@
                         },
                         success: function (msg) {
                            alert(msg.msg);
-                           window.parent.location.reload();//修改成功后刷新父界面
+                           window.location.reload();//修改成功后刷新父界面
                         }
                     });
 
@@ -294,7 +294,7 @@
                             success: function (msg) {
                                alert(msg.msg);
                                 layer.close(layerinsert);
-                                window.parent.location.reload();//修改成功后刷新父界面
+                                window.location.reload();//修改成功后刷新父界面
                             }
                         });
                         return false;
