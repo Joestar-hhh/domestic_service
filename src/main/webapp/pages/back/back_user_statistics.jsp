@@ -13,7 +13,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>back_company_statistics</title>
+    <title>用户统计</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -57,7 +57,7 @@
                 <div class="layui-inline">
                     <%--                <label class="layui-form-label">中文版</label>--%>
                     <div class="layui-input-inline">
-                        <input type="text" class="layui-input" id="test1" placeholder="yyyy-MM-dd">
+                        <input type="text" class="layui-input" id="test1" placeholder="yyyy-MM-dd" lay-verify=“required|date”>
                     </div>
                 </div>
             </div>
@@ -65,7 +65,7 @@
                 <div class="layui-inline">
                     <%--                <label class="layui-form-label">中文版</label>--%>
                     <div class="layui-input-inline">
-                        <input type="text" class="layui-input" id="test2" placeholder="yyyy-MM-dd">
+                        <input type="text" class="layui-input" id="test2" placeholder="yyyy-MM-dd" lay-verify=“required|date”>
                     </div>
                 </div>
             </div>
@@ -76,94 +76,98 @@
 <script>
     var startDate;
     var endDate;
-    //时间选择器
-    layui.use('laydate', function() {
-
-        var laydate = layui.laydate;
-
-        laydate.render({
-            elem: '#test1'
-            ,type:'datetime'
-            ,done: function(value, date, endDate){
-                startTime=value;
-                // alert("开始时间"+startTime); //得到日期生成的值，如：2017-08-18
-            }
-        });
-        laydate.render({
-            elem: '#test2'
-            ,type:'datetime'
-            ,done: function(value, date, endDate){
-                endTime=value;
-                // alert("停止时间"+stopTime); //得到日期生成的值，如：2017-08-18
-            }
-        });
-
-
-    });
-
-
-
+    var click;
     layui.use('table',function () {
         var $ = layui.jquery;
-
+        click = false;
         $(function () {
-            $("#query").click(function () {
-                // alert("开始日期："+startTime+"结束日期："+endTime);
-                $.ajax({
-                    type : "post",
-                    url : "<%=path%>/staffController/userStatistics",
-                    dataType: 'JSON',
-                    data : {startDate:startTime,
-                            endDate:endTime
-                    },
-                    error : function(request) {
-                        layer.alert('操作失败', {
-                            icon: 2,
-                            title:"提示"
-                        });
-                    },
-                    success : function(msg) {
-
-                        var rowList = [];
-                        var colList = [];
-                        $.each(msg,function (i,item) {
-                            rowList.push(item.oneDay);
-                            colList.push(item.countNum);
-                        })
-                        var title;
-                        title="用户统计";
-                        option = {
-                            title: {
-                                text: title
-                            },
-                            tooltip: {},
-                            legend: {
-                                data:['用户数量']
-                            },
-                            xAxis: {
-                                data: rowList,
-                                axisLabel: {
-                                    interval: 0,
-                                    rotate:40,
-                                },
-                            },
-                            yAxis: {},
-                            series: [{
-                                name: '用户数量',
-                                type: 'bar',
-                                data: colList,
-                                showBackground: true,
-                                backgroundStyle: {
-                                    color: 'rgba(130, 170, 255, 0.8)'
-                                }
-                            }]
-                        };
-                        //获取要赋值的DOM控件
-                        var myChart = echarts.init(document.getElementById('chartmain'));
-                        //赋值
-                        myChart.setOption(option);
+            // 时间选择器
+            layui.use('laydate', function() {
+                var laydate = layui.laydate;
+                laydate.render({
+                    elem: '#test1'
+                    ,type:'datetime'
+                    ,done: function(value, date, endDate){
+                        startTime=value;
+                        click = true;
+                        // alert("开始时间"+startTime); //得到日期生成的值，如：2017-08-18
                     }
                 });
+                laydate.render({
+                    elem: '#test2'
+                    ,type:'datetime'
+                    ,done: function(value, date, endDate){
+                        endTime=value;
+                        click = false;   ;
+                        // alert("停止时间"+stopTime); //得到日期生成的值，如：2017-08-18
+                    }
+                });
+
+
+            });
+
+            $("#query").click(function () {
+                if(click == true ){
+                    $.ajax({
+                        type : "post",
+                        url : "<%=path%>/staffController/userStatistics",
+                        dataType: 'JSON',
+                        data : {startDate:startTime,
+                            endDate:endTime
+                        },
+                        error : function(request) {
+                            layer.alert('操作失败', {
+                                icon: 2,
+                                title:"提示"
+                            });
+                        },
+                        success : function(msg) {
+
+                            var rowList = [];
+                            var colList = [];
+                            $.each(msg,function (i,item) {
+                                rowList.push(item.oneDay);
+                                colList.push(item.countNum);
+                            })
+                            var title;
+                            title="用户统计";
+                            option = {
+                                title: {
+                                    text: title
+                                },
+                                tooltip: {},
+                                legend: {
+                                    data:['用户数量']
+                                },
+                                xAxis: {
+                                    data: rowList,
+                                    axisLabel: {
+                                        interval: 0,
+                                        rotate:40,
+                                    },
+                                },
+                                yAxis: {},
+                                series: [{
+                                    name: '用户数量',
+                                    type: 'bar',
+                                    data: colList,
+                                    showBackground: true,
+                                    backgroundStyle: {
+                                        color: 'rgba(130, 170, 255, 0.8)'
+                                    }
+                                }]
+                            };
+                            //获取要赋值的DOM控件
+                            var myChart = echarts.init(document.getElementById('chartmain'));
+                            //赋值
+                            myChart.setOption(option);
+                        }
+                    });
+                }else {
+                    layer.msg("请先选择时间!");
+
+                }
+
             });
         })
 
