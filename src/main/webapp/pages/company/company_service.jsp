@@ -43,7 +43,6 @@
             <select name="unit" id="unit" lay-verify="required">
                 <option value=""></option>
                 <option value="次">次</option>
-                <option value="平方">平方</option>
                 <option value="小时">小时</option>
                 <option value="天">天</option>
                 <option value="月">月</option>
