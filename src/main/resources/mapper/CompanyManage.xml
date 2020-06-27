@@ -8,12 +8,13 @@
     <select id="queryCompany" parameterType="com.cykj.domestic.entity.Company" resultType="com.cykj.domestic.entity.Company">
 --              select C.*,T.type_name typeName from tb_company C,tb_service_relation R,tb_service_type T where C.id=R.company_id and R.service_type_id=T.id
 
-        SELECT C.*,GROUP_CONCAT(T.type_name separator'、') type_name FROM tb_company C
+        SELECT C.*,re.region,GROUP_CONCAT(T.type_name separator'、') type_name FROM tb_company C
         LEFT JOIN tb_service_relation R ON C.id=R.company_id
         LEFT JOIN tb_service_type T ON  R.service_type_id=T.id
+        left join tb_region re on C.region_id=re.id
         <where>
-            <if test="address != null and address != ''">
-                address = #{address}
+            <if test="region != null and region != ''">
+                and region = #{region}
             </if>
             and C.role_id = 2
         </where>
@@ -21,7 +22,14 @@
     </select>
 
     <select id="CompanyCount" resultType="int" parameterType="com.cykj.domestic.entity.Company">
-         select count(*) from tb_company;
+         select count(*) from tb_company c
+        left join tb_region r on r.id=c.region_id
+        <where>
+            <if test="region != null and region != ''">
+                and region = #{region}
+            </if>
+            and role_id = 2
+        </where>
     </select>
 
 <!--    入驻审核-->

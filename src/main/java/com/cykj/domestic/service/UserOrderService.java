@@ -2,6 +2,7 @@ package com.cykj.domestic.service;
 
 import com.cykj.domestic.entity.OrderInfo;
 import com.cykj.domestic.util.ResultData;
+import org.apache.ibatis.annotations.Param;
 
 public interface UserOrderService {
 
@@ -20,5 +21,10 @@ public interface UserOrderService {
    //微信小程序删除用户发布的需求/
     ResultData WXdeleteOrderrequirement(OrderInfo orderInfo);
 
+    //微信--用户下单
+    OrderInfo insertUserOrderInfo(OrderInfo orderInfo);
+
+    //微信-支付成功 修改支付状态
+    int updateOrderState(String orderNum);
 
 }

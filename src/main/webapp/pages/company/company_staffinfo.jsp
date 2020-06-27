@@ -467,38 +467,7 @@
                 });
 
                 form.render();
-                form.on('submit(insertconfirm)', function(data){
 
-                    layer.confirm('确定要修改该员工信息吗？', function(index){
-                        data.field.id = staffId;
-                        data.field.CityLevel = $("#City_level").find("option:selected").text();
-                        data.field.CountyLevel = $("#County_level").find("option:selected").text();
-                        $.ajax({
-                            type: 'POST',
-                            url: '<%=path%>/staffController/updateCompanyStaff',
-                            dataType: 'JSON',
-                            data: data.field,
-                            success: function (msg) {
-                                // alert(msg.msg);
-                                $(".phonehide").css("display","block");
-                                $(".phonehide input").attr("lay-verify","required|phone|isphone");
-                                $(".idcardhide").css("display","block");
-                                $(".idcardhide input").attr("lay-verify","required|phone|isphone");
-
-                                $('#staffInfo')[0].reset(); //重置表单
-                                form.render();
-                                layer.close(layerinsert);
-
-                                layer.alert(msg.msg,function () {
-                                    window.location.reload();//修改成功后刷新父界面
-                                });
-                            }
-                        })
-                        layer.close(index);
-                    });
-
-                    return false;
-                });
             } else if(obj.event === 'updatestate'){
                 // alert("修改状态")
                 var staffId = tabdata.id;

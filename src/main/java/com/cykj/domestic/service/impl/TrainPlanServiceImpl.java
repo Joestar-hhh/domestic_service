@@ -1,5 +1,6 @@
 package com.cykj.domestic.service.impl;
 
+import com.cykj.domestic.entity.Staff;
 import com.cykj.domestic.entity.TrainPlan;
 import com.cykj.domestic.mapper.TrainPlanMapper;
 import com.cykj.domestic.service.TrainPlanService;
@@ -68,19 +69,48 @@ public class TrainPlanServiceImpl implements TrainPlanService {
         }
         return resultData;
     }
+
     /*
     培训统计
     */
     @Override
     public List<TrainPlan> planStatistics(String startDate, String endDate) {
-        List<TrainPlan>planlist=trainPlanMapper.planStatistics(startDate,endDate);
+        List<TrainPlan> planlist = trainPlanMapper.planStatistics(startDate, endDate);
 
         return planlist;
     }
 
     @Override
     public List<TrainPlan> peopleStatistics(String startDate, String endDate) {
-        List<TrainPlan>peolist=trainPlanMapper.peopleStatistics(startDate,endDate);
+        List<TrainPlan> peolist = trainPlanMapper.peopleStatistics(startDate, endDate);
         return peolist;
+    }
+
+    //查询所有未参加培训计划的员工
+    @Override
+    public ResultData queryStaffTrain(TrainPlan trainPlan) {
+        List<Staff> list = trainPlanMapper.queryStaffTrain(trainPlan);
+        int count = trainPlanMapper.queryStaffTrainCount(trainPlan);
+        ResultData resultData = new ResultData();
+        resultData.setCode(0);
+        resultData.setMsg("");
+        resultData.setCount(count);
+        resultData.setData(list);
+        return resultData;
+    }
+
+    //公司为员工报名培训计划
+    @Override
+    public ResultData insertStaffTrain(TrainPlan trainPlan) {
+        int i = trainPlanMapper.insertStaffTrain(trainPlan);
+        ResultData resultData = new ResultData();
+        if (i > 0) {
+            resultData.setCode(0);
+            resultData.setMsg("报名成功");
+        } else {
+            resultData.setCode(1);
+            resultData.setMsg("报名失败");
+        }
+        return resultData;
     }
 }

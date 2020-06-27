@@ -24,8 +24,8 @@ public class CompanyManageController {
      */
     @ResponseBody
     @RequestMapping(value = "/queryCompany")
-    public String queryCompany(HttpServletResponse response, HttpServletRequest request, Company company, String page, String limit,String address) {
-        ResultData resultData = companyManageService.queryCompany(company,Integer.parseInt(page), Integer.parseInt(limit),address);
+    public String queryCompany(HttpServletResponse response, HttpServletRequest request, Company company, String page, String limit,String region) {
+        ResultData resultData = companyManageService.queryCompany(company,Integer.parseInt(page), Integer.parseInt(limit),region);
         return JSON.toJSONString(resultData);
     }
 

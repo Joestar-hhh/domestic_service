@@ -1,6 +1,7 @@
 package com.cykj.domestic.mapper;
 
 
+import com.cykj.domestic.entity.PriceRelation;
 import com.cykj.domestic.entity.ServiceType;
 import com.cykj.domestic.entity.TbService;
 import org.apache.ibatis.annotations.Mapper;
@@ -30,6 +31,6 @@ public interface ServiceListMapper {
     List<TbService>queryServiceTypeName(@Param("companyId")int companyId,@Param("start") int start, @Param("pageSize") int pageSize);
     int queryServiceTypeNameCount(@Param("companyId")int companyId);
 
-    int updateServicePrice(@Param("unitPrice")int unitPrice,@Param("id")int id);
+    int updateServicePrice(PriceRelation priceRelation);
 
 }

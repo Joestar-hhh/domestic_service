@@ -91,12 +91,12 @@
 <script>
     layui.use('table', function () {
         var $ = layui.jquery;
-
+        var companyName;
 
         $(function () {
             var startDate;
             var end_Date;
-            var companyName;
+            // var companyName;
 
             $.ajax({
                 type: 'POST',
@@ -124,20 +124,18 @@
                     , done: function (value, date, endDate) {
                         startDate = value.trim().split('~')[0];
                         end_Date = value.trim().split('~')[1];
-                        // 获取下拉框的值
-                        $(".layui-anim-upbit>dd").each(function () {
-                            if ($(this).attr('class') == "layui-this") {
-                                companyName = $(this).html();
-                            }
-                        });
-
-                        // statisitics(1, startDate, end_Date, companyName);
                     }
                 });
             });
 
             //统计按钮的点击事件
             $("#dateStatistics").click(function () {
+                // 获取下拉框的值
+                $(".layui-anim-upbit>dd").each(function () {
+                    if ($(this).attr('class') == "layui-this") {
+                        companyName = $(this).html();
+                    }
+                });
                 statisitics(1, startDate, end_Date, companyName);
             });
         });

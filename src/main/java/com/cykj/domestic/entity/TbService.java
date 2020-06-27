@@ -20,7 +20,7 @@ public class TbService {
   private String serviceCategory;//服务列表所属服务类型
   private String serviceTypeName;//服务类别名
   private int companyId;//公司id
-
+  private String icon;
 
   private String sName;
   private int stId;
@@ -34,6 +34,7 @@ public class TbService {
   private String price;//单价
   private String unit;//单位
   private String deposit;//定金
+  private String companyName;
 
   public TbService(){
     if(this.levelNum==null){

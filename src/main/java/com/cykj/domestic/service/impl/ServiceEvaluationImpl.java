@@ -1,6 +1,7 @@
 package com.cykj.domestic.service.impl;
 
 import com.cykj.domestic.entity.ServiceEvaluation;
+import com.cykj.domestic.entity.StaffEvaluation;
 import com.cykj.domestic.mapper.ServiceEvaluationMapper;
 import com.cykj.domestic.service.ServiceEvaluationService;
 import com.cykj.domestic.util.ResultData;
@@ -42,4 +43,31 @@ public class ServiceEvaluationImpl implements ServiceEvaluationService {
         }
         return resultData;
     }
+
+    @Override
+    public ResultData insertEvaluation(ServiceEvaluation serviceEvaluation,StaffEvaluation staffEvaluation) {
+        int res=serviceEvaluationMapper.insertComEvaluation(serviceEvaluation);
+        int resulit=serviceEvaluationMapper.insertStaffEvaluation(staffEvaluation);
+        ResultData resultData=new ResultData();
+        if(res==1&&resulit==1){
+            resultData.setCode(0);
+            resultData.setMsg("添加评价成功");
+        } else {
+            resultData.setCode(1);
+            resultData.setMsg("添加评价失败");
+        }
+        return resultData;
+    }
+
+    @Override
+    public ResultData queryCompanyEvaluation(String companyId) {
+        List<ServiceEvaluation> list=serviceEvaluationMapper.queryCompanyEvaluation(companyId);
+        ResultData resultData = new ResultData();
+        resultData.setCode(0);
+        resultData.setMsg("");
+        resultData.setData(list);
+        return resultData;
+    }
+
+
 }

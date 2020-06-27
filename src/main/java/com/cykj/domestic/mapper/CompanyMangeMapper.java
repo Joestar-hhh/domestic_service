@@ -16,12 +16,12 @@ public interface CompanyMangeMapper {
     /**
      * 平台端家政公司管理入驻审核列表
      */
-    List<Company> queryCompany(@Param("e")Company company,@Param("start") int start, @Param("pageSize") int pageSize,@Param("address")String address);
+    List<Company> queryCompany(@Param("e")Company company,@Param("start") int start, @Param("pageSize") int pageSize,@Param("region")String region);
 
     /**
     入驻审核列表统计
      */
-    int CompanyCount(@Param("e")Company company,@Param("address")String address);
+    int CompanyCount(@Param("e")Company company,@Param("region")String region);
 
     /**
      * 入驻审核

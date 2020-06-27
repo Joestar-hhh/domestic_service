@@ -25,22 +25,27 @@
         .layui-form-item {
             margin-bottom: 0;
         }
-        #querydiv .layui-btn-container{
+
+        #querydiv .layui-btn-container {
             display: inline-block;
         }
+
         #orderinfoform .layui-form-label {
             width: 114px;
         }
+
         #orderinfoform .layui-input-block {
             margin-left: 247px;
         }
-        #orderinfoform .rightlabel{
+
+        #orderinfoform .rightlabel {
             margin-bottom: 15px;
             text-align: left;
             line-height: 30px;
             background-color: #beffed;
         }
-        #orderinfoform .companyProfile{
+
+        #orderinfoform .companyProfile {
             margin-bottom: 15px;
             text-align: left;
             line-height: 30px;
@@ -58,7 +63,7 @@
     <div class="demoTable">
         搜索：
         <div class="layui-inline">
-            <select  lay-verify="" id="stateOrder">
+            <select lay-verify="" id="stateOrder">
                 <option value="">根据订单状态查询</option>
                 <option value="待处理">待处理</option>
                 <option value="已处理">已处理</option>
@@ -67,7 +72,7 @@
             </select>
         </div>
         <button class="layui-btn layui-btn-radius " data-type="reload" lay-event="queryState">
-            <i class="layui-icon layui-icon-search"></i>  搜索
+            <i class="layui-icon layui-icon-search"></i> 搜索
         </button>
     </div>
 
@@ -79,6 +84,12 @@
         <i class="layui-icon layui-icon-list"></i> 详情</a>
     <a class="layui-btn layui-btn-xs" lay-event="orders">
         <i class="layui-icon layui-icon-auz"></i> 接单</a>
+
+    {{#  if(d.stateComName == '服务中'){ }}
+    <a class="layui-btn layui-btn-xs" lay-event="finish">
+        <i class="layui-icon layui-icon-auz"></i>完成订单</a>
+    {{#  } }}
+
 </script>
 
 
@@ -122,38 +133,38 @@
 
 <script>
     var orderState;
-    layui.use('table', function(){
+    layui.use('table', function () {
         var table = layui.table;
         var $ = layui.jquery;
 
 
         table.render({
             elem: '#test'
-            ,url:'<%=path%>/orderController/companyOrderList'
-            ,toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
-            ,defaultToolbar: [
-
-            ]//自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
-            ,title: '家政公司订单管理'
-            ,cols: [[
+            , url: '<%=path%>/orderController/companyOrderList'
+            , toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
+            , defaultToolbar: []//自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
+            , title: '家政公司订单管理'
+            , cols: [[
                 // {type: 'checkbox',fixed: 'left'}
-                {field:'orderNumber', title: '订单号'}
-                ,{field:'staffName', title: '服务人员'}
-                ,{field:'comName', title: '所属家政公司'}
-                ,{field:'pulishTime', title: '订单时间'}
-                ,{field:'startTime', title: '服务时间'}
-                ,{field:'fee', title: '费用'}
-                ,{field:'stateComName', title: '公司订单状态'}
+                {field: 'orderNumber', title: '订单号'}
+                , {field: 'staffName', title: '服务人员'}
+                , {field: 'comName', title: '所属家政公司'}
+                , {field: 'pulishTime', title: '订单时间'}
+                , {field: 'startTime', title: '服务时间'}
+                , {field: 'fee', title: '费用'}
+                , {field: 'stateComName', title: '公司订单状态'}
                 // ,{field:'orderStateName', title: '用户订单状态'}
-                ,{field:'userName', title: '服务对象'}
-                ,{field:'phone', title: '电话',hide:true}
-                ,{field:'id', title: '订单ID',hide:true}
-                ,{field:'description', title: '服务内容',hide:true}
-                ,{fixed: 'right',title:'操作', width: 250, toolbar: '#barDemo'}
+                , {field: 'userName', title: '服务对象'}
+                , {field: 'phone', title: '电话', hide: true}
+                , {field: 'id', title: '订单ID', hide: true}
+                , {field: 'description', title: '服务内容', hide: true}
+                , {fixed: 'right', title: '操作', width: 250, toolbar: '#barDemo'}
             ]]
-            ,page: {limit: 5,//指定每页显示的条数
-            limits: [5, 10, 15, 20,
-            25, 30, 35, 40, 45, 50],} //每页条数的选择项
+            , page: {
+                limit: 5,//指定每页显示的条数
+                limits: [5, 10, 15, 20,
+                    25, 30, 35, 40, 45, 50],
+            } //每页条数的选择项
 
         });
 
@@ -180,24 +191,24 @@
                             stateComName: orderState
                         }
                     });
-                    orderState="";
+                    orderState = "";
                     break;
             }
         });
 
 
         //监听行工具事件
-        table.on('tool(test)', function(obj){
+        table.on('tool(test)', function (obj) {
             var tabdata = obj.data;
             var orderId = tabdata.id;
-            var stateName=tabdata.stateComName;
-            if(obj.event === 'orders'){//审核
+            var stateName = tabdata.stateComName;
+            if (obj.event === 'orders') {//审核
                 //询问框
-                if(stateName==="待处理"
-            ){
+                if (stateName === "待处理"
+                ) {
                     layer.confirm('确定是否接单？', {
-                        btn: ['确定','取消'] //按钮
-                    }, function(index){
+                        btn: ['确定', '取消'] //按钮
+                    }, function (index) {
                         $.ajax({
                             type: 'POST',
                             url: '<%=path%>/orderController/orders',
@@ -205,22 +216,20 @@
                             data: {id: orderId},
                             success: function (msg) {
                                 layer.close(index);
-                                layer.alert(msg.msg,{icon: 6},function () {
+                                layer.alert(msg.msg, {icon: 6}, function () {
                                     window.location.reload();//接单成功后刷新界面
                                 });//接单成功提示
                             }
                         })
-                    }, function(index){
+                    }, function (index) {
                         layer.close(index);
                     });
 
-                }
-                else {
+                } else {
                     layer.msg("此订单已接单！");
                 }
 
-            }
-            else if(obj.event === 'showinfo'){
+            } else if (obj.event === 'showinfo') {
                 $('#orderNumber').html(tabdata.orderNumber);
                 $('#staffName').html(tabdata.staffName);
                 $('#pulishTime').html(tabdata.pulishTime);
@@ -231,26 +240,42 @@
                 $('#description').html(tabdata.description);
                 var layerupdate = layer.open({
                     type: 1
-                    ,title: '查看订单详情'
-                    ,area: ['640px','580px']
-                    ,shade: [0.8, '#314949'] //遮罩
-                    ,resize: false //不可拉伸
-                    ,content: $('#orderinfoform') //内容
-                    ,btn: 0
-                    ,cancel: function(index, layero){
-                        if(confirm('确定要关闭么')){ //只有当点击confirm框的确定时，该层才会关闭
+                    , title: '查看订单详情'
+                    , area: ['640px', '580px']
+                    , shade: [0.8, '#314949'] //遮罩
+                    , resize: false //不可拉伸
+                    , content: $('#orderinfoform') //内容
+                    , btn: 0
+                    , cancel: function (index, layero) {
+                        if (confirm('确定要关闭么')) { //只有当点击confirm框的确定时，该层才会关闭
                             layer.close(index);
                         }
                         return false;
                     }
                     //如果设定了yes回调，需进行手工关闭
                 });
-                layui.use('form', function(){
+                layui.use('form', function () {
                     var form = layui.form;
                     form.render();
-                    form.on('submit(insertconfirm)', function(data){
+                    form.on('submit(insertconfirm)', function (data) {
                         layer.close(layerupdate);
                         return false;
+                    });
+                });
+            } else if (obj.event === 'finish'){
+                layer.confirm('确定完成这笔订单吗?', function (index) {
+
+                    $.ajax({
+                        type: 'POST',
+                        url: "<%=path%>/orderController/finishOrder",
+                        dataType: 'JSON',
+                        data: tabdata,
+                        success: function (msg) {
+                            layer.close(index);
+                            layer.alert(msg.msg, {icon: 6}, function () {
+                                window.location.reload();//启用成功后刷新界面
+                            });//启用成功提示
+                        }
                     });
                 });
             }

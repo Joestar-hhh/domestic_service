@@ -29,5 +29,11 @@ public interface UserOrderMapper {
     int WXdeleteOrderrequirement(OrderInfo orderInfo);
 
 
+    //微信--用户下单
+    int insertUserOrderInfo(OrderInfo orderInfo);
+
+    //微信--支付成功 修改支付状态
+    int updateOrderState(@Param("companyOrderState") String companyOrderState,
+                         @Param("userOrderState") String userOrderState, @Param("orderNum") String orderNum);
 
 }

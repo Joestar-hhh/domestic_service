@@ -2,8 +2,6 @@ package com.cykj.domestic.entity;
 
 import lombok.Data;
 
-import javax.print.attribute.standard.JobState;
-
 @Data
 public class Staff {
 
@@ -35,4 +33,5 @@ public class Staff {
     private int age;
     private String birthDate;//出生日期
     private String jobState;//工作状态
+
 }

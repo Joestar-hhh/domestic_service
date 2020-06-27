@@ -17,6 +17,7 @@ public class ServiceType {
     private String serviceTypeName;
     private String url;
     private String icon;
+    private String image;
 
     private List<TbService> serviceList;//服务
 

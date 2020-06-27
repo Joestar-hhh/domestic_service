@@ -155,12 +155,13 @@
             ,defaultToolbar: [
 
             ]//自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
-            ,title: '平台管理端公告管理'
+            ,title: '平台管理端入驻审核'
             ,cols: [[
                 {type: 'checkbox',fixed: 'left'}
                 ,{field:'id', title: '公司ID'}
                 ,{field:'companyName', title: '公司名称'}
                 ,{field:'boss', title: '公司法人代表'}
+                ,{field:'region', title: '公司区域'}
                 ,{field:'address', title: '公司地址'}
                 ,{field:'phone', title: '公司电话'}
                 ,{field:'typeName', title: '公司服务类别'}
@@ -181,7 +182,7 @@
             // 获取下拉框的值
             $(".layui-anim-upbit>dd").each(function () {
                 if ($(this).attr('class') == "layui-this") {
-                    address = $(this).html();
+                    region = $(this).html();
                 }
             })
 
@@ -193,7 +194,7 @@
                             curr: 1 //重新从第 1 页开始
                         }
                         , where: {
-                            address: address
+                            region: region
                         }
                     });
                     //查询完以后将下拉框的数据再次获取一次。
