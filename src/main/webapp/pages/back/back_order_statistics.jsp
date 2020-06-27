@@ -113,6 +113,7 @@
                     });
                 }
             });
+
             //日期范围
             layui.use('laydate', function () {
                 var laydate = layui.laydate;
