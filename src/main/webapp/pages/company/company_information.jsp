@@ -160,8 +160,6 @@
 
 
         from.on('submit(formDemo)', function (data) {
-            // alert($("#regionList").val() + "=地区id>>>");
-            alert($("#demoText").val())
             var typridList = new Array();
             $("#typeName>input[type='checkbox']").each(function (i) {
                 if ($(this).next().attr("class") == "layui-unselect layui-form-checkbox layui-form-checked") {

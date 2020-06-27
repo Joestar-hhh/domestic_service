@@ -9,19 +9,20 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 @RestController
 @RequestMapping("/smsController")
 public class SmsController {
-
 
     @Autowired
     private SmsService smsService;
 
 
     @RequestMapping("/smsSend")
-    private String smsSend(HttpServletRequest request, HttpServletResponse response,String phone,String checkcode){
-        System.out.println("手机号码="+phone+"+++++++++++验证码="+checkcode);
+    private String SmsSend(HttpServletRequest request, HttpServletResponse response,String phone,String checkcode){
         smsService.Sms(phone,checkcode);
+
+
         return null;
     }
 }

@@ -66,7 +66,7 @@
             <scope>provided</scope>
         </dependency>
 
-<!--        支付宝支付-->
+        <!--        支付宝支付-->
 
         <!-- alipay-->
         <dependency>
@@ -79,7 +79,6 @@
             <artifactId>alipay-easysdk</artifactId>
             <version>2.0.0</version>
         </dependency>
-
 
 
         <dependency>
@@ -109,7 +108,6 @@
             <version>1.9.5</version>
         </dependency>
 
-
         <!--阿里云短信服务-->
         <dependency>
             <groupId>com.aliyun</groupId>
@@ -117,11 +115,11 @@
             <version>4.5.1</version>
         </dependency>
 
-        <!-- httpclient -->
+        <!--        httpclient-->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
-            <version>4.3.5</version>
+            <version>4.5.5</version>
         </dependency>
 
         <!-- alipay-->
