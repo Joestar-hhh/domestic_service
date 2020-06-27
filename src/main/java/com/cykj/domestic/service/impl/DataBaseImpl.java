@@ -38,7 +38,7 @@ public class DataBaseImpl implements DataBaseService {
             System.out.println(database);
         } else {
             resultData.setCode(1);
-            resultData.setMsg("查询失败");
+            resultData.setMsg("无数据");
         }
         return resultData;
     }

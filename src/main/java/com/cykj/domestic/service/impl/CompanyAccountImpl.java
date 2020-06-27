@@ -36,7 +36,7 @@ public class CompanyAccountImpl implements CompanyAccountService {
             System.out.println(companyAccount);
         } else {
             resultData.setCode(1);
-            resultData.setMsg("查询失败");
+            resultData.setMsg("暂无数据");
         }
         return resultData;
     }

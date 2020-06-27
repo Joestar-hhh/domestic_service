@@ -92,7 +92,7 @@
             var oid = data.id;
             if(obj.event === 'viewDetails') {
                 // 下拉框列表
-                alert("点击了派单")
+                // alert("点击了派单")
                 $.ajax({
                     type: 'POST',
                     url: '<%=path%>/distributeLeafletsController/selectStaff',
