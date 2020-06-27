@@ -29,14 +29,12 @@
         </div>
     </div>
     <div class="layui-form-item">
-        <input type="text" placeholder="账 户 : admin" hover class="layui-input" id="account" value="10001"/>
+        <input type="text" placeholder="账 户 : " hover class="layui-input" id="account" value=""/>
     </div>
     <div class="layui-form-item">
-        <input type="password" placeholder="密 码 : 888888" hover class="layui-input" id="pwd" value="123456"/>
+        <input type="password" placeholder="密 码 : " hover class="layui-input" id="pwd" value=""/>
     </div>
     <div class="layui-form-item">
-        <%--        <input placeholder="验证码" hover class="layui-input layui-input-inline" style="width: 50%;display: inline-block!important;"/>--%>
-        <%--        <img src="https://yun.reg.163.com/urscloud/captcha?type=captcha_pwd&1568683587149" style="border-radius:3px;border: 1px #e6e6e6 solid;height: 100%;width: 45%;display: inline-block!important;height: 42px;" />--%>
         <input type="text" value="" placeholder="请输入验证码" class="layui-input layui-input-inline"
                style="width: 50%;display: inline-block!important;" id="checkcode">
         <canvas id="canvas" onclick="dj()"
@@ -64,7 +62,7 @@
             var account = $("#account").val();
             var pwd = $("#pwd").val();
             var num = show_num.join("");
-            $("#checkcode").val(num);
+            // $("#checkcode").val(num);
             var val = $("#checkcode").val();
 
             if (account == '') {
@@ -88,8 +86,6 @@
                         pwd: pwd
                     },
                     success: function (msg) {
-                        // alert(msg.msg)
-                        // layer.msg(msg.msg)
                         if (msg.code == '0') {
                             location.href = "<%=path%>/pages/company/company_companyhome.jsp"
                         } else {
