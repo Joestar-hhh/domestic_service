@@ -52,7 +52,7 @@
     </div>
 </form>
 
-<div id="style_div" >
+<div id="style_div" style="display: none">
     <div class="layui-input-block" id="img-follow">
     </div>
 </div>
@@ -244,7 +244,7 @@
                     },
                     success: function (msg) {
                         $.each(msg.data, function (i, item) {
-                            $("#img-follow").append("<a href=" + <%=path%>item.knowledgePath + " target=_blank >"+item.type+"</a>");
+                            $("#img-follow").append("<a href=" + <%=path%>item.knowledgePath + " target=_blank >" + item.type + "</a>");
                         })
                         layui.use('form', function () {
                             var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
@@ -257,24 +257,15 @@
                 var id = tabdata.id
                 $("#id").val(id);
                 // alert(path)
-                if (path =='') {
+                if (path == undefined) {
                     var layerupdate = layer.open({
-                        type: 1
-                        ,
-                        title: '资源上传'
-                        ,
-                        area: ['300px', '150px']
-                        ,
-                        shade: [0.8, '#314949'] //遮罩
-                        ,
-                        resize: false//不可拉伸
-                        ,
-                        content: $("#upload_video")
-                        // content: '<video width="100%" height="100%"  controls="controls" autobuffer="autobuffer"  autoplay="autoplay" loop="loop"><source src=' + path + ' type="video/mp4"></source></video>'
-                        // <img src="/i/eg_tulip.jpg"  alt="上海鲜花港 - 郁金香" />
-                        ,
-                        btn: 0
-                        ,
+                        type: 1,
+                        title: '资源上传',
+                        area: ['300px', '150px'],
+                        shade: [0.8, '#314949'],
+                        resize: false,
+                        content: $("#upload_video"),
+                        btn: 0,
                         cancel: function (index, layero) {
                             if (confirm('确定要关闭么')) { //只有当点击confirm框的确定时，该层才会关闭
                                 // layer.close(index);
@@ -290,7 +281,7 @@
                         var uploadInst = upload.render({
                             elem: '#test3'
                             , url: '<%=path%>/skillTrainController/fileUpload' //改成您自己的上传接口
-                            ,accept: 'video' //视频
+                            , accept: 'video' //视频
                             // , size: 1889356 //限制文件大小，单位 KB
                             , done: function (res) {
                                 $.ajax({
@@ -313,7 +304,6 @@
                             }
                         });
                     });
-
                 } else {
                     alert("视频已上传")
                 }

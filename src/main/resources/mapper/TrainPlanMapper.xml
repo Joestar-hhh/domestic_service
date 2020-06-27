@@ -7,11 +7,18 @@
     <select id="queryTrainPlanList" parameterType="com.cykj.domestic.entity.TrainPlan"
             resultType="com.cykj.domestic.entity.TrainPlan">
         SELECT * FROM tb_train_plan
+        <where>
+            <if test="e.title!=null and e.title !=''"> and title  like concat('%',#{e.title},'%')</if>
+        </where>
         ORDER BY id DESC limit #{start},#{pageSize}
     </select>
 
+
     <select id="queryTrainPlanCount" parameterType="com.cykj.domestic.entity.TrainPlan" resultType="int">
         SELECT count(id) FROM tb_train_plan
+        <where>
+            <if test="e.title!=null and e.title !=''"> and title  like concat('%',#{e.title},'%')</if>
+        </where>
     </select>
 
     <delete id="deletePlan" parameterType="java.lang.Integer">
