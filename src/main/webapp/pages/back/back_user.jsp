@@ -103,7 +103,7 @@
         <label class="layui-form-label rightlabel" id="createTime"></label>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">公司地址：</label>
+        <label class="layui-form-label">家庭地址：</label>
         <label class="layui-form-label address" id="address"></label>
 
     </div>
@@ -152,9 +152,10 @@
                 , {field: 'sex', title: '性别'}
                 , {field: 'age', title: '年龄'}
                 , {field: 'phone', title: '电话'}
-                , {field: 'detailAddress', title: '地址'}
+                , {field: 'region', title: '所在地'}
                 , {field: 'status', title: '状态'}
                 , {field: 'createTime', title: '注册时间'}
+                , {field: 'detailAddress', title: '默认地址' ,hide:true}
                 , {fixed: 'right', title: '操作', width: 250, toolbar: '#barDemo'}
                 // ,{field:'downloadDiscount', title: '下载文档积分比例'}
             ]]
