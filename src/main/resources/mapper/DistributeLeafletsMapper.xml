@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cykj.domestic.mapper.DistributeLeafletsMapper">
+
+    <!--派单列表-->
+    <select id="queryServiceEvaluationList" parameterType="com.cykj.domestic.entity.DistributeLeaflets"
+            resultType="com.cykj.domestic.entity.DistributeLeaflets">
+        SELECT o.*,u.`name`,s.user_name  FROM tb_order_info o
+        LEFT JOIN tb_company c on c.id=o.company_id
+        LEFT JOIN tb_staff s on s.id=o.staff_id
+        LEFT JOIN tb_user u on u.id=o.user_id
+        WHERE c.id=#{id}  and o.company_order_state_id=2
+         limit #{start},#{pageSize}
+    </select>
+
+
+    <!--    列表总数-->
+    <select id="queryServiceEvaluationCount" resultType="int"
+            parameterType="com.cykj.domestic.entity.DistributeLeaflets">
+     SELECT COUNT(A.id) FROM(SELECT o.*,u.`name`,s.user_name  FROM tb_order_info o
+     LEFT JOIN tb_company c on c.id=o.company_id
+     LEFT JOIN tb_staff s on s.id=o.staff_id
+     LEFT JOIN tb_user u on u.id=o.user_id
+     WHERE c.id=#{id}  and o.company_order_state_id=2)A
+    </select>
+
+    <select id="selectStaff" parameterType="com.cykj.domestic.entity.DistributeLeaflets"
+            resultType="com.cykj.domestic.entity.DistributeLeaflets">
+       SELECT * FROM tb_staff f LEFT JOIN tb_company c on c.id=f.company_id WHERE c.id=#{id}
+    </select>
+
+    <update id="updatePaiDan" parameterType="com.cykj.domestic.entity.DistributeLeaflets">
+        UPDATE tb_order_info set staff_id=#{userId},company_id=3,user_order_state_id=7 WHERE id=#{id}
+    </update>
+
+</mapper>
