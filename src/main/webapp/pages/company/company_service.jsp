@@ -32,8 +32,22 @@
     <div class="layui-form-item">
         <label class="layui-form-label">价格：</label>
         <div class="layui-input-block">
-            <input type="text" name="unitPrice" id="unitPrice" required lay-verify="required|number" placeholder="请输入价格"
+            <input type="text" name="price" id="price" required lay-verify="required|number" placeholder="请输入价格"
                    autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">单位：</label>
+        <div class="layui-input-block">
+            <select name="unit" id="unit" lay-verify="required">
+                <option value=""></option>
+                <option value="次">次</option>
+                <option value="平方">平方</option>
+                <option value="小时">小时</option>
+                <option value="天">天</option>
+                <option value="月">月</option>
+            </select>
         </div>
     </div>
 
@@ -81,14 +95,15 @@
                     var layerinsert = layer.open({
                         type: 1
                         , title: '设定价格'
-                        , area: ['500px', '250px']
+                        , area: ['500px', '400px']
                         , shade: [0.8, '#314949'] //遮罩
                         , resize: false //不可拉伸
                         , content: $('#servicePrice') //内容
                         , btn: 0
                         , cancel: function (index) {
                             if (confirm('确定要关闭么')) { //只有当点击confirm框的确定时，该层才会关闭
-                                $('#unitPrice').val("");
+                                $('#price').val("");
+                                $('#unit').val();
                                 layer.close(index);
                             }
                             return false;
@@ -97,13 +112,10 @@
                     });
                     layui.use('form', function () {
                         var form = layui.form;
-                        var id = tabdata.id;
+                        var serviceId = tabdata.id;
                         form.render();
                         form.on('submit(insertconfirm)', function (data) {
-                            data.field.id = id;
-                            alert(id)
-                            alert(JSON.stringify(data.field));
-
+                            data.field.serviceId = serviceId;
                             $.ajax({
                                 type: 'POST',
                                 url: "<%=path%>/serviceListContrller/updateServicePrice",
