@@ -114,24 +114,24 @@
         }
         pearAdmin.render(config);
         pearNotice.render(option);
-        <%--$("#quit").click(function () {--%>
-        <%--    layer.confirm('<i class="layui-icon layui-icon-face-smile" style="font-size: 30px; color: #1E9FFF;"></i> 真的要退出么', function (index) {--%>
-        <%--        $.ajax({--%>
-        <%--            url: '<%=path%>/companyController/quit',--%>
-        <%--            type: 'POST',--%>
-        <%--            dataType: 'JSON',--%>
-        <%--            success: function (msg) {--%>
-        <%--                layer.msg(msg.msg);--%>
-        <%--                layer.close(index);--%>
-        <%--            }--%>
-        <%--        });--%>
-        <%--        layer.close(index);--%>
-        <%--        window.location.href="<%=path%>/pages/back/back_login.jsp";--%>
-        <%--    },function(index){--%>
-        <%--        //停止运作--%>
-        <%--        layer.close(index);--%>
-        <%--    });--%>
-        <%--})--%>
+        $("#quit").click(function () {
+            layer.confirm('<i class="layui-icon layui-icon-face-smile" style="font-size: 30px; color: #1E9FFF;"></i> 真的要退出么', function (index) {
+                $.ajax({
+                    url: '<%=path%>/companyController/quit',
+                    type: 'POST',
+                    dataType: 'JSON',
+                    success: function (msg) {
+                        layer.msg(msg.msg);
+                        layer.close(index);
+                    }
+                });
+                layer.close(index);
+                window.location.href="<%=path%>/pages/back/back_login.jsp";
+            },function(index){
+                //停止运作
+                layer.close(index);
+            });
+        });
         $("#content .layui-tab-title").children(':first').attr("lay-id","60");
     })
 </script>
