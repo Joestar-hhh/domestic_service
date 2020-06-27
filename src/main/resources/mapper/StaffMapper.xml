@@ -45,7 +45,8 @@
 
 <!--用户管理-->
     <select id="queryUser" parameterType="com.cykj.domestic.entity.User" resultType="com.cykj.domestic.entity.User">
-        SELECT U.*,A.* FROM tb_user U LEFT JOIN tb_user_address A ON U.user_address_id=A.user_id
+        SELECT U.*,A.* FROM tb_user U
+        LEFT JOIN tb_user_address A ON U.user_address_id=A.id
         <where>
             <if test="region != null and region != ''">
                 A.region = #{e.region}
@@ -55,7 +56,8 @@
     </select>
 
     <select id="queryUserCount" parameterType="com.cykj.domestic.entity.User" resultType="int">
-        SELECT COUNT(U.id) FROM tb_user U LEFT JOIN tb_user_address A ON U.user_address_id=A.user_id
+        SELECT COUNT(U.id) FROM tb_user U
+        LEFT JOIN tb_user_address A ON U.user_address_id=A.id
         <where>
             <if test="region != null and region != ''">
                 region = #{e.region}
