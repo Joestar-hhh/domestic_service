@@ -1,6 +1,7 @@
 package com.cykj.domestic.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.cykj.domestic.entity.CompanyAccount;
 import com.cykj.domestic.entity.OrderInfo;
 import com.cykj.domestic.mapper.UserOrderMapper;
 import com.cykj.domestic.service.UserOrderService;
@@ -109,6 +110,14 @@ public class UserOrderImpI implements UserOrderService {
         orderInfo.setCompanyOrderStateId(1);
         orderInfo.setOrderNumber(AgeUtil.getOrderNum());
         int res = userOrderMapper.insertUserOrderInfo(orderInfo);
+
+        //公司账户明细
+        CompanyAccount companyAccount = new CompanyAccount();
+        companyAccount.setOrigin("服务收入");
+        companyAccount.setAmountMoney(orderInfo.getMoney());
+        companyAccount.setOptionType("支付宝支付");
+        companyAccount.setCompanyId(orderInfo.getCompanyId());
+        userOrderMapper.insertTradeInfo(companyAccount);
         return orderInfo;
     }
 

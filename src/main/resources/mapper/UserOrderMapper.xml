@@ -75,4 +75,10 @@
         update tb_order_info set company_order_state_id = #{companyOrderState},user_order_state_id = #{userOrderState}
         where order_number = #{orderNum}
     </update>
+
+
+    <insert id="insertTradeInfo" parameterType="com.cykj.domestic.entity.CompanyAccount">
+        insert into tb_trade_info(origin,amount_money,option_type,company_id)
+        values (#{origin},#{amountMoney},#{optionType},#{companyId})
+    </insert>
 </mapper>

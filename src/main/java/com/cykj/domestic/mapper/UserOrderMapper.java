@@ -1,5 +1,6 @@
 package com.cykj.domestic.mapper;
 
+import com.cykj.domestic.entity.CompanyAccount;
 import com.cykj.domestic.entity.OrderInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -35,5 +36,9 @@ public interface UserOrderMapper {
     //微信--支付成功 修改支付状态
     int updateOrderState(@Param("companyOrderState") String companyOrderState,
                          @Param("userOrderState") String userOrderState, @Param("orderNum") String orderNum);
+
+
+    //添加公司账户明细
+    int insertTradeInfo(CompanyAccount companyAccount);
 
 }

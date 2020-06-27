@@ -47,19 +47,17 @@
                 var orderNum = paramArr[1];
                 var money = paramArr[3].split("total_amount=")
                 orderNum = orderNum.split("out_trade_no=")[1]
-                alert("param---:" + paramArr[2] + "   订单号：" + orderNum
-                    +"\n paramArr[3]:"+paramArr[3])
+                // alert("param---:" + paramArr[2] + "   订单号：" + orderNum
+                //     +"\n paramArr[3]:"+paramArr[3])
                 wx.miniProgram.navigateTo({
                     url: "../pay/payyes?type=1&orderNum="+orderNum+"&money="+money,
                 });
             })
         });
-
     } else {
         alert("非微信环境")
         //非微信环境逻辑
         // window.location.href = 'https://blog.csdn.net/qq_37235231/article/details/82053062';
-
     }
 
 

@@ -10,4 +10,5 @@ public class CompanyAccount {
     private String amountMoney;
     private String optionType;
     private String balance;
+    private int companyId;
 }
