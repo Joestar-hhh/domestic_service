@@ -14,10 +14,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class SmsImpl implements SmsService {
 
-
     @Override
-    public void Sms(String phone, String yz) {
-
+    public void Sms(String phone, String checkcode) {
         String accessKeyId="LTAI4GHP6zhHETaEGHLN19rj";
         String accessSecret="bXNtG1xiZfYTaMwKKFwJqWkMowysiG";
         DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou", accessKeyId, accessSecret);
@@ -31,7 +29,7 @@ public class SmsImpl implements SmsService {
         request.putQueryParameter("PhoneNumbers", phone);
         request.putQueryParameter("SignName", "传一家政服务");
         request.putQueryParameter("TemplateCode", "SMS_192985049");
-        request.putQueryParameter("TemplateParam", "{code:"+yz+"}");
+        request.putQueryParameter("TemplateParam", "{code:"+checkcode+"}");
         try {
             CommonResponse response = client.getCommonResponse(request);
             System.out.println(response.getData());
@@ -40,5 +38,9 @@ public class SmsImpl implements SmsService {
         } catch (ClientException e) {
             e.printStackTrace();
         }
+
+
+
+
     }
 }
