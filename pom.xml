@@ -66,21 +66,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <!--        支付宝支付-->
-
-        <!-- alipay-->
-        <dependency>
-            <groupId>com.alipay.sdk</groupId>
-            <artifactId>alipay-sdk-java</artifactId>
-            <version>4.9.124.ALL</version>
-        </dependency>
-        <dependency>
-            <groupId>com.alipay.sdk</groupId>
-            <artifactId>alipay-easysdk</artifactId>
-            <version>2.0.0</version>
-        </dependency>
-
-
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
@@ -108,6 +93,7 @@
             <version>1.9.5</version>
         </dependency>
 
+
         <!--阿里云短信服务-->
         <dependency>
             <groupId>com.aliyun</groupId>
@@ -133,7 +119,6 @@
             <artifactId>alipay-easysdk</artifactId>
             <version>2.0.0</version>
         </dependency>
-
     </dependencies>
 
     <build>
