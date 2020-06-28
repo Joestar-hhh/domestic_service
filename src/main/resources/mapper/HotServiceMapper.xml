@@ -11,6 +11,7 @@
         left join tb_order_info o on o.service_id = s.id
         left join tb_service_type st on st.id = s.service_type_id
         GROUP BY s.id
+        ORDER BY orderNum desc
         limit #{start},#{pageSize}
     </select>
 
