@@ -100,7 +100,7 @@ public class ServiceTypeImpl implements ServiceTypeService {
 
        Company company2= companyMapper.companyLogin(company);
         System.out.println("公司状态=="+company2.getState()+"==公司id="+company2.getId());
-        if(company2.getState().isEmpty()){
+        if(company2.getState()==null || company2.getState().isEmpty()){
             List<String> list = JSON.parseArray(menuIdList, String.class);
             int i = companyMapper.insertregionId(String.valueOf(company.getId()), String.valueOf(company1.getRegionId()), company1.getCompanyProfile(), company1.getAddress(),company1.getHead());
             int res = serviceTypeMapper.addServiceContinuous(list, String.valueOf(company.getId()), company1);
