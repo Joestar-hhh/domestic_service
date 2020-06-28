@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.cykj.domestic.entity.Company" %><%--
   Created by IntelliJ IDEA.
   User: ALL BLUE
   Date: 2020/6/9
@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <% String path = request.getContextPath();%>
+<% Company company= (Company) request.getSession().getAttribute("company");%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,7 +44,9 @@
             <li class="layui-nav-item layui-hide-xs"><a href="#" class="layui-icon layui-icon-website"></a></li>
             <li class="layui-nav-item layui-hide-xs" id="headerNotice"></li>
             <li class="layui-nav-item" lay-unselect="">
-                <a href="javascript:;"><img src="<%=path%>/static/pear_layui/admin/images/avatar.jpg" class="layui-nav-img">就眠仪式</a>
+                <a href="javascript:;" id="name"><img src="<%=path%><%=company.getHead()%>" class="layui-nav-img">
+                    <%=company.getCompanyName()%>
+                </a>
                 <dl class="layui-nav-child">
                     <dd><a href="javascript:;" class="pearson">个人信息</a></dd>
                     <dd><a href="javascript:;">安全配置</a></dd>
@@ -57,7 +60,7 @@
     <div class="layui-side layui-bg-black">
         <div class="layui-logo">
             <img class="logo" src="<%=path%>/static/pear_layui/admin/images/logo.png" />
-            <span class="title">平台管理</span>
+            <span class="title">公司管理</span>
         </div>
         <div class="layui-side-scroll">
             <div id="sideMenu"></div>
@@ -86,6 +89,7 @@
 
 <script src="<%=path%>/static/pear_layui/component/layui/layui.js"></script>
 <script>
+
     layui.use(['pearAdmin', 'jquery', 'layer', 'pearTab', 'pearNotice'], function() {
         var pearAdmin = layui.pearAdmin;
         var $ = layui.jquery;
