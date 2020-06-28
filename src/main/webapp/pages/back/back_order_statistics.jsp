@@ -120,7 +120,7 @@
                 laydate.render({
                     elem: '#test6'
                     , range: true
-                    , max: getNowFormatDate() //设置最大为当前时间
+                    // , max: getNowFormatDate() //设置最大为当前时间
                     , range: '~' //或 range: '~' 来自定义分割字符
                     , done: function (value, date, endDate) {
                         startDate = value.trim().split('~')[0];
