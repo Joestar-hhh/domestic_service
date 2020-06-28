@@ -104,7 +104,7 @@ public class CompanyImpl implements CompanySrevice {
         ResultData resultData = new ResultData();
 //        判断账号和手机号是否纯在
         Company companyphone = companyMapper.querycompanyphone(company);
-        if (companyphone == null) {
+        if (companyphone.getPhone()==null || companyphone.getPhone().isEmpty()) {
             //创建账号
             String account = companyMapper.MaxAccount();
             int i = Integer.parseInt(account) + 1;
@@ -126,7 +126,6 @@ public class CompanyImpl implements CompanySrevice {
             resultData.setCode(3);
             resultData.setMsg("手机号已被注册");
         }
-
         return resultData;
     }
 
@@ -217,15 +216,15 @@ public class CompanyImpl implements CompanySrevice {
         return companyList;
     }
 
-//    微信模糊搜索公司或者服务
+    //    微信模糊搜索公司或者服务
     @Override
     public ResultData wxSearchCompany(String search, int page, int limit) {
         List<Company> list = companyMapper.wxSearchCompany(search, (page - 1) * limit, limit);
         int count = companyMapper.wxSearchCompanyCount(search);
         List<Company> companyList = new ArrayList<>();
-        for(Company c : list){
-            if(c.getHead()!=null && !c.getHead().isEmpty()) {
-                c.setHead(c.getHead().replaceAll("\\\\","/"));
+        for (Company c : list) {
+            if (c.getHead() != null && !c.getHead().isEmpty()) {
+                c.setHead(c.getHead().replaceAll("\\\\", "/"));
             }
             companyList.add(c);
         }

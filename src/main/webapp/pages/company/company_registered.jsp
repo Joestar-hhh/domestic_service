@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.cykj.domestic.entity.Company" %><%--
   Created by IntelliJ IDEA.
   User: ALL BLUE
   Date: 2020/6/9
@@ -8,13 +8,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     String path = request.getContextPath();
+
 %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <title>家政公司账号注册</title>
-    <%--    registered--%>
     <link rel="stylesheet" href="<%=path%>/static/pear_layui/admin/css/pearForm.css"/>
     <link rel="stylesheet" href="<%=path%>/static/pear_layui/component/layui/css/layui.css"/>
     <link rel="stylesheet" href="<%=path%>/static/pear_layui/admin/css/pearButton.css"/>
@@ -45,7 +45,7 @@
     </div>
     <div class="layui-form-item">
         <%--        <input type="password" placeholder="密 码 : 888888" hover class="layui-input" id="pwd" lay-verify="pass"/>--%>
-        <input type="password" lay-verify="required" placeholder="再 次 输 入 密 码  : 888888" lay-verify="required"
+        <input type="password" lay-verify="required" placeholder="再 次 输 入 密 码 " lay-verify="required"
                lay-reqtext="密码是必填项，岂能为空？"
                class="layui-input" autocomplete="off" id="pwd2">
     </div>
@@ -69,7 +69,9 @@
     </div>
 
     <div class="layui-input-item">
-        <button type="submit" class="layui-btn pear-btn-primary login" lay-submit="" lay-filter="formDemo">立即提交</button>
+        <button type="submit" class="layui-btn pear-btn-primary login" lay-submit="" lay-filter="formDemo"
+                οnsubmit="return false">立即提交
+        </button>
     </div>
 
 </form>
@@ -78,12 +80,13 @@
 
     //监听提交
     layui.use(['form', 'element', 'jquery'], function () {
-        var randomNum;
+        var randomNum;//验证码
         var from = layui.form;
         var element = layui.element;
         var $ = layui.jquery;
         from.render();
         from.on('submit(formDemo)', function (data) {
+
             if ($("#companyName").val().length > 15) {
                 layer.msg("您的公司名称不能大于15位！");
                 return false
@@ -100,6 +103,12 @@
                 layer.msg("密码不一致");
                 return false;
             }
+            // 单击之后提交按钮不可选,防止重复提交
+            var DISABLED = 'layui-btn-disabled';
+            // 增加样式
+            $('.layui-btn').addClass(DISABLED);
+            // 增加属性
+            $('.layui-btn').attr('disabled', 'disabled');
             $.ajax({
                 url: '<%=path%>/companyController/insertCompany',
                 type: 'POST',
@@ -108,15 +117,18 @@
                 success: function (msg) {
                     if (msg.code == '0') {
                         layer.alert(msg.msg, function () {
+                            $('.layui-btn').removeClass(DISABLED);
+                            $('.layui-btn').removeAttr('disabled');
                             location.href = "<%=path%>/pages/company/company_login.jsp"
                         })
                     } else {
                         layer.msg(msg.msg);
+                        $('.layui-btn').removeClass(DISABLED);
+                        $('.layui-btn').removeAttr('disabled');
                     }
                 }
             })
             return false;
-
         });
 
         var $ = layui.jquery;
