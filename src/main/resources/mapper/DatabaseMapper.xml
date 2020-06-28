@@ -15,8 +15,8 @@
 		left join (select m.id, m.material_name,count(m.id) num from tb_company c
         left join tb_material_relation mr on mr.company_id = c.id
         left join tb_material m on m.id = mr.material_id
-        where c.id =#{userid} and mr.data_type=0 group by m.id) b on b.id = m.id
-		where mr.data_type=0
+        where c.id =#{userid} and m.type=2 group by m.id) b on b.id = m.id
+		where m.type=2
         limit #{start},#{pageSize}
     </select>
 
@@ -26,17 +26,14 @@
 		left join (select m.id, m.material_name,count(m.id) num from tb_company c
         left join tb_material_relation mr on mr.company_id = c.id
         left join tb_material m on m.id = mr.material_id
-        where c.id = 1 and mr.data_type=0 group by m.id) b on b.id = m.id
-		where mr.data_type=0)A
+        where c.id =#{userid} and m.type=2 group by m.id) b on b.id = m.id
+		where m.type=2)A
     </select>
-
 
     <select id="serviceListView" resultType="com.cykj.domestic.entity.Database">
      SELECT license_address FROM tb_material_relation mr
      LEFT JOIN tb_company c on c.id=mr.company_id and material_id=#{e.materialId} WHERE c.id=#{userid}
     </select>
-
-
 
 <!--    //人员资料-->
     <select id="selectStaffList" resultType="com.cykj.domestic.entity.Database" parameterType="com.cykj.domestic.entity.Database">
@@ -45,8 +42,8 @@
 		left join (select m.id, m.material_name,count(m.id) num from tb_company c
         left join tb_material_relation mr on mr.company_id = c.id
         left join tb_material m on m.id = mr.material_id
-        where c.id =#{userid} and mr.data_type=1 group by m.id) b on b.id = m.id
-				where mr.data_type=1
+        where c.id =#{userid} and m.type=1 group by m.id) b on b.id = m.id
+		where m.type=1
         limit #{start},#{pageSize}
     </select>
     <select id="selectStaffListCount" resultType="int" parameterType="com.cykj.domestic.entity.Database">
@@ -55,8 +52,8 @@
 		left join (select m.id, m.material_name,count(m.id) num from tb_company c
         left join tb_material_relation mr on mr.company_id = c.id
         left join tb_material m on m.id = mr.material_id
-        where c.id =#{userid} and mr.data_type=1 group by m.id) b on b.id = m.id
-		where mr.data_type=1)A
+        where c.id =#{userid} and m.type=1 group by m.id) b on b.id = m.id
+		where m.type=1)A
     </select>
 
 <!--//员工资料添加-->

@@ -35,7 +35,7 @@ public class DistributeLeafletsImpl implements DistributeLeafletsService {
             System.out.println(distributeLeaflets);
         } else {
             resultData.setCode(1);
-            resultData.setMsg("查询失败");
+            resultData.setMsg("无单可派");
         }
         return resultData;
     }
@@ -58,7 +58,7 @@ public class DistributeLeafletsImpl implements DistributeLeafletsService {
             resultData.setMsg("派单成功");
         } else {
             resultData.setCode(1);
-            resultData.setMsg("无单可派");
+            resultData.setMsg("派单失败");
         }
         return resultData;
     }

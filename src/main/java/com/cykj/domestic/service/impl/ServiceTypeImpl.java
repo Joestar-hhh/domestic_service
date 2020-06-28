@@ -106,7 +106,7 @@ public class ServiceTypeImpl implements ServiceTypeService {
             int res = serviceTypeMapper.addServiceContinuous(list, String.valueOf(company.getId()), company1);
             if (res >= 1) {
                 resultData.setCode(0);
-                resultData.setMsg("正在申请");
+                resultData.setMsg("申请成功");
             } else {
                 resultData.setCode(1);
                 resultData.setMsg("申请失败，重新申请");
