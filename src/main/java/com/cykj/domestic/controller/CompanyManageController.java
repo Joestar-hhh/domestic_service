@@ -24,37 +24,37 @@ public class CompanyManageController {
      */
     @ResponseBody
     @RequestMapping(value = "/queryCompany")
-    public String queryCompany(HttpServletResponse response, HttpServletRequest request, Company company, String page, String limit,String region) {
-        ResultData resultData = companyManageService.queryCompany(company,Integer.parseInt(page), Integer.parseInt(limit),region);
+    public String queryCompany(HttpServletResponse response, HttpServletRequest request, Company company, String page, String limit, String region) {
+        ResultData resultData = companyManageService.queryCompany(company, Integer.parseInt(page), Integer.parseInt(limit), region);
         return JSON.toJSONString(resultData);
     }
 
 
     @ResponseBody
     @RequestMapping(value = "/checkJoin")
-    public String checkJion(HttpServletRequest request, HttpServletResponse response,Company company){
-        System.out.println("checkJoin------------"+company.toString());
-       ResultData resultData= companyManageService.checkJoin(company);
-       return JSON.toJSONString(resultData);
+    public String checkJion(HttpServletRequest request, HttpServletResponse response, Company company) {
+        System.out.println("checkJoin------------" + company.toString());
+        ResultData resultData = companyManageService.checkJoin(company);
+        return JSON.toJSONString(resultData);
     }
 
     @ResponseBody
     @RequestMapping(value = "/queryCompanyByService")
-    public String queryCompanyByService(Company company, int page, int limit, String serviceId) {
-        ResultData resultData = companyManageService.queryCompanyByService(company,page,limit,serviceId);
+    public String queryCompanyByService(Company company, int page, int limit, String serviceId, String typeId) {
+        ResultData resultData = companyManageService.queryCompanyByService(company, page, limit, serviceId, typeId);
         return JSON.toJSONString(resultData);
     }
 
     @ResponseBody
     @RequestMapping(value = "/queryCompanyByServiceType")
     public String queryCompanyByServiceType(Company company, int page, int limit, String serviceId) {
-        ResultData resultData = companyManageService.queryCompanyByServiceType(company,page,limit,serviceId);
+        ResultData resultData = companyManageService.queryCompanyByServiceType(company, page, limit, serviceId);
         return JSON.toJSONString(resultData);
     }
 
     @RequestMapping(value = "/queryCompanyOrderNum")
-    public String queryCompanyOrderNum(HttpServletRequest request, HttpServletResponse response,String companyId){
-        Company company= companyManageService.queryCompanyOrderNum(Integer.parseInt(companyId));
+    public String queryCompanyOrderNum(HttpServletRequest request, HttpServletResponse response, String companyId) {
+        Company company = companyManageService.queryCompanyOrderNum(Integer.parseInt(companyId));
         return JSON.toJSONString(company);
     }
 

@@ -31,7 +31,7 @@ public interface CompanyManageService {
      * @param limit
      * @return
      */
-    ResultData queryCompanyByService(Company company,int page, int limit,String serviceId);
+    ResultData queryCompanyByService(Company company,int page, int limit,String serviceId,String typeId);
 
     /**
      * WX根据服务大类查询公司列表

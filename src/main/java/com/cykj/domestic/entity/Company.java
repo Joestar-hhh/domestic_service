@@ -31,6 +31,7 @@ public class Company {
     private String firstLevelRegion;//
     private String secondaryZone;
     private String regionName;
+    private String typeId;
 
 //    private String head;//公司头像url
 

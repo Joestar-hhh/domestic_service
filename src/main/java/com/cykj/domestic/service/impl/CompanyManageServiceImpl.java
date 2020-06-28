@@ -51,8 +51,8 @@ public class CompanyManageServiceImpl implements CompanyManageService {
     }
 
     @Override
-    public ResultData queryCompanyByService(Company company, int page, int limit, String serviceId) {
-        List<Company> list=companyMangeMapper.queryCompanyByService(company,(page-1)*limit,limit,serviceId);
+    public ResultData queryCompanyByService(Company company, int page, int limit, String serviceId,String typeId) {
+        List<Company> list=companyMangeMapper.queryCompanyByService(company,(page-1)*limit,limit,serviceId,typeId);
         List<Company> companyList = new ArrayList<>();
         for(Company c : list){
             if(c.getHead()!=null && !c.getHead().isEmpty()) {
@@ -61,7 +61,7 @@ public class CompanyManageServiceImpl implements CompanyManageService {
             companyList.add(c);
         }
 
-        int count=companyMangeMapper.countCompanyByService(company,serviceId);
+        int count=companyMangeMapper.countCompanyByService(company,serviceId,typeId);
         ResultData resultData = new ResultData();
         resultData.setCode(0);
         resultData.setMsg("");
