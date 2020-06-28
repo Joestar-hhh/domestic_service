@@ -41,16 +41,11 @@
         <div id="control" class="layui-layout-control"></div>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item layui-hide-xs"><a href="#" class="fullScreen layui-icon layui-icon-screen-full"></a></li>
-            <li class="layui-nav-item layui-hide-xs"><a href="#" class="layui-icon layui-icon-website"></a></li>
-            <li class="layui-nav-item layui-hide-xs" id="headerNotice"></li>
             <li class="layui-nav-item" lay-unselect="">
                 <a href="javascript:;" id="name"><img src="<%=path%><%=company.getHead()%>" class="layui-nav-img">
                     <%=company.getCompanyName()%>
                 </a>
                 <dl class="layui-nav-child">
-                    <dd><a href="javascript:;" class="pearson">个人信息</a></dd>
-                    <dd><a href="javascript:;">安全配置</a></dd>
-                    <dd><a href="javascript:;">打开百度</a></dd>
                     <dd><a href="javascript:;" id="quit">注销登陆</a></dd>
                 </dl>
             </li>
