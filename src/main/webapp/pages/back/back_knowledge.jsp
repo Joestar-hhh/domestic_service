@@ -22,6 +22,11 @@
     <script type="text/javascript" src="<%=path%>/static/layui/layui.js"></script>
 
     <link rel="stylesheet" href="<%=path%>/static/css/back_page.css">
+    <style>
+        #img-follow{
+            margin: 50px 90px;
+        }
+    </style>
 </head>
 <body>
 
@@ -104,9 +109,8 @@
                 {type: 'checkbox', fixed: 'left'}
                 , {field: 'id', title: '序号', hide: true}
                 , {field: 'title', title: '标题'}
-                // , {field: 'type', title: '知识类别'}
                 , {field: 'time', title: '时间'}
-                , {field: 'knowledgePath', title: '路径'}
+                , {field: 'knowledgePath', title: '路径',hide:true}
                 // , hide: true
                 , {fixed: 'right', title: '操作', width: 250, toolbar: '#barDemo'}
             ]]
@@ -215,43 +219,46 @@
             var tabdata = obj.data;
             //查看详情
             if (obj.event === 'see_details') {
-
                 var path = tabdata.path;
-
-                var layerupload = layer.open({
-                    type: 1,
-                    title: '查看详情',
-                    area: ['200px', '150px'],
-                    shade: [0.8, '#314949'],
-                    resize: false,
-                    content: $("#style_div"),
-                    btn: 0,
-                    cancel: function (index, layero) {
-                        if (confirm('确定要关闭么')) { //只有当点击confirm框的确定时，该层才会关闭
-                            layer.closeAll();
+                if(path==undefined){
+                alert("请先上传教育视频")
+                }else{
+                    var layerupload = layer.open({
+                        type: 1,
+                        title: '查看详情',
+                        area: ['300px', '250px'],
+                        shade: [0.8, '#314949'],
+                        resize: false,
+                        content: $("#style_div"),
+                        btn: 0,
+                        cancel: function (index, layero) {
+                            if (confirm('确定要关闭么')) { //只有当点击confirm框的确定时，该层才会关闭
+                                layer.closeAll();
+                            }
+                            return false;
                         }
-                        return false;
-                    }
-                    //如果设定了yes回调，需进行手工关闭
-                });
-                $("#img-follow").html("");
-                $.ajax({
-                    type: 'POST',
-                    url: '<%=path%>/knowledgeController/queryKnowledegStyle',
-                    dataType: 'JSON',
-                    data: {
-                        id: tabdata.id
-                    },
-                    success: function (msg) {
-                        $.each(msg.data, function (i, item) {
-                            $("#img-follow").append("<a href=" + <%=path%>item.knowledgePath + " target=_blank >" + item.type + "</a>");
-                        })
-                        layui.use('form', function () {
-                            var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
-                            form.render();
-                        });
-                    }
-                })
+                        //如果设定了yes回调，需进行手工关闭
+                    });
+                    $("#img-follow").html("");
+                    $.ajax({
+                        type: 'POST',
+                        url: '<%=path%>/knowledgeController/queryKnowledegStyle',
+                        dataType: 'JSON',
+                        data: {
+                            id: tabdata.id
+                        },
+                        success: function (msg) {
+                            $.each(msg.data, function (i, item) {
+                                $("#img-follow").append("<a href=" + <%=path%>item.knowledgePath + " target=_blank >" + item.type + "</a>");
+                            })
+                            layui.use('form', function () {
+                                var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+                                form.render();
+                            });
+                        }
+                    })
+                }
+
             } else if (obj.event === 'File_Upload') {
                 var path = tabdata.knowledgePath;
                 var id = tabdata.id
