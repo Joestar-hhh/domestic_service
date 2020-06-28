@@ -175,8 +175,6 @@
             setTimeout(function () {
                 settime(val)
             }, 1000)
-
-
         }
 
         //判断是否是手机号码

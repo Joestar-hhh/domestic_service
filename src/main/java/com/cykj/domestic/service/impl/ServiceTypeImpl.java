@@ -93,16 +93,15 @@ public class ServiceTypeImpl implements ServiceTypeService {
         resultData.setData(list);
         return resultData;
     }
+
     //  公司申请入驻 添加服务服务类别
     @Override
     public ResultData addServiceContinuous(String menuIdList, Company company, Company company1) {
         ResultData resultData = new ResultData();
-
-       Company company2= companyMapper.companyLogin(company);
-        System.out.println("公司状态=="+company2.getState()+"==公司id="+company2.getId());
-        if(company2.getState()==null || company2.getState().isEmpty()){
+        Company company2 = companyMapper.companyLogin(company);
+        if (company2.getState() == null || company2.getState().isEmpty()) {
             List<String> list = JSON.parseArray(menuIdList, String.class);
-            int i = companyMapper.insertregionId(String.valueOf(company.getId()), String.valueOf(company1.getRegionId()), company1.getCompanyProfile(), company1.getAddress(),company1.getHead());
+            int i = companyMapper.insertregionId(String.valueOf(company.getId()), String.valueOf(company1.getRegionId()), company1.getCompanyProfile(), company1.getAddress(), company1.getHead());
             int res = serviceTypeMapper.addServiceContinuous(list, String.valueOf(company.getId()), company1);
             if (res >= 1) {
                 resultData.setCode(0);
@@ -111,7 +110,7 @@ public class ServiceTypeImpl implements ServiceTypeService {
                 resultData.setCode(1);
                 resultData.setMsg("申请失败，重新申请");
             }
-        }else{
+        } else {
             resultData.setCode(0);
             resultData.setMsg("请勿重复申请");
         }
@@ -203,7 +202,7 @@ public class ServiceTypeImpl implements ServiceTypeService {
     public ResultData WXServiceTypeTopthree() {
         List<ServiceType> list = serviceTypeMapper.WXServiceTypeTopthree();
         ResultData resultData = new ResultData();
-        for(ServiceType serviceType : list){
+        for (ServiceType serviceType : list) {
             serviceType.setUrl("/pages/index/type");
             serviceType.setIcon("/imgs/c.png");
         }
@@ -227,7 +226,7 @@ public class ServiceTypeImpl implements ServiceTypeService {
     /*公司可以删除为审核的服务类别*/
     @Override
     public ResultData deleteCompanyRelation(String id) {
-        int res=serviceTypeMapper.deleteCompanyRelation(id);
+        int res = serviceTypeMapper.deleteCompanyRelation(id);
         ResultData resultData = new ResultData();
         if (res == 1) {
             resultData.setCode(0);
@@ -251,20 +250,20 @@ public class ServiceTypeImpl implements ServiceTypeService {
 
     @Override
     public List<TbService> queryStaffService(int staffId, int stId, String serviceIdList) {
-        List<String> list = JSON.parseArray(serviceIdList,String.class);
-        return serviceTypeMapper.queryStaffService(staffId,stId,list);
+        List<String> list = JSON.parseArray(serviceIdList, String.class);
+        return serviceTypeMapper.queryStaffService(staffId, stId, list);
     }
 
     @Override
     public ResultData insertStaffService(int staffId, int stId, String list) {
-        List<String> idList = JSON.parseArray(list,String.class);
-        serviceTypeMapper.deleteStaffService(staffId,stId);
-        int res = serviceTypeMapper.insertStaffService(staffId,stId,idList);
+        List<String> idList = JSON.parseArray(list, String.class);
+        serviceTypeMapper.deleteStaffService(staffId, stId);
+        int res = serviceTypeMapper.insertStaffService(staffId, stId, idList);
         ResultData resultData = new ResultData();
-        if(res>=1){
+        if (res >= 1) {
             resultData.setCode(0);
             resultData.setMsg("修改员工服务成功！");
-        }else {
+        } else {
             resultData.setCode(1);
             resultData.setMsg("修改员工服务失败！");
         }

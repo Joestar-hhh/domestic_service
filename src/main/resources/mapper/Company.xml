@@ -30,7 +30,7 @@
     <!--家政公司注册-->
     <insert id="insertCompany" parameterType="com.cykj.domestic.entity.Company">
         INSERT INTO tb_company(account,pwd,company_name,boss,phone,role_id)
-        VALUES(#{account},#{pwd},#{companyName},#{boss},#{phone},'2')
+        VALUES(#{account},#{pwd},#{companyName},#{boss},#{phone},'5')
     </insert>
 
     <!--    平台端区域列表-->
@@ -87,7 +87,7 @@
 
     <!--    公司申请添加地区和口号-->
     <update id="insertregionId" parameterType="java.lang.String">
-        update tb_company set region_id=#{regionId},company_profile=#{companyProfile},address=#{address} ,head=#{head}, state="未审核" where id=#{id}
+        update tb_company set region_id=#{regionId},company_profile=#{companyProfile},address=#{address} ,head=#{head}, state="未审核",role_id="2" where id=#{id}
     </update>
 
     <!--    按日期统计-->

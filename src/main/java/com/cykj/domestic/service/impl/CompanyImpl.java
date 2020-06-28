@@ -104,7 +104,7 @@ public class CompanyImpl implements CompanySrevice {
         ResultData resultData = new ResultData();
 //        判断账号和手机号是否纯在
         Company companyphone = companyMapper.querycompanyphone(company);
-        if (companyphone.getPhone()==null || companyphone.getPhone().isEmpty()) {
+        if (companyphone == null) {
             //创建账号
             String account = companyMapper.MaxAccount();
             int i = Integer.parseInt(account) + 1;
