@@ -125,7 +125,7 @@
                     serviceList = msg
                 }
             })
-            setTimeout(function() {
+            setTimeout(function() {2
                 $.each(serviceList, function (i, item) {
                     $("#serviceCheck>input").each(function () {
                         // alert("item.typeNme:"+item.typeName+"    this:"+$(this).attr('title'));
@@ -200,12 +200,10 @@
                     var serviceIdList = [];
                     $("#serviceCheck>input").each(function () {
                         if ($(this).next().attr('class')=='layui-unselect layui-form-checkbox layui-form-checked'){
-                            alert($(this).attr('name'));
                             serviceIdList.push($(this).attr('name'));
                         }
                     })
                     layer.confirm('确定要保存此配置吗', function(index){
-                        alert(JSON.stringify(data.field))
                         $.ajax({
                             type: 'POST',
                             url: '<%=path%>/serviceTypeContrller/insertStaffService',
