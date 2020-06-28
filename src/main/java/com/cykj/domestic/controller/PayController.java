@@ -21,14 +21,6 @@ public class PayController {
 
     @RequestMapping("/payController")
     public void payController(HttpServletRequest request, HttpServletResponse response, String orderObj) throws IOException {
-//         String oid, String onum,String money,String cname
-        System.out.println("----------------6666");
-//        System.out.println("orderObj:"+onum);
-//        OrderInfo orderInfo = new OrderInfo();
-//        orderInfo.setId(Integer.parseInt(oid));
-//        orderInfo.setOrderNumber(onum);
-//        orderInfo.setMoney(money);
-//        orderInfo.setComName(cname);
         OrderInfo orderInfo = JSON.parseObject(orderObj,OrderInfo.class);
 
         System.out.println("订单号："+orderInfo.getOrderNumber());

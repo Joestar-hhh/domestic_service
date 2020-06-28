@@ -16,11 +16,12 @@ public class AlipayConfig {
         public static String ALIPAY_PUBLIC_KEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAv3RxH49CQiJdNnNvPDVJd69Gl4YjY1cpvNZeBJ1Vplls0IaTcRY0llmP/KQXSlW3wX6XZruyGGfLQI5bexUshHS4r9yvXp9vvt4Rx4BJ/QDdXGg1vBk2sY8YdM5TQhOjPQyo4yHUhhE01MSFR9KYRseoi0eruyidabk4F8vrQwCp2mIGMbAWWbWIJ1GN0Ju6ZiyG8O4zS1u7hlcN4VwwB9dDONhu7MD91yEoOsuUo9L/7perpHNZ/niwcwMiZdy6n59jnKagfBKQFUTtRIfBnHfqAwx1YVZUSAYO/OQ+r07LBWy+WEGLjLddHEQEQ6UlKPq/WrBVhqPEnSBVGTqDoQIDAQAB";
 
         // 服务器异步通知页面路径  需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
-        public static String notify_url = "http://localhost:8080/pages/user/notify_url.jsp";
+        public static String notify_url = "http://47.115.26.70:8080/domestic-0.0.1-SNAPSHOT/pages/user/notify_url.jsp";
+        //http://localhost:8080/pages/user/notify_url.jsp
 
         // 页面跳转同步通知页面路径 需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问(其实就是支付成功后返回的页面)
-        public static String return_url = "http://localhost:8080/pages/user/webview.jsp";
-
+        public static String return_url = "http://47.115.26.70:8080/domestic-0.0.1-SNAPSHOT/pages/user/webview.jsp";
+        //http://localhost:8080/pages/user/webview.jsp
         // 签名方式
         public static String sign_type = "RSA2";
 
