@@ -291,6 +291,7 @@
                             , accept: 'video' //视频
                             // , size: 1889356 //限制文件大小，单位 KB
                             , done: function (res) {
+                                layer.load();
                                 $.ajax({
                                     type: 'POST',
                                     url: '<%=path%>/knowledgeController/updateknowledeg',
@@ -301,6 +302,7 @@
                                     },
                                     success: function (msg) {
                                         // alert(msg.msg)
+                                        layer.closeAll("loading");
                                         layer.alert(msg.msg, function () {
                                             window.location.reload();//修改成功后刷新父界面
                                         });

@@ -8,6 +8,7 @@ import com.cykj.domestic.util.ResultData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -104,10 +105,17 @@ public class KnowledgeImpI implements KnowledgeService {
     @Override
     public ResultData wxqueryknowledge() {
         List<Knowledge> list = knowledgeMapper.wxqueryknowledge();
+        List<Knowledge> KnowledgeList = new ArrayList<>();
+        for (Knowledge c : list) {
+            if (c.getKnowledgePath() != null && !c.getKnowledgePath().isEmpty()) {
+                c.setKnowledgePath(c.getKnowledgePath().replaceAll("\\\\", "/"));
+            }
+            KnowledgeList.add(c);
+        }
         ResultData resultData = new ResultData();
         resultData.setCode(0);
         resultData.setMsg("");
-        resultData.setData(list);
+        resultData.setData(KnowledgeList);
         return resultData;
     }
 
