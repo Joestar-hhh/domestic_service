@@ -18,10 +18,12 @@ public class AlipayConfig {
         // 服务器异步通知页面路径  需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
         public static String notify_url = "http://47.115.26.70:8080/domestic-0.0.1-SNAPSHOT/pages/user/notify_url.jsp";
         //http://localhost:8080/pages/user/notify_url.jsp
+        //http://47.115.26.70:8080/domestic-0.0.1-SNAPSHOT/pages/user/notify_url.jsp
 
         // 页面跳转同步通知页面路径 需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问(其实就是支付成功后返回的页面)
         public static String return_url = "http://47.115.26.70:8080/domestic-0.0.1-SNAPSHOT/pages/user/webview.jsp";
         //http://localhost:8080/pages/user/webview.jsp
+        //http://47.115.26.70:8080/domestic-0.0.1-SNAPSHOT/pages/user/webview.jsp
         // 签名方式
         public static String sign_type = "RSA2";
 
