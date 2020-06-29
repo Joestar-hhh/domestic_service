@@ -23,7 +23,7 @@
 
     <link rel="stylesheet" href="<%=path%>/static/css/back_page.css">
     <style>
-        #img-follow{
+        #img-follow {
             margin: 50px 90px;
         }
     </style>
@@ -110,7 +110,7 @@
                 , {field: 'id', title: '序号', hide: true}
                 , {field: 'title', title: '标题'}
                 , {field: 'time', title: '时间'}
-                , {field: 'knowledgePath', title: '路径',hide:true}
+                , {field: 'knowledgePath', title: '路径', hide: true}
                 // , hide: true
                 , {fixed: 'right', title: '操作', width: 250, toolbar: '#barDemo'}
             ]]
@@ -219,10 +219,11 @@
             var tabdata = obj.data;
             //查看详情
             if (obj.event === 'see_details') {
-                var path = tabdata.path;
-                if(path==undefined){
-                alert("请先上传教育视频")
-                }else{
+                var path = tabdata.knowledgePath;
+                // alert(path)
+                if (path == undefined) {
+                    alert("请先上传教育视频")
+                } else {
                     var layerupload = layer.open({
                         type: 1,
                         title: '查看详情',
@@ -305,6 +306,7 @@
                                         layer.closeAll("loading");
                                         layer.alert(msg.msg, function () {
                                             window.location.reload();//修改成功后刷新父界面
+                                            inte
                                         });
                                         layer.close(layerupload);
                                     }
