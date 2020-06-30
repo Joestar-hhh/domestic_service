@@ -17,8 +17,9 @@ public class Ticket {
     private String conditionsNum;
     private String companyName;//公司名称
 
-    private int tr_id;
+    private int trId;
     private String collectionTime;
     private int userId;
     private String useTime;
+    private int companyId;
 }

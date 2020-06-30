@@ -43,4 +43,9 @@
         insert into tb_ticket_relation (user_id,state,ticket_id)values(#{userid},1,#{e.ticketId});
     </insert>
 
+
+<!--    使用优惠券-->
+    <update id="useTicket">
+        update tb_ticket_relation set state = "2" where id = #{useTicketId}
+    </update>
 </mapper>

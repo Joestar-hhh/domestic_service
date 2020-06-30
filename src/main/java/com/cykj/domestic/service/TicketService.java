@@ -20,4 +20,5 @@ public interface TicketService {
 
     ResultData updateTicket(Ticket ticket,int userid);
 
+    int useTicket(String useTicketId);
 }

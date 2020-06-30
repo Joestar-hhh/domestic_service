@@ -139,4 +139,14 @@ public class TicketImpl implements TicketService {
         }
         return resultData;
     }
+
+    //使用优惠券
+    @Override
+    public int useTicket(String useTicketId) {
+        int res = 0;
+        if(!useTicketId.equals("0")){
+            res = ticketMapper.useTicket(useTicketId);
+        }
+        return res;
+    }
 }

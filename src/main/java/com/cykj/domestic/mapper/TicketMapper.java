@@ -32,4 +32,6 @@ public interface TicketMapper {
 
     int  updateTicket(@Param("e") Ticket ticket,@Param("userid") int userid);
 
+    //使用优惠券
+    int useTicket(String useTicketId);
 }

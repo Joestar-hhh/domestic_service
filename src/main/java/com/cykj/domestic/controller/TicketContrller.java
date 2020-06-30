@@ -87,4 +87,11 @@ public class TicketContrller {
         ResultData resultData=ticketService.updateTicket(ticket,userid);
         return JSON.toJSONString(resultData);
     }
+
+    //使用优惠券
+    @RequestMapping("/useTicket")
+    public String useTicket(String useTicketId) {
+        int res = ticketService.useTicket(useTicketId);
+        return String.valueOf(res);
+    }
 }
