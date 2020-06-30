@@ -250,7 +250,7 @@
                         },
                         success: function (msg) {
                             $.each(msg.data, function (i, item) {
-                                $("#img-follow").append("<a href=" + <%=path%>+item.knowledgePath + " target=_blank >" + item.type + "</a>");
+                                $("#img-follow").append("<a href=" + <%=path%>+item.knowledgePath + "target=_blank>" + item.type + "</a>");
                             })
                             layui.use('form', function () {
                                 var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功

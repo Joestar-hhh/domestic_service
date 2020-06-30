@@ -49,13 +49,15 @@
             border-style: solid;
             border-color: rgb(230, 230, 230);
         }
-        .layui-table-tool{
+
+        .layui-table-tool {
             display: none;
         }
+
         /*.layui-table-box{*/
         /*    display: none;*/
         /*}*/
-        .layui-table-header{
+        .layui-table-header {
             display: none;
         }
 
@@ -76,8 +78,8 @@
 
 <%--上传弹出框--%>
 <form class="layui-form" id="upload_video" action="" style="display: none">
-    <div class="layui-upload"  style="text-align:center">
-        <button type="button" class="layui-btn" id="test1" >上传图片</button>
+    <div class="layui-upload" style="text-align:center">
+        <button type="button" class="layui-btn" id="test1">上传图片</button>
         <div class="layui-upload-list">
             <img class="layui-upload-img" id="demo1">
             <p id="demoText"></p>
@@ -125,7 +127,7 @@
         var table = layui.table;
         var $ = layui.jquery;
         table.render({
-            id:"id",
+            id: "id",
             elem: '#test'
             , url: '<%=path%>/skillTrainController/querySkillTrain'
             , toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
@@ -133,7 +135,7 @@
             , title: '用户数据表'
             , cols: [[
                 // {field: 'id', title: '序号', width: 70}
-                 {
+                {
                     title: '',
                     width: 300,
                     field: 'picturePath',
@@ -174,7 +176,7 @@
                     },
                     success: function (msg) {
                         $.each(msg.data, function (i, item) {
-                            $("#img-follow").append("<img src="+<%=path%> + item.path + " alt='上海鲜花港 - 郁金香'/>")
+                            $("#img-follow").append('<img src=" + <%=path%>item.path + "/>')
                         });
                         layui.use('form', function () {
                             var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
