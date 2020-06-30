@@ -54,7 +54,8 @@ public class CompanyImpl implements CompanySrevice {
         HttpSession session = request.getSession();
         Company company1 = companyMapper.companyLogin(company);
         if (company1 != null) {
-            if (company1.getRoleId() == 3) {
+            if (company1.getRoleId() != 3) {
+                // 12
                 if (!MD5Util.MakeMd5(company.getPwd()).equals(company1.getPwd())) {
                     resultData.setCode(1);
                     resultData.setMsg("密码错误");
