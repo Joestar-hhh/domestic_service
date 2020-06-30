@@ -27,12 +27,17 @@ public class CompanyImpl implements CompanySrevice {
         HttpSession session = request.getSession();
         Company company1 = companyMapper.companyLogin(company);
         if (company1 != null) {
-            if (!MD5Util.MakeMd5(company.getPwd()).equals(company1.getPwd())) {
-                resultData.setCode(1);
-                resultData.setMsg("密码错误");
+            if (company1.getRoleId() == 3) {
+                if (!MD5Util.MakeMd5(company.getPwd()).equals(company1.getPwd())) {
+                    resultData.setCode(1);
+                    resultData.setMsg("密码错误");
+                } else {
+                    session.setAttribute("company", company1);
+                    resultData.setCode(0);
+                }
             } else {
-                session.setAttribute("company", company1);
-                resultData.setCode(0);
+                resultData.setCode(2);
+                resultData.setMsg("账号不存在");
             }
         } else {
             resultData.setCode(2);
@@ -40,7 +45,6 @@ public class CompanyImpl implements CompanySrevice {
         }
         return resultData;
     }
-
     //    家政公司端登入
     @Override
     public ResultData adminLogin(Company company, HttpServletRequest request) {
