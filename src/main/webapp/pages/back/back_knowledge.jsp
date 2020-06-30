@@ -250,7 +250,7 @@
                         },
                         success: function (msg) {
                             $.each(msg.data, function (i, item) {
-                                $("#img-follow").append("<a href=" + <%=path%>+item.knowledgePath + "target=_blank>" + item.type + "</a>");
+                                $("#img-follow").append("<a href=<%=path%>"+item.knowledgePath + " target=_blank >" + item.type + "</a>");
                             })
                             layui.use('form', function () {
                                 var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
@@ -286,13 +286,14 @@
                     layui.use('upload', function () {
                         var $ = layui.jquery
                             , upload = layui.upload;
+                        layer.load();
                         var uploadInst = upload.render({
                             elem: '#test3'
                             , url: '<%=path%>/skillTrainController/fileUpload' //改成您自己的上传接口
                             , accept: 'video' //视频
                             // , size: 1889356 //限制文件大小，单位 KB
                             , done: function (res) {
-                                layer.load();
+
                                 $.ajax({
                                     type: 'POST',
                                     url: '<%=path%>/knowledgeController/updateknowledeg',
