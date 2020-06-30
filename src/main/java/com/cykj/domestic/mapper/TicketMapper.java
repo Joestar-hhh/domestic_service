@@ -24,11 +24,11 @@ public interface TicketMapper {
     List<Ticket> selectList(@Param("e") Ticket ticket, @Param("start") int start, @Param("pageSize") int pageSize);
     int selectListCount(@Param("e") Ticket ticket);
     //小程序首页显示优惠券
-    List<Ticket>selectListWx(@Param("e") Ticket ticket, @Param("userid")int userid);
+    List<Ticket> selectListWx(@Param("e") Ticket ticket, @Param("userid")int userid);
     //我的优惠券
 
 //通关状态查询我的优惠券
-    List<Ticket>selectListWx3(@Param("e") Ticket ticket,@Param("userid")int userid);
+    List<Ticket> myTicketquery(@Param("e") Ticket ticket,@Param("userid")int userid);
 
     int  updateTicket(@Param("e") Ticket ticket,@Param("userid") int userid);
 
