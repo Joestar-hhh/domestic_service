@@ -15,4 +15,10 @@ public class Ticket {
     private int ticketId;
 
     private String conditionsNum;
+    private String companyName;//公司名称
+
+    private int tr_id;
+    private String collectionTime;
+    private int userId;
+    private String useTime;
 }

@@ -107,8 +107,8 @@ public class TicketImpl implements TicketService {
     }
     //通过状态查询我的优惠券
     @Override
-    public ResultData selectListWx3(Ticket ticket,int userid) {
-        List<Ticket> list = ticketMapper.selectListWx3(ticket,userid);
+    public ResultData myTicketquery(Ticket ticket,int userid) {
+        List<Ticket> list = ticketMapper.myTicketquery(ticket,userid);
 //        int count = ticketMapper.selectListCount(ticket);
         ResultData resultData = new ResultData();
         if (list.size() > 0) {
