@@ -13,7 +13,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>育婴知识</title>
+    <title>生活常识</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -43,9 +43,9 @@
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">育婴知识描述：</label>
+        <label class="layui-form-label">生活常识描述：</label>
         <div class="layui-input-block">
-            <input type="text" name="type" id="type" required lay-verify="required" placeholder="育婴知识描述"
+            <input type="text" name="type" id="type" required lay-verify="required" placeholder="生活常识描述"
                    autocomplete="off" class="layui-input">
         </div>
     </div>
@@ -77,7 +77,7 @@
                 <i class="layui-icon layui-icon-delete"></i>删除
             </button>
             <button class="layui-btn " lay-event="insertknowledge">
-                <i class="layui-icon layui-icon-add-circle-fine"></i>添加育婴知识
+                <i class="layui-icon layui-icon-add-circle-fine"></i>添加生活常识
             </button>
         </div>
         <input type="text" name="intput_company" id="intput_company" lay-verify="title" autocomplete="off"
@@ -104,7 +104,7 @@
             , url: '<%=path%>/knowledgeController/queryKnowledeg'
             , toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
             , defaultToolbar: []//自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
-            , title: '育婴知识表'
+            , title: '生活常识'
             , cols: [[
                 {type: 'checkbox', fixed: 'left'}
                 , {field: 'id', title: '序号', hide: true}
@@ -175,7 +175,7 @@
                 case 'insertknowledge':
                     var layerinsert = layer.open({
                         type: 1
-                        , title: '添加育婴知识'
+                        , title: '添加生活常识'
                         , area: ['500px', '400px']
                         , shade: [0.8, '#314949'] //遮罩
                         , resize: false //不可拉伸
@@ -222,7 +222,7 @@
                 var path = tabdata.knowledgePath;
                 // alert(path)
                 if (path == undefined) {
-                    alert("请先上传教育视频")
+                    alert("请先上传生活常识视频")
                 } else {
                     var layerupload = layer.open({
                         type: 1,
@@ -250,7 +250,7 @@
                         },
                         success: function (msg) {
                             $.each(msg.data, function (i, item) {
-                                $("#img-follow").append("<a href=" + <%=path%>item.knowledgePath + " target=_blank >" + item.type + "</a>");
+                                $("#img-follow").append("<a href=" + <%=path%>+item.knowledgePath + " target=_blank >" + item.type + "</a>");
                             })
                             layui.use('form', function () {
                                 var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功

@@ -174,7 +174,7 @@
                     },
                     success: function (msg) {
                         $.each(msg.data, function (i, item) {
-                            $("#img-follow").append("<img src="+<%=path%>item.path + " alt='上海鲜花港 - 郁金香'/>")
+                            $("#img-follow").append("<img src="+<%=path%> + item.path + " alt='上海鲜花港 - 郁金香'/>")
                         });
                         layui.use('form', function () {
                             var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
