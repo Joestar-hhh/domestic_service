@@ -78,6 +78,7 @@
                 layer.msg('请输入验证码！');
                 return false;
             } else if (val.toLowerCase() == num.toLowerCase()) {
+                layer.load();
                 $.ajax({
                     url: '<%=path%>/companyController/adminLogin',
                     type: 'POST',
@@ -89,6 +90,7 @@
                     success: function (msg) {
                         // alert(msg.msg)
                         // layer.msg(msg.msg)
+                        layer.closeAll("loading")
                         if (msg.code == '0') {
                             location.href = "<%=path%>/pages/back/back_adminhome.jsp"
                         } else {

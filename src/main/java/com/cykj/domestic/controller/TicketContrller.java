@@ -57,26 +57,28 @@ public class TicketContrller {
 //小程序首页显示优惠券
     @RequestMapping("/selectServiceListWx")
     public String selectServiceListWx(HttpServletRequest request, HttpServletResponse response, Ticket ticket,int userid) {
+        System.out.println("-----------------------首页优惠券查询ticket:"+ticket.toString());
         ResultData resultData = ticketService.selectListWx(ticket,userid);
         return JSON.toJSONString(resultData);
     }
 
 
 //我的优惠券
-    @RequestMapping("/selectServiceListWx2")
-    public String selectServiceListWx2(HttpServletRequest request, HttpServletResponse response, Ticket ticket,int userid) {
-        ResultData resultData = ticketService.selectListWx3(ticket,userid);
+    @RequestMapping("/myTicketquery")
+    public String myTicketquery(HttpServletRequest request, HttpServletResponse response, Ticket ticket,int userid) {
+        System.out.println("ticket:"+ticket.toString());
+        ResultData resultData = ticketService.myTicketquery(ticket,userid);
         return JSON.toJSONString(resultData);
     }
 
 
-    //通过状态查询我的优惠券
-    //我的优惠券
-    @RequestMapping("/selectServiceListWx3")
-    public String selectServiceListWx3(HttpServletRequest request, HttpServletResponse response, Ticket ticket,int userid) {
-        ResultData resultData = ticketService.selectListWx3(ticket,userid);
-        return JSON.toJSONString(resultData);
-    }
+//    //通过状态查询我的优惠券
+//    //我的优惠券
+//    @RequestMapping("/selectServiceListWx3")
+//    public String selectServiceListWx3(HttpServletRequest request, HttpServletResponse response, Ticket ticket,int userid) {
+//        ResultData resultData = ticketService.selectListWx3(ticket,userid);
+//        return JSON.toJSONString(resultData);
+//    }
 
 
     //领取优惠券
@@ -84,5 +86,12 @@ public class TicketContrller {
     public String updateTicket(HttpServletRequest request, HttpServletResponse response, Ticket ticket,int userid) {
         ResultData resultData=ticketService.updateTicket(ticket,userid);
         return JSON.toJSONString(resultData);
+    }
+
+    //使用优惠券
+    @RequestMapping("/useTicket")
+    public String useTicket(String useTicketId) {
+        int res = ticketService.useTicket(useTicketId);
+        return String.valueOf(res);
     }
 }

@@ -137,7 +137,7 @@
                     title: '',
                     width: 300,
                     field: 'picturePath',
-                    templet: '<div><img style="height:200px;width:200px;" src=<%=path%>"{{d.picturePath}}"></div>'
+                    templet: '<div><img style="height:200px;width:200px;" src=<%=path%>{{d.picturePath}}></div>'
                 }
                 // , {title: '认证证书', field: 'qualification', emplet: '<div>{{d.qualification.qualificationName}}</div>'}
                 , {field: 'trainProjectName', title: '培训项目名'}
@@ -174,7 +174,7 @@
                     },
                     success: function (msg) {
                         $.each(msg.data, function (i, item) {
-                            $("#img-follow").append("<img src="+<%=path%>item.path + "  alt='上海鲜花港 - 郁金香'/>")
+                            $("#img-follow").append("<img src=<%=path%>"+item.path +"/>");
                         });
                         layui.use('form', function () {
                             var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
@@ -236,7 +236,6 @@
                                 obj.preview(function (index, file, result) {
                                     $('#demo1').attr('src', result); //图片链接（base64）
                                     $('#demo1').attr('style', 'width:200px;height:200px;'); //图片链接（base64）
-                                    // $('#demo1').val()
                                 });
                             }
                             , done: function (res) {
@@ -247,6 +246,7 @@
                                 //上传成功
                                 // alert(id)
                                 // alert(res.msg)
+                                layer.load();
                                 $.ajax({
                                     type: 'POST',
                                     url: '<%=path%>/skillTrainController/insertSkillStyle',
@@ -256,6 +256,7 @@
                                         path: res.msg
                                     },
                                     success: function (msg) {
+                                        layer.closeAll("loading")
                                         alert(msg.msg);
                                         window.location.reload();
                                     }

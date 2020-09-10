@@ -16,8 +16,9 @@ public interface TicketService {
 
     ResultData selectListWx(Ticket ticket,int userid);
 
-    ResultData selectListWx3(Ticket ticket,int userid);
+    ResultData myTicketquery(Ticket ticket,int userid);
 
     ResultData updateTicket(Ticket ticket,int userid);
 
+    int useTicket(String useTicketId);
 }
