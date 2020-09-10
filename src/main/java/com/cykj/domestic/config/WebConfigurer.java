@@ -13,6 +13,7 @@ public class WebConfigurer implements WebMvcConfigurer {
 
     @Autowired
     private LoginInterceptor loginInterceptor;
+
     // 这个方法是用来配置静态资源的，比如html，js，css，等等
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
