@@ -16,8 +16,8 @@ public class SmsImpl implements SmsService {
 
     @Override
     public void Sms(String phone, String checkcode) {
-        String accessKeyId="LTAI4GHP6zhHETaEGHLN19rj";
-        String accessSecret="bXNtG1xiZfYTaMwKKFwJqWkMowysiG";
+        String accessKeyId="";
+        String accessSecret="";
         DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou", accessKeyId, accessSecret);
         IAcsClient client = new DefaultAcsClient(profile);
         CommonRequest request = new CommonRequest();
